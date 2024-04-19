@@ -1,3 +1,10 @@
+# CODEXE
+I built my current website on AWS Amplify, but it is still getting half of it's content from my old Wordpress site. I would like to move that data over to AWS but need some type of content manangement.  Enter CODEXE. I am not sure what this is going to end up being, but I know I am going to start with building a UI for storing and organizing all this data in DynamoDB. 
+
+
+---
+//THE ORGINAL READ ME FROM CREATE NEXT APP//
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,3 +41,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### Changelog
+
