@@ -12,16 +12,16 @@ export default function HomePage() {
 
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Next{' '}
+          Welcome{' '}
           <Text component="span" className={classes.highlight} inherit>
-            and
+            to
           </Text>{' '}
-          Mantine
+          Codexe
         </Title>
 
         <Container p={0} size={600}>
           <Text size="lg" c="dimmed" className={classes.description}>
-            Next and Mantine have been installed.  This is just an example homepage to test before committing the code.  The next step will be adding Amplify and getting it deployed.
+            Next React App has been created.  Amplify App has been deployed.  Mantine is set up with AppShell.
           </Text>
         </Container>
 
