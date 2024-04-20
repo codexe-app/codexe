@@ -1,15 +1,17 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, Container, Box, Button } from '@mantine/core'
+import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, Container, Box, Button, Alert } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import Link from 'next/link'
 import { getCurrentUser, signIn, signOut } from 'aws-amplify/auth'
+import { IconAlertCircle } from '@tabler/icons-react'
 
 export default function Page() {
   const [signedin, setSignedin] = useState(false)
-  const [user, setUser] = useState({})
-  const [loading, { toggle }] = useDisclosure();
+  const [apierror, setApierror] = useState({ active: false, code: '', message: '' })
+  const [user, setUser] = useState({ username: '', password: '' })
+  const [loading, { toggle }] = useDisclosure()
 
   const login = useForm({
     initialValues: {
@@ -25,40 +27,47 @@ export default function Page() {
   async function currentAuthenticatedUser() {
     try {
       const usercheck = await getCurrentUser()
-      //console.log(usercheck)
+      //@ts-ignore
       setUser(usercheck)
       setSignedin(true)
     } catch (error) {
+      setSignedin(false)
       //console.log(error)
     }
   }
 
   async function handleSignIn(values: typeof login.values) {
+    toggle
     try {
-      toggle
-      const { isSignedIn, nextStep } = await signIn({
+      await signIn({
         username: values.username,
         password: values.password,
       })
-      //console.log('isSignedIn', isSignedIn)
-      //console.log('nextStep', nextStep)
       setSignedin(true)
-      toggle  
+      setApierror({ active: false, code: 'No Error', message: 'No Message' })
     } catch (error) {
+      //@ts-ignore
+      setApierror({ active: true, code: error.name, message: error.message })
       console.log('error signing in: ', error)
     }
+    toggle
   }
 
   async function handleSignOut() {
+    toggle
     try {
-      toggle
       await signOut()
+      login.reset()
+      //@ts-ignore
       setUser({})
       setSignedin(false)
-      toggle
+      setApierror({ active: false, code: 'No Error', message: 'No Message' })
     } catch (error) {
-      console.log('error signing out: ', error);
+      //@ts-ignore
+      setApierror({ active: true, code: error.name, message: error.message })
+      console.log('error signing out: ', error)
     }
+    toggle
   }
 
   useEffect(() => {
@@ -91,6 +100,11 @@ export default function Page() {
                   Profile
                 </Anchor>
               </Text>
+              {apierror.active ? (
+                <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
+                  {apierror.message}
+                </Alert>
+              ) : null}
               <Button fullWidth mt='xl' onClick={handleSignOut} loading={loading}>
                 Sign Out
               </Button>
@@ -111,11 +125,16 @@ export default function Page() {
               )}>
               {' '}
               <Stack>
-              <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
-              <PasswordInput label='Password' placeholder='Your password' required {...login.getInputProps('password')} />
-              <Button fullWidth mt='xl' type='submit' loading={loading}>
-                Sign In
-              </Button>
+                <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
+                <PasswordInput label='Password' placeholder='password' required {...login.getInputProps('password')} />
+                {apierror.active ? (
+                  <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
+                    {apierror.message}
+                  </Alert>
+                ) : null}
+                <Button fullWidth mt='xl' type='submit' loading={loading}>
+                  Sign In
+                </Button>
               </Stack>
             </form>
           )}

@@ -1,23 +1,19 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { signUp, confirmSignUp, autoSignIn, signIn, type ConfirmSignUpInput } from 'aws-amplify/auth'
+import { signUp, confirmSignUp, autoSignIn } from 'aws-amplify/auth'
 import { useForm } from '@mantine/form'
-import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, Box, Group, Button, Flex, Stack } from '@mantine/core'
-import { IconForms, IconUserCheck, IconMailOpened, IconKey, IconCircleCheck } from '@tabler/icons-react'
+import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, Box, Group, Button, Alert, Stack } from '@mantine/core'
+import { IconForms, IconMailOpened, IconKey, IconAlertCircle } from '@tabler/icons-react'
 
 export default function Page() {
   const [active, setActive] = useState(0)
   const [account, setAccount] = useState(false)
-  const [signin, setSignin] = useState(false)
   const [verify, setVerify] = useState(false)
-  const [pinerror, setPinerror] = useState(false)
-  const [errormsg, setErrormsg] = useState('')
+  const [signin, setSignin] = useState(false)
+  const [apierror, setApierror] = useState({ active: false, code: '', message: '' })
 
-  const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current))
-  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current))
-
-  const form = useForm({
+  const signup = useForm({
     initialValues: {
       username: '',
       password: '',
@@ -25,7 +21,6 @@ export default function Page() {
       family_name: '',
       email: '',
     },
-
     validate: {
       username: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
       password: (value) => (value.length < 8 ? 'Password must have at least 8 characters' : null),
@@ -33,21 +28,9 @@ export default function Page() {
     },
   })
 
-  const login = useForm({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-
-    validate: {
-      username: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
-      password: (value) => (value.length < 8 ? 'Password must have at least 8 characters' : null),
-    },
-  })
-
-  async function handleSignUp(values: typeof form.values) {
+  async function handleSignUp(values: typeof signup.values) {
+    setAccount(true)
     try {
-      setAccount(true)
       await signUp({
         username: values.username,
         password: values.password,
@@ -60,43 +43,51 @@ export default function Page() {
           autoSignIn: true,
         },
       })
-      setAccount(false)
       setActive(1)
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      //@ts-ignore
+      setApierror({ active: true, code: error.name, message: error.message })
+      console.log('error verifying code', error)
     }
+    setAccount(false)
   }
 
   async function verifyEmail(value: any) {
     setVerify(true)
     try {
-      setPinerror(false)
       const { isSignUpComplete, nextStep } = await confirmSignUp({
-        username: form.values.username,
+        username: signup.values.username,
         confirmationCode: value,
       })
-      console.log('isSignUpComplete', nextStep)
-      setActive(2)
-      handleAutoSignIn()
+      if (isSignUpComplete) {
+        setActive(2)
+        setApierror({ active: false, code: 'No Error', message: 'No Message' })
+        console.log('isSignUpComplete', nextStep)
+        handleAutoSignIn()
+      }
     } catch (error) {
-      console.log('error confirming sign up', error)
-      setPinerror(true)
-      setErrormsg(`There was problem with the code ${JSON.stringify(error.name)}`)
+      //@ts-ignore
+      setApierror({ active: true, code: error.name, message: error.message })
+      console.log('error verifying code', error)
     }
     setVerify(false)
   }
 
   async function handleAutoSignIn() {
+    setSignin(true)
     try {
       const { isSignedIn, nextStep } = await autoSignIn()
       if (isSignedIn) {
         setActive(3)
+        setApierror({ active: false, code: 'No Error', message: 'No Message' })
         console.log('isSignedIn', nextStep)
       }
     } catch (error) {
-      console.log(error)
+      //@ts-ignore
+      setApierror({ active: true, code: error.name, message: error.message })
       console.log('There was an error is AutoSignIn :', error)
     }
+    setSignin(false)
   }
 
   return (
@@ -117,7 +108,7 @@ export default function Page() {
           <Container size={420} my={40}>
             <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
               <form
-                onSubmit={form.onSubmit(
+                onSubmit={signup.onSubmit(
                   (values, event) => {
                     handleSignUp(values)
                   },
@@ -133,11 +124,17 @@ export default function Page() {
                   <Title ta='center' order={4} c='indigo' mb='sm'>
                     Enter your information
                   </Title>
-                  <TextInput label='Username' placeholder='username' required {...form.getInputProps('username')} />
-                  <PasswordInput label='Password' placeholder='Your password' required {...form.getInputProps('password')} />
-                  <TextInput label='First Name' placeholder='First' required {...form.getInputProps('given_name')} />
-                  <TextInput label='Last Name' placeholder='Last' required {...form.getInputProps('family_name')} />
-                  <TextInput label='Email' placeholder='you@codexe.info' required {...form.getInputProps('email')} />
+                  <TextInput label='Username' placeholder='username' required {...signup.getInputProps('username')} />
+                  <PasswordInput label='Password' placeholder='password' required {...signup.getInputProps('password')} />
+                  <TextInput label='First Name' placeholder='First Name' required {...signup.getInputProps('given_name')} />
+                  <TextInput label='Last Name' placeholder='Last Name' required {...signup.getInputProps('family_name')} />
+                  <TextInput label='Email' placeholder='you@codexe.info' required {...signup.getInputProps('email')} />
+                  {apierror.active ? (
+                    <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
+                      {apierror.message}
+                    </Alert>
+                  ) : null}
+
                   <Button fullWidth mt='md' type='submit'>
                     Sign Up
                   </Button>
@@ -154,9 +151,11 @@ export default function Page() {
                   Enter your verification code{' '}
                 </Title>
                 <PinInput length={6} type='number' onComplete={(value) => verifyEmail(value)} />
-                <Text ta='center' c='red'>
-                  {errormsg}
-                </Text>
+                {apierror.active ? (
+                  <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
+                    {apierror.message}
+                  </Alert>
+                ) : null}
               </Stack>
             </Paper>
           </Container>
@@ -173,31 +172,21 @@ export default function Page() {
           </Container>
         </Stepper.Step>
         <Stepper.Completed>
-          {' '}
           <Container size={420} my={40}>
             <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
               <Stack align='center'>
                 <Title ta='center' order={3} c='indigo'>
-                  Thanks for signing up {form.values.username}
-                </Title>{' '}
+                  Thanks for signing up {signup.values.username}
+                </Title>
               </Stack>
-            
-            <Group justify='center' mt='xl'>
-              <Button variant='default'>
-                Profile
-              </Button>
-              <Button>Dashboard</Button>
-            </Group>
+              <Group justify='center' mt='xl'>
+                <Button variant='default'>Profile</Button>
+                <Button>Dashboard</Button>
+              </Group>
             </Paper>
           </Container>
         </Stepper.Completed>
       </Stepper>
-      <Group justify='center' mt='xl'>
-        <Button variant='default' onClick={prevStep}>
-          Back
-        </Button>
-        <Button onClick={nextStep}>Next step</Button>
-      </Group>
     </Container>
   )
 }
