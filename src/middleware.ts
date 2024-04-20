@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  const reroute = NextResponse.redirect(new URL('/', request.url))
+  const reroute = NextResponse.redirect(new URL('/account/signin', request.url))
   return reroute
 }
 

@@ -7,15 +7,6 @@ import Link from 'next/link'
 export default function Navigation({ children }: { children: any }) {
   const [opened, { toggle }] = useDisclosure()
 
-  async function handleSignOut() {
-    try {
-      const logout = await signOut({ global: true });
-      console.log(`logout :`, logout)
-    } catch (error) {
-      console.log('error signing out: ', error);
-    }
-  }
-
   return (
     <AppShell header={{ height: 60 }} navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }} padding='md'>
       <AppShell.Header>
@@ -27,7 +18,6 @@ export default function Navigation({ children }: { children: any }) {
               <Button variant='transparent' component={Link} href='/'>HOME</Button>
               <Button variant='transparent' component={Link} href='/admin'>ADMIN</Button>
               <Button variant='transparent' component={Link} href='/account/signin'>LOGIN</Button>
-              <Button variant='transparent' onClick={handleSignOut}>LOGOUT</Button>
             </Group>
           </Group>
         </Group>

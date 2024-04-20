@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, Box, Group, Button } from '@mantine/core'
+import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, Container, Box, Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import Link from 'next/link'
@@ -25,7 +25,7 @@ export default function Page() {
   async function currentAuthenticatedUser() {
     try {
       const usercheck = await getCurrentUser()
-      console.log(usercheck)
+      //console.log(usercheck)
       setUser(usercheck)
       setSignedin(true)
     } catch (error) {
@@ -40,8 +40,8 @@ export default function Page() {
         username: values.username,
         password: values.password,
       })
-      console.log('isSignedIn', isSignedIn)
-      console.log('nextStep', nextStep)
+      //console.log('isSignedIn', isSignedIn)
+      //console.log('nextStep', nextStep)
       setSignedin(true)
       toggle  
     } catch (error) {
@@ -68,7 +68,7 @@ export default function Page() {
   return (
     <Container size='responsive'>
       <Box mb='xl'>
-        <Title ta='center' order={2}>
+        <Title ta='center' order={2} c='indigo'>
           Welcome back
         </Title>
         <Text c='dimmed' size='sm' ta='center' mt={5}>
@@ -78,7 +78,6 @@ export default function Page() {
           </Anchor>
         </Text>
       </Box>
-
       <Container size={420} my={40}>
         <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
           {signedin ? (
@@ -88,7 +87,7 @@ export default function Page() {
               </Title>
               <Text c='dimmed' size='sm' ta='center' mt={5}>
                 Need to make some changes?{' '}
-                <Anchor size='sm' component={Link} href={`/account/${user.username}`}>
+                <Anchor size='sm' component={Link} href={`/profile/${user.username}`}>
                   Profile
                 </Anchor>
               </Text>
@@ -111,11 +110,13 @@ export default function Page() {
                 }
               )}>
               {' '}
+              <Stack>
               <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
               <PasswordInput label='Password' placeholder='Your password' required {...login.getInputProps('password')} />
               <Button fullWidth mt='xl' type='submit' loading={loading}>
                 Sign In
               </Button>
+              </Stack>
             </form>
           )}
         </Paper>
