@@ -13,10 +13,10 @@ export default function Page() {
 
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Welcome{' '}
+          Welcome
           <Text component='span' className={classes.highlight} inherit>
             to
-          </Text>{' '}
+          </Text>
           Admin
         </Title>
 

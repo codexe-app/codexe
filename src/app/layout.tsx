@@ -4,7 +4,7 @@ import { MantineProvider, ColorSchemeScript } from '@mantine/core'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import theme from '@/app/theme'
 import { mononoki, dinpro } from '@/app/fonts';
-import Navigation from '@/navigation'
+import Navigation from '@/app/nav'
 
 export const metadata = {
   title: 'CODEXE',

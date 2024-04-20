@@ -1,10 +1,11 @@
 'use client'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, Container, Box, Button, Alert } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
-import Link from 'next/link'
-import { getCurrentUser, signIn, signOut } from 'aws-amplify/auth'
+import { useRouter } from 'next/navigation'
+import { getCurrentUser, signIn, signOut, resetPassword, type ResetPasswordOutput } from 'aws-amplify/auth'
 import { IconAlertCircle } from '@tabler/icons-react'
 
 export default function Page() {
@@ -13,6 +14,7 @@ export default function Page() {
   const [user, setUser] = useState({ username: '', password: '' })
   const [loading, { toggle }] = useDisclosure()
 
+  const router = useRouter()
   const login = useForm({
     initialValues: {
       username: '',
@@ -74,14 +76,42 @@ export default function Page() {
     currentAuthenticatedUser()
   }, [signedin])
 
+  async function handleResetPassword() {
+    if (login.values.username.length < 1) {
+      setApierror({ active: true, code: 'No User', message: 'You must enter a username to recieve your confirmation code.' })
+      return
+    }
+    try {
+      const output = await resetPassword({ username: login.values.username })
+      handleResetPasswordNextSteps(output)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function handleResetPasswordNextSteps(output: ResetPasswordOutput) {
+    const { nextStep } = output
+    switch (nextStep.resetPasswordStep) {
+      case 'CONFIRM_RESET_PASSWORD_WITH_CODE':
+        const codeDeliveryDetails = nextStep.codeDeliveryDetails
+        console.log(`Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}`)
+        setApierror({ active: true, code: 'Code Sent', message: `Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}` })
+        router.push(`/account/recovery?username=${login.values.username}`)
+        break
+      case 'DONE':
+        console.log('Successfully reset password.')
+        break
+    }
+  }
+
   return (
     <Container size='responsive'>
       <Box mb='xl'>
-        <Title ta='center' order={2} c='indigo'>
+        <Title ta='center' order={2} >
           Welcome back
         </Title>
         <Text c='dimmed' size='sm' ta='center' mt={5}>
-          Need to create an account?{' '}
+          Need to create an account?&nbsp;
           <Anchor size='sm' component={Link} href='/account/signup'>
             Sign Up
           </Anchor>
@@ -95,8 +125,8 @@ export default function Page() {
                 You are signed in as {user.username}
               </Title>
               <Text c='dimmed' size='sm' ta='center' mt={5}>
-                Need to make some changes?{' '}
-                <Anchor size='sm' component={Link} href={`/profile/${user.username}`}>
+                Need to make some changes?&nbsp;
+                <Anchor size='sm' component={Link} href={`/account/profile/${user.username}`}>
                   Profile
                 </Anchor>
               </Text>
@@ -123,10 +153,19 @@ export default function Page() {
                   )
                 }
               )}>
-              {' '}
               <Stack>
                 <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
                 <PasswordInput label='Password' placeholder='password' required {...login.getInputProps('password')} />
+                <Text c='dimmed' size='md' ta='center' mt='md'>
+                  Forgot your password?
+                </Text>
+                <Text c='dimmed' size='sm' ta='center'>
+                  
+                  Enter your username, then&nbsp;
+                  <Anchor size='sm' onClick={handleResetPassword}>
+                    Reset
+                  </Anchor>
+                </Text>
                 {apierror.active ? (
                   <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
                     {apierror.message}

@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
         const session = await fetchAuthSession(contextSpec)
         return session.tokens !== undefined
       } catch (error) {
-        console.log(`NO USER `, error)
+        //console.log(`NO USER `, error)
         return false
       }
     },
@@ -27,6 +27,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!index|api|_next/static|_next/image|favicon.ico|logo.svg|account/*|about).*)'
+    '/((?!index|api|_next/static|_next/image|favicon.ico|logo.svg|account/*).*)'
   ],
 }

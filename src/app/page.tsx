@@ -10,28 +10,25 @@ export default function HomePage() {
       <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
       <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
       <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
-
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Welcome{' '}
+          Welcome&nbsp;
           <Text component='span' className={classes.highlight} inherit>
-            to
-          </Text>{' '}
+            to&nbsp;
+          </Text>
           Codexe
         </Title>
-
         <Container p={0} size={600}>
           <Text size='lg' c='dimmed' className={classes.description}>
-            Next React App has been created. Amplify App has been deployed. Mantine is set up with AppShell.
+            Next React App has been created. Amplify App has been deployed. Mantine is set up with AppShell. Auth flow is set up with reset and recovery. Now on to Profile and Storage.
           </Text>
         </Container>
-
         <div className={classes.controls}>
-          <Button className={classes.control} size='lg' variant='default' color='gray' component={Link} href='account/signin'>
-            Sign In
-          </Button>
-          <Button className={classes.control} size='lg' component={Link} href='account/signup'>
+          <Button className={classes.control} size='lg' component={Link} href='account/signup' variant='default' color='gray'>
             Sign Up
+          </Button>
+          <Button className={classes.control} size='lg' component={Link} href='account/signin'>
+            Sign In
           </Button>
         </div>
       </div>
