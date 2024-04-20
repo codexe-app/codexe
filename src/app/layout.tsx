@@ -5,6 +5,7 @@ import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import theme from '@/app/theme'
 import { mononoki, dinpro } from '@/app/fonts';
 import Navigation from '@/app/nav'
+import '@/app/app.css'
 
 export const metadata = {
   title: 'CODEXE',
