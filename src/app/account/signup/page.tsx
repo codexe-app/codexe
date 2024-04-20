@@ -104,7 +104,7 @@ export default function Page() {
         </Text>
       </Box>
       <Container size='lg'>
-        <Stepper active={active} onStepClick={setActive}>
+        <Stepper active={active}>
           <Stepper.Step icon={<IconForms />} label='Create an account' description='Fill out the form below' loading={account}>
             <Container size={420} my={40}>
               <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
