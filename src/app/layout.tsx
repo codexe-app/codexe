@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css'
 import React from 'react'
 import { MantineProvider, ColorSchemeScript } from '@mantine/core'
+import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import theme from '@/app/theme'
 import { mononoki, dinpro } from '@/app/fonts';
 import Navigation from '@/navigation'
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: any }) {
         <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no' />
       </head>
       <body>
+        <ConfigureAmplifyClientSide />
         <MantineProvider theme={theme}>
           <Navigation>{children}</Navigation>
         </MantineProvider>
