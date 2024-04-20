@@ -8,11 +8,7 @@
     "precedence": 2
   },
   {
-    "groupName": "Editor",
+    "groupName": "User",
     "precedence": 3
-  },
-  {
-    "groupName": "Guest",
-    "precedence": 4
   }
 ]

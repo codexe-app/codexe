@@ -8,7 +8,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "codexea3a27a15"
+          "resourceName": "codexe215c4ac3"
         },
         {
           "attributes": [
@@ -16,7 +16,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "AdminQueries6cd4c680"
+          "resourceName": "AdminQueriesa7448910"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -24,9 +24,19 @@
     }
   },
   "auth": {
-    "codexea3a27a15": {
+    "codexe215c4ac3": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "codexe215c4ac3PostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -60,7 +70,7 @@
             "IdentityPoolId"
           ],
           "category": "auth",
-          "resourceName": "codexea3a27a15"
+          "resourceName": "codexe215c4ac3"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -68,7 +78,7 @@
     }
   },
   "function": {
-    "AdminQueries6cd4c680": {
+    "AdminQueriesa7448910": {
       "build": true,
       "dependsOn": [
         {
@@ -76,27 +86,56 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "codexea3a27a15"
+          "resourceName": "codexe215c4ac3"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "codexe215c4ac3PostConfirmation": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_AdminQueries6cd4c680_deploymentBucketName": {
+    "AMPLIFY_function_AdminQueriesa7448910_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueries6cd4c680"
+          "resourceName": "AdminQueriesa7448910"
         }
       ]
     },
-    "AMPLIFY_function_AdminQueries6cd4c680_s3Key": {
+    "AMPLIFY_function_AdminQueriesa7448910_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueries6cd4c680"
+          "resourceName": "AdminQueriesa7448910"
+        }
+      ]
+    },
+    "AMPLIFY_function_codexe215c4ac3PostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "codexe215c4ac3PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_codexe215c4ac3PostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "codexe215c4ac3PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_codexe215c4ac3PostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "codexe215c4ac3PostConfirmation"
         }
       ]
     }

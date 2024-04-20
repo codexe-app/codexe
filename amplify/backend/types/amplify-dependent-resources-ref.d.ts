@@ -7,7 +7,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "auth": {
-    "codexea3a27a15": {
+    "codexe215c4ac3": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -18,13 +18,19 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "userPoolGroups": {
       "AdminGroupRole": "string",
-      "EditorGroupRole": "string",
-      "GuestGroupRole": "string",
-      "SuperGroupRole": "string"
+      "SuperGroupRole": "string",
+      "UserGroupRole": "string"
     }
   },
   "function": {
-    "AdminQueries6cd4c680": {
+    "AdminQueriesa7448910": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "codexe215c4ac3PostConfirmation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

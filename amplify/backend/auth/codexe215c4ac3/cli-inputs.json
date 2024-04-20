@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "codexea3a27a15_identitypool_a3a27a15",
+    "identityPoolName": "codexe215c4ac3_identitypool_215c4ac3",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "codexea3a27a15",
-    "userPoolName": "codexea3a27a15_userpool_a3a27a15",
+    "resourceNameTruncated": "codexe215c4ac3",
+    "userPoolName": "codexe215c4ac3_userpool_215c4ac3",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -33,18 +33,21 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "codexea3a27a15_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "codexe215c4ac3_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "a3a27a15",
-    "resourceName": "codexea3a27a15",
+    "sharedId": "215c4ac3",
+    "resourceName": "codexe215c4ac3",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
-    "triggers": {},
+    "triggers": {
+      "PostConfirmation": [
+        "add-to-group"
+      ]
+    },
     "userPoolGroupList": [
       "Super",
       "Admin",
-      "Editor",
-      "Guest"
+      "User"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -62,11 +65,24 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [],
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "codexe215c4ac3PostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "permissions": [
+      "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
+    ],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"codexe215c4ac3PostConfirmation\"\n  }\n]",
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": [],
     "adminQueryGroup": "Super"
   }
 }
