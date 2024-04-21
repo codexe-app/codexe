@@ -75,12 +75,11 @@ export default function Navigation({ children }: { children: any }) {
     <AppShell header={{ height: 60 }} navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }} padding='md'>
       <AppShell.Header>
         <Group h='100%' px='md'>
-          <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
           <Group justify='space-between' style={{ flex: 1 }}>
             <Link href='/'>
               <Image src='/logo.svg' height={36} />
             </Link>
-            <Group ml='xl' gap={0} visibleFrom='sm'>
+            <Group ml='xl' gap={0}>
               {signedin ? (
                 <Menu shadow='md' width={200}>
                   <Menu.Target>
@@ -132,13 +131,6 @@ export default function Navigation({ children }: { children: any }) {
           </Group>
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar py='md' px={4}>
-        <Stack gap='sm'>
-          <Button>HOME</Button>
-          <Button>ABOUT</Button>
-          <Button>LOGIN</Button>
-        </Stack>
-      </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
   )
