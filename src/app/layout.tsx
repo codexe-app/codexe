@@ -1,10 +1,13 @@
 import '@mantine/core/styles.css'
 import React from 'react'
 import { MantineProvider, ColorSchemeScript } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
+import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import theme from '@/app/theme'
-import { mononoki, dinpro } from '@/app/fonts';
+import { mononoki, dinpro } from '@/app/fonts'
 import Navigation from '@/app/nav'
+import '@mantine/notifications/styles.css';
 import '@/app/app.css'
 
 export const metadata = {
@@ -23,7 +26,12 @@ export default function RootLayout({ children }: { children: any }) {
       <body>
         <ConfigureAmplifyClientSide />
         <MantineProvider theme={theme}>
-          <Navigation>{children}</Navigation>
+          <ModalsProvider>
+            <Navigation>
+              {children}
+              <Notifications />
+            </Navigation>
+          </ModalsProvider>
         </MantineProvider>
       </body>
     </html>
