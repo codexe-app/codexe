@@ -47,7 +47,8 @@
     "userPoolGroupList": [
       "Super",
       "Admin",
-      "User"
+      "User",
+      "Guest"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

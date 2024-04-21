@@ -1,27 +1,5 @@
 {
   "api": {
-    "AdminQueries": {
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "codexe215c4ac3"
-        },
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "AdminQueriesa7448910"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "codexe": {
       "dependsOn": [],
       "output": {
@@ -96,20 +74,6 @@
     }
   },
   "function": {
-    "AdminQueriesa7448910": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "codexe215c4ac3"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "codexe215c4ac3PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -117,22 +81,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_AdminQueriesa7448910_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "AdminQueriesa7448910"
-        }
-      ]
-    },
-    "AMPLIFY_function_AdminQueriesa7448910_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "AdminQueriesa7448910"
-        }
-      ]
-    },
     "AMPLIFY_function_codexe215c4ac3PostConfirmation_GROUP": {
       "usedBy": [
         {

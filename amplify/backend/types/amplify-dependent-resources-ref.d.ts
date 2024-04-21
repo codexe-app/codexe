@@ -1,10 +1,5 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "AdminQueries": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
-    },
     "codexe": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
@@ -23,18 +18,12 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "userPoolGroups": {
       "AdminGroupRole": "string",
+      "GuestGroupRole": "string",
       "SuperGroupRole": "string",
       "UserGroupRole": "string"
     }
   },
   "function": {
-    "AdminQueriesa7448910": {
-      "Arn": "string",
-      "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
-      "Name": "string",
-      "Region": "string"
-    },
     "codexe215c4ac3PostConfirmation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
