@@ -8,7 +8,7 @@ export default async function Page() {
       accessKeyId: process.env.ACCESS_KEY_ID,
       secretAccessKey: process.env.SECRET_ACCESS_KEY,
     },
-    region: process.env.AWS_REGION,
+    region: process.env.REGION,
   }
   const client = new CognitoIdentityProviderClient(config)
   const command = new ListUsersCommand({
