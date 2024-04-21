@@ -6,7 +6,7 @@ export default function Page({ params }: { params: { username: string } }) {
     <Container size='responsive'>
       <Box mb='xl'>
         <Title ta='center' order={2} >
-          Profile
+          Dashboard
         </Title>
         <Text c='dimmed' size='sm' ta='center' mt={5}>
           This is not implemented yet...

@@ -6,7 +6,7 @@ import { AppShell, Burger, Group, Stack, Button, Avatar, Image, Menu, Text, rem 
 import { useDisclosure } from '@mantine/hooks'
 import { Hub } from 'aws-amplify/utils'
 import { getCurrentUser, signOut } from 'aws-amplify/auth'
-import { IconLogout, IconSearch, IconUsersGroup, IconIdBadge2, IconFilePlus, IconFiles } from '@tabler/icons-react'
+import { IconLogout, IconSearch, IconUsersGroup, IconIdBadge2, IconFilePlus, IconFiles, IconDashboard } from '@tabler/icons-react'
 
 export default function Navigation({ children }: { children: any }) {
   const [user, setUser] = useState({
@@ -88,6 +88,9 @@ export default function Navigation({ children }: { children: any }) {
                   </Menu.Target>
                   <Menu.Dropdown>
                     <Menu.Label>Welcome {user.username}</Menu.Label>
+                    <Menu.Item leftSection={<IconDashboard style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}`}>
+                      Dashboard
+                    </Menu.Item>
                     <Menu.Item leftSection={<IconIdBadge2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/account/profile/${user.username}`}>
                       Profile
                     </Menu.Item>

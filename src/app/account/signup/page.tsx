@@ -180,8 +180,8 @@ export default function Page() {
                   </Title>
                 </Stack>
                 <Group justify='center' mt='xl'>
-                  <Button variant='default'>Profile</Button>
-                  <Button>Dashboard</Button>
+                  <Button variant='default' component={Link} href={`/profile/${signup.values.username}`}>Profile</Button>
+                  <Button component={Link} href={`/${signup.values.username}`}>Dashboard</Button>
                 </Group>
               </Paper>
             </Container>

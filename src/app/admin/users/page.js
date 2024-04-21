@@ -1,5 +1,5 @@
 import { ListUsersCommand, AdminListGroupsForUserCommand, CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider'
-import { Title, Container  } from '@mantine/core'
+import { Title, Container, Flex } from '@mantine/core'
 import UsersTable from './userstable'
 
 export default async function Page() {
@@ -14,7 +14,7 @@ export default async function Page() {
   const command = new ListUsersCommand({
     UserPoolId: process.env.USER_POOL_ID,
   })
-  const response = (await client.send(command))
+  const response = await client.send(command)
   const userlist = transformJSON(response.Users)
 
   function transformJSON(json) {
@@ -54,8 +54,10 @@ export default async function Page() {
   }
 
   return (
-    <Container>
-      <Title>USERS</Title>
+    <Container size='responsive'>
+      <Flex align='end' justify='start'>
+        <Title order={2}>Users</Title>
+      </Flex>
       <UsersTable userlist={userlist} />
     </Container>
   )
