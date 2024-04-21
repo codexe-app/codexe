@@ -1,11 +1,12 @@
 'use client'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { AppShell, Burger, Group, Stack, Button, Avatar, Image, Menu, Text, rem } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import Link from 'next/link'
 import { Hub } from 'aws-amplify/utils'
 import { getCurrentUser, signOut } from 'aws-amplify/auth'
-import { IconLogout, IconSearch, IconPhoto, IconMessageCircle, IconTrash, IconArrowsLeftRight, IconIdBadge2 } from '@tabler/icons-react'
+import { IconLogout, IconSearch, IconUsersGroup, IconIdBadge2 } from '@tabler/icons-react'
 
 export default function Navigation({ children }: { children: any }) {
   const [user, setUser] = useState({
@@ -18,6 +19,7 @@ export default function Navigation({ children }: { children: any }) {
   })
   const [signedin, setSignedin] = useState(false)
   const [opened, { toggle }] = useDisclosure()
+  const router = useRouter()
 
   async function handleSignOut() {
     try {
@@ -25,6 +27,7 @@ export default function Navigation({ children }: { children: any }) {
       //@ts-ignore
       setUser({})
       setSignedin(false)
+      router.push(`/`)
     } catch (error) {
       //@ts-ignore
       console.log('error signing out: ', error)
@@ -34,6 +37,7 @@ export default function Navigation({ children }: { children: any }) {
   async function currentAuthenticatedUser() {
     try {
       const data = await getCurrentUser()
+      //console.log(data)
       setSignedin(true)
       //@ts-ignore
       setUser(data)
@@ -86,6 +90,11 @@ export default function Navigation({ children }: { children: any }) {
                     <Menu.Label>Welcome {user.username}</Menu.Label>
                     <Menu.Item leftSection={<IconIdBadge2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/account/profile/${user.username}`}>
                       Profile
+                    </Menu.Item>
+                    <Menu.Divider />
+                    <Menu.Label>Admin</Menu.Label>
+                    <Menu.Item leftSection={<IconUsersGroup style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/admin/users`}>
+                      Users
                     </Menu.Item>
                     <Menu.Item
                       leftSection={<IconSearch style={{ width: rem(14), height: rem(14) }} />}
