@@ -10,3 +10,10 @@ h6 {
 a {
     font-weight: 600!important;
 }
+
+.mdxeditor-toolbar {
+  border-radius: 0!important;
+}
+.prose {
+  min-height: 280px;
+}
