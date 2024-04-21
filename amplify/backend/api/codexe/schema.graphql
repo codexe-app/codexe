@@ -1,0 +1,43 @@
+type Document @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String
+  slug: String
+  description: String
+  content: String
+  status: Status
+  topic: Topic @belongsTo(fields: ["topicId"])
+  topicId: ID @index(name: "byTopic", sortKeyFields: ["createdAt"])
+  user: User @belongsTo(fields: ["userId"])
+  userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime
+}
+
+enum Status {
+  live
+  draft
+  private
+  archive
+  trash
+}
+
+type Topic @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String
+  slug: String
+  description: String
+  content: String
+  documents: [Document] @hasMany(indexName: "byTopic", fields: ["id"])
+  createdAt: AWSDateTime
+}
+
+type User @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  username: String
+  avatar: String
+  firstname: String
+  lastname: String
+  role: String
+  email: String
+  documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
+  cognitoid: String
+}
