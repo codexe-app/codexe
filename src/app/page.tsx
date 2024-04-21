@@ -12,23 +12,23 @@ export default function HomePage() {
       <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Welcome&nbsp;
+          What&nbsp;
           <Text component='span' className={classes.highlight} inherit>
-            to&nbsp;
+            is&nbsp;
           </Text>
-          Codexe
+          CODEXE?
         </Title>
         <Container p={0} size={600}>
           <Text size='lg' c='dimmed' className={classes.description}>
-            Next React App has been created. Amplify App has been deployed. Mantine is set up with AppShell. Auth flow is set up with reset and recovery. Now on to Profile and Storage.
+            After over twenty years of looking for that one app that will help me organize my life, I have decided to create it. Wanna come along for the ride?
           </Text>
         </Container>
         <div className={classes.controls}>
-          <Button className={classes.control} size='lg' component={Link} href='account/signup' variant='default' color='gray'>
-            Sign Up
-          </Button>
-          <Button className={classes.control} size='lg' component={Link} href='account/signin'>
+          <Button className={classes.control} size='lg' component={Link} href='account/signin' variant='default' color='gray'>
             Sign In
+          </Button>
+          <Button className={classes.control} size='lg' component={Link} href='account/signup'>
+            Sign Up
           </Button>
         </div>
       </div>

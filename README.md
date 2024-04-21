@@ -1,6 +1,5 @@
 # CODEXE
-I built my current website on AWS Amplify, but it is still getting half of it's content from my old Wordpress site. I would like to move that data over to AWS but need some type of content manangement.  Enter CODEXE. I am not sure what this is going to end up being, but I know I am going to start with building a UI for storing and organizing all this data in DynamoDB. 
-
+To come...
 
 ---
 //THE ORGINAL READ ME FROM CREATE NEXT APP//
