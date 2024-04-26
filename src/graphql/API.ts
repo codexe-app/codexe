@@ -2,29 +2,8 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateDocumentInput = {
-  id?: string | null,
-  name?: string | null,
-  slug?: string | null,
-  description?: string | null,
-  content?: string | null,
-  status?: Status | null,
-  topicId?: string | null,
-  userId: string,
-  createdAt?: string | null,
-  _version?: number | null,
-};
-
-export enum Status {
-  live = "live",
-  draft = "draft",
-  private = "private",
-  archive = "archive",
-  trash = "trash",
-}
-
-
-export type ModelDocumentConditionInput = {
+export type ModelDocumentFilterInput = {
+  id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   slug?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -33,14 +12,14 @@ export type ModelDocumentConditionInput = {
   topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelDocumentConditionInput | null > | null,
-  or?: Array< ModelDocumentConditionInput | null > | null,
-  not?: ModelDocumentConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   updatedAt?: ModelStringInput | null,
+  and?: Array< ModelDocumentFilterInput | null > | null,
+  or?: Array< ModelDocumentFilterInput | null > | null,
+  not?: ModelDocumentFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -80,12 +59,7 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelStatusInput = {
-  eq?: Status | null,
-  ne?: Status | null,
-};
-
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -101,11 +75,32 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelStatusInput = {
+  eq?: Status | null,
+  ne?: Status | null,
+};
+
+export enum Status {
+  live = "live",
+  draft = "draft",
+  private = "private",
+  archive = "archive",
+  trash = "trash",
+}
+
+
 export type ModelBooleanInput = {
   ne?: boolean | null,
   eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelDocumentConnection = {
+  __typename: "ModelDocumentConnection",
+  items:  Array<Document | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type Document = {
@@ -142,13 +137,6 @@ export type Topic = {
   _lastChangedAt: number,
 };
 
-export type ModelDocumentConnection = {
-  __typename: "ModelDocumentConnection",
-  items:  Array<Document | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
 export type User = {
   __typename: "User",
   id: string,
@@ -159,12 +147,191 @@ export type User = {
   role?: string | null,
   email?: string | null,
   documents?: ModelDocumentConnection | null,
+  flows?: ModelFlowConnection | null,
   cognitoid?: string | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+};
+
+export type ModelFlowConnection = {
+  __typename: "ModelFlowConnection",
+  items:  Array<Flow | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type Flow = {
+  __typename: "Flow",
+  id: string,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  nodes?: ModelNodeConnection | null,
+  edges?: ModelEdgeConnection | null,
+  user?: User | null,
+  userId: string,
+  createdAt?: string | null,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type ModelNodeConnection = {
+  __typename: "ModelNodeConnection",
+  items:  Array<Node | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type Node = {
+  __typename: "Node",
+  id: string,
+  position?: XYPosition | null,
+  data?: NodeData | null,
+  type?: string | null,
+  sourcePosition?: Position | null,
+  targetPosition?: Position | null,
+  hidden?: boolean | null,
+  selected?: boolean | null,
+  dragging?: boolean | null,
+  draggable?: boolean | null,
+  selectable?: boolean | null,
+  connectable?: boolean | null,
+  resizing?: boolean | null,
+  deletable?: boolean | null,
+  dragHandle?: string | null,
+  width?: number | null,
+  height?: number | null,
+  parentId?: string | null,
+  zIndex?: number | null,
+  extent?: string | null,
+  expandParent?: boolean | null,
+  positionAbsolute?: XYPosition | null,
+  ariaLabel?: string | null,
+  focusable?: boolean | null,
+  style?: string | null,
+  className?: string | null,
+  flow?: Flow | null,
+  flowId: string,
+  createdAt?: string | null,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type XYPosition = {
+  __typename: "XYPosition",
+  x?: number | null,
+  y?: number | null,
+};
+
+export type NodeData = {
+  __typename: "NodeData",
+  label?: string | null,
+};
+
+export enum Position {
+  left = "left",
+  top = "top",
+  right = "right",
+  bottom = "bottom",
+}
+
+
+export type ModelEdgeConnection = {
+  __typename: "ModelEdgeConnection",
+  items:  Array<Edge | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type Edge = {
+  __typename: "Edge",
+  id: string,
+  type?: string | null,
+  source?: string | null,
+  target?: string | null,
+  sourceHandle?: string | null,
+  targetHandle?: string | null,
+  style?: string | null,
+  animated?: boolean | null,
+  hidden?: boolean | null,
+  deletable?: boolean | null,
+  data?: EdgeData | null,
+  className?: string | null,
+  sourceNode?: string | null,
+  targetNode?: string | null,
+  selected?: boolean | null,
+  markerStart?: EdgeMarker | null,
+  markerEnd?: EdgeMarker | null,
+  zIndex?: number | null,
+  ariaLabel?: string | null,
+  interactionWidth?: number | null,
+  focusable?: boolean | null,
+  updatable?: boolean | null,
+  flow?: Flow | null,
+  flowId: string,
+  createdAt?: string | null,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type EdgeData = {
+  __typename: "EdgeData",
+  label?: string | null,
+};
+
+export type EdgeMarker = {
+  __typename: "EdgeMarker",
+  type?: MarkerType | null,
+  color?: string | null,
+  width?: number | null,
+  height?: number | null,
+  markerUnits?: string | null,
+  orient?: string | null,
+  strokeWidth?: number | null,
+};
+
+export enum MarkerType {
+  arrow = "arrow",
+  arrowclosed = "arrowclosed",
+}
+
+
+export type CreateDocumentInput = {
+  id?: string | null,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  topicId?: string | null,
+  userId: string,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type ModelDocumentConditionInput = {
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  topicId?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelDocumentConditionInput | null > | null,
+  or?: Array< ModelDocumentConditionInput | null > | null,
+  not?: ModelDocumentConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateDocumentInput = {
@@ -223,6 +390,274 @@ export type DeleteTopicInput = {
   _version?: number | null,
 };
 
+export type CreateFlowInput = {
+  id?: string | null,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  userId: string,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type ModelFlowConditionInput = {
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelFlowConditionInput | null > | null,
+  or?: Array< ModelFlowConditionInput | null > | null,
+  not?: ModelFlowConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateFlowInput = {
+  id: string,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  userId?: string | null,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteFlowInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateNodeInput = {
+  id?: string | null,
+  position?: XYPositionInput | null,
+  data?: NodeDataInput | null,
+  type?: string | null,
+  sourcePosition?: Position | null,
+  targetPosition?: Position | null,
+  hidden?: boolean | null,
+  selected?: boolean | null,
+  dragging?: boolean | null,
+  draggable?: boolean | null,
+  selectable?: boolean | null,
+  connectable?: boolean | null,
+  resizing?: boolean | null,
+  deletable?: boolean | null,
+  dragHandle?: string | null,
+  width?: number | null,
+  height?: number | null,
+  parentId?: string | null,
+  zIndex?: number | null,
+  extent?: string | null,
+  expandParent?: boolean | null,
+  positionAbsolute?: XYPositionInput | null,
+  ariaLabel?: string | null,
+  focusable?: boolean | null,
+  style?: string | null,
+  className?: string | null,
+  flowId: string,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type XYPositionInput = {
+  x?: number | null,
+  y?: number | null,
+};
+
+export type NodeDataInput = {
+  label?: string | null,
+};
+
+export type ModelNodeConditionInput = {
+  type?: ModelStringInput | null,
+  sourcePosition?: ModelPositionInput | null,
+  targetPosition?: ModelPositionInput | null,
+  hidden?: ModelBooleanInput | null,
+  selected?: ModelBooleanInput | null,
+  dragging?: ModelBooleanInput | null,
+  draggable?: ModelBooleanInput | null,
+  selectable?: ModelBooleanInput | null,
+  connectable?: ModelBooleanInput | null,
+  resizing?: ModelBooleanInput | null,
+  deletable?: ModelBooleanInput | null,
+  dragHandle?: ModelStringInput | null,
+  width?: ModelIntInput | null,
+  height?: ModelIntInput | null,
+  parentId?: ModelStringInput | null,
+  zIndex?: ModelIntInput | null,
+  extent?: ModelStringInput | null,
+  expandParent?: ModelBooleanInput | null,
+  ariaLabel?: ModelStringInput | null,
+  focusable?: ModelBooleanInput | null,
+  style?: ModelStringInput | null,
+  className?: ModelStringInput | null,
+  flowId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelNodeConditionInput | null > | null,
+  or?: Array< ModelNodeConditionInput | null > | null,
+  not?: ModelNodeConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelPositionInput = {
+  eq?: Position | null,
+  ne?: Position | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateNodeInput = {
+  id: string,
+  position?: XYPositionInput | null,
+  data?: NodeDataInput | null,
+  type?: string | null,
+  sourcePosition?: Position | null,
+  targetPosition?: Position | null,
+  hidden?: boolean | null,
+  selected?: boolean | null,
+  dragging?: boolean | null,
+  draggable?: boolean | null,
+  selectable?: boolean | null,
+  connectable?: boolean | null,
+  resizing?: boolean | null,
+  deletable?: boolean | null,
+  dragHandle?: string | null,
+  width?: number | null,
+  height?: number | null,
+  parentId?: string | null,
+  zIndex?: number | null,
+  extent?: string | null,
+  expandParent?: boolean | null,
+  positionAbsolute?: XYPositionInput | null,
+  ariaLabel?: string | null,
+  focusable?: boolean | null,
+  style?: string | null,
+  className?: string | null,
+  flowId?: string | null,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteNodeInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateEdgeInput = {
+  id?: string | null,
+  type?: string | null,
+  source?: string | null,
+  target?: string | null,
+  sourceHandle?: string | null,
+  targetHandle?: string | null,
+  style?: string | null,
+  animated?: boolean | null,
+  hidden?: boolean | null,
+  deletable?: boolean | null,
+  data?: EdgeDataInput | null,
+  className?: string | null,
+  sourceNode?: string | null,
+  targetNode?: string | null,
+  selected?: boolean | null,
+  markerStart?: EdgeMarkerInput | null,
+  markerEnd?: EdgeMarkerInput | null,
+  zIndex?: number | null,
+  ariaLabel?: string | null,
+  interactionWidth?: number | null,
+  focusable?: boolean | null,
+  updatable?: boolean | null,
+  flowId: string,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type EdgeDataInput = {
+  label?: string | null,
+};
+
+export type EdgeMarkerInput = {
+  type?: MarkerType | null,
+  color?: string | null,
+  width?: number | null,
+  height?: number | null,
+  markerUnits?: string | null,
+  orient?: string | null,
+  strokeWidth?: number | null,
+};
+
+export type ModelEdgeConditionInput = {
+  type?: ModelStringInput | null,
+  source?: ModelStringInput | null,
+  target?: ModelStringInput | null,
+  sourceHandle?: ModelStringInput | null,
+  targetHandle?: ModelStringInput | null,
+  style?: ModelStringInput | null,
+  animated?: ModelBooleanInput | null,
+  hidden?: ModelBooleanInput | null,
+  deletable?: ModelBooleanInput | null,
+  className?: ModelStringInput | null,
+  sourceNode?: ModelStringInput | null,
+  targetNode?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  zIndex?: ModelIntInput | null,
+  ariaLabel?: ModelStringInput | null,
+  interactionWidth?: ModelIntInput | null,
+  focusable?: ModelBooleanInput | null,
+  updatable?: ModelBooleanInput | null,
+  flowId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelEdgeConditionInput | null > | null,
+  or?: Array< ModelEdgeConditionInput | null > | null,
+  not?: ModelEdgeConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateEdgeInput = {
+  id: string,
+  type?: string | null,
+  source?: string | null,
+  target?: string | null,
+  sourceHandle?: string | null,
+  targetHandle?: string | null,
+  style?: string | null,
+  animated?: boolean | null,
+  hidden?: boolean | null,
+  deletable?: boolean | null,
+  data?: EdgeDataInput | null,
+  className?: string | null,
+  sourceNode?: string | null,
+  targetNode?: string | null,
+  selected?: boolean | null,
+  markerStart?: EdgeMarkerInput | null,
+  markerEnd?: EdgeMarkerInput | null,
+  zIndex?: number | null,
+  ariaLabel?: string | null,
+  interactionWidth?: number | null,
+  focusable?: boolean | null,
+  updatable?: boolean | null,
+  flowId?: string | null,
+  createdAt?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteEdgeInput = {
+  id: string,
+  _version?: number | null,
+};
+
 export type CreateUserInput = {
   id?: string | null,
   username?: string | null,
@@ -268,23 +703,6 @@ export type DeleteUserInput = {
   _version?: number | null,
 };
 
-export type ModelDocumentFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  slug?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  content?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  topicId?: ModelIDInput | null,
-  userId?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelDocumentFilterInput | null > | null,
-  or?: Array< ModelDocumentFilterInput | null > | null,
-  not?: ModelDocumentFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
 export type ModelTopicFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -304,6 +722,82 @@ export type ModelTopicConnection = {
   items:  Array<Topic | null >,
   nextToken?: string | null,
   startedAt?: number | null,
+};
+
+export type ModelFlowFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelFlowFilterInput | null > | null,
+  or?: Array< ModelFlowFilterInput | null > | null,
+  not?: ModelFlowFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelNodeFilterInput = {
+  id?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  sourcePosition?: ModelPositionInput | null,
+  targetPosition?: ModelPositionInput | null,
+  hidden?: ModelBooleanInput | null,
+  selected?: ModelBooleanInput | null,
+  dragging?: ModelBooleanInput | null,
+  draggable?: ModelBooleanInput | null,
+  selectable?: ModelBooleanInput | null,
+  connectable?: ModelBooleanInput | null,
+  resizing?: ModelBooleanInput | null,
+  deletable?: ModelBooleanInput | null,
+  dragHandle?: ModelStringInput | null,
+  width?: ModelIntInput | null,
+  height?: ModelIntInput | null,
+  parentId?: ModelStringInput | null,
+  zIndex?: ModelIntInput | null,
+  extent?: ModelStringInput | null,
+  expandParent?: ModelBooleanInput | null,
+  ariaLabel?: ModelStringInput | null,
+  focusable?: ModelBooleanInput | null,
+  style?: ModelStringInput | null,
+  className?: ModelStringInput | null,
+  flowId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelNodeFilterInput | null > | null,
+  or?: Array< ModelNodeFilterInput | null > | null,
+  not?: ModelNodeFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelEdgeFilterInput = {
+  id?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  source?: ModelStringInput | null,
+  target?: ModelStringInput | null,
+  sourceHandle?: ModelStringInput | null,
+  targetHandle?: ModelStringInput | null,
+  style?: ModelStringInput | null,
+  animated?: ModelBooleanInput | null,
+  hidden?: ModelBooleanInput | null,
+  deletable?: ModelBooleanInput | null,
+  className?: ModelStringInput | null,
+  sourceNode?: ModelStringInput | null,
+  targetNode?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  zIndex?: ModelIntInput | null,
+  ariaLabel?: ModelStringInput | null,
+  interactionWidth?: ModelIntInput | null,
+  focusable?: ModelBooleanInput | null,
+  updatable?: ModelBooleanInput | null,
+  flowId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelEdgeFilterInput | null > | null,
+  or?: Array< ModelEdgeFilterInput | null > | null,
+  not?: ModelEdgeFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelUserFilterInput = {
@@ -405,6 +899,96 @@ export type ModelSubscriptionTopicFilterInput = {
   _deleted?: ModelBooleanInput | null,
 };
 
+export type ModelSubscriptionFlowFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  slug?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  userId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionFlowFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFlowFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelSubscriptionNodeFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  sourcePosition?: ModelSubscriptionStringInput | null,
+  targetPosition?: ModelSubscriptionStringInput | null,
+  hidden?: ModelSubscriptionBooleanInput | null,
+  selected?: ModelSubscriptionBooleanInput | null,
+  dragging?: ModelSubscriptionBooleanInput | null,
+  draggable?: ModelSubscriptionBooleanInput | null,
+  selectable?: ModelSubscriptionBooleanInput | null,
+  connectable?: ModelSubscriptionBooleanInput | null,
+  resizing?: ModelSubscriptionBooleanInput | null,
+  deletable?: ModelSubscriptionBooleanInput | null,
+  dragHandle?: ModelSubscriptionStringInput | null,
+  width?: ModelSubscriptionIntInput | null,
+  height?: ModelSubscriptionIntInput | null,
+  parentId?: ModelSubscriptionStringInput | null,
+  zIndex?: ModelSubscriptionIntInput | null,
+  extent?: ModelSubscriptionStringInput | null,
+  expandParent?: ModelSubscriptionBooleanInput | null,
+  ariaLabel?: ModelSubscriptionStringInput | null,
+  focusable?: ModelSubscriptionBooleanInput | null,
+  style?: ModelSubscriptionStringInput | null,
+  className?: ModelSubscriptionStringInput | null,
+  flowId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionNodeFilterInput | null > | null,
+  or?: Array< ModelSubscriptionNodeFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionEdgeFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  source?: ModelSubscriptionStringInput | null,
+  target?: ModelSubscriptionStringInput | null,
+  sourceHandle?: ModelSubscriptionStringInput | null,
+  targetHandle?: ModelSubscriptionStringInput | null,
+  style?: ModelSubscriptionStringInput | null,
+  animated?: ModelSubscriptionBooleanInput | null,
+  hidden?: ModelSubscriptionBooleanInput | null,
+  deletable?: ModelSubscriptionBooleanInput | null,
+  className?: ModelSubscriptionStringInput | null,
+  sourceNode?: ModelSubscriptionStringInput | null,
+  targetNode?: ModelSubscriptionStringInput | null,
+  selected?: ModelSubscriptionBooleanInput | null,
+  zIndex?: ModelSubscriptionIntInput | null,
+  ariaLabel?: ModelSubscriptionStringInput | null,
+  interactionWidth?: ModelSubscriptionIntInput | null,
+  focusable?: ModelSubscriptionBooleanInput | null,
+  updatable?: ModelSubscriptionBooleanInput | null,
+  flowId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionEdgeFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEdgeFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   username?: ModelSubscriptionStringInput | null,
@@ -419,6 +1003,49 @@ export type ModelSubscriptionUserFilterInput = {
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
+};
+
+export type FullDocumentsQueryVariables = {
+  filter?: ModelDocumentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type FullDocumentsQuery = {
+  listDocuments?:  {
+    __typename: "ModelDocumentConnection",
+    items:  Array< {
+      __typename: "Document",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      topic?:  {
+        __typename: "Topic",
+        name?: string | null,
+        description?: string | null,
+      } | null,
+      user?:  {
+        __typename: "User",
+        firstname?: string | null,
+        lastname?: string | null,
+        username?: string | null,
+        email?: string | null,
+        avatar?: string | null,
+      } | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
 };
 
 export type CreateDocumentMutationVariables = {
@@ -658,6 +1285,567 @@ export type DeleteTopicMutation = {
   } | null,
 };
 
+export type CreateFlowMutationVariables = {
+  input: CreateFlowInput,
+  condition?: ModelFlowConditionInput | null,
+};
+
+export type CreateFlowMutation = {
+  createFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateFlowMutationVariables = {
+  input: UpdateFlowInput,
+  condition?: ModelFlowConditionInput | null,
+};
+
+export type UpdateFlowMutation = {
+  updateFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteFlowMutationVariables = {
+  input: DeleteFlowInput,
+  condition?: ModelFlowConditionInput | null,
+};
+
+export type DeleteFlowMutation = {
+  deleteFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type CreateNodeMutationVariables = {
+  input: CreateNodeInput,
+  condition?: ModelNodeConditionInput | null,
+};
+
+export type CreateNodeMutation = {
+  createNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateNodeMutationVariables = {
+  input: UpdateNodeInput,
+  condition?: ModelNodeConditionInput | null,
+};
+
+export type UpdateNodeMutation = {
+  updateNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteNodeMutationVariables = {
+  input: DeleteNodeInput,
+  condition?: ModelNodeConditionInput | null,
+};
+
+export type DeleteNodeMutation = {
+  deleteNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type CreateEdgeMutationVariables = {
+  input: CreateEdgeInput,
+  condition?: ModelEdgeConditionInput | null,
+};
+
+export type CreateEdgeMutation = {
+  createEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateEdgeMutationVariables = {
+  input: UpdateEdgeInput,
+  condition?: ModelEdgeConditionInput | null,
+};
+
+export type UpdateEdgeMutation = {
+  updateEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteEdgeMutationVariables = {
+  input: DeleteEdgeInput,
+  condition?: ModelEdgeConditionInput | null,
+};
+
+export type DeleteEdgeMutation = {
+  deleteEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type CreateUserMutationVariables = {
   input: CreateUserInput,
   condition?: ModelUserConditionInput | null,
@@ -675,6 +1863,11 @@ export type CreateUserMutation = {
     email?: string | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
@@ -707,6 +1900,11 @@ export type UpdateUserMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -733,6 +1931,11 @@ export type DeleteUserMutation = {
     email?: string | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
@@ -938,6 +2141,423 @@ export type SyncTopicsQuery = {
   } | null,
 };
 
+export type GetFlowQueryVariables = {
+  id: string,
+};
+
+export type GetFlowQuery = {
+  getFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListFlowsQueryVariables = {
+  filter?: ModelFlowFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFlowsQuery = {
+  listFlows?:  {
+    __typename: "ModelFlowConnection",
+    items:  Array< {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncFlowsQueryVariables = {
+  filter?: ModelFlowFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncFlowsQuery = {
+  syncFlows?:  {
+    __typename: "ModelFlowConnection",
+    items:  Array< {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetNodeQueryVariables = {
+  id: string,
+};
+
+export type GetNodeQuery = {
+  getNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListNodesQueryVariables = {
+  filter?: ModelNodeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListNodesQuery = {
+  listNodes?:  {
+    __typename: "ModelNodeConnection",
+    items:  Array< {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      flowId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncNodesQueryVariables = {
+  filter?: ModelNodeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncNodesQuery = {
+  syncNodes?:  {
+    __typename: "ModelNodeConnection",
+    items:  Array< {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      flowId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetEdgeQueryVariables = {
+  id: string,
+};
+
+export type GetEdgeQuery = {
+  getEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListEdgesQueryVariables = {
+  filter?: ModelEdgeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListEdgesQuery = {
+  listEdges?:  {
+    __typename: "ModelEdgeConnection",
+    items:  Array< {
+      __typename: "Edge",
+      id: string,
+      type?: string | null,
+      source?: string | null,
+      target?: string | null,
+      sourceHandle?: string | null,
+      targetHandle?: string | null,
+      style?: string | null,
+      animated?: boolean | null,
+      hidden?: boolean | null,
+      deletable?: boolean | null,
+      className?: string | null,
+      sourceNode?: string | null,
+      targetNode?: string | null,
+      selected?: boolean | null,
+      zIndex?: number | null,
+      ariaLabel?: string | null,
+      interactionWidth?: number | null,
+      focusable?: boolean | null,
+      updatable?: boolean | null,
+      flowId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncEdgesQueryVariables = {
+  filter?: ModelEdgeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncEdgesQuery = {
+  syncEdges?:  {
+    __typename: "ModelEdgeConnection",
+    items:  Array< {
+      __typename: "Edge",
+      id: string,
+      type?: string | null,
+      source?: string | null,
+      target?: string | null,
+      sourceHandle?: string | null,
+      targetHandle?: string | null,
+      style?: string | null,
+      animated?: boolean | null,
+      hidden?: boolean | null,
+      deletable?: boolean | null,
+      className?: string | null,
+      sourceNode?: string | null,
+      targetNode?: string | null,
+      selected?: boolean | null,
+      zIndex?: number | null,
+      ariaLabel?: string | null,
+      interactionWidth?: number | null,
+      focusable?: boolean | null,
+      updatable?: boolean | null,
+      flowId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -954,6 +2574,11 @@ export type GetUserQuery = {
     email?: string | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
@@ -1082,6 +2707,130 @@ export type DocumentsByUserIdAndCreatedAtQuery = {
       status?: Status | null,
       topicId?: string | null,
       userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type FlowsByUserIdAndCreatedAtQueryVariables = {
+  userId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFlowFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type FlowsByUserIdAndCreatedAtQuery = {
+  flowsByUserIdAndCreatedAt?:  {
+    __typename: "ModelFlowConnection",
+    items:  Array< {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type NodesByFlowIdAndCreatedAtQueryVariables = {
+  flowId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNodeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type NodesByFlowIdAndCreatedAtQuery = {
+  nodesByFlowIdAndCreatedAt?:  {
+    __typename: "ModelNodeConnection",
+    items:  Array< {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      flowId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type EdgesByFlowIdAndCreatedAtQueryVariables = {
+  flowId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelEdgeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type EdgesByFlowIdAndCreatedAtQuery = {
+  edgesByFlowIdAndCreatedAt?:  {
+    __typename: "ModelEdgeConnection",
+    items:  Array< {
+      __typename: "Edge",
+      id: string,
+      type?: string | null,
+      source?: string | null,
+      target?: string | null,
+      sourceHandle?: string | null,
+      targetHandle?: string | null,
+      style?: string | null,
+      animated?: boolean | null,
+      hidden?: boolean | null,
+      deletable?: boolean | null,
+      className?: string | null,
+      sourceNode?: string | null,
+      targetNode?: string | null,
+      selected?: boolean | null,
+      zIndex?: number | null,
+      ariaLabel?: string | null,
+      interactionWidth?: number | null,
+      focusable?: boolean | null,
+      updatable?: boolean | null,
+      flowId: string,
       createdAt?: string | null,
       updatedAt: string,
       _version: number,
@@ -1324,6 +3073,558 @@ export type OnDeleteTopicSubscription = {
   } | null,
 };
 
+export type OnCreateFlowSubscriptionVariables = {
+  filter?: ModelSubscriptionFlowFilterInput | null,
+};
+
+export type OnCreateFlowSubscription = {
+  onCreateFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateFlowSubscriptionVariables = {
+  filter?: ModelSubscriptionFlowFilterInput | null,
+};
+
+export type OnUpdateFlowSubscription = {
+  onUpdateFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteFlowSubscriptionVariables = {
+  filter?: ModelSubscriptionFlowFilterInput | null,
+};
+
+export type OnDeleteFlowSubscription = {
+  onDeleteFlow?:  {
+    __typename: "Flow",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    nodes?:  {
+      __typename: "ModelNodeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    edges?:  {
+      __typename: "ModelEdgeConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      avatar?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnCreateNodeSubscriptionVariables = {
+  filter?: ModelSubscriptionNodeFilterInput | null,
+};
+
+export type OnCreateNodeSubscription = {
+  onCreateNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateNodeSubscriptionVariables = {
+  filter?: ModelSubscriptionNodeFilterInput | null,
+};
+
+export type OnUpdateNodeSubscription = {
+  onUpdateNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteNodeSubscriptionVariables = {
+  filter?: ModelSubscriptionNodeFilterInput | null,
+};
+
+export type OnDeleteNodeSubscription = {
+  onDeleteNode?:  {
+    __typename: "Node",
+    id: string,
+    position?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    data?:  {
+      __typename: "NodeData",
+      label?: string | null,
+    } | null,
+    type?: string | null,
+    sourcePosition?: Position | null,
+    targetPosition?: Position | null,
+    hidden?: boolean | null,
+    selected?: boolean | null,
+    dragging?: boolean | null,
+    draggable?: boolean | null,
+    selectable?: boolean | null,
+    connectable?: boolean | null,
+    resizing?: boolean | null,
+    deletable?: boolean | null,
+    dragHandle?: string | null,
+    width?: number | null,
+    height?: number | null,
+    parentId?: string | null,
+    zIndex?: number | null,
+    extent?: string | null,
+    expandParent?: boolean | null,
+    positionAbsolute?:  {
+      __typename: "XYPosition",
+      x?: number | null,
+      y?: number | null,
+    } | null,
+    ariaLabel?: string | null,
+    focusable?: boolean | null,
+    style?: string | null,
+    className?: string | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnCreateEdgeSubscriptionVariables = {
+  filter?: ModelSubscriptionEdgeFilterInput | null,
+};
+
+export type OnCreateEdgeSubscription = {
+  onCreateEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateEdgeSubscriptionVariables = {
+  filter?: ModelSubscriptionEdgeFilterInput | null,
+};
+
+export type OnUpdateEdgeSubscription = {
+  onUpdateEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteEdgeSubscriptionVariables = {
+  filter?: ModelSubscriptionEdgeFilterInput | null,
+};
+
+export type OnDeleteEdgeSubscription = {
+  onDeleteEdge?:  {
+    __typename: "Edge",
+    id: string,
+    type?: string | null,
+    source?: string | null,
+    target?: string | null,
+    sourceHandle?: string | null,
+    targetHandle?: string | null,
+    style?: string | null,
+    animated?: boolean | null,
+    hidden?: boolean | null,
+    deletable?: boolean | null,
+    data?:  {
+      __typename: "EdgeData",
+      label?: string | null,
+    } | null,
+    className?: string | null,
+    sourceNode?: string | null,
+    targetNode?: string | null,
+    selected?: boolean | null,
+    markerStart?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    markerEnd?:  {
+      __typename: "EdgeMarker",
+      type?: MarkerType | null,
+      color?: string | null,
+      width?: number | null,
+      height?: number | null,
+      markerUnits?: string | null,
+      orient?: string | null,
+      strokeWidth?: number | null,
+    } | null,
+    zIndex?: number | null,
+    ariaLabel?: string | null,
+    interactionWidth?: number | null,
+    focusable?: boolean | null,
+    updatable?: boolean | null,
+    flow?:  {
+      __typename: "Flow",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    flowId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
 };
@@ -1340,6 +3641,11 @@ export type OnCreateUserSubscription = {
     email?: string | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
@@ -1371,6 +3677,11 @@ export type OnUpdateUserSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -1396,6 +3707,11 @@ export type OnDeleteUserSubscription = {
     email?: string | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    flows?:  {
+      __typename: "ModelFlowConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,

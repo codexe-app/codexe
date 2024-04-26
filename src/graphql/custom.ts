@@ -4,7 +4,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const fullDocuments = /* GraphQL */ `query ListDocuments(
+export const fullDocuments = /* GraphQL */ `query FullDocuments(
     $filter: ModelDocumentFilterInput
     $limit: Int
     $nextToken: String

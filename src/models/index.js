@@ -10,11 +10,32 @@ const Status = {
   "TRASH": "trash"
 };
 
-const { Document, Topic, User } = initSchema(schema);
+const Position = {
+  "LEFT": "left",
+  "TOP": "top",
+  "RIGHT": "right",
+  "BOTTOM": "bottom"
+};
+
+const MarkerType = {
+  "ARROW": "arrow",
+  "ARROWCLOSED": "arrowclosed"
+};
+
+const { Document, Topic, Flow, Node, Edge, User, XYPosition, NodeData, EdgeData, EdgeMarker } = initSchema(schema);
 
 export {
   Document,
   Topic,
+  Flow,
+  Node,
+  Edge,
   User,
-  Status
+  Status,
+  Position,
+  MarkerType,
+  XYPosition,
+  NodeData,
+  EdgeData,
+  EdgeMarker
 };

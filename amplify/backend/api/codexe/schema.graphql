@@ -30,6 +30,113 @@ type Topic @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime
 }
 
+type Flow @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String
+  slug: String
+  description: String
+  nodes: [Node] @hasMany(indexName: "byFlow", fields: ["id"])
+  edges: [Edge] @hasMany(indexName: "byFlow", fields: ["id"])
+  user: User @belongsTo(fields: ["userId"])
+  userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime
+}
+
+type Node @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  position: XYPosition
+  data: NodeData
+  type: String
+  sourcePosition: Position
+  targetPosition: Position
+  hidden: Boolean
+  selected: Boolean
+  dragging: Boolean
+  draggable: Boolean
+  selectable: Boolean
+  connectable: Boolean
+  resizing: Boolean
+  deletable: Boolean
+  dragHandle: String
+  width: Int
+  height: Int
+  parentId: String
+  zIndex: Int
+  extent: String
+  expandParent: Boolean
+  positionAbsolute: XYPosition
+  ariaLabel: String
+  focusable: Boolean
+  style: String
+  className: String
+  flow: Flow @belongsTo(fields: ["flowId"])
+  flowId: ID! @index(name: "byFlow", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime
+}
+
+type XYPosition {
+  x: Int
+  y: Int
+}
+
+type NodeData {
+  label: String
+}
+
+enum Position {
+  left
+  top
+  right
+  bottom
+}
+
+type Edge @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  type: String
+  source: String
+  target: String
+  sourceHandle: String
+  targetHandle: String
+  style: String
+  animated: Boolean
+  hidden: Boolean
+  deletable: Boolean
+  data: EdgeData
+  className: String
+  sourceNode: String
+  targetNode: String
+  selected: Boolean
+  markerStart: EdgeMarker
+  markerEnd: EdgeMarker
+  zIndex: Int
+  ariaLabel: String
+  interactionWidth: Int
+  focusable: Boolean
+  updatable: Boolean
+  flow: Flow @belongsTo(fields: ["flowId"])
+  flowId: ID! @index(name: "byFlow", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime
+} 
+
+type EdgeData {
+  label: String
+}
+
+type EdgeMarker {
+  type: MarkerType
+  color: String
+  width: Int
+  height: Int
+  markerUnits: String
+  orient: String
+  strokeWidth: Float
+}
+
+enum MarkerType {
+  arrow
+  arrowclosed
+}
+
 type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   username: String
@@ -39,5 +146,6 @@ type User @model @auth(rules: [{ allow: public }]) {
   role: String
   email: String
   documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
+  flows: [Flow] @hasMany(indexName: "byUser", fields: ["id"])
   cognitoid: String
 }

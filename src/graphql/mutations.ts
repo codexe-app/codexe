@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from "../API";
 type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationInput: InputType;
   __generatedMutationOutput: OutputType;
@@ -251,6 +251,576 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
   APITypes.DeleteTopicMutationVariables,
   APITypes.DeleteTopicMutation
 >;
+export const createFlow = /* GraphQL */ `mutation CreateFlow(
+  $input: CreateFlowInput!
+  $condition: ModelFlowConditionInput
+) {
+  createFlow(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    nodes {
+      nextToken
+      startedAt
+      __typename
+    }
+    edges {
+      nextToken
+      startedAt
+      __typename
+    }
+    user {
+      id
+      username
+      avatar
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateFlowMutationVariables,
+  APITypes.CreateFlowMutation
+>;
+export const updateFlow = /* GraphQL */ `mutation UpdateFlow(
+  $input: UpdateFlowInput!
+  $condition: ModelFlowConditionInput
+) {
+  updateFlow(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    nodes {
+      nextToken
+      startedAt
+      __typename
+    }
+    edges {
+      nextToken
+      startedAt
+      __typename
+    }
+    user {
+      id
+      username
+      avatar
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateFlowMutationVariables,
+  APITypes.UpdateFlowMutation
+>;
+export const deleteFlow = /* GraphQL */ `mutation DeleteFlow(
+  $input: DeleteFlowInput!
+  $condition: ModelFlowConditionInput
+) {
+  deleteFlow(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    nodes {
+      nextToken
+      startedAt
+      __typename
+    }
+    edges {
+      nextToken
+      startedAt
+      __typename
+    }
+    user {
+      id
+      username
+      avatar
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteFlowMutationVariables,
+  APITypes.DeleteFlowMutation
+>;
+export const createNode = /* GraphQL */ `mutation CreateNode(
+  $input: CreateNodeInput!
+  $condition: ModelNodeConditionInput
+) {
+  createNode(input: $input, condition: $condition) {
+    id
+    position {
+      x
+      y
+      __typename
+    }
+    data {
+      label
+      __typename
+    }
+    type
+    sourcePosition
+    targetPosition
+    hidden
+    selected
+    dragging
+    draggable
+    selectable
+    connectable
+    resizing
+    deletable
+    dragHandle
+    width
+    height
+    parentId
+    zIndex
+    extent
+    expandParent
+    positionAbsolute {
+      x
+      y
+      __typename
+    }
+    ariaLabel
+    focusable
+    style
+    className
+    flow {
+      id
+      name
+      slug
+      description
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    flowId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateNodeMutationVariables,
+  APITypes.CreateNodeMutation
+>;
+export const updateNode = /* GraphQL */ `mutation UpdateNode(
+  $input: UpdateNodeInput!
+  $condition: ModelNodeConditionInput
+) {
+  updateNode(input: $input, condition: $condition) {
+    id
+    position {
+      x
+      y
+      __typename
+    }
+    data {
+      label
+      __typename
+    }
+    type
+    sourcePosition
+    targetPosition
+    hidden
+    selected
+    dragging
+    draggable
+    selectable
+    connectable
+    resizing
+    deletable
+    dragHandle
+    width
+    height
+    parentId
+    zIndex
+    extent
+    expandParent
+    positionAbsolute {
+      x
+      y
+      __typename
+    }
+    ariaLabel
+    focusable
+    style
+    className
+    flow {
+      id
+      name
+      slug
+      description
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    flowId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateNodeMutationVariables,
+  APITypes.UpdateNodeMutation
+>;
+export const deleteNode = /* GraphQL */ `mutation DeleteNode(
+  $input: DeleteNodeInput!
+  $condition: ModelNodeConditionInput
+) {
+  deleteNode(input: $input, condition: $condition) {
+    id
+    position {
+      x
+      y
+      __typename
+    }
+    data {
+      label
+      __typename
+    }
+    type
+    sourcePosition
+    targetPosition
+    hidden
+    selected
+    dragging
+    draggable
+    selectable
+    connectable
+    resizing
+    deletable
+    dragHandle
+    width
+    height
+    parentId
+    zIndex
+    extent
+    expandParent
+    positionAbsolute {
+      x
+      y
+      __typename
+    }
+    ariaLabel
+    focusable
+    style
+    className
+    flow {
+      id
+      name
+      slug
+      description
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    flowId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteNodeMutationVariables,
+  APITypes.DeleteNodeMutation
+>;
+export const createEdge = /* GraphQL */ `mutation CreateEdge(
+  $input: CreateEdgeInput!
+  $condition: ModelEdgeConditionInput
+) {
+  createEdge(input: $input, condition: $condition) {
+    id
+    type
+    source
+    target
+    sourceHandle
+    targetHandle
+    style
+    animated
+    hidden
+    deletable
+    data {
+      label
+      __typename
+    }
+    className
+    sourceNode
+    targetNode
+    selected
+    markerStart {
+      type
+      color
+      width
+      height
+      markerUnits
+      orient
+      strokeWidth
+      __typename
+    }
+    markerEnd {
+      type
+      color
+      width
+      height
+      markerUnits
+      orient
+      strokeWidth
+      __typename
+    }
+    zIndex
+    ariaLabel
+    interactionWidth
+    focusable
+    updatable
+    flow {
+      id
+      name
+      slug
+      description
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    flowId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateEdgeMutationVariables,
+  APITypes.CreateEdgeMutation
+>;
+export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
+  $input: UpdateEdgeInput!
+  $condition: ModelEdgeConditionInput
+) {
+  updateEdge(input: $input, condition: $condition) {
+    id
+    type
+    source
+    target
+    sourceHandle
+    targetHandle
+    style
+    animated
+    hidden
+    deletable
+    data {
+      label
+      __typename
+    }
+    className
+    sourceNode
+    targetNode
+    selected
+    markerStart {
+      type
+      color
+      width
+      height
+      markerUnits
+      orient
+      strokeWidth
+      __typename
+    }
+    markerEnd {
+      type
+      color
+      width
+      height
+      markerUnits
+      orient
+      strokeWidth
+      __typename
+    }
+    zIndex
+    ariaLabel
+    interactionWidth
+    focusable
+    updatable
+    flow {
+      id
+      name
+      slug
+      description
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    flowId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateEdgeMutationVariables,
+  APITypes.UpdateEdgeMutation
+>;
+export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
+  $input: DeleteEdgeInput!
+  $condition: ModelEdgeConditionInput
+) {
+  deleteEdge(input: $input, condition: $condition) {
+    id
+    type
+    source
+    target
+    sourceHandle
+    targetHandle
+    style
+    animated
+    hidden
+    deletable
+    data {
+      label
+      __typename
+    }
+    className
+    sourceNode
+    targetNode
+    selected
+    markerStart {
+      type
+      color
+      width
+      height
+      markerUnits
+      orient
+      strokeWidth
+      __typename
+    }
+    markerEnd {
+      type
+      color
+      width
+      height
+      markerUnits
+      orient
+      strokeWidth
+      __typename
+    }
+    zIndex
+    ariaLabel
+    interactionWidth
+    focusable
+    updatable
+    flow {
+      id
+      name
+      slug
+      description
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    flowId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteEdgeMutationVariables,
+  APITypes.DeleteEdgeMutation
+>;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
   $condition: ModelUserConditionInput
@@ -264,6 +834,11 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     role
     email
     documents {
+      nextToken
+      startedAt
+      __typename
+    }
+    flows {
       nextToken
       startedAt
       __typename
@@ -298,6 +873,11 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       startedAt
       __typename
     }
+    flows {
+      nextToken
+      startedAt
+      __typename
+    }
     cognitoid
     createdAt
     updatedAt
@@ -324,6 +904,11 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     role
     email
     documents {
+      nextToken
+      startedAt
+      __typename
+    }
+    flows {
       nextToken
       startedAt
       __typename
