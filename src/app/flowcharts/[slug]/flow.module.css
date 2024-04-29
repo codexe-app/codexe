@@ -1,0 +1,19 @@
+.action {
+  height: 100vh;
+  border-right: 1px solid #dadada;
+  border-radius: 0;
+  background-color: #fdfdfd;
+  margin: 0;
+  padding: var(--mantine-spacing-sm);
+  overflow-y: hidden;
+}
+
+.data {
+  height: 100vh;
+  border-left: 1px solid #dadada;
+  border-radius: 0;
+  background-color: #fdfdfd;
+  margin: 0;
+  padding: var(--mantine-spacing-sm);
+  overflow-y: scroll;
+}

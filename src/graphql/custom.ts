@@ -1,8 +1,8 @@
-import * as APITypes from "./API";
+import * as APITypes from './API'
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
+  __generatedQueryInput: InputType
+  __generatedQueryOutput: OutputType
+}
 
 export const fullDocuments = /* GraphQL */ `query FullDocuments(
     $filter: ModelDocumentFilterInput
@@ -42,7 +42,45 @@ export const fullDocuments = /* GraphQL */ `query FullDocuments(
       __typename
     }
   }
-  ` as GeneratedQuery<
-    APITypes.ListDocumentsQueryVariables,
-    APITypes.ListDocumentsQuery
-  >;
+  ` as GeneratedQuery<APITypes.ListDocumentsQueryVariables, APITypes.ListDocumentsQuery>
+
+export const fullFlows = /* GraphQL */ `query FullFlows(
+    $filter: ModelFlowFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFlows(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        slug
+        description
+        nodes {
+          items {
+            id
+            data {
+              label
+            }
+            position {
+              x
+              y
+            }
+          }
+        }
+        edges {
+          items {
+            id
+            source
+            target
+            data {
+              label
+            }
+            
+          }
+        }
+        updatedAt
+        userId
+      }
+    }
+  }
+  ` as GeneratedQuery<APITypes.ListFlowsQueryVariables, APITypes.ListFlowsQuery>

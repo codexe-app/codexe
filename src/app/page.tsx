@@ -12,15 +12,15 @@ export default function HomePage() {
       <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
       <div className={classes.inner}>
         <Title className={classes.title}>
-          What&nbsp;
+          Welcome&nbsp;
           <Text component='span' className={classes.highlight} inherit>
-            is&nbsp;
+            to&nbsp;
           </Text>
-          CODEXE?
+          CODEXE
         </Title>
         <Container p={0} size={600}>
           <Text size='lg' c='dimmed' className={classes.description}>
-            After over twenty years of looking for that one app that will help me organize my life, I have decided to create it. Wanna come along for the ride?
+            A new kind of notebook
           </Text>
         </Container>
         <div className={classes.controls}>

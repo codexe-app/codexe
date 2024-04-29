@@ -1,4 +1,4 @@
-type Document @model @auth(rules: [{ allow: public }]) {
+type Document @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   slug: String
@@ -20,7 +20,7 @@ enum Status {
   trash
 }
 
-type Topic @model @auth(rules: [{ allow: public }]) {
+type Topic @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   slug: String
@@ -30,7 +30,7 @@ type Topic @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime
 }
 
-type Flow @model @auth(rules: [{ allow: public }]) {
+type Flow @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   slug: String
@@ -42,7 +42,7 @@ type Flow @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime
 }
 
-type Node @model @auth(rules: [{ allow: public }]) {
+type Node @model @auth(rules: [{allow: public}]) {
   id: ID!
   position: XYPosition
   data: NodeData
@@ -90,7 +90,7 @@ enum Position {
   bottom
 }
 
-type Edge @model @auth(rules: [{ allow: public }]) {
+type Edge @model @auth(rules: [{allow: public}]) {
   id: ID!
   type: String
   source: String
@@ -116,7 +116,7 @@ type Edge @model @auth(rules: [{ allow: public }]) {
   flow: Flow @belongsTo(fields: ["flowId"])
   flowId: ID! @index(name: "byFlow", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
-} 
+}
 
 type EdgeData {
   label: String
@@ -137,7 +137,7 @@ enum MarkerType {
   arrowclosed
 }
 
-type User @model @auth(rules: [{ allow: public }]) {
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   username: String
   avatar: String
@@ -149,3 +149,4 @@ type User @model @auth(rules: [{ allow: public }]) {
   flows: [Flow] @hasMany(indexName: "byUser", fields: ["id"])
   cognitoid: String
 }
+ 

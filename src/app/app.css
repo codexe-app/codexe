@@ -8,12 +8,21 @@ h6 {
 }
 
 a {
-    font-weight: 600!important;
+  font-weight: 600 !important;
 }
 
 .mdxeditor-toolbar {
-  border-radius: 0!important;
+  border-radius: 0 !important;
 }
+
 .prose {
   min-height: 280px;
+}
+
+.react-flow {
+  height: calc(100vh - 60px) !important;
+}
+
+.mantine-NumberInput-input {
+  max-width: 80px;
 }
