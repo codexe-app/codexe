@@ -1,0 +1,15 @@
+{
+  "resourceName": "codexemedia",
+  "policyUUID": "45812d4c",
+  "bucketName": "codexemedia",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger9c3862cd"
+}

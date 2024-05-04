@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from "../API";
 type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationInput: InputType;
   __generatedMutationOutput: OutputType;
@@ -19,12 +19,22 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -33,7 +43,6 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -64,12 +73,22 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -78,7 +97,6 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -109,12 +127,22 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -123,7 +151,6 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -153,6 +180,16 @@ export const createTopic = /* GraphQL */ `mutation CreateTopic(
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -176,6 +213,16 @@ export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -199,6 +246,16 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -221,6 +278,17 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -232,7 +300,6 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -261,6 +328,17 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -272,7 +350,6 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -301,6 +378,17 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -312,7 +400,6 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -383,6 +470,8 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -449,6 +538,8 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -515,6 +606,8 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -742,6 +835,8 @@ export const createEdge = /* GraphQL */ `mutation CreateEdge(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -810,6 +905,8 @@ export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -878,6 +975,8 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -900,7 +999,15 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   createUser(input: $input, condition: $condition) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role
@@ -930,7 +1037,15 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
   updateUser(input: $input, condition: $condition) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role
@@ -960,7 +1075,15 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   deleteUser(input: $input, condition: $condition) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role

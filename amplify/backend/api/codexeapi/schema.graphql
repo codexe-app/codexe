@@ -1,10 +1,11 @@
-type Document @model @auth(rules: [{allow: public}]) {
+type Document @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String
   slug: String
   description: String
   content: String
   status: Status
+  graphic: ImageFile
   topic: Topic @belongsTo(fields: ["topicId"])
   topicId: ID @index(name: "byTopic", sortKeyFields: ["createdAt"])
   user: User @belongsTo(fields: ["userId"])
@@ -12,29 +13,26 @@ type Document @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
 }
 
-enum Status {
-  live
-  draft
-  private
-  archive
-  trash
-}
-
-type Topic @model @auth(rules: [{allow: public}]) {
+type Topic @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String
   slug: String
   description: String
   content: String
+  status: Status
+  graphic: ImageFile
   documents: [Document] @hasMany(indexName: "byTopic", fields: ["id"])
   createdAt: AWSDateTime
 }
 
-type Diagram @model @auth(rules: [{allow: public}]) {
+type Diagram @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String
   slug: String
   description: String
+  content: String
+  status: Status
+  graphic: ImageFile
   nodes: [Node] @hasMany(indexName: "byDiagram", fields: ["id"])
   edges: [Edge] @hasMany(indexName: "byDiagram", fields: ["id"])
   user: User @belongsTo(fields: ["userId"])
@@ -42,7 +40,7 @@ type Diagram @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
 }
 
-type Node @model @auth(rules: [{allow: public}]) {
+type Node @model @auth(rules: [{ allow: public }]) {
   id: ID!
   position: XYPosition
   data: NodeData
@@ -75,23 +73,7 @@ type Node @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
 }
 
-type XYPosition {
-  x: Int
-  y: Int
-}
-
-type NodeData {
-  label: String
-}
-
-enum Position {
-  left
-  top
-  right
-  bottom
-}
-
-type Handle @model @auth(rules: [{allow: public}]) {
+type Handle @model @auth(rules: [{ allow: public }]) {
   id: ID!
   type: HandleType
   position: Position
@@ -106,12 +88,7 @@ type Handle @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
 }
 
-enum HandleType {
-  target
-  source
-}
-
-type Edge @model @auth(rules: [{allow: public}]) {
+type Edge @model @auth(rules: [{ allow: public }]) {
   id: ID!
   type: String
   source: String
@@ -139,6 +116,37 @@ type Edge @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
 }
 
+type User @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  username: String
+  avatar: ImageFile
+  firstname: String
+  lastname: String
+  role: String
+  email: String
+  documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
+  diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
+  cognitoid: String
+}
+
+type ImageFile {
+  alt: String
+  title: String
+  caption: String
+  description: String
+  source: String
+  thumbnail: String
+}
+
+type XYPosition {
+  x: Int
+  y: Int
+}
+
+type NodeData {
+  label: String
+}
+
 type EdgeData {
   label: String
 }
@@ -158,16 +166,22 @@ enum MarkerType {
   arrowclosed
 }
 
-type User @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  username: String
-  avatar: String
-  firstname: String
-  lastname: String
-  role: String
-  email: String
-  documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
-  diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
-  cognitoid: String
+enum Status {
+  live
+  draft
+  private
+  archive
+  trash
 }
- 
+
+enum HandleType {
+  target
+  source
+}
+
+enum Position {
+  left
+  top
+  right
+  bottom
+}

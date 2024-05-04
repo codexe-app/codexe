@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from "../API";
 type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionInput: InputType;
   __generatedSubscriptionOutput: OutputType;
@@ -16,12 +16,22 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -30,7 +40,6 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -58,12 +67,22 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -72,7 +91,6 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -100,12 +118,22 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -114,7 +142,6 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -141,6 +168,16 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -161,6 +198,16 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -181,6 +228,16 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -200,6 +257,17 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -211,7 +279,6 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -237,6 +304,17 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -248,7 +326,6 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -274,6 +351,17 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -285,7 +373,6 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -353,6 +440,8 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -416,6 +505,8 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -479,6 +570,8 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -694,6 +787,8 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -759,6 +854,8 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -824,6 +921,8 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -843,7 +942,15 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
   onCreateUser(filter: $filter) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role
@@ -870,7 +977,15 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
   onUpdateUser(filter: $filter) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role
@@ -897,7 +1012,15 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
   onDeleteUser(filter: $filter) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role

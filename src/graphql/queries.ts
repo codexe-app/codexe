@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from "../API";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
@@ -16,12 +16,22 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     description
     content
     status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     topic {
       id
       name
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -30,7 +40,6 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -84,6 +93,16 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
     slug
     description
     content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -106,6 +125,7 @@ export const listTopics = /* GraphQL */ `query ListTopics(
       slug
       description
       content
+      status
       createdAt
       updatedAt
       __typename
@@ -124,6 +144,17 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     name
     slug
     description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     nodes {
       nextToken
       __typename
@@ -135,7 +166,6 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     user {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -166,6 +196,8 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -227,6 +259,8 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -405,6 +439,8 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
@@ -457,7 +493,15 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     username
-    avatar
+    avatar {
+      alt
+      title
+      caption
+      description
+      source
+      thumbnail
+      __typename
+    }
     firstname
     lastname
     role
@@ -485,6 +529,8 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         name
         slug
         description
+        content
+        status
         userId
         createdAt
         updatedAt
@@ -509,7 +555,6 @@ export const listUsers = /* GraphQL */ `query ListUsers(
     items {
       id
       username
-      avatar
       firstname
       lastname
       role
@@ -619,6 +664,8 @@ export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserI
       name
       slug
       description
+      content
+      status
       userId
       createdAt
       updatedAt
