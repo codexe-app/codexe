@@ -1,6 +1,6 @@
 import { cookieBasedClient } from '@/utils/cookiebasedclient'
-import { fullFlows } from '@/graphql/custom'
-import type { Flow } from '@/graphql/API'
+import { listDiagrams } from '@/graphql/queries'
+import type { Diagram } from '@/graphql/API'
 import Flowchart from './flow'
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -10,17 +10,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
     },
   }
   const response = (await cookieBasedClient.graphql({
-    query: fullFlows,
+    query: listDiagrams,
     variables: variables,
   })) as {
     data: {
-      listFlows: {
-        items: Flow[]
+      listDiagrams: {
+        items: Diagram[]
       }
     }
   }
 
-  const flow = response.data.listFlows.items[0]
+  const flow = response.data.listDiagrams.items[0]
   const nodes = flow.nodes!.items
   const edges = flow.edges!.items
 

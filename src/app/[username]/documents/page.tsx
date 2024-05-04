@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { cookieBasedClient } from '@/utils/cookiebasedclient'
-import { fullDocuments } from '@/graphql/custom'
+import { listDocuments } from '@/graphql/queries'
 import { Title, Container, Flex, Button } from '@mantine/core'
 import { IconFilePlus } from '@tabler/icons-react'
 import type { Document } from '@/graphql/API'
@@ -13,8 +13,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     },
   }
   const response = (await cookieBasedClient.graphql({
-    query: fullDocuments,
-    variables: variables,
+    query: listDocuments,
   })) as {
     data: {
       listDocuments: {

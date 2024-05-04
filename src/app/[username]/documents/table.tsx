@@ -19,7 +19,7 @@ export default function DocumentsTable(data : any) {
   
   async function trashDocument(doc : any) {
     try {
-      await client.graphql({ query: mutations.deleteDocument, variables: { input: { id : doc.id, _version: doc._version} } })
+      await client.graphql({ query: mutations.deleteDocument, variables: { input: { id : doc.id } } })
       notifications.show({
         title: doc.name,
         message: 'This document was deleted.',
