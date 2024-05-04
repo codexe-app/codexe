@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../API";
+import * as APITypes from "./API";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
@@ -463,10 +463,33 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     role
     email
     documents {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        topicId
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
     diagrams {
+      items {
+        id
+        name
+        slug
+        description
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }

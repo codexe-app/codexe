@@ -45,8 +45,8 @@ export default function Page() {
         title: `${values.name} was created`,
         children: <Text size='sm'>Would you like to continue editing or goto your documents list?</Text>,
         labels: { confirm: 'Edit', cancel: 'Docs' },
-        onCancel: () => router.push('/docs'),
-        onConfirm: () => router.push(`/docs/edit/${values.slug}`),
+        onCancel: () => router.push('/documents'),
+        onConfirm: () => router.push(`/documents/edit/${values.slug}`),
       })
     } catch (error) {
       notifications.show({
@@ -58,7 +58,7 @@ export default function Page() {
   }
 
   return (
-    <Container>
+    <Container size='responsive'>
       <form
         onSubmit={form.onSubmit(
           (values, event) => {
@@ -73,7 +73,7 @@ export default function Page() {
           }
         )}>
         <Box mb='xl'>
-          <Title ta='center' order={2}>
+          <Title ta='left' order={2}>
             {form.values.name}
           </Title>
         </Box>

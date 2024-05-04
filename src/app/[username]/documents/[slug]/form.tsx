@@ -65,7 +65,7 @@ export default function DocForm(data: any) {
         }
       )}>
       <Box mb='xl'>
-        <Title ta='center' order={2}>
+        <Title ta='left' order={2}>
           {form.values.name}
         </Title>
       </Box>

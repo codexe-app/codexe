@@ -6,8 +6,8 @@ import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import theme from '@/app/theme'
 import { mononoki, dinpro } from '@/app/fonts'
-import Shell from '@/app/shell'
-import '@mantine/notifications/styles.css';
+
+import '@mantine/notifications/styles.css'
 import '@/app/app.css'
 
 export const metadata = {
@@ -27,10 +27,8 @@ export default function RootLayout({ children }: { children: any }) {
         <ConfigureAmplifyClientSide />
         <MantineProvider theme={theme}>
           <ModalsProvider>
-            <Shell>
-              {children}
-              <Notifications />
-            </Shell>
+            {children}
+            <Notifications />
           </ModalsProvider>
         </MantineProvider>
       </body>

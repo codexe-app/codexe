@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useCallback } from 'react'
-import { Stack, ActionIcon, NumberInput, Paper, TextInput, Grid, Button, Group, Popover, Select, ColorPicker } from '@mantine/core'
+import { Stack, ActionIcon, NumberInput, Fieldset, Paper, TextInput, Grid, Button, Group, Popover, Select, ColorPicker } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { ReactFlow, ReactFlowProvider, useNodesState, useEdgesState, addEdge, useReactFlow, Panel, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
@@ -8,17 +8,36 @@ import { IconTrash, IconDeviceFloppy, IconRestore, IconSquarePlus, IconBookmarkP
 import { nanoid } from 'nanoid'
 import '@xyflow/react/dist/style.css'
 import classes from './flow.module.css'
+import CustomNode from './node'
 
 const getNodeId = () => `randomnode_${+new Date()}`
 
-const nodetypes = ['input', 'output', 'default']
+const nodetypes = ['input', 'output', 'default', 'custom']
 
-export default function Flowchart(props) {
+const nodeTypes = {
+    custom: CustomNode,
+  }
+
+const initialNodes = [
+  { id: '1', data: { label: 'Node 1' }, position: { x: 100, y: 100 } },
+  { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 200 } },
+]
+
+const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }]
+
+export default function Page(props) {
   const form = useForm({
-    initialValues: props.flow,
+    initialValues: {
+      nodes: {
+        items: [
+          { id: '1', data: { label: 'Node 1' }, position: { x: 100, y: 100 } },
+          { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 200 } },
+        ],
+      },
+    },
   })
-  const [nodes, setNodes, onNodesChange] = useNodesState(props.nodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(props.edges)
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges])
   const addnode = useForm({
     initialValues: {
@@ -54,6 +73,20 @@ export default function Flowchart(props) {
     console.log(nodes)
     form.setFieldValue('nodes.items', nodes)
   }
+  function updateView(values) {
+    console.log(values)
+    setNodes(values.nodes.items)
+    setEdges(values.edges.items)
+  }
+
+  function nodeHandles(thing, node) {
+    const handles = form.values.nodes.items[node].handles?.items?.map((handle, index) => (
+      <TextInput label='Handle ID ' {...form.getInputProps(`item.nodes.items.${node}.handles.items.${index}.id`)} />
+
+      ))
+      return handles
+    }
+
 
   return (
     <Grid gap={0}>
@@ -82,7 +115,7 @@ export default function Flowchart(props) {
         </Stack>
       </Grid.Col>
       <Grid.Col span='auto'>
-        <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect}>
+        <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect}>
           <Background color='#ccc' variant={BackgroundVariant.Dots} />
           <MiniMap zoomable pannable />
           <Controls />
@@ -92,19 +125,34 @@ export default function Flowchart(props) {
         <Stack className={classes.data}>
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             {form.values.nodes.items?.map((item, index) => (
-              <Paper key={index} mt='xs' withBorder p='xs'>
-                <TextInput label='Id' {...form.getInputProps(`nodes.items.${index}.id`)} size='xs' />
-                <TextInput label='Label' {...form.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
-                <Select label='Type' placeholder={item.data.type} data={nodetypes} {...form.getInputProps(`nodes.items.${index}.data.type`)} size='xs'/>
+               <Paper key={index} mt='xs' withBorder p='xs'>
+               <TextInput label='Id' {...form.getInputProps(`nodes.items.${index}.id`)} size='xs' />
+               <TextInput label='Label' {...form.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
+               <Select label='Type' data={nodetypes} {...form.getInputProps(`nodes.items.${index}.type`)} size='xs' />
+               <Group>
+                 <NumberInput label='X' {...form.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
+                 <NumberInput label='Y' {...form.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
+               </Group>
 
-                  <Group>
-                    <NumberInput label='X' {...form.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
-                    <NumberInput label='Y' {...form.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
-                  </Group>
-                <ActionIcon mt='xs' color='pink.9' onClick={() => form.removeListItem('nodes', index)}>
-                  <IconTrash size={18} />
-                </ActionIcon>
-              </Paper>
+               <ActionIcon mt='xs' color='pink.9' onClick={() => form.removeListItem('nodes', index)}>
+                 <IconTrash size={18} color='white' />
+               </ActionIcon>
+               <Fieldset legend='Handles' mt='md'>
+                 {nodeHandles(item, index)}
+                 <Button
+                   onClick={() =>
+                     form.insertListItem(`nodes.items.${index}.handles.items`, {
+                       id: nanoid(),
+                       type: '',
+                       position: '',
+                       connectable: true,
+                       style: '',
+                     })
+                   }>
+                   Add Handle
+                 </Button>
+               </Fieldset>
+             </Paper>
             ))}
             <Group justify='flex-end' mt='md'>
               <Button type='submit'>Submit</Button>

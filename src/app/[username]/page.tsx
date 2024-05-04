@@ -1,24 +1,67 @@
 import Link from 'next/link'
-import { Paper, Title, Text, Container, Box } from '@mantine/core'
+import { cookieBasedClient } from '@/utils/cookiebasedclient'
+import { Paper, Title, Text, Container, Box, Flex, Grid, GridCol } from '@mantine/core'
 
-export default function Page({ params }: { params: { username: string } }) {
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { getCurrentUser } from 'aws-amplify/auth/server'
+import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
+import { getUser } from '@/graphql/queries'
+import type { User } from '@/graphql/API'
+import ProfileCard from './profile'
+import CreateCard from './create'
+import DocumentsTable from './documents/table'
+
+export const dynamic = 'force-dynamic'
+
+async function AuthGetCurrentUserServer() {
+  try {
+    const currentUser = await runWithAmplifyServerContext({
+      nextServerContext: { cookies },
+      operation: (contextSpec) => getCurrentUser(contextSpec),
+    })
+    return currentUser
+  } catch (error) {
+    console.error(error)
+    redirect('/')
+  }
+}
+
+export default async function Page(props: any) {
+  const theuser = await AuthGetCurrentUserServer()
+  //console.log(`page props :`, props)
+  const response = (await cookieBasedClient.graphql({
+    query: getUser,
+    variables: {
+      id: theuser.userId,
+    },
+  })) as {
+    data: {
+      getUser: User
+    }
+  }
+  const user = response.data.getUser
+  //@ts-ignore
+  const docs = response.data.getUser.documents.items
+  console.log(`/username : `, user)
+
   return (
-    <Container size='responsive'>
-      <Box mb='xl'>
-        <Title ta='center' order={2} >
-          Dashboard
-        </Title>
-        <Text c='dimmed' size='sm' ta='center' mt={5}>
-          This is not implemented yet...
-        </Text>
-      </Box>
-      <Container size={420} my={40}>
-        <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-          <Title ta='center' order={4} >
-            Hello {params.username}
-          </Title>
-        </Paper>
-      </Container>
+    <Container size='responsive' p='lg'>
+      <Grid>
+        <GridCol span={{ sm: 12, md: 12, lg: 4 }}>
+          <ProfileCard user={user} />
+        </GridCol>
+        <GridCol span={{ sm: 12, md: 12, lg: 8 }}></GridCol>
+        <GridCol span={{ sm: 12, md: 12, lg: 8 }}>
+          <CreateCard user={user} />
+        </GridCol>
+        <GridCol span={{ sm: 12, md: 12, lg: 4 }}></GridCol>
+        <GridCol span={12}>
+          <Flex direction='column' h='100%' justify='space-between' gap='md'>
+            <DocumentsTable data={docs} />
+          </Flex>
+        </GridCol>
+      </Grid>
     </Container>
   )
 }

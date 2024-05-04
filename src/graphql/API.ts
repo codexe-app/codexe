@@ -2,8 +2,28 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type ModelDocumentFilterInput = {
-  id?: ModelIDInput | null,
+export type CreateDocumentInput = {
+  id?: string | null,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  topicId?: string | null,
+  userId: string,
+  createdAt?: string | null,
+};
+
+export enum Status {
+  live = "live",
+  draft = "draft",
+  private = "private",
+  archive = "archive",
+  trash = "trash",
+}
+
+
+export type ModelDocumentConditionInput = {
   name?: ModelStringInput | null,
   slug?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -12,14 +32,13 @@ export type ModelDocumentFilterInput = {
   topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
+  and?: Array< ModelDocumentConditionInput | null > | null,
+  or?: Array< ModelDocumentConditionInput | null > | null,
+  not?: ModelDocumentConditionInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelDocumentFilterInput | null > | null,
-  or?: Array< ModelDocumentFilterInput | null > | null,
-  not?: ModelDocumentFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -59,7 +78,12 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelStringInput = {
+export type ModelStatusInput = {
+  eq?: Status | null,
+  ne?: Status | null,
+};
+
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -73,34 +97,6 @@ export type ModelStringInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
-};
-
-export type ModelStatusInput = {
-  eq?: Status | null,
-  ne?: Status | null,
-};
-
-export enum Status {
-  live = "live",
-  draft = "draft",
-  private = "private",
-  archive = "archive",
-  trash = "trash",
-}
-
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelDocumentConnection = {
-  __typename: "ModelDocumentConnection",
-  items:  Array<Document | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Document = {
@@ -117,9 +113,6 @@ export type Document = {
   userId: string,
   createdAt?: string | null,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type Topic = {
@@ -132,9 +125,12 @@ export type Topic = {
   documents?: ModelDocumentConnection | null,
   createdAt?: string | null,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
+};
+
+export type ModelDocumentConnection = {
+  __typename: "ModelDocumentConnection",
+  items:  Array<Document | null >,
+  nextToken?: string | null,
 };
 
 export type User = {
@@ -147,24 +143,20 @@ export type User = {
   role?: string | null,
   email?: string | null,
   documents?: ModelDocumentConnection | null,
-  flows?: ModelFlowConnection | null,
+  diagrams?: ModelDiagramConnection | null,
   cognitoid?: string | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
-export type ModelFlowConnection = {
-  __typename: "ModelFlowConnection",
-  items:  Array<Flow | null >,
+export type ModelDiagramConnection = {
+  __typename: "ModelDiagramConnection",
+  items:  Array<Diagram | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
-export type Flow = {
-  __typename: "Flow",
+export type Diagram = {
+  __typename: "Diagram",
   id: string,
   name?: string | null,
   slug?: string | null,
@@ -175,16 +167,12 @@ export type Flow = {
   userId: string,
   createdAt?: string | null,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelNodeConnection = {
   __typename: "ModelNodeConnection",
   items:  Array<Node | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Node = {
@@ -215,13 +203,11 @@ export type Node = {
   focusable?: boolean | null,
   style?: string | null,
   className?: string | null,
-  flow?: Flow | null,
-  flowId: string,
+  handles?: ModelHandleConnection | null,
+  diagram?: Diagram | null,
+  diagramId: string,
   createdAt?: string | null,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type XYPosition = {
@@ -243,11 +229,39 @@ export enum Position {
 }
 
 
+export type ModelHandleConnection = {
+  __typename: "ModelHandleConnection",
+  items:  Array<Handle | null >,
+  nextToken?: string | null,
+};
+
+export type Handle = {
+  __typename: "Handle",
+  id: string,
+  type?: HandleType | null,
+  position?: Position | null,
+  connectable?: boolean | null,
+  connectstart?: boolean | null,
+  connectend?: boolean | null,
+  onconnect?: string | null,
+  isvalid?: string | null,
+  style?: string | null,
+  node?: Node | null,
+  nodeId?: string | null,
+  createdAt?: string | null,
+  updatedAt: string,
+};
+
+export enum HandleType {
+  target = "target",
+  source = "source",
+}
+
+
 export type ModelEdgeConnection = {
   __typename: "ModelEdgeConnection",
   items:  Array<Edge | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Edge = {
@@ -274,13 +288,10 @@ export type Edge = {
   interactionWidth?: number | null,
   focusable?: boolean | null,
   updatable?: boolean | null,
-  flow?: Flow | null,
-  flowId: string,
+  diagram?: Diagram | null,
+  diagramId: string,
   createdAt?: string | null,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type EdgeData = {
@@ -305,35 +316,6 @@ export enum MarkerType {
 }
 
 
-export type CreateDocumentInput = {
-  id?: string | null,
-  name?: string | null,
-  slug?: string | null,
-  description?: string | null,
-  content?: string | null,
-  status?: Status | null,
-  topicId?: string | null,
-  userId: string,
-  createdAt?: string | null,
-  _version?: number | null,
-};
-
-export type ModelDocumentConditionInput = {
-  name?: ModelStringInput | null,
-  slug?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  content?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  topicId?: ModelIDInput | null,
-  userId?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelDocumentConditionInput | null > | null,
-  or?: Array< ModelDocumentConditionInput | null > | null,
-  not?: ModelDocumentConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
 export type UpdateDocumentInput = {
   id: string,
   name?: string | null,
@@ -344,12 +326,10 @@ export type UpdateDocumentInput = {
   topicId?: string | null,
   userId?: string | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteDocumentInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateTopicInput = {
@@ -359,7 +339,6 @@ export type CreateTopicInput = {
   description?: string | null,
   content?: string | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type ModelTopicConditionInput = {
@@ -371,7 +350,6 @@ export type ModelTopicConditionInput = {
   and?: Array< ModelTopicConditionInput | null > | null,
   or?: Array< ModelTopicConditionInput | null > | null,
   not?: ModelTopicConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
@@ -382,50 +360,44 @@ export type UpdateTopicInput = {
   description?: string | null,
   content?: string | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteTopicInput = {
   id: string,
-  _version?: number | null,
 };
 
-export type CreateFlowInput = {
+export type CreateDiagramInput = {
   id?: string | null,
   name?: string | null,
   slug?: string | null,
   description?: string | null,
   userId: string,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
-export type ModelFlowConditionInput = {
+export type ModelDiagramConditionInput = {
   name?: ModelStringInput | null,
   slug?: ModelStringInput | null,
   description?: ModelStringInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelFlowConditionInput | null > | null,
-  or?: Array< ModelFlowConditionInput | null > | null,
-  not?: ModelFlowConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
+  and?: Array< ModelDiagramConditionInput | null > | null,
+  or?: Array< ModelDiagramConditionInput | null > | null,
+  not?: ModelDiagramConditionInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
-export type UpdateFlowInput = {
+export type UpdateDiagramInput = {
   id: string,
   name?: string | null,
   slug?: string | null,
   description?: string | null,
   userId?: string | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
-export type DeleteFlowInput = {
+export type DeleteDiagramInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateNodeInput = {
@@ -455,9 +427,8 @@ export type CreateNodeInput = {
   focusable?: boolean | null,
   style?: string | null,
   className?: string | null,
-  flowId: string,
+  diagramId: string,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type XYPositionInput = {
@@ -492,18 +463,24 @@ export type ModelNodeConditionInput = {
   focusable?: ModelBooleanInput | null,
   style?: ModelStringInput | null,
   className?: ModelStringInput | null,
-  flowId?: ModelIDInput | null,
+  diagramId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelNodeConditionInput | null > | null,
   or?: Array< ModelNodeConditionInput | null > | null,
   not?: ModelNodeConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
 export type ModelPositionInput = {
   eq?: Position | null,
   ne?: Position | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ModelIntInput = {
@@ -545,14 +522,66 @@ export type UpdateNodeInput = {
   focusable?: boolean | null,
   style?: string | null,
   className?: string | null,
-  flowId?: string | null,
+  diagramId?: string | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteNodeInput = {
   id: string,
-  _version?: number | null,
+};
+
+export type CreateHandleInput = {
+  id?: string | null,
+  type?: HandleType | null,
+  position?: Position | null,
+  connectable?: boolean | null,
+  connectstart?: boolean | null,
+  connectend?: boolean | null,
+  onconnect?: string | null,
+  isvalid?: string | null,
+  style?: string | null,
+  nodeId?: string | null,
+  createdAt?: string | null,
+};
+
+export type ModelHandleConditionInput = {
+  type?: ModelHandleTypeInput | null,
+  position?: ModelPositionInput | null,
+  connectable?: ModelBooleanInput | null,
+  connectstart?: ModelBooleanInput | null,
+  connectend?: ModelBooleanInput | null,
+  onconnect?: ModelStringInput | null,
+  isvalid?: ModelStringInput | null,
+  style?: ModelStringInput | null,
+  nodeId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelHandleConditionInput | null > | null,
+  or?: Array< ModelHandleConditionInput | null > | null,
+  not?: ModelHandleConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelHandleTypeInput = {
+  eq?: HandleType | null,
+  ne?: HandleType | null,
+};
+
+export type UpdateHandleInput = {
+  id: string,
+  type?: HandleType | null,
+  position?: Position | null,
+  connectable?: boolean | null,
+  connectstart?: boolean | null,
+  connectend?: boolean | null,
+  onconnect?: string | null,
+  isvalid?: string | null,
+  style?: string | null,
+  nodeId?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteHandleInput = {
+  id: string,
 };
 
 export type CreateEdgeInput = {
@@ -578,9 +607,8 @@ export type CreateEdgeInput = {
   interactionWidth?: number | null,
   focusable?: boolean | null,
   updatable?: boolean | null,
-  flowId: string,
+  diagramId: string,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type EdgeDataInput = {
@@ -616,12 +644,11 @@ export type ModelEdgeConditionInput = {
   interactionWidth?: ModelIntInput | null,
   focusable?: ModelBooleanInput | null,
   updatable?: ModelBooleanInput | null,
-  flowId?: ModelIDInput | null,
+  diagramId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelEdgeConditionInput | null > | null,
   or?: Array< ModelEdgeConditionInput | null > | null,
   not?: ModelEdgeConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
@@ -648,14 +675,12 @@ export type UpdateEdgeInput = {
   interactionWidth?: number | null,
   focusable?: boolean | null,
   updatable?: boolean | null,
-  flowId?: string | null,
+  diagramId?: string | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteEdgeInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateUserInput = {
@@ -667,7 +692,6 @@ export type CreateUserInput = {
   role?: string | null,
   email?: string | null,
   cognitoid?: string | null,
-  _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
@@ -681,7 +705,6 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
 };
@@ -695,12 +718,26 @@ export type UpdateUserInput = {
   role?: string | null,
   email?: string | null,
   cognitoid?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteUserInput = {
   id: string,
-  _version?: number | null,
+};
+
+export type ModelDocumentFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  topicId?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelDocumentFilterInput | null > | null,
+  or?: Array< ModelDocumentFilterInput | null > | null,
+  not?: ModelDocumentFilterInput | null,
 };
 
 export type ModelTopicFilterInput = {
@@ -714,17 +751,15 @@ export type ModelTopicFilterInput = {
   and?: Array< ModelTopicFilterInput | null > | null,
   or?: Array< ModelTopicFilterInput | null > | null,
   not?: ModelTopicFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelTopicConnection = {
   __typename: "ModelTopicConnection",
   items:  Array<Topic | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
-export type ModelFlowFilterInput = {
+export type ModelDiagramFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   slug?: ModelStringInput | null,
@@ -732,10 +767,9 @@ export type ModelFlowFilterInput = {
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelFlowFilterInput | null > | null,
-  or?: Array< ModelFlowFilterInput | null > | null,
-  not?: ModelFlowFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
+  and?: Array< ModelDiagramFilterInput | null > | null,
+  or?: Array< ModelDiagramFilterInput | null > | null,
+  not?: ModelDiagramFilterInput | null,
 };
 
 export type ModelNodeFilterInput = {
@@ -762,13 +796,30 @@ export type ModelNodeFilterInput = {
   focusable?: ModelBooleanInput | null,
   style?: ModelStringInput | null,
   className?: ModelStringInput | null,
-  flowId?: ModelIDInput | null,
+  diagramId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelNodeFilterInput | null > | null,
   or?: Array< ModelNodeFilterInput | null > | null,
   not?: ModelNodeFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelHandleFilterInput = {
+  id?: ModelIDInput | null,
+  type?: ModelHandleTypeInput | null,
+  position?: ModelPositionInput | null,
+  connectable?: ModelBooleanInput | null,
+  connectstart?: ModelBooleanInput | null,
+  connectend?: ModelBooleanInput | null,
+  onconnect?: ModelStringInput | null,
+  isvalid?: ModelStringInput | null,
+  style?: ModelStringInput | null,
+  nodeId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelHandleFilterInput | null > | null,
+  or?: Array< ModelHandleFilterInput | null > | null,
+  not?: ModelHandleFilterInput | null,
 };
 
 export type ModelEdgeFilterInput = {
@@ -791,13 +842,12 @@ export type ModelEdgeFilterInput = {
   interactionWidth?: ModelIntInput | null,
   focusable?: ModelBooleanInput | null,
   updatable?: ModelBooleanInput | null,
-  flowId?: ModelIDInput | null,
+  diagramId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelEdgeFilterInput | null > | null,
   or?: Array< ModelEdgeFilterInput | null > | null,
   not?: ModelEdgeFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelUserFilterInput = {
@@ -814,14 +864,12 @@ export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -853,7 +901,6 @@ export type ModelSubscriptionDocumentFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDocumentFilterInput | null > | null,
   or?: Array< ModelSubscriptionDocumentFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -896,10 +943,9 @@ export type ModelSubscriptionTopicFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTopicFilterInput | null > | null,
   or?: Array< ModelSubscriptionTopicFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelSubscriptionFlowFilterInput = {
+export type ModelSubscriptionDiagramFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   slug?: ModelSubscriptionStringInput | null,
@@ -907,9 +953,8 @@ export type ModelSubscriptionFlowFilterInput = {
   userId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionFlowFilterInput | null > | null,
-  or?: Array< ModelSubscriptionFlowFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
+  and?: Array< ModelSubscriptionDiagramFilterInput | null > | null,
+  or?: Array< ModelSubscriptionDiagramFilterInput | null > | null,
 };
 
 export type ModelSubscriptionNodeFilterInput = {
@@ -936,12 +981,11 @@ export type ModelSubscriptionNodeFilterInput = {
   focusable?: ModelSubscriptionBooleanInput | null,
   style?: ModelSubscriptionStringInput | null,
   className?: ModelSubscriptionStringInput | null,
-  flowId?: ModelSubscriptionIDInput | null,
+  diagramId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionNodeFilterInput | null > | null,
   or?: Array< ModelSubscriptionNodeFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -959,6 +1003,23 @@ export type ModelSubscriptionIntInput = {
   between?: Array< number | null > | null,
   in?: Array< number | null > | null,
   notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionHandleFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  position?: ModelSubscriptionStringInput | null,
+  connectable?: ModelSubscriptionBooleanInput | null,
+  connectstart?: ModelSubscriptionBooleanInput | null,
+  connectend?: ModelSubscriptionBooleanInput | null,
+  onconnect?: ModelSubscriptionStringInput | null,
+  isvalid?: ModelSubscriptionStringInput | null,
+  style?: ModelSubscriptionStringInput | null,
+  nodeId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionHandleFilterInput | null > | null,
+  or?: Array< ModelSubscriptionHandleFilterInput | null > | null,
 };
 
 export type ModelSubscriptionEdgeFilterInput = {
@@ -981,12 +1042,11 @@ export type ModelSubscriptionEdgeFilterInput = {
   interactionWidth?: ModelSubscriptionIntInput | null,
   focusable?: ModelSubscriptionBooleanInput | null,
   updatable?: ModelSubscriptionBooleanInput | null,
-  flowId?: ModelSubscriptionIDInput | null,
+  diagramId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionEdgeFilterInput | null > | null,
   or?: Array< ModelSubscriptionEdgeFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
@@ -1002,50 +1062,6 @@ export type ModelSubscriptionUserFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type FullDocumentsQueryVariables = {
-  filter?: ModelDocumentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type FullDocumentsQuery = {
-  listDocuments?:  {
-    __typename: "ModelDocumentConnection",
-    items:  Array< {
-      __typename: "Document",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      status?: Status | null,
-      topicId?: string | null,
-      userId: string,
-      createdAt?: string | null,
-      updatedAt: string,
-      topic?:  {
-        __typename: "Topic",
-        name?: string | null,
-        description?: string | null,
-      } | null,
-      user?:  {
-        __typename: "User",
-        firstname?: string | null,
-        lastname?: string | null,
-        username?: string | null,
-        email?: string | null,
-        avatar?: string | null,
-      } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
 };
 
 export type CreateDocumentMutationVariables = {
@@ -1071,9 +1087,6 @@ export type CreateDocumentMutation = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -1088,16 +1101,10 @@ export type CreateDocumentMutation = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1124,9 +1131,6 @@ export type UpdateDocumentMutation = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -1141,16 +1145,10 @@ export type UpdateDocumentMutation = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1177,9 +1175,6 @@ export type DeleteDocumentMutation = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -1194,16 +1189,10 @@ export type DeleteDocumentMutation = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1223,13 +1212,9 @@ export type CreateTopicMutation = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1249,13 +1234,9 @@ export type UpdateTopicMutation = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1275,24 +1256,20 @@ export type DeleteTopicMutation = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type CreateFlowMutationVariables = {
-  input: CreateFlowInput,
-  condition?: ModelFlowConditionInput | null,
+export type CreateDiagramMutationVariables = {
+  input: CreateDiagramInput,
+  condition?: ModelDiagramConditionInput | null,
 };
 
-export type CreateFlowMutation = {
-  createFlow?:  {
-    __typename: "Flow",
+export type CreateDiagramMutation = {
+  createDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -1300,12 +1277,10 @@ export type CreateFlowMutation = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -1319,27 +1294,21 @@ export type CreateFlowMutation = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type UpdateFlowMutationVariables = {
-  input: UpdateFlowInput,
-  condition?: ModelFlowConditionInput | null,
+export type UpdateDiagramMutationVariables = {
+  input: UpdateDiagramInput,
+  condition?: ModelDiagramConditionInput | null,
 };
 
-export type UpdateFlowMutation = {
-  updateFlow?:  {
-    __typename: "Flow",
+export type UpdateDiagramMutation = {
+  updateDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -1347,12 +1316,10 @@ export type UpdateFlowMutation = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -1366,27 +1333,21 @@ export type UpdateFlowMutation = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type DeleteFlowMutationVariables = {
-  input: DeleteFlowInput,
-  condition?: ModelFlowConditionInput | null,
+export type DeleteDiagramMutationVariables = {
+  input: DeleteDiagramInput,
+  condition?: ModelDiagramConditionInput | null,
 };
 
-export type DeleteFlowMutation = {
-  deleteFlow?:  {
-    __typename: "Flow",
+export type DeleteDiagramMutation = {
+  deleteDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -1394,12 +1355,10 @@ export type DeleteFlowMutation = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -1413,16 +1372,10 @@ export type DeleteFlowMutation = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1471,8 +1424,12 @@ export type CreateNodeMutation = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -1480,16 +1437,10 @@ export type CreateNodeMutation = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1538,8 +1489,12 @@ export type UpdateNodeMutation = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -1547,16 +1502,10 @@ export type UpdateNodeMutation = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1605,8 +1554,12 @@ export type DeleteNodeMutation = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -1614,16 +1567,166 @@ export type DeleteNodeMutation = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
+  } | null,
+};
+
+export type CreateHandleMutationVariables = {
+  input: CreateHandleInput,
+  condition?: ModelHandleConditionInput | null,
+};
+
+export type CreateHandleMutation = {
+  createHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      diagramId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateHandleMutationVariables = {
+  input: UpdateHandleInput,
+  condition?: ModelHandleConditionInput | null,
+};
+
+export type UpdateHandleMutation = {
+  updateHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      diagramId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteHandleMutationVariables = {
+  input: DeleteHandleInput,
+  condition?: ModelHandleConditionInput | null,
+};
+
+export type DeleteHandleMutation = {
+  deleteHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      diagramId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
   } | null,
 };
 
@@ -1678,8 +1781,8 @@ export type CreateEdgeMutation = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -1687,16 +1790,10 @@ export type CreateEdgeMutation = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1751,8 +1848,8 @@ export type UpdateEdgeMutation = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -1760,16 +1857,10 @@ export type UpdateEdgeMutation = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1824,8 +1915,8 @@ export type DeleteEdgeMutation = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -1833,16 +1924,10 @@ export type DeleteEdgeMutation = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1864,19 +1949,14 @@ export type CreateUserMutation = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1898,19 +1978,14 @@ export type UpdateUserMutation = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1932,19 +2007,14 @@ export type DeleteUserMutation = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1970,9 +2040,6 @@ export type GetDocumentQuery = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -1987,16 +2054,10 @@ export type GetDocumentQuery = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2021,43 +2082,8 @@ export type ListDocumentsQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncDocumentsQueryVariables = {
-  filter?: ModelDocumentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncDocumentsQuery = {
-  syncDocuments?:  {
-    __typename: "ModelDocumentConnection",
-    items:  Array< {
-      __typename: "Document",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      status?: Status | null,
-      topicId?: string | null,
-      userId: string,
-      createdAt?: string | null,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2076,13 +2102,9 @@ export type GetTopicQuery = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2104,50 +2126,18 @@ export type ListTopicsQuery = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
-export type SyncTopicsQueryVariables = {
-  filter?: ModelTopicFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncTopicsQuery = {
-  syncTopics?:  {
-    __typename: "ModelTopicConnection",
-    items:  Array< {
-      __typename: "Topic",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      createdAt?: string | null,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetFlowQueryVariables = {
+export type GetDiagramQueryVariables = {
   id: string,
 };
 
-export type GetFlowQuery = {
-  getFlow?:  {
-    __typename: "Flow",
+export type GetDiagramQuery = {
+  getDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -2155,12 +2145,10 @@ export type GetFlowQuery = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -2174,30 +2162,24 @@ export type GetFlowQuery = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type ListFlowsQueryVariables = {
-  filter?: ModelFlowFilterInput | null,
+export type ListDiagramsQueryVariables = {
+  filter?: ModelDiagramFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListFlowsQuery = {
-  listFlows?:  {
-    __typename: "ModelFlowConnection",
+export type ListDiagramsQuery = {
+  listDiagrams?:  {
+    __typename: "ModelDiagramConnection",
     items:  Array< {
-      __typename: "Flow",
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -2205,40 +2187,8 @@ export type ListFlowsQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncFlowsQueryVariables = {
-  filter?: ModelFlowFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncFlowsQuery = {
-  syncFlows?:  {
-    __typename: "ModelFlowConnection",
-    items:  Array< {
-      __typename: "Flow",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      userId: string,
-      createdAt?: string | null,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2286,8 +2236,12 @@ export type GetNodeQuery = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -2295,16 +2249,10 @@ export type GetNodeQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2342,29 +2290,31 @@ export type ListNodesQuery = {
       focusable?: boolean | null,
       style?: string | null,
       className?: string | null,
-      flowId: string,
+      diagramId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
-export type SyncNodesQueryVariables = {
-  filter?: ModelNodeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
+export type GetHandleQueryVariables = {
+  id: string,
 };
 
-export type SyncNodesQuery = {
-  syncNodes?:  {
-    __typename: "ModelNodeConnection",
-    items:  Array< {
+export type GetHandleQuery = {
+  getHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
       __typename: "Node",
       id: string,
       type?: string | null,
@@ -2389,15 +2339,41 @@ export type SyncNodesQuery = {
       focusable?: boolean | null,
       style?: string | null,
       className?: string | null,
-      flowId: string,
+      diagramId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListHandlesQueryVariables = {
+  filter?: ModelHandleFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListHandlesQuery = {
+  listHandles?:  {
+    __typename: "ModelHandleConnection",
+    items:  Array< {
+      __typename: "Handle",
+      id: string,
+      type?: HandleType | null,
+      position?: Position | null,
+      connectable?: boolean | null,
+      connectstart?: boolean | null,
+      connectend?: boolean | null,
+      onconnect?: string | null,
+      isvalid?: string | null,
+      style?: string | null,
+      nodeId?: string | null,
+      createdAt?: string | null,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2451,8 +2427,8 @@ export type GetEdgeQuery = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -2460,16 +2436,10 @@ export type GetEdgeQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2503,58 +2473,11 @@ export type ListEdgesQuery = {
       interactionWidth?: number | null,
       focusable?: boolean | null,
       updatable?: boolean | null,
-      flowId: string,
+      diagramId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncEdgesQueryVariables = {
-  filter?: ModelEdgeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncEdgesQuery = {
-  syncEdges?:  {
-    __typename: "ModelEdgeConnection",
-    items:  Array< {
-      __typename: "Edge",
-      id: string,
-      type?: string | null,
-      source?: string | null,
-      target?: string | null,
-      sourceHandle?: string | null,
-      targetHandle?: string | null,
-      style?: string | null,
-      animated?: boolean | null,
-      hidden?: boolean | null,
-      deletable?: boolean | null,
-      className?: string | null,
-      sourceNode?: string | null,
-      targetNode?: string | null,
-      selected?: boolean | null,
-      zIndex?: number | null,
-      ariaLabel?: string | null,
-      interactionWidth?: number | null,
-      focusable?: boolean | null,
-      updatable?: boolean | null,
-      flowId: string,
-      createdAt?: string | null,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2575,19 +2498,14 @@ export type GetUserQuery = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2612,43 +2530,8 @@ export type ListUsersQuery = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      username?: string | null,
-      avatar?: string | null,
-      firstname?: string | null,
-      lastname?: string | null,
-      role?: string | null,
-      email?: string | null,
-      cognitoid?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2676,12 +2559,8 @@ export type DocumentsByTopicIdAndCreatedAtQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2709,29 +2588,25 @@ export type DocumentsByUserIdAndCreatedAtQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
-export type FlowsByUserIdAndCreatedAtQueryVariables = {
+export type DiagramsByUserIdAndCreatedAtQueryVariables = {
   userId: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelFlowFilterInput | null,
+  filter?: ModelDiagramFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type FlowsByUserIdAndCreatedAtQuery = {
-  flowsByUserIdAndCreatedAt?:  {
-    __typename: "ModelFlowConnection",
+export type DiagramsByUserIdAndCreatedAtQuery = {
+  diagramsByUserIdAndCreatedAt?:  {
+    __typename: "ModelDiagramConnection",
     items:  Array< {
-      __typename: "Flow",
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -2739,17 +2614,13 @@ export type FlowsByUserIdAndCreatedAtQuery = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
-export type NodesByFlowIdAndCreatedAtQueryVariables = {
-  flowId: string,
+export type NodesByDiagramIdAndCreatedAtQueryVariables = {
+  diagramId: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNodeFilterInput | null,
@@ -2757,8 +2628,8 @@ export type NodesByFlowIdAndCreatedAtQueryVariables = {
   nextToken?: string | null,
 };
 
-export type NodesByFlowIdAndCreatedAtQuery = {
-  nodesByFlowIdAndCreatedAt?:  {
+export type NodesByDiagramIdAndCreatedAtQuery = {
+  nodesByDiagramIdAndCreatedAt?:  {
     __typename: "ModelNodeConnection",
     items:  Array< {
       __typename: "Node",
@@ -2785,20 +2656,47 @@ export type NodesByFlowIdAndCreatedAtQuery = {
       focusable?: boolean | null,
       style?: string | null,
       className?: string | null,
-      flowId: string,
+      diagramId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
-export type EdgesByFlowIdAndCreatedAtQueryVariables = {
-  flowId: string,
+export type HandlesByNodeIdAndCreatedAtQueryVariables = {
+  nodeId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelHandleFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type HandlesByNodeIdAndCreatedAtQuery = {
+  handlesByNodeIdAndCreatedAt?:  {
+    __typename: "ModelHandleConnection",
+    items:  Array< {
+      __typename: "Handle",
+      id: string,
+      type?: HandleType | null,
+      position?: Position | null,
+      connectable?: boolean | null,
+      connectstart?: boolean | null,
+      connectend?: boolean | null,
+      onconnect?: string | null,
+      isvalid?: string | null,
+      style?: string | null,
+      nodeId?: string | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type EdgesByDiagramIdAndCreatedAtQueryVariables = {
+  diagramId: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelEdgeFilterInput | null,
@@ -2806,8 +2704,8 @@ export type EdgesByFlowIdAndCreatedAtQueryVariables = {
   nextToken?: string | null,
 };
 
-export type EdgesByFlowIdAndCreatedAtQuery = {
-  edgesByFlowIdAndCreatedAt?:  {
+export type EdgesByDiagramIdAndCreatedAtQuery = {
+  edgesByDiagramIdAndCreatedAt?:  {
     __typename: "ModelEdgeConnection",
     items:  Array< {
       __typename: "Edge",
@@ -2830,15 +2728,11 @@ export type EdgesByFlowIdAndCreatedAtQuery = {
       interactionWidth?: number | null,
       focusable?: boolean | null,
       updatable?: boolean | null,
-      flowId: string,
+      diagramId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2864,9 +2758,6 @@ export type OnCreateDocumentSubscription = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -2881,16 +2772,10 @@ export type OnCreateDocumentSubscription = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2916,9 +2801,6 @@ export type OnUpdateDocumentSubscription = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -2933,16 +2815,10 @@ export type OnUpdateDocumentSubscription = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2968,9 +2844,6 @@ export type OnDeleteDocumentSubscription = {
       content?: string | null,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     topicId?: string | null,
     user?:  {
@@ -2985,16 +2858,10 @@ export type OnDeleteDocumentSubscription = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3013,13 +2880,9 @@ export type OnCreateTopicSubscription = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3038,13 +2901,9 @@ export type OnUpdateTopicSubscription = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3063,23 +2922,19 @@ export type OnDeleteTopicSubscription = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type OnCreateFlowSubscriptionVariables = {
-  filter?: ModelSubscriptionFlowFilterInput | null,
+export type OnCreateDiagramSubscriptionVariables = {
+  filter?: ModelSubscriptionDiagramFilterInput | null,
 };
 
-export type OnCreateFlowSubscription = {
-  onCreateFlow?:  {
-    __typename: "Flow",
+export type OnCreateDiagramSubscription = {
+  onCreateDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -3087,12 +2942,10 @@ export type OnCreateFlowSubscription = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -3106,26 +2959,20 @@ export type OnCreateFlowSubscription = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type OnUpdateFlowSubscriptionVariables = {
-  filter?: ModelSubscriptionFlowFilterInput | null,
+export type OnUpdateDiagramSubscriptionVariables = {
+  filter?: ModelSubscriptionDiagramFilterInput | null,
 };
 
-export type OnUpdateFlowSubscription = {
-  onUpdateFlow?:  {
-    __typename: "Flow",
+export type OnUpdateDiagramSubscription = {
+  onUpdateDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -3133,12 +2980,10 @@ export type OnUpdateFlowSubscription = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -3152,26 +2997,20 @@ export type OnUpdateFlowSubscription = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
-export type OnDeleteFlowSubscriptionVariables = {
-  filter?: ModelSubscriptionFlowFilterInput | null,
+export type OnDeleteDiagramSubscriptionVariables = {
+  filter?: ModelSubscriptionDiagramFilterInput | null,
 };
 
-export type OnDeleteFlowSubscription = {
-  onDeleteFlow?:  {
-    __typename: "Flow",
+export type OnDeleteDiagramSubscription = {
+  onDeleteDiagram?:  {
+    __typename: "Diagram",
     id: string,
     name?: string | null,
     slug?: string | null,
@@ -3179,12 +3018,10 @@ export type OnDeleteFlowSubscription = {
     nodes?:  {
       __typename: "ModelNodeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     edges?:  {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     user?:  {
       __typename: "User",
@@ -3198,16 +3035,10 @@ export type OnDeleteFlowSubscription = {
       cognitoid?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     userId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3255,8 +3086,12 @@ export type OnCreateNodeSubscription = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -3264,16 +3099,10 @@ export type OnCreateNodeSubscription = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3321,8 +3150,12 @@ export type OnUpdateNodeSubscription = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -3330,16 +3163,10 @@ export type OnUpdateNodeSubscription = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3387,8 +3214,12 @@ export type OnDeleteNodeSubscription = {
     focusable?: boolean | null,
     style?: string | null,
     className?: string | null,
-    flow?:  {
-      __typename: "Flow",
+    handles?:  {
+      __typename: "ModelHandleConnection",
+      nextToken?: string | null,
+    } | null,
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -3396,16 +3227,163 @@ export type OnDeleteNodeSubscription = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnCreateHandleSubscriptionVariables = {
+  filter?: ModelSubscriptionHandleFilterInput | null,
+};
+
+export type OnCreateHandleSubscription = {
+  onCreateHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      diagramId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateHandleSubscriptionVariables = {
+  filter?: ModelSubscriptionHandleFilterInput | null,
+};
+
+export type OnUpdateHandleSubscription = {
+  onUpdateHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      diagramId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteHandleSubscriptionVariables = {
+  filter?: ModelSubscriptionHandleFilterInput | null,
+};
+
+export type OnDeleteHandleSubscription = {
+  onDeleteHandle?:  {
+    __typename: "Handle",
+    id: string,
+    type?: HandleType | null,
+    position?: Position | null,
+    connectable?: boolean | null,
+    connectstart?: boolean | null,
+    connectend?: boolean | null,
+    onconnect?: string | null,
+    isvalid?: string | null,
+    style?: string | null,
+    node?:  {
+      __typename: "Node",
+      id: string,
+      type?: string | null,
+      sourcePosition?: Position | null,
+      targetPosition?: Position | null,
+      hidden?: boolean | null,
+      selected?: boolean | null,
+      dragging?: boolean | null,
+      draggable?: boolean | null,
+      selectable?: boolean | null,
+      connectable?: boolean | null,
+      resizing?: boolean | null,
+      deletable?: boolean | null,
+      dragHandle?: string | null,
+      width?: number | null,
+      height?: number | null,
+      parentId?: string | null,
+      zIndex?: number | null,
+      extent?: string | null,
+      expandParent?: boolean | null,
+      ariaLabel?: string | null,
+      focusable?: boolean | null,
+      style?: string | null,
+      className?: string | null,
+      diagramId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    nodeId?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
   } | null,
 };
 
@@ -3459,8 +3437,8 @@ export type OnCreateEdgeSubscription = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -3468,16 +3446,10 @@ export type OnCreateEdgeSubscription = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3531,8 +3503,8 @@ export type OnUpdateEdgeSubscription = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -3540,16 +3512,10 @@ export type OnUpdateEdgeSubscription = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3603,8 +3569,8 @@ export type OnDeleteEdgeSubscription = {
     interactionWidth?: number | null,
     focusable?: boolean | null,
     updatable?: boolean | null,
-    flow?:  {
-      __typename: "Flow",
+    diagram?:  {
+      __typename: "Diagram",
       id: string,
       name?: string | null,
       slug?: string | null,
@@ -3612,16 +3578,10 @@ export type OnDeleteEdgeSubscription = {
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
-    flowId: string,
+    diagramId: string,
     createdAt?: string | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3642,19 +3602,14 @@ export type OnCreateUserSubscription = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3675,19 +3630,14 @@ export type OnUpdateUserSubscription = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3708,18 +3658,13 @@ export type OnDeleteUserSubscription = {
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    flows?:  {
-      __typename: "ModelFlowConnection",
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };

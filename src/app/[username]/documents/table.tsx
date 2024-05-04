@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
 import { Avatar, Badge, Table, Group, Text, ActionIcon, Anchor, Title, Box, Container, rem } from '@mantine/core'
@@ -9,10 +10,13 @@ import Markdown from 'react-markdown'
 import { IconPencil, IconEye, IconTrash, IconAlertCircle } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 
-export default function Docs(data : any) {
+export default function DocumentsTable(data : any) {
+  console.log(data)
   const doclist = data.data
   const client = generateClient()
-
+  const pathname = usePathname()
+  console.log(pathname)
+  
   async function trashDocument(doc : any) {
     try {
       await client.graphql({ query: mutations.deleteDocument, variables: { input: { id : doc.id, _version: doc._version} } })
@@ -47,14 +51,7 @@ export default function Docs(data : any) {
           {doc.slug}
         </Text>
       </Table.Td>
-      <Table.Td>
-        <Group gap='sm'>
-          <Avatar size={30} src={doc.avatar} radius={30} />
-          <Text fz='sm' fw={500}>
-            {doc.user.username}
-          </Text>
-        </Group>
-      </Table.Td>
+    
       <Table.Td>
         <Badge variant='light'>{doc.status}</Badge>
       </Table.Td>
@@ -79,7 +76,7 @@ export default function Docs(data : any) {
             variant='subtle'
             color='gray'
             component={Link}
-            href={`/docs/${doc.slug}`}>
+            href={`${pathname}/documents/${doc.slug}`}>
             <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon
@@ -110,7 +107,6 @@ export default function Docs(data : any) {
           <Table.Th>Name</Table.Th>
           <Table.Th>Description</Table.Th>
           <Table.Th>Slug</Table.Th>
-          <Table.Th>Author</Table.Th>
           <Table.Th>Status</Table.Th>
           <Table.Th />
         </Table.Tr>

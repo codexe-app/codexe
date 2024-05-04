@@ -26,3 +26,12 @@ a {
 .mantine-NumberInput-input {
   max-width: 80px;
 }
+
+.mantine-Stepper-steps {
+  padding: calc(1.875rem* var(--mantine-scale));
+  border-radius: var(--mantine-radius-sm);
+  border: 1px solid var(--mantine-color-gray-3);
+  box-shadow: var(--mantine-shadow-sm);
+  background-color: var(--mantine-color-body);
+}
+

@@ -46,6 +46,7 @@ export default function Page() {
         password: values.password,
       })
       setSignedin(true)
+      router.push(`/${values.username}`)
       setApierror({ active: false, code: 'No Error', message: 'No Message' })
     } catch (error) {
       //@ts-ignore
@@ -125,9 +126,9 @@ export default function Page() {
                 You are signed in as {user.username}
               </Title>
               <Text c='dimmed' size='sm' ta='center' mt={5}>
-                Need to make some changes?&nbsp;
-                <Anchor size='sm' component={Link} href={`/account/profile/${user.username}`}>
-                  Profile
+                Goto your&nbsp;
+                <Anchor size='sm' component={Link} href={`/${user.username}`}>
+                  Dashboard
                 </Anchor>
               </Text>
               {apierror.active ? (

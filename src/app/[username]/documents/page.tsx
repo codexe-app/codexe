@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <Container size='responsive'>
       <Flex align='end' justify='space-between'>
         <Title order={2}>Documents</Title>
-        <Button variant='outline' component={Link} href='/docs/new' size='xs' mb='xs'>
+        <Button variant='outline' component={Link} href='/documents/new' size='xs' mb='xs'>
           New Document
           <IconFilePlus size={14} />
         </Button>

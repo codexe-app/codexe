@@ -2,7 +2,7 @@ projects:
   codexe:
     schemaPath: src/graphql/schema.json
     includes:
-      - src/graphql/**/*.ts
+      - src/graphql/*.ts
     excludes:
       - ./amplify/**
     extensions:

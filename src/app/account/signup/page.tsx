@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { signUp, confirmSignUp, autoSignIn } from 'aws-amplify/auth'
 import { useForm } from '@mantine/form'
-import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, Box, Group, Button, Alert, Stack } from '@mantine/core'
+import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, BackgroundImage, Group, Button, Alert, Stack } from '@mantine/core'
 import { IconForms, IconMailOpened, IconKey, IconAlertCircle } from '@tabler/icons-react'
 
 export default function Page() {
@@ -91,92 +91,98 @@ export default function Page() {
   }
 
   return (
-    <Container size='responsive'>
-      <Container size='lg'>
-        <Stepper active={active}>
-          <Stepper.Step icon={<IconForms />} label='Create an account' description='Fill out the form below' loading={account}>
-            <Container size={420} my={40}>
-              <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-                <form
-                  onSubmit={signup.onSubmit(
-                    (values, event) => {
-                      handleSignUp(values)
-                    },
-                    (validationErrors, values, event) => {
-                      console.log(
-                        validationErrors, // <- form.errors at the moment of submit
-                        values, // <- form.getValues() at the moment of submit
-                        event // <- form element submit event
-                      )
-                    }
-                  )}>
-                  <Stack>
-                    <Title ta='center' order={4}  mb='sm'>
-                    Account Create
+    <Container size='responsive' px={0}>
+      <BackgroundImage src='/dots.svg'>
+        <Container size='lg' py='xl'>
+          <Stepper active={active}>
+            <Stepper.Step icon={<IconForms />} label='Create an account' description='Fill out the form below' loading={account}>
+              <Container size={420} my={40}>
+                <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
+                  <form
+                    onSubmit={signup.onSubmit(
+                      (values, event) => {
+                        handleSignUp(values)
+                      },
+                      (validationErrors, values, event) => {
+                        console.log(
+                          validationErrors, // <- form.errors at the moment of submit
+                          values, // <- form.getValues() at the moment of submit
+                          event // <- form element submit event
+                        )
+                      }
+                    )}>
+                    <Stack gap='xs'>
+                      <Title ta='center' order={4} mb='xs'>
+                        Create an Account
+                      </Title>
+                      <TextInput label='Username' placeholder='username' required {...signup.getInputProps('username')} size='xs' radius='xs' />
+                      <PasswordInput label='Password' placeholder='password' required {...signup.getInputProps('password')} size='xs' radius='xs' />
+                      <TextInput label='First Name' placeholder='First Name' required {...signup.getInputProps('given_name')} size='xs' radius='xs' />
+                      <TextInput label='Last Name' placeholder='Last Name' required {...signup.getInputProps('family_name')} size='xs' radius='xs' />
+                      <TextInput label='Email' placeholder='you@codexe.info' required {...signup.getInputProps('email')} size='xs' radius='xs' />
+                      {apierror.active ? (
+                        <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
+                          {apierror.message}
+                        </Alert>
+                      ) : null}
+                      <Button fullWidth mt='md' type='submit'>
+                        Sign Up
+                      </Button>
+                    </Stack>
+                  </form>
+                </Paper>
+              </Container>
+            </Stepper.Step>
+            <Stepper.Step icon={<IconMailOpened />} label='Check your email' description='Then enter the code below' loading={verify}>
+              <Container size={420} my={40}>
+                <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
+                  <Stack align='center'>
+                    <Title ta='center' order={4} mb='sm'>
+                      Enter your verification code
                     </Title>
-                    <TextInput label='Username' placeholder='username' required {...signup.getInputProps('username')} />
-                    <PasswordInput label='Password' placeholder='password' required {...signup.getInputProps('password')} />
-                    <TextInput label='First Name' placeholder='First Name' required {...signup.getInputProps('given_name')} />
-                    <TextInput label='Last Name' placeholder='Last Name' required {...signup.getInputProps('family_name')} />
-                    <TextInput label='Email' placeholder='you@codexe.info' required {...signup.getInputProps('email')} />
+                    <PinInput length={6} type='number' onComplete={(value) => verifyEmail(value)} />
                     {apierror.active ? (
                       <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
                         {apierror.message}
                       </Alert>
                     ) : null}
-                    <Button fullWidth mt='md' type='submit'>
-                      Sign Up
-                    </Button>
                   </Stack>
-                </form>
-              </Paper>
-            </Container>
-          </Stepper.Step>
-          <Stepper.Step icon={<IconMailOpened />} label='Check your email' description='Then enter the code below' loading={verify}>
-            <Container size={420} my={40}>
-              <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-                <Stack align='center'>
-                  <Title ta='center' order={4}  mb='sm'>
-                    Enter your verification code
-                  </Title>
-                  <PinInput length={6} type='number' onComplete={(value) => verifyEmail(value)} />
-                  {apierror.active ? (
-                    <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
-                      {apierror.message}
-                    </Alert>
-                  ) : null}
-                </Stack>
-              </Paper>
-            </Container>
-          </Stepper.Step>
-          <Stepper.Step icon={<IconKey />} label='Auto Login' description='And you should now be logged in.' loading={signin}>
-            <Container size={420} my={40}>
-              <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-                <Stack align='center'>
-                  <Title ta='center' order={4}  mb='sm'>
-                    Code is ok, signing you in
-                  </Title>
-                </Stack>
-              </Paper>
-            </Container>
-          </Stepper.Step>
-          <Stepper.Completed>
-            <Container size={420} my={40}>
-              <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-                <Stack align='center'>
-                  <Title ta='center' order={3} >
-                    Thanks for signing up {signup.values.username}
-                  </Title>
-                </Stack>
-                <Group justify='center' mt='xl'>
-                  <Button variant='default' component={Link} href={`/profile/${signup.values.username}`}>Profile</Button>
-                  <Button component={Link} href={`/${signup.values.username}`}>Dashboard</Button>
-                </Group>
-              </Paper>
-            </Container>
-          </Stepper.Completed>
-        </Stepper>
-      </Container>
+                </Paper>
+              </Container>
+            </Stepper.Step>
+            <Stepper.Step icon={<IconKey />} label='Auto Login' description='And you should now be logged in.' loading={signin}>
+              <Container size={420} my={40}>
+                <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
+                  <Stack align='center'>
+                    <Title ta='center' order={4} mb='sm'>
+                      Code is ok, signing you in
+                    </Title>
+                  </Stack>
+                </Paper>
+              </Container>
+            </Stepper.Step>
+            <Stepper.Completed>
+              <Container size={420} my={40}>
+                <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
+                  <Stack align='center'>
+                    <Title ta='center' order={3}>
+                      Thanks for signing up {signup.values.username}
+                    </Title>
+                  </Stack>
+                  <Group justify='center' mt='xl'>
+                    <Button variant='default' component={Link} href={`/profile/${signup.values.username}`}>
+                      Profile
+                    </Button>
+                    <Button component={Link} href={`/${signup.values.username}`}>
+                      Dashboard
+                    </Button>
+                  </Group>
+                </Paper>
+              </Container>
+            </Stepper.Completed>
+          </Stepper>
+        </Container>
+      </BackgroundImage>
     </Container>
   )
 }

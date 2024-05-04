@@ -1,16 +1,10 @@
 import Link from 'next/link'
 import { Title, Text, Button, Container } from '@mantine/core'
-import { Dots } from '@/components/dots'
 import classes from './page.module.css'
 
 export default function Page() {
   return (
     <Container className={classes.wrapper} size={1400}>
-      <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
-      <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
-      <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
-      <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
-
       <div className={classes.inner}>
         <Title className={classes.title}>
           Welcome
