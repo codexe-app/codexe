@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "codexeapi",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2025-05-03T23:56:48.845Z",
+      "keyDescription": "CODEXEAPIKEY"
+    }
+  }
+}

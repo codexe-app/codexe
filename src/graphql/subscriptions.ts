@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from "../API";
 type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionInput: InputType;
   __generatedSubscriptionOutput: OutputType;
@@ -24,9 +24,6 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     topicId
@@ -41,17 +38,11 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -75,9 +66,6 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     topicId
@@ -92,17 +80,11 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -126,9 +108,6 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     topicId
@@ -143,17 +122,11 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -170,14 +143,10 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
     content
     documents {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -194,14 +163,10 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
     content
     documents {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -218,14 +183,10 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
     content
     documents {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -233,20 +194,18 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
   APITypes.OnDeleteTopicSubscriptionVariables,
   APITypes.OnDeleteTopicSubscription
 >;
-export const onCreateFlow = /* GraphQL */ `subscription OnCreateFlow($filter: ModelSubscriptionFlowFilterInput) {
-  onCreateFlow(filter: $filter) {
+export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filter: ModelSubscriptionDiagramFilterInput) {
+  onCreateDiagram(filter: $filter) {
     id
     name
     slug
     description
     nodes {
       nextToken
-      startedAt
       __typename
     }
     edges {
       nextToken
-      startedAt
       __typename
     }
     user {
@@ -260,38 +219,30 @@ export const onCreateFlow = /* GraphQL */ `subscription OnCreateFlow($filter: Mo
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateFlowSubscriptionVariables,
-  APITypes.OnCreateFlowSubscription
+  APITypes.OnCreateDiagramSubscriptionVariables,
+  APITypes.OnCreateDiagramSubscription
 >;
-export const onUpdateFlow = /* GraphQL */ `subscription OnUpdateFlow($filter: ModelSubscriptionFlowFilterInput) {
-  onUpdateFlow(filter: $filter) {
+export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filter: ModelSubscriptionDiagramFilterInput) {
+  onUpdateDiagram(filter: $filter) {
     id
     name
     slug
     description
     nodes {
       nextToken
-      startedAt
       __typename
     }
     edges {
       nextToken
-      startedAt
       __typename
     }
     user {
@@ -305,38 +256,30 @@ export const onUpdateFlow = /* GraphQL */ `subscription OnUpdateFlow($filter: Mo
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateFlowSubscriptionVariables,
-  APITypes.OnUpdateFlowSubscription
+  APITypes.OnUpdateDiagramSubscriptionVariables,
+  APITypes.OnUpdateDiagramSubscription
 >;
-export const onDeleteFlow = /* GraphQL */ `subscription OnDeleteFlow($filter: ModelSubscriptionFlowFilterInput) {
-  onDeleteFlow(filter: $filter) {
+export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filter: ModelSubscriptionDiagramFilterInput) {
+  onDeleteDiagram(filter: $filter) {
     id
     name
     slug
     description
     nodes {
       nextToken
-      startedAt
       __typename
     }
     edges {
       nextToken
-      startedAt
       __typename
     }
     user {
@@ -350,23 +293,17 @@ export const onDeleteFlow = /* GraphQL */ `subscription OnDeleteFlow($filter: Mo
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteFlowSubscriptionVariables,
-  APITypes.OnDeleteFlowSubscription
+  APITypes.OnDeleteDiagramSubscriptionVariables,
+  APITypes.OnDeleteDiagramSubscription
 >;
 export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: ModelSubscriptionNodeFilterInput) {
   onCreateNode(filter: $filter) {
@@ -407,7 +344,11 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
     focusable
     style
     className
-    flow {
+    handles {
+      nextToken
+      __typename
+    }
+    diagram {
       id
       name
       slug
@@ -415,17 +356,11 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -472,7 +407,11 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
     focusable
     style
     className
-    flow {
+    handles {
+      nextToken
+      __typename
+    }
+    diagram {
       id
       name
       slug
@@ -480,17 +419,11 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -537,7 +470,11 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
     focusable
     style
     className
-    flow {
+    handles {
+      nextToken
+      __typename
+    }
+    diagram {
       id
       name
       slug
@@ -545,23 +482,167 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
   APITypes.OnDeleteNodeSubscriptionVariables,
   APITypes.OnDeleteNodeSubscription
+>;
+export const onCreateHandle = /* GraphQL */ `subscription OnCreateHandle($filter: ModelSubscriptionHandleFilterInput) {
+  onCreateHandle(filter: $filter) {
+    id
+    type
+    position
+    connectable
+    connectstart
+    connectend
+    onconnect
+    isvalid
+    style
+    node {
+      id
+      type
+      sourcePosition
+      targetPosition
+      hidden
+      selected
+      dragging
+      draggable
+      selectable
+      connectable
+      resizing
+      deletable
+      dragHandle
+      width
+      height
+      parentId
+      zIndex
+      extent
+      expandParent
+      ariaLabel
+      focusable
+      style
+      className
+      diagramId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nodeId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateHandleSubscriptionVariables,
+  APITypes.OnCreateHandleSubscription
+>;
+export const onUpdateHandle = /* GraphQL */ `subscription OnUpdateHandle($filter: ModelSubscriptionHandleFilterInput) {
+  onUpdateHandle(filter: $filter) {
+    id
+    type
+    position
+    connectable
+    connectstart
+    connectend
+    onconnect
+    isvalid
+    style
+    node {
+      id
+      type
+      sourcePosition
+      targetPosition
+      hidden
+      selected
+      dragging
+      draggable
+      selectable
+      connectable
+      resizing
+      deletable
+      dragHandle
+      width
+      height
+      parentId
+      zIndex
+      extent
+      expandParent
+      ariaLabel
+      focusable
+      style
+      className
+      diagramId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nodeId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateHandleSubscriptionVariables,
+  APITypes.OnUpdateHandleSubscription
+>;
+export const onDeleteHandle = /* GraphQL */ `subscription OnDeleteHandle($filter: ModelSubscriptionHandleFilterInput) {
+  onDeleteHandle(filter: $filter) {
+    id
+    type
+    position
+    connectable
+    connectstart
+    connectend
+    onconnect
+    isvalid
+    style
+    node {
+      id
+      type
+      sourcePosition
+      targetPosition
+      hidden
+      selected
+      dragging
+      draggable
+      selectable
+      connectable
+      resizing
+      deletable
+      dragHandle
+      width
+      height
+      parentId
+      zIndex
+      extent
+      expandParent
+      ariaLabel
+      focusable
+      style
+      className
+      diagramId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nodeId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteHandleSubscriptionVariables,
+  APITypes.OnDeleteHandleSubscription
 >;
 export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: ModelSubscriptionEdgeFilterInput) {
   onCreateEdge(filter: $filter) {
@@ -608,7 +689,7 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
     interactionWidth
     focusable
     updatable
-    flow {
+    diagram {
       id
       name
       slug
@@ -616,17 +697,11 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -679,7 +754,7 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
     interactionWidth
     focusable
     updatable
-    flow {
+    diagram {
       id
       name
       slug
@@ -687,17 +762,11 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -750,7 +819,7 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
     interactionWidth
     focusable
     updatable
-    flow {
+    diagram {
       id
       name
       slug
@@ -758,17 +827,11 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -787,20 +850,15 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     email
     documents {
       nextToken
-      startedAt
       __typename
     }
-    flows {
+    diagrams {
       nextToken
-      startedAt
       __typename
     }
     cognitoid
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -819,20 +877,15 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     email
     documents {
       nextToken
-      startedAt
       __typename
     }
-    flows {
+    diagrams {
       nextToken
-      startedAt
       __typename
     }
     cognitoid
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -851,20 +904,15 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     email
     documents {
       nextToken
-      startedAt
       __typename
     }
-    flows {
+    diagrams {
       nextToken
-      startedAt
       __typename
     }
     cognitoid
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }

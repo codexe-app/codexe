@@ -30,13 +30,13 @@ type Topic @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
 }
 
-type Flow @model @auth(rules: [{allow: public}]) {
+type Diagram @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   slug: String
   description: String
-  nodes: [Node] @hasMany(indexName: "byFlow", fields: ["id"])
-  edges: [Edge] @hasMany(indexName: "byFlow", fields: ["id"])
+  nodes: [Node] @hasMany(indexName: "byDiagram", fields: ["id"])
+  edges: [Edge] @hasMany(indexName: "byDiagram", fields: ["id"])
   user: User @belongsTo(fields: ["userId"])
   userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
@@ -69,8 +69,9 @@ type Node @model @auth(rules: [{allow: public}]) {
   focusable: Boolean
   style: String
   className: String
-  flow: Flow @belongsTo(fields: ["flowId"])
-  flowId: ID! @index(name: "byFlow", sortKeyFields: ["createdAt"])
+  handles: [Handle] @hasMany(indexName: "byNode", fields: ["id"])
+  diagram: Diagram @belongsTo(fields: ["diagramId"])
+  diagramId: ID! @index(name: "byDiagram", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
 }
 
@@ -88,6 +89,26 @@ enum Position {
   top
   right
   bottom
+}
+
+type Handle @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type: HandleType
+  position: Position
+  connectable: Boolean
+  connectstart: Boolean
+  connectend: Boolean
+  onconnect: String
+  isvalid: String
+  style: String
+  node: Node @belongsTo(fields: ["nodeId"])
+  nodeId: ID @index(name: "byNode", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime
+}
+
+enum HandleType {
+  target
+  source
 }
 
 type Edge @model @auth(rules: [{allow: public}]) {
@@ -113,8 +134,8 @@ type Edge @model @auth(rules: [{allow: public}]) {
   interactionWidth: Int
   focusable: Boolean
   updatable: Boolean
-  flow: Flow @belongsTo(fields: ["flowId"])
-  flowId: ID! @index(name: "byFlow", sortKeyFields: ["createdAt"])
+  diagram: Diagram @belongsTo(fields: ["diagramId"])
+  diagramId: ID! @index(name: "byDiagram", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
 }
 
@@ -146,7 +167,7 @@ type User @model @auth(rules: [{allow: public}]) {
   role: String
   email: String
   documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
-  flows: [Flow] @hasMany(indexName: "byUser", fields: ["id"])
+  diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
   cognitoid: String
 }
  

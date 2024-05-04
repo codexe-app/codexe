@@ -92,17 +92,6 @@ export default function Page() {
 
   return (
     <Container size='responsive'>
-      <Box mb='xl'>
-        <Title ta='center' order={2} >
-          Account Create
-        </Title>
-        <Text c='dimmed' size='sm' ta='center' mt={5}>
-          Already have an account?&nbsp;
-          <Anchor size='sm' component={Link} href='/account/signin'>
-            Sign In
-          </Anchor>
-        </Text>
-      </Box>
       <Container size='lg'>
         <Stepper active={active}>
           <Stepper.Step icon={<IconForms />} label='Create an account' description='Fill out the form below' loading={account}>
@@ -123,7 +112,7 @@ export default function Page() {
                   )}>
                   <Stack>
                     <Title ta='center' order={4}  mb='sm'>
-                      Enter your information
+                    Account Create
                     </Title>
                     <TextInput label='Username' placeholder='username' required {...signup.getInputProps('username')} />
                     <PasswordInput label='Password' placeholder='password' required {...signup.getInputProps('password')} />

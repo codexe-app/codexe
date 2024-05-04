@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from "../API";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
@@ -24,9 +24,6 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     topicId
@@ -41,17 +38,11 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -76,56 +67,15 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListDocumentsQueryVariables,
   APITypes.ListDocumentsQuery
->;
-export const syncDocuments = /* GraphQL */ `query SyncDocuments(
-  $filter: ModelDocumentFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncDocuments(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      slug
-      description
-      content
-      status
-      topicId
-      userId
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncDocumentsQueryVariables,
-  APITypes.SyncDocumentsQuery
 >;
 export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
   getTopic(id: $id) {
@@ -136,14 +86,10 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
     content
     documents {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -162,13 +108,9 @@ export const listTopics = /* GraphQL */ `query ListTopics(
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
@@ -176,54 +118,18 @@ export const listTopics = /* GraphQL */ `query ListTopics(
   APITypes.ListTopicsQueryVariables,
   APITypes.ListTopicsQuery
 >;
-export const syncTopics = /* GraphQL */ `query SyncTopics(
-  $filter: ModelTopicFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncTopics(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      slug
-      description
-      content
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncTopicsQueryVariables,
-  APITypes.SyncTopicsQuery
->;
-export const getFlow = /* GraphQL */ `query GetFlow($id: ID!) {
-  getFlow(id: $id) {
+export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
+  getDiagram(id: $id) {
     id
     name
     slug
     description
     nodes {
       nextToken
-      startedAt
       __typename
     }
     edges {
       nextToken
-      startedAt
       __typename
     }
     user {
@@ -237,27 +143,24 @@ export const getFlow = /* GraphQL */ `query GetFlow($id: ID!) {
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     userId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetFlowQueryVariables, APITypes.GetFlowQuery>;
-export const listFlows = /* GraphQL */ `query ListFlows(
-  $filter: ModelFlowFilterInput
+` as GeneratedQuery<
+  APITypes.GetDiagramQueryVariables,
+  APITypes.GetDiagramQuery
+>;
+export const listDiagrams = /* GraphQL */ `query ListDiagrams(
+  $filter: ModelDiagramFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listFlows(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listDiagrams(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
@@ -266,48 +169,16 @@ export const listFlows = /* GraphQL */ `query ListFlows(
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListFlowsQueryVariables, APITypes.ListFlowsQuery>;
-export const syncFlows = /* GraphQL */ `query SyncFlows(
-  $filter: ModelFlowFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncFlows(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      slug
-      description
-      userId
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncFlowsQueryVariables, APITypes.SyncFlowsQuery>;
+` as GeneratedQuery<
+  APITypes.ListDiagramsQueryVariables,
+  APITypes.ListDiagramsQuery
+>;
 export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
   getNode(id: $id) {
     id
@@ -347,7 +218,11 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     focusable
     style
     className
-    flow {
+    handles {
+      nextToken
+      __typename
+    }
+    diagram {
       id
       name
       slug
@@ -355,17 +230,11 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -400,33 +269,28 @@ export const listNodes = /* GraphQL */ `query ListNodes(
       focusable
       style
       className
-      flowId
+      diagramId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListNodesQueryVariables, APITypes.ListNodesQuery>;
-export const syncNodes = /* GraphQL */ `query SyncNodes(
-  $filter: ModelNodeFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncNodes(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
+export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
+  getHandle(id: $id) {
+    id
+    type
+    position
+    connectable
+    connectstart
+    connectend
+    onconnect
+    isvalid
+    style
+    node {
       id
       type
       sourcePosition
@@ -450,20 +314,47 @@ export const syncNodes = /* GraphQL */ `query SyncNodes(
       focusable
       style
       className
-      flowId
+      diagramId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    nextToken
-    startedAt
+    nodeId
+    createdAt
+    updatedAt
     __typename
   }
 }
-` as GeneratedQuery<APITypes.SyncNodesQueryVariables, APITypes.SyncNodesQuery>;
+` as GeneratedQuery<APITypes.GetHandleQueryVariables, APITypes.GetHandleQuery>;
+export const listHandles = /* GraphQL */ `query ListHandles(
+  $filter: ModelHandleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listHandles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      type
+      position
+      connectable
+      connectstart
+      connectend
+      onconnect
+      isvalid
+      style
+      nodeId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListHandlesQueryVariables,
+  APITypes.ListHandlesQuery
+>;
 export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
   getEdge(id: $id) {
     id
@@ -509,7 +400,7 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
     interactionWidth
     focusable
     updatable
-    flow {
+    diagram {
       id
       name
       slug
@@ -517,17 +408,11 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
-    flowId
+    diagramId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -558,66 +443,16 @@ export const listEdges = /* GraphQL */ `query ListEdges(
       interactionWidth
       focusable
       updatable
-      flowId
+      diagramId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListEdgesQueryVariables, APITypes.ListEdgesQuery>;
-export const syncEdges = /* GraphQL */ `query SyncEdges(
-  $filter: ModelEdgeFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncEdges(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      type
-      source
-      target
-      sourceHandle
-      targetHandle
-      style
-      animated
-      hidden
-      deletable
-      className
-      sourceNode
-      targetNode
-      selected
-      zIndex
-      ariaLabel
-      interactionWidth
-      focusable
-      updatable
-      flowId
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncEdgesQueryVariables, APITypes.SyncEdgesQuery>;
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -629,20 +464,15 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     email
     documents {
       nextToken
-      startedAt
       __typename
     }
-    flows {
+    diagrams {
       nextToken
-      startedAt
       __typename
     }
     cognitoid
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -664,51 +494,13 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       cognitoid
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
-export const syncUsers = /* GraphQL */ `query SyncUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncUsers(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      username
-      avatar
-      firstname
-      lastname
-      role
-      email
-      cognitoid
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncUsersQueryVariables, APITypes.SyncUsersQuery>;
 export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -736,13 +528,9 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
@@ -777,13 +565,9 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
@@ -791,15 +575,15 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
   APITypes.DocumentsByUserIdAndCreatedAtQueryVariables,
   APITypes.DocumentsByUserIdAndCreatedAtQuery
 >;
-export const flowsByUserIdAndCreatedAt = /* GraphQL */ `query FlowsByUserIdAndCreatedAt(
+export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserIdAndCreatedAt(
   $userId: ID!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
-  $filter: ModelFlowFilterInput
+  $filter: ModelDiagramFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  flowsByUserIdAndCreatedAt(
+  diagramsByUserIdAndCreatedAt(
     userId: $userId
     createdAt: $createdAt
     sortDirection: $sortDirection
@@ -815,30 +599,26 @@ export const flowsByUserIdAndCreatedAt = /* GraphQL */ `query FlowsByUserIdAndCr
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.FlowsByUserIdAndCreatedAtQueryVariables,
-  APITypes.FlowsByUserIdAndCreatedAtQuery
+  APITypes.DiagramsByUserIdAndCreatedAtQueryVariables,
+  APITypes.DiagramsByUserIdAndCreatedAtQuery
 >;
-export const nodesByFlowIdAndCreatedAt = /* GraphQL */ `query NodesByFlowIdAndCreatedAt(
-  $flowId: ID!
+export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramIdAndCreatedAt(
+  $diagramId: ID!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
   $filter: ModelNodeFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  nodesByFlowIdAndCreatedAt(
-    flowId: $flowId
+  nodesByDiagramIdAndCreatedAt(
+    diagramId: $diagramId
     createdAt: $createdAt
     sortDirection: $sortDirection
     filter: $filter
@@ -869,33 +649,68 @@ export const nodesByFlowIdAndCreatedAt = /* GraphQL */ `query NodesByFlowIdAndCr
       focusable
       style
       className
-      flowId
+      diagramId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.NodesByFlowIdAndCreatedAtQueryVariables,
-  APITypes.NodesByFlowIdAndCreatedAtQuery
+  APITypes.NodesByDiagramIdAndCreatedAtQueryVariables,
+  APITypes.NodesByDiagramIdAndCreatedAtQuery
 >;
-export const edgesByFlowIdAndCreatedAt = /* GraphQL */ `query EdgesByFlowIdAndCreatedAt(
-  $flowId: ID!
+export const handlesByNodeIdAndCreatedAt = /* GraphQL */ `query HandlesByNodeIdAndCreatedAt(
+  $nodeId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelHandleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  handlesByNodeIdAndCreatedAt(
+    nodeId: $nodeId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      type
+      position
+      connectable
+      connectstart
+      connectend
+      onconnect
+      isvalid
+      style
+      nodeId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.HandlesByNodeIdAndCreatedAtQueryVariables,
+  APITypes.HandlesByNodeIdAndCreatedAtQuery
+>;
+export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramIdAndCreatedAt(
+  $diagramId: ID!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
   $filter: ModelEdgeFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  edgesByFlowIdAndCreatedAt(
-    flowId: $flowId
+  edgesByDiagramIdAndCreatedAt(
+    diagramId: $diagramId
     createdAt: $createdAt
     sortDirection: $sortDirection
     filter: $filter
@@ -922,20 +737,16 @@ export const edgesByFlowIdAndCreatedAt = /* GraphQL */ `query EdgesByFlowIdAndCr
       interactionWidth
       focusable
       updatable
-      flowId
+      diagramId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.EdgesByFlowIdAndCreatedAtQueryVariables,
-  APITypes.EdgesByFlowIdAndCreatedAtQuery
+  APITypes.EdgesByDiagramIdAndCreatedAtQueryVariables,
+  APITypes.EdgesByDiagramIdAndCreatedAtQuery
 >;

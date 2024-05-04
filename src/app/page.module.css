@@ -1,16 +1,10 @@
 .wrapper {
   position: relative;
-  padding-top: rem(120px);
-  padding-bottom: rem(80px);
-
-  @media (max-width: $mantine-breakpoint-sm) {
-    padding-top: rem(80px);
-    padding-bottom: rem(60px);
-  }
 }
 
 .inner {
   position: relative;
+  height: calc(100vh - 60px);
   z-index: 1;
 }
 
