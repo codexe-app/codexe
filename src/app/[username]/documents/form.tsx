@@ -41,9 +41,13 @@ export default function DocumentForm(props: any) {
   const [activeTab, setActiveTab] = useState<string | null>(props.tab)
   const form = useForm({
     initialValues: props.data,
+    onValuesChange: (values) => {
+      slugify(values.name);
+    },
   })
 
   function submitForm(values: any) {
+    //NEED SLUG DUPE CHECK
     if (props.new) {
       newDocument(values)
     } else {
@@ -134,6 +138,18 @@ export default function DocumentForm(props: any) {
     }
   }
 
+  function slugify(text : any) {
+    const snail = text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '')
+    form.setFieldValue('slug', snail)
+  }
+
   useEffect(() => {
     s3authurl(props.data?.graphic?.key).then((key) => {
       //@ts-ignore
@@ -159,7 +175,7 @@ export default function DocumentForm(props: any) {
         </Box>
         <SimpleGrid cols={2}>
           <Stack>
-            <TextInput label='Name' placeholder='Name' required {...form.getInputProps('name')} />
+            <TextInput label='Name' placeholder='Name' required key={form.key('name')} {...form.getInputProps('name')} />
             <Textarea label='Description' placeholder='Description' {...form.getInputProps('description')} />
             <Stack gap={2}>
               <Text fw={500} size='sm'>
@@ -209,7 +225,6 @@ export default function DocumentForm(props: any) {
                                   <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
                                 </Dropzone.Reject>
                                 <Dropzone.Idle>
-                                  
                                   <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
                                 </Dropzone.Idle>
                                 <div>
