@@ -2,17 +2,21 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { AppShell, Switch, Group, Stack, NavLink, Button, Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Switch, Group, Box, ActionIcon, Stack, NavLink, Button, Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
 import { signOut } from 'aws-amplify/auth'
-import { IconLogout, IconSearch, IconMoonStars, IconSun, IconHierarchy2, IconMarkdown, IconUsersGroup, IconIdBadge2, IconFilePlus, IconFiles, IconDashboard } from '@tabler/icons-react'
+import { IconLogout, IconSearch, IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconIdBadge2, IconFilePlus, IconFiles, IconDashboard } from '@tabler/icons-react'
+import UserMenu from './menu'
+import cx from 'clsx'
 import classes from './dash.module.css'
 
 export default function Shell(props: any) {
   const router = useRouter()
-  const { setColorScheme } = useMantineColorScheme();
-  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });  const [checked, setChecked] = useState(true)
+  const { setColorScheme } = useMantineColorScheme()
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
+  const [nav, setNav] = useState(false)
+  const [checked, setChecked] = useState(true)
   const [user, setUser] = useState(props.user)
   const [opened, { toggle }] = useDisclosure(false)
   const [userdata, setUserdata] = useLocalStorage({
@@ -31,28 +35,40 @@ export default function Shell(props: any) {
     }
   }
 
-  function switchIt(){
+  function switchScheme() {
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
     setChecked(!checked)
   }
 
   return (
-    <AppShell header={{ height: 60 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}>
+    <AppShell header={{ height: 60 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: nav, mobile: !opened } }}>
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
             <Link href='/'>
               <Image src='/logo.svg' height={36} />
             </Link>
-            <Group ml='xl' gap={0}>
-              <Switch
-                checked={checked}
-                onChange={() => switchIt()}
-                size='md'
-                color='dark.4'
-                onLabel={<IconSun style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
-                offLabel={<IconMoonStars style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
-              />
+            <Group ml='xl' gap='xs'>
+              <Group>
+                <Switch
+                  onChange={() => setNav(!nav)}
+                  size='md'
+                  color='dark.4'
+                  onLabel={<IconLayoutSidebarLeftExpand style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
+                  offLabel={<IconLayoutSidebarLeftCollapse style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
+                  visibleFrom='sm'
+                />
+                <ActionIcon onClick={() => switchScheme()} variant='default' size='lg' aria-label='Toggle color scheme'>
+                  <IconSun className={cx(classes.icon, classes.light)} stroke={2} />
+                  <IconMoon className={cx(classes.icon, classes.dark)} stroke={2} />
+                </ActionIcon>
+              </Group>
+              <Menu shadow='md' width={200}>
+                <Menu.Target>
+                  <Avatar src={user.avatar.url} radius='xl' hiddenFrom='sm' />
+                </Menu.Target>
+                <UserMenu user={user} handleSignOut={handleSignOut} />
+              </Menu>
             </Group>
           </Group>
         </Group>
@@ -92,41 +108,7 @@ export default function Shell(props: any) {
                 </Flex>
               </UnstyledButton>
             </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Label>Welcome {user.username}</Menu.Label>
-              <Menu.Item leftSection={<IconDashboard style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}`}>
-                Dashboard
-              </Menu.Item>
-              <Menu.Item leftSection={<IconIdBadge2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/profile`}>
-                Profile
-              </Menu.Item>
-              <Menu.Divider />
-              <Menu.Label>Stuff</Menu.Label>
-              <Menu.Item leftSection={<IconFiles style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/documents`}>
-                Documents
-              </Menu.Item>
-              <Menu.Item leftSection={<IconFilePlus style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/diagrams`}>
-                Diagrams
-              </Menu.Item>
-              <Menu.Divider />
-              <Menu.Label>Admin</Menu.Label>
-              <Menu.Item leftSection={<IconUsersGroup style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/admin/users`}>
-                Users
-              </Menu.Item>
-              <Menu.Item
-                leftSection={<IconSearch style={{ width: rem(14), height: rem(14) }} />}
-                rightSection={
-                  <Text size='xs' c='dimmed'>
-                    ⌘K
-                  </Text>
-                }>
-                Search
-              </Menu.Item>
-              <Menu.Divider />
-              <Menu.Item color='red' leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />} onClick={handleSignOut}>
-                Log Out
-              </Menu.Item>
-            </Menu.Dropdown>
+            <UserMenu user={user} handleSignOut={handleSignOut} />
           </Menu>
         </Stack>
       </AppShell.Navbar>

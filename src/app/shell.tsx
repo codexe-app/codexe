@@ -9,7 +9,7 @@ export default function Shell({ children }: { children: any }) {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
   const [checked, setChecked] = useState(true)
 
-  function switchIt() {
+  function switchScheme() {
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
     setChecked(!checked)
   }
@@ -28,7 +28,7 @@ export default function Shell({ children }: { children: any }) {
               </Button>
               <Switch
                 checked={checked}
-                onChange={() => switchIt()}
+                onChange={() => switchScheme()}
                 size='md'
                 color='dark.4'
                 onLabel={<IconSun style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
