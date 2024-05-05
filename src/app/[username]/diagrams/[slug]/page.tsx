@@ -1,7 +1,8 @@
 import { cookieBasedClient } from '@/utils/cookiebasedclient'
+import { Container } from '@mantine/core'
 import { listDiagrams } from '@/graphql/queries'
 import type { Diagram } from '@/graphql/API'
-import Flowchart from './flow'
+import DiagramCanvas from '../canvas'
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const variables = {
@@ -20,9 +21,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
     }
   }
 
-  const flow = response.data.listDiagrams.items[0]
-  const nodes = flow.nodes!.items
-  const edges = flow.edges!.items
+  const diagram = response.data.listDiagrams.items[0]
 
-  return <Flowchart flow={flow} nodes={nodes} edges={edges} />
+  return (
+    <Container size='responsive'>
+      <DiagramCanvas diagram={diagram} new={false} tab='view' />
+    </Container>
+  )
 }

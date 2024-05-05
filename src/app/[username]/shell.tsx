@@ -37,7 +37,7 @@ export default function Shell(props: any) {
   }
 
   return (
-    <AppShell header={{ height: 60 }} navbar={{ width: 220, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}>
+    <AppShell header={{ height: 60 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}>
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
@@ -59,7 +59,7 @@ export default function Shell(props: any) {
       </AppShell.Header>
       <AppShell.Navbar py='md'>
         <Stack h='calc(100vh - 60px)' justify='space-between'>
-          <Stack w='100%'>
+          <Stack w='100%' gap='xs'>
             <NavLink href={`/${user.username}`} label='Dashboard' leftSection={<IconDashboard size='1rem' stroke={1.5} />} />
             <NavLink href='#' label='Entries' leftSection={<IconFiles size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink href='#' label='Coming Soon' />
