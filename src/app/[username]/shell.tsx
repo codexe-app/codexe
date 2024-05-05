@@ -1,11 +1,10 @@
 'use client'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { AppShell, Switch, Group, Stack, NavLink, Button, Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
-import { Hub } from 'aws-amplify/utils'
 import { signOut } from 'aws-amplify/auth'
 import { IconLogout, IconSearch, IconMoonStars, IconSun, IconHierarchy2, IconMarkdown, IconUsersGroup, IconIdBadge2, IconFilePlus, IconFiles, IconDashboard } from '@tabler/icons-react'
 import classes from './dash.module.css'
@@ -32,7 +31,7 @@ export default function Shell(props: any) {
     }
   }
 
-  function switchIt(event : any){
+  function switchIt(){
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
     setChecked(!checked)
   }
@@ -48,7 +47,7 @@ export default function Shell(props: any) {
             <Group ml='xl' gap={0}>
               <Switch
                 checked={checked}
-                onChange={(event) => switchIt(event.currentTarget.checked)}
+                onChange={() => switchIt()}
                 size='md'
                 color='dark.4'
                 onLabel={<IconSun style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
@@ -82,12 +81,10 @@ export default function Shell(props: any) {
               <UnstyledButton className={classes.user}>
                 <Flex direction='row' gap={8}>
                   <Avatar src={user.avatar.url} radius='xl' />
-
                   <div style={{ flex: 1 }}>
                     <Text size='sm' w={500}>
                       {user.username}
                     </Text>
-
                     <Text c='dimmed' size='xs'>
                       {user.email}
                     </Text>
