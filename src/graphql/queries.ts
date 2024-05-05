@@ -21,6 +21,8 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -72,11 +74,19 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
       description
       content
       status
+      graphic {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+      }
       topicId
       userId
       createdAt
-      updatedAt
-      __typename
     }
     nextToken
     __typename
@@ -99,6 +109,8 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -151,6 +163,8 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -498,6 +512,8 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -511,6 +527,16 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         id
         name
         slug
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+        }
         description
         content
         status

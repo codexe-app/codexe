@@ -11,7 +11,7 @@ export default function ProfileCard(props: any) {
   const user = props.user
 
   return (
-    <Card radius='md'>
+    <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section style={sectionStyle}>
         <Group justify='space-between'>
           <Avatar radius='xl'></Avatar>
@@ -44,29 +44,6 @@ export default function ProfileCard(props: any) {
             {user.username}
           </Text>
         </Flex>
-      </Card.Section>
-      <Card.Section style={sectionStyle}>
-        <Group grow>
-          <Stack gap={4}>
-            <Text fz='sm' fw='500'>
-              Something
-            </Text>
-            <Title order={3}>9821</Title>
-          </Stack>
-          <Stack gap={4}>
-            <Text fz='sm' fw='500'>
-              Else
-            </Text>
-            <Title order={3}>Whoa</Title>
-          </Stack>
-        </Group>
-      </Card.Section>
-
-      <Card.Section style={sectionStyle}>
-        <Group>
-          <Button variant='light'>Fly</Button>
-          <Button>Land</Button>
-        </Group>
       </Card.Section>
     </Card>
   )

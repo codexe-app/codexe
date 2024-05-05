@@ -20,10 +20,9 @@ async function AuthGetCurrentUserServer() {
   }
 }
 
-export default async function Layout(props : any) {
+export default async function Layout(props: any) {
   const theuser = await AuthGetCurrentUserServer()
-  if ( props.params.username !== theuser.username )
-  {
+  if (props.params.username !== theuser.username) {
     redirect(`/${theuser.username}`)
   }
   return <Shell user={theuser}>{props.children}</Shell>

@@ -134,6 +134,8 @@ type ImageFile {
   title: String
   caption: String
   description: String
+  url: String
+  key: String
   source: String
   thumbnail: String
 }

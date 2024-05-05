@@ -6,12 +6,7 @@ import { IconFilePlus } from '@tabler/icons-react'
 import type { Document } from '@/graphql/API'
 import Docs from './table'
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const variables = {
-    filter: {
-      _deleted: { ne: true },
-    },
-  }
+export default async function Page() {
   const response = (await cookieBasedClient.graphql({
     query: listDocuments,
   })) as {

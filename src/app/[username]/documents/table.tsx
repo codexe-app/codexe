@@ -2,24 +2,23 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { generateClient } from 'aws-amplify/api'
+import { uploadData, getUrl, getProperties } from 'aws-amplify/storage'
 import * as mutations from '@/graphql/mutations'
-import { Avatar, Badge, Table, Group, Text, ActionIcon, Anchor, Title, Box, Container, rem } from '@mantine/core'
+import { Avatar, Badge, Table, Group, Text, ActionIcon, Card, Title, Box, Container, rem } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import Markdown from 'react-markdown'
 import { IconPencil, IconEye, IconTrash, IconAlertCircle } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 
-export default function DocumentsTable(data : any) {
-  console.log(data)
-  const doclist = data.data
+export default function DocumentsTable(props: any) {
+  const doclist = props.data
   const client = generateClient()
   const pathname = usePathname()
-  console.log(pathname)
-  
-  async function trashDocument(doc : any) {
+
+  async function trashDocument(doc: any) {
     try {
-      await client.graphql({ query: mutations.deleteDocument, variables: { input: { id : doc.id } } })
+      await client.graphql({ query: mutations.deleteDocument, variables: { input: { id: doc.id } } })
       notifications.show({
         title: doc.name,
         message: 'This document was deleted.',
@@ -33,8 +32,11 @@ export default function DocumentsTable(data : any) {
     }
   }
 
-  const rows = doclist.map((doc : any) => (
+  const rows = doclist.map((doc: any) => (
     <Table.Tr key={doc.id}>
+      <Table.Td>
+        <Avatar src={doc.graphic.url} radius='xs' size='lg' />
+      </Table.Td>
       <Table.Td>
         <Text fz='sm'> {dayjs(doc.updatedAt).format('MMMM D, YYYY')}</Text>
       </Table.Td>
@@ -51,18 +53,22 @@ export default function DocumentsTable(data : any) {
           {doc.slug}
         </Text>
       </Table.Td>
-    
       <Table.Td>
         <Badge variant='light'>{doc.status}</Badge>
       </Table.Td>
       <Table.Td>
         <Group gap={0} justify='flex-end'>
-        <ActionIcon
+          <ActionIcon
             variant='subtle'
             color='gray'
             onClick={() => {
               modals.openConfirmModal({
-                title: <Group><IconAlertCircle /><Title order={4}>{doc.name}</Title></Group>,
+                title: (
+                  <Group>
+                    <IconAlertCircle />
+                    <Title order={4}>{doc.name}</Title>
+                  </Group>
+                ),
                 children: <Text size='sm'>Are you sure you would like to delete this document?</Text>,
                 labels: { confirm: 'Delete', cancel: 'Cancel' },
                 confirmProps: { color: 'red' },
@@ -72,11 +78,7 @@ export default function DocumentsTable(data : any) {
             }}>
             <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon
-            variant='subtle'
-            color='gray'
-            component={Link}
-            href={`${pathname}/documents/${doc.slug}`}>
+          <ActionIcon variant='subtle' color='gray' component={Link} href={`${pathname}/documents/${doc.slug}`}>
             <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon
@@ -100,18 +102,21 @@ export default function DocumentsTable(data : any) {
   ))
 
   return (
-    <Table verticalSpacing='sm'>
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th>Modified</Table.Th>
-          <Table.Th>Name</Table.Th>
-          <Table.Th>Description</Table.Th>
-          <Table.Th>Slug</Table.Th>
-          <Table.Th>Status</Table.Th>
-          <Table.Th />
-        </Table.Tr>
-      </Table.Thead>
-      <Table.Tbody>{rows}</Table.Tbody>
-    </Table>
+    <Card shadow='sm' padding='lg' radius='md' withBorder>
+      <Table verticalSpacing='sm'>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th></Table.Th>
+            <Table.Th>Modified</Table.Th>
+            <Table.Th>Name</Table.Th>
+            <Table.Th>Description</Table.Th>
+            <Table.Th>Slug</Table.Th>
+            <Table.Th>Status</Table.Th>
+            <Table.Th />
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{rows}</Table.Tbody>
+      </Table>
+    </Card>
   )
 }

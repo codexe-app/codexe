@@ -2,8 +2,7 @@
 import Link from 'next/link'
 import { modals } from '@mantine/modals'
 import { Card, Overlay, Button, Text, Title, Group, Stack } from '@mantine/core'
-import classes from './action.module.css'
-import NewDocument from './documents/new'
+import classes from './dash.module.css'
 
 export default function CreateCard(props : any) {
   const user = props.user

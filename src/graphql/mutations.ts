@@ -24,6 +24,8 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -78,6 +80,8 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -132,6 +136,8 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -186,6 +192,8 @@ export const createTopic = /* GraphQL */ `mutation CreateTopic(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -219,6 +227,8 @@ export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -252,6 +262,8 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -285,6 +297,8 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -335,6 +349,8 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -385,6 +401,8 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -1004,6 +1022,8 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -1042,6 +1062,8 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -1080,6 +1102,8 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename

@@ -21,6 +21,8 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -72,6 +74,8 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -123,6 +127,8 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -174,6 +180,8 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -204,6 +212,8 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -234,6 +244,8 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -264,6 +276,8 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -311,6 +325,8 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -358,6 +374,8 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -947,6 +965,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -982,6 +1002,8 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
@@ -1017,6 +1039,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       title
       caption
       description
+      url
+      key
       source
       thumbnail
       __typename
