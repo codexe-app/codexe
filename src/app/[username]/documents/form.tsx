@@ -1,16 +1,16 @@
 'use client'
-import React, { useEffect, useState, Suspense } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { generateClient } from 'aws-amplify/api'
-import { uploadData, getUrl, getProperties } from 'aws-amplify/storage'
+import { uploadData, getUrl } from 'aws-amplify/storage'
 import * as mutations from '@/graphql/mutations'
 import { TextInput, SimpleGrid, Textarea, Flex, Fieldset, Accordion, Tabs, Avatar, Paper, Title, Text, Container, Box, Card, Group, Image, Stack, Button, Alert, Select, Progress, rem } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import { useForm } from '@mantine/form'
 import dayjs from 'dayjs'
-import { IconTrash, IconAlertCircle, IconDeviceFloppy, IconUpload, IconPhoto, IconX, IconPhotoUp, IconPhotoCheck } from '@tabler/icons-react'
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone'
+import { IconAlertCircle, IconDeviceFloppy, IconUpload, IconPhoto, IconX } from '@tabler/icons-react'
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import {
   MDXEditor,
   MDXEditorMethods,
@@ -54,7 +54,6 @@ export default function DocumentForm(props: any) {
   async function newDocument(values: any) {
     try {
       const doc = await client.graphql({ query: mutations.createDocument, variables: { input: values } })
-      console.log(doc)
       modals.openConfirmModal({
         title: `${values.name} was created`,
         children: <Text size='sm'>Would you like to continue editing or goto your documents list?</Text>,

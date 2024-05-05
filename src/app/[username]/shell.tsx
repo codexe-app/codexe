@@ -64,23 +64,23 @@ export default function Shell(props : any) {
             <Group ml='xl' gap={0}>
                 <Menu shadow='md' width={200}>
                   <Menu.Target>
-                    <Avatar radius='xl' />
+                    <Avatar src={user.avatar.url} radius='xl' />
                   </Menu.Target>
                   <Menu.Dropdown>
                     <Menu.Label>Welcome {user.username}</Menu.Label>
                     <Menu.Item leftSection={<IconDashboard style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}`}>
                       Dashboard
                     </Menu.Item>
-                    <Menu.Item leftSection={<IconIdBadge2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/account/profile/${user.username}`}>
+                    <Menu.Item leftSection={<IconIdBadge2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/profile`}>
                       Profile
                     </Menu.Item>
                     <Menu.Divider />
                     <Menu.Label>Stuff</Menu.Label>
-                    <Menu.Item leftSection={<IconFiles style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/docs`}>
-                      Docs
+                    <Menu.Item leftSection={<IconFiles style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/documents`}>
+                      Documents
                     </Menu.Item>
-                    <Menu.Item leftSection={<IconFilePlus style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/flow`}>
-                      Flowcharts
+                    <Menu.Item leftSection={<IconFilePlus style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/diagrams`}>
+                      Diagrams
                     </Menu.Item>
                     <Menu.Divider />
                     <Menu.Label>Admin</Menu.Label>
@@ -97,7 +97,6 @@ export default function Shell(props : any) {
                       Search
                     </Menu.Item>
                     <Menu.Divider />
-                    <Menu.Label>Danger Zone</Menu.Label>
                     <Menu.Item color='red' leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />} onClick={handleSignOut}>
                       Log Out
                     </Menu.Item>

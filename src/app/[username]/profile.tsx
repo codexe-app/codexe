@@ -11,10 +11,10 @@ export default function ProfileCard(props: any) {
   const user = props.user
 
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card shadow="sm" padding="lg" radius="md" withBorder w='100%'>
       <Card.Section style={sectionStyle}>
         <Group justify='space-between'>
-          <Avatar radius='xl'></Avatar>
+          <Avatar radius='xl' size='lg' src={user.avatar.url}></Avatar>
           <Menu withinPortal position='bottom-end' shadow='sm'>
             <Menu.Target>
               <ActionIcon variant='subtle'>

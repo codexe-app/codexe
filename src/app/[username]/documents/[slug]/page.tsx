@@ -23,16 +23,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   const document = response.data.listDocuments.items[0]
-  //console.log(`document:`, document)
   const graphic = graphicUpdate(document?.graphic?.key)
-  //console.log(`graphic:`, graphic)
 
   async function graphicUpdate(key: any) {
     try {
       const result = await getUrl({
         path: key,
       })
-      //console.log('getUrl ', result)
       return result.url
     } catch (error) {
       console.log('Error ', error)

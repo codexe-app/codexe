@@ -1,14 +1,34 @@
-import React from 'react'
-import { cookies } from 'next/headers'
 import { cookieBasedClient } from '@/utils/cookiebasedclient'
-import { getUser } from '@/graphql/queries'
-import type { User } from '@/graphql/API'
+import { Container } from '@mantine/core'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from 'aws-amplify/auth/server'
 import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
-import Shell from './shell'
+import type { User } from '@/graphql/API'
+import UserForm from './form'
 
 export const dynamic = 'force-dynamic'
+
+const getUser = /* GraphQL */ `query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    username
+    avatar {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      thumbnail
+    }
+    firstname
+    lastname
+    role
+    email
+  }
+}
+`
 
 async function AuthGetCurrentUserServer() {
   try {
@@ -23,12 +43,8 @@ async function AuthGetCurrentUserServer() {
   }
 }
 
-export default async function Layout(props: any) {
+export default async function Page() {
   const theuser = await AuthGetCurrentUserServer()
-  if (props.params.username !== theuser.username) {
-    redirect(`/${theuser.username}`)
-  }
-
   const response = (await cookieBasedClient.graphql({
     query: getUser,
     variables: {
@@ -41,5 +57,9 @@ export default async function Layout(props: any) {
   }
   const user = response.data.getUser
 
-  return <Shell user={user}>{props.children}</Shell>
+  return (
+    <Container size='responsive' p='lg'>
+      <UserForm user={user} />
+    </Container>
+  )
 }
