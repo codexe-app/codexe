@@ -1,0 +1,16 @@
+
+
+.wrapper {
+    position: relative!important;
+    min-width: 160px;
+    min-height: 90px;
+}
+
+.shape {
+    position: absolute!important;
+    z-index: -1;
+}
+
+.content{
+    padding: var(--mantine-spacing-lg);
+}

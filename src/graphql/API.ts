@@ -209,6 +209,7 @@ export type Node = {
   __typename: "Node",
   id: string,
   position?: XYPosition | null,
+  measured?: WHMeasured | null,
   data?: NodeData | null,
   type?: string | null,
   sourcePosition?: Position | null,
@@ -244,6 +245,12 @@ export type XYPosition = {
   __typename: "XYPosition",
   x?: number | null,
   y?: number | null,
+};
+
+export type WHMeasured = {
+  __typename: "WHMeasured",
+  width?: number | null,
+  height?: number | null,
 };
 
 export type NodeData = {
@@ -447,6 +454,7 @@ export type DeleteDiagramInput = {
 export type CreateNodeInput = {
   id?: string | null,
   position?: XYPositionInput | null,
+  measured?: WHMeasuredInput | null,
   data?: NodeDataInput | null,
   type?: string | null,
   sourcePosition?: Position | null,
@@ -478,6 +486,11 @@ export type CreateNodeInput = {
 export type XYPositionInput = {
   x?: number | null,
   y?: number | null,
+};
+
+export type WHMeasuredInput = {
+  width?: number | null,
+  height?: number | null,
 };
 
 export type NodeDataInput = {
@@ -542,6 +555,7 @@ export type ModelIntInput = {
 export type UpdateNodeInput = {
   id: string,
   position?: XYPositionInput | null,
+  measured?: WHMeasuredInput | null,
   data?: NodeDataInput | null,
   type?: string | null,
   sourcePosition?: Position | null,
@@ -1545,6 +1559,11 @@ export type CreateNodeMutation = {
       x?: number | null,
       y?: number | null,
     } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
+    } | null,
     data?:  {
       __typename: "NodeData",
       label?: string | null,
@@ -1612,6 +1631,11 @@ export type UpdateNodeMutation = {
       x?: number | null,
       y?: number | null,
     } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
+    } | null,
     data?:  {
       __typename: "NodeData",
       label?: string | null,
@@ -1678,6 +1702,11 @@ export type DeleteNodeMutation = {
       __typename: "XYPosition",
       x?: number | null,
       y?: number | null,
+    } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
     } | null,
     data?:  {
       __typename: "NodeData",
@@ -2436,6 +2465,11 @@ export type GetNodeQuery = {
       __typename: "XYPosition",
       x?: number | null,
       y?: number | null,
+    } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
     } | null,
     data?:  {
       __typename: "NodeData",
@@ -3407,6 +3441,11 @@ export type OnCreateNodeSubscription = {
       x?: number | null,
       y?: number | null,
     } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
+    } | null,
     data?:  {
       __typename: "NodeData",
       label?: string | null,
@@ -3473,6 +3512,11 @@ export type OnUpdateNodeSubscription = {
       x?: number | null,
       y?: number | null,
     } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
+    } | null,
     data?:  {
       __typename: "NodeData",
       label?: string | null,
@@ -3538,6 +3582,11 @@ export type OnDeleteNodeSubscription = {
       __typename: "XYPosition",
       x?: number | null,
       y?: number | null,
+    } | null,
+    measured?:  {
+      __typename: "WHMeasured",
+      width?: number | null,
+      height?: number | null,
     } | null,
     data?:  {
       __typename: "NodeData",

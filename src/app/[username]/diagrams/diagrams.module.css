@@ -6,3 +6,7 @@
   margin: 0;
   padding: var(--mantine-spacing-sm);
 }
+
+.edge {
+  border-left: 1px solid var(--app-shell-border-color);
+}

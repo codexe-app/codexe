@@ -213,9 +213,107 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
       content
       status
       userId
+      nodes {
+        items {
+          id
+          type
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          ariaLabel
+          focusable
+          style
+          className
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          deletable
+          data {
+            label
+            __typename
+          }
+          className
+          sourceNode
+          targetNode
+          selected
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+      }
     }
     nextToken
     __typename
@@ -231,6 +329,11 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     position {
       x
       y
+      __typename
+    }
+    measured {
+      width
+      height
       __typename
     }
     data {
@@ -296,6 +399,20 @@ export const listNodes = /* GraphQL */ `query ListNodes(
     items {
       id
       type
+      position {
+        x
+        y
+        __typename
+      }
+      measured {
+        width
+        height
+        __typename
+      }
+      data {
+        label
+        __typename
+      }
       sourcePosition
       targetPosition
       hidden

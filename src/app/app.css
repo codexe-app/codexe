@@ -35,3 +35,10 @@ a {
   background-color: var(--mantine-color-body);
 }
 
+.mantine-Accordion-content {
+  padding: 0!important;
+}
+
+:root {
+  --input-padding-y : 2px;
+}

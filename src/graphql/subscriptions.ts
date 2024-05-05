@@ -418,6 +418,11 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       y
       __typename
     }
+    measured {
+      width
+      height
+      __typename
+    }
     data {
       label
       __typename
@@ -483,6 +488,11 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       y
       __typename
     }
+    measured {
+      width
+      height
+      __typename
+    }
     data {
       label
       __typename
@@ -546,6 +556,11 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
     position {
       x
       y
+      __typename
+    }
+    measured {
+      width
+      height
       __typename
     }
     data {

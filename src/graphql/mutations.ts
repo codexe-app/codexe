@@ -448,6 +448,11 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
       y
       __typename
     }
+    measured {
+      width
+      height
+      __typename
+    }
     data {
       label
       __typename
@@ -516,6 +521,11 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
       y
       __typename
     }
+    measured {
+      width
+      height
+      __typename
+    }
     data {
       label
       __typename
@@ -582,6 +592,11 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
     position {
       x
       y
+      __typename
+    }
+    measured {
+      width
+      height
       __typename
     }
     data {

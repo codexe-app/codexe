@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { AppShell, Switch, Group, Box, ActionIcon, Stack, NavLink, Button, Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
@@ -13,6 +13,7 @@ import classes from './dash.module.css'
 
 export default function Shell(props: any) {
   const router = useRouter()
+  const pathname = usePathname()
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
   const [nav, setNav] = useState(false)

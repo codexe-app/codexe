@@ -43,6 +43,7 @@ type Diagram @model @auth(rules: [{ allow: public }]) {
 type Node @model @auth(rules: [{ allow: public }]) {
   id: ID!
   position: XYPosition
+  measured: WHMeasured
   data: NodeData
   type: String
   sourcePosition: Position
@@ -138,6 +139,11 @@ type ImageFile {
   key: String
   source: String
   thumbnail: String
+}
+
+type WHMeasured {
+  width: Int
+  height: Int
 }
 
 type XYPosition {
