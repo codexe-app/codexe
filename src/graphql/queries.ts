@@ -586,6 +586,58 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       role
       email
       cognitoid
+      avatar {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+          }
+          description
+          content
+          status
+          topicId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename

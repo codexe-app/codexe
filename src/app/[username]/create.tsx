@@ -1,16 +1,22 @@
-'use client'
 import Link from 'next/link'
-import { modals } from '@mantine/modals'
-import { Card, Overlay, Button, Text, Title, Group, Stack } from '@mantine/core'
+import { BackgroundImage, Overlay, Button, Text, Title, Group, Stack } from '@mantine/core'
 import classes from './dash.module.css'
 
-export default function CreateCard(props : any) {
+export default async function CreateCard(props: any) {
   const user = props.user
+  const image = await getData()
+
+  async function getData() {
+    const res = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+    return res.json()
+  }
+
   return (
-    <Card radius='md' className={classes.card}>
-      <Overlay className={classes.overlay} opacity={0.55} zIndex={0} />
-      <div className={classes.content}>
-        <Stack>
+    <BackgroundImage src={image.url} h='100%' p='xl' radius='md'>
+      <Stack>
         <Title order={3} fw={700} className={classes.title}>
           Create Item
         </Title>
@@ -18,16 +24,14 @@ export default function CreateCard(props : any) {
           It all starts with some kind of information.
         </Text>
         <Group>
-        <Button component={Link} href={`/${user.username}/documents/new`}>
-          Create Document
-        </Button>     
-        <Button component={Link} href={`/${user.username}/diagrams/new`}>
-          Create Diagram
-        </Button>
+          <Button component={Link} href={`/${user.username}/documents/new`}>
+            Create Document
+          </Button>
+          <Button component={Link} href={`/${user.username}/diagrams/new`}>
+            Create Diagram
+          </Button>
         </Group>
-   
-        </Stack>
-      </div>
-    </Card>
+      </Stack>
+    </BackgroundImage>
   )
 }
