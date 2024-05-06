@@ -748,6 +748,20 @@ export const listUsers = /* GraphQL */ `query ListUsers(
           description
           content
           status
+          nodes {
+            items {
+              id
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+            }
+            nextToken
+            __typename
+          }
           userId
           createdAt
           updatedAt

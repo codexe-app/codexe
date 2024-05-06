@@ -78,12 +78,6 @@ export default function Shell(props: any) {
         <Stack h='calc(100vh - 60px)' justify='space-between'>
           <Stack w='100%' gap='xs'>
             <NavLink href={`/${user.username}`} label='Dashboard' leftSection={<IconDashboard size='1rem' stroke={1.5} />} />
-            <NavLink href='#' label='Entries' leftSection={<IconFiles size='1rem' stroke={1.5} />} childrenOffset={28}>
-              <NavLink href='#' label='Coming Soon' />
-              <NavLink label='Nested' childrenOffset={28} href='#'>
-                <NavLink label='Child' href='#' />
-              </NavLink>
-            </NavLink>
             <NavLink href='#' label='Documents' leftSection={<IconMarkdown size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink label='All Documents' href={`/${user.username}/documents`} />
               <NavLink label='New Document' href={`/${user.username}/documents/new`} />
@@ -91,6 +85,12 @@ export default function Shell(props: any) {
             <NavLink href='#' label='Diagrams' leftSection={<IconHierarchy2 size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink label='All Diagrams' href={`/${user.username}/diagrams`} />
               <NavLink label='New Diagram' href={`/${user.username}/diagrams/new`} />
+            </NavLink>
+            <NavLink href='#' label='Entries' leftSection={<IconFiles size='1rem' stroke={1.5} />} childrenOffset={28}>
+              <NavLink href='#' label='Coming Soon' />
+              <NavLink label='Nested' childrenOffset={28} href='#'>
+                <NavLink label='Child' href='#' />
+              </NavLink>
             </NavLink>
           </Stack>
           <Menu shadow='md' width={200}>

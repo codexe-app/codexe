@@ -1,9 +1,6 @@
 import { nanoid } from 'nanoid'
 import { Container } from '@mantine/core'
 import { cookies } from 'next/headers'
-import { cookieBasedClient } from '@/utils/cookiebasedclient'
-import { getUser } from '@/graphql/queries'
-import type { User } from '@/graphql/API'
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from 'aws-amplify/auth/server'
 import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
@@ -31,6 +28,7 @@ export default async function Page() {
   const e2 = nanoid()
 
   const diagram = {
+    new: true,
     id: d1,
     name: 'New Diagram',
     slug: 'new-diagram',

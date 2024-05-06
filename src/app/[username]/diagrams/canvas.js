@@ -7,7 +7,7 @@ import { notifications } from '@mantine/notifications'
 import { Stack, ActionIcon, NumberInput, Fieldset, Title, Avatar, Badge, TextInput, Grid, Button, Group, Textarea, Select, ScrollArea, Accordion, SimpleGrid } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
-import { ReactFlow, ReactFlowProvider, useNodesState, useEdgesState, addEdge, useReactFlow, Panel, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
+import { ReactFlow, useNodesState, useEdgesState, addEdge, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
 import { IconTrash, IconDeviceFloppy, IconRestore, IconDialpad, IconLine, IconRefresh, IconSquarePlus, IconBookmarkPlus, IconPencil, IconEyeX } from '@tabler/icons-react'
 import { nanoid } from 'nanoid'
 import '@xyflow/react/dist/style.css'
@@ -16,17 +16,19 @@ import { nodetypes, nodeTypes } from '@/components/nodes'
 var _ = require('lodash')
 
 export default function DiagramCanvas(props) {
+  //console.log(props)
   const client = generateClient()
   const router = useRouter()
   const diagram = useForm({
     mode: 'controlled',
     initialValues: props.diagram,
     onValuesChange: (values) => {
-      console.log(values)
+      //console.log(values)
       slugify(values.name)
     },
   })
   const diagramid = props.diagram.id
+  const [saved, setSaved] = useState(props.diagram)
   const [newgram, setNewgram] = useState(props.new)
   const [addnodem, setAddnodem] = useState(false)
   const [nodes, setNodes, onNodesChange] = useNodesState(props.diagram.nodes?.items)
@@ -47,16 +49,6 @@ export default function DiagramCanvas(props) {
     },
   })
 
-  const addedge = useForm({
-    mode: 'uncontrolled',
-    initialValues: {
-      id: nanoid(),
-      source: '',
-      target: '',
-      diagramId: diagramid,
-    },
-  })
-
   const onAdd = useCallback(
     (values) => {
       modals.closeAll()
@@ -68,6 +60,7 @@ export default function DiagramCanvas(props) {
           x: (Math.random() * window.innerWidth) / 2,
           y: (Math.random() * window.innerHeight) / 2,
         },
+        diagramId: diagramid,
       }
       setNodes((nds) => nds.concat(newNode))
       setAddnodem(false)
@@ -76,28 +69,85 @@ export default function DiagramCanvas(props) {
   )
 
   function submitForm(values) {
-    //NEED SLUG DUPE CHECK
-    if (props.new) {
+    pushtoForm()
+    if (newgram) {
+      values.nodes.items.forEach((node, index) => {
+        newNode(node)
+      })
+      values.edges.items.forEach((edge, index) => {
+        newEdge(edge)
+      })
       newDiagram(values)
+      setNewgram(false)
     } else {
-      //saveDiagram(values)
+      const newnodes = values.nodes.items.filter((o2) => {
+        return !saved.nodes.items.some((o1) => o1.id === o2.id)
+      })
+      newnodes.forEach((node, index) => {
+        newNode(node)
+      })
+      const newedges = values.edges.items.filter((o2) => {
+        return !saved.edges.items.some((o1) => o1.id === o2.id)
+      })
+      newedges.forEach((edge, index) => {
+        newEdge(edge)
+      })
+      const updatednodes = values.nodes.items.filter((o2) => {
+        const index = saved.nodes.items.findIndex((o1) => o1.id === o2.id)
+        if (index === -1) return true
+        return JSON.stringify(o2) !== JSON.stringify(saved.nodes.items[index])
+      })
+      updatednodes.forEach((node, index) => {
+        updatetheNode(node)
+      })
+      const updatededges = values.edges.items.filter((o2) => {
+        const index = saved.edges.items.findIndex((o1) => o1.id === o2.id)
+        if (index === -1) return true
+        return JSON.stringify(o2) !== JSON.stringify(saved.edges.items[index])
+      })
+      updatededges.forEach((edge, index) => {
+        updatetheEdge(edge)
+      })
+      saveDiagram(values)
     }
   }
 
   async function newDiagram(values) {
-    let cleaned = _.omit(values, ['edges', 'nodes'])
+    let cleaned = _.omit(values, ['new', 'edges', 'nodes', 'content', 'createdAt', 'updatedAt', '__typename'])
+    console.log(cleaned)
     try {
       const doc = await client.graphql({ query: mutations.createDiagram, variables: { input: cleaned } })
+      //console.log(doc)
       notifications.show({
-        title: `${values.name} was created`,
-        message: `The Diagram was saved with the id: ${values.id}`,
+        title: `${values.name} was updated`,
+        message: `The Diagram was updated. id: ${values.id}`,
+      })
+      router.push(`/${props.user.username}/diagrams/${values.slug} `)
+    } catch (error) {
+      notifications.show({
+        title: 'There was an error updating the Diagram',
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem updateing the Dia :`, error)
+    }
+  }
+
+  async function saveDiagram(values) {
+    let cleaned = _.omit(values, ['edges', 'nodes', 'content', 'createdAt', 'updatedAt', '__typename'])
+    //console.log(cleaned)
+    try {
+      const doc = await client.graphql({ query: mutations.updateDiagram, variables: { input: cleaned } })
+      //console.log(doc)
+      notifications.show({
+        title: `${values.name} was updated`,
+        message: `The Diagram was updated. id: ${values.id}`,
       })
     } catch (error) {
       notifications.show({
-        title: 'There was an error creating the document',
+        title: 'There was an error saving the document',
         message: JSON.stringify(error),
       })
-      console.log(`There was a problem creating the Doc :`, error)
+      console.log(`There was a problem saving the Doc :`, error)
     }
   }
 
@@ -114,6 +164,7 @@ export default function DiagramCanvas(props) {
   }
 
   async function newEdge(theedgedata) {
+    console.log(`newEdge :`, theedgedata)
     try {
       const doc = await client.graphql({ query: mutations.createEdge, variables: { input: theedgedata } })
       notifications.show({
@@ -130,6 +181,7 @@ export default function DiagramCanvas(props) {
   }
 
   async function newNode(thenodedata) {
+    console.log(`newNode :`, thenodedata)
     try {
       const doc = await client.graphql({ query: mutations.createNode, variables: { input: thenodedata } })
       notifications.show({
@@ -145,13 +197,48 @@ export default function DiagramCanvas(props) {
     }
   }
 
+  async function updatetheNode(thenodedata) {
+    console.log(`updateNode :`, thenodedata)
+    let cleaned = _.omit(thenodedata, ['ariaLabel', 'className', 'createdAt', 'updatedAt', '__typename', 'position.__typename', 'measured.__typename', 'data.__typename'])
+    try {
+      await client.graphql({ query: mutations.updateNode, variables: { input: cleaned } })
+      notifications.show({
+        title: `${thenodedata.data.label}`,
+        message: 'The Node was updated',
+      })
+    } catch (error) {
+      notifications.show({
+        title: 'There was an error updating the Node',
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem updating the Node :`, error)
+    }
+  }
+
+  async function updatetheEdge(theedgedata) {
+    console.log(`updateEdge :`, theedgedata)
+    try {
+      await client.graphql({ query: mutations.updateEdge, variables: { input: theedgedata } })
+      notifications.show({
+        title: `${theedgedata.id}`,
+        message: 'The Edge was updated',
+      })
+    } catch (error) {
+      notifications.show({
+        title: 'There was an error updating the Edge',
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem updating the Edge :`, error)
+    }
+  }
+
   function pushtoForm() {
     //console.log(nodes)
     nodes.forEach((node, index) => {
       diagram.setFieldValue(`nodes.items.${index}`, node)
     })
     //console.log(edges)
-    nodes.forEach((edge, index) => {
+    edges.forEach((edge, index) => {
       diagram.setFieldValue(`edges.items.${index}`, edge)
     })
   }
@@ -209,11 +296,8 @@ export default function DiagramCanvas(props) {
                 <Select data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} size='xs' />
               </Group>
               <Textarea label='Description' {...diagram.getInputProps(`description`)} size='xs' />
-              <Button type='submit' fullWidth rightSection={<IconDeviceFloppy />}>
-                Save Diagram
-              </Button>
-              <Button leftSection={<IconBookmarkPlus size={14} />} variant='outline' onClick={pushtoForm}>
-                Sync to Form
+              <Button leftSection={<IconEyeX size={14} />} variant='outline' onClick={updateView}>
+                Sync to View
               </Button>
               <Accordion chevronPosition='right' variant='contained'>
                 <Accordion.Item value='graphic' key='graphic'>
@@ -232,8 +316,8 @@ export default function DiagramCanvas(props) {
                         <TextInput label='Label' {...diagram.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
                         <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
                         <SimpleGrid cols={2}>
-                          <NumberInput label='X' {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
-                          <NumberInput label='Y' {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
+                          <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
+                          <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
                         </SimpleGrid>
                         <Group justify='end'>
                           <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('nodes.items', index)}>
@@ -288,9 +372,8 @@ export default function DiagramCanvas(props) {
                   </Accordion.Panel>
                 </Accordion.Item>
               </Accordion>
-
-              <Button leftSection={<IconEyeX size={14} />} variant='outline' onClick={updateView}>
-                Sync to View
+              <Button type='submit' fullWidth rightSection={<IconDeviceFloppy />}>
+                Save Diagram
               </Button>
             </Stack>
           </form>

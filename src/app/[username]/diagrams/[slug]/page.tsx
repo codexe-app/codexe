@@ -2,7 +2,7 @@ import { cookieBasedClient } from '@/utils/cookiebasedclient'
 import { Container } from '@mantine/core'
 import { listDiagrams } from '@/graphql/queries'
 import type { Diagram } from '@/graphql/API'
-import DiagramCanvas from './canvas'
+import DiagramCanvas from '../canvas'
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const variables = {

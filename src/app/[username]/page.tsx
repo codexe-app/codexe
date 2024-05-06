@@ -5,6 +5,7 @@ import type { User } from '@/graphql/API'
 import ProfileCard from './profile'
 import CreateCard from './create'
 import DocumentsTable from './documents/table'
+import DiagramsTable from './diagrams/table'
 
 export default async function Page({ params }: { params: { username: string } }) {
   const variables = {
@@ -23,10 +24,11 @@ export default async function Page({ params }: { params: { username: string } })
       }
     }
   }
-  const user = response.data.listUsers.items[0]
-  //@ts-ignore
-  const docs = user.documents.items
 
+  const user = response.data.listUsers.items[0]
+  const docs = user?.documents?.items
+  const dias = user?.diagrams?.items
+  
   return (
     <Container size='responsive'>
       <SimpleGrid cols={{ base: 2, md: 2 }} spacing='md' my='md'>
@@ -35,6 +37,7 @@ export default async function Page({ params }: { params: { username: string } })
       </SimpleGrid>
       <Flex direction='column' h='100%' justify='space-between' gap='md'>
         <DocumentsTable data={docs} />
+        <DiagramsTable data={dias} />
       </Flex>
     </Container>
   )
