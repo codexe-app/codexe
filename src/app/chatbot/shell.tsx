@@ -2,11 +2,11 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { Affix, Dialog, AppShell, Switch, Group, ActionIcon, Stack, NavLink,  Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Switch, Group, Box, ActionIcon, Stack, NavLink, Button, Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
 import { signOut } from 'aws-amplify/auth'
-import { IconRobot, IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconFiles, IconDashboard } from '@tabler/icons-react'
+import { IconLogout, IconSearch, IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconIdBadge2, IconFilePlus, IconFiles, IconDashboard } from '@tabler/icons-react'
 import UserMenu from './menu'
 import cx from 'clsx'
 import classes from './dash.module.css'
@@ -19,7 +19,7 @@ export default function Shell(props: any) {
   const [nav, setNav] = useState(false)
   const [checked, setChecked] = useState(true)
   const [user, setUser] = useState(props.user)
-  const [opened, { toggle, close }] = useDisclosure(false)
+  const [opened, { toggle }] = useDisclosure(false)
   const [userdata, setUserdata] = useLocalStorage({
     key: 'userId',
     defaultValue: props.user.userId,
@@ -113,10 +113,7 @@ export default function Shell(props: any) {
           </Menu>
         </Stack>
       </AppShell.Navbar>
-      <AppShell.Main>
-        {props.children}
-
-      </AppShell.Main>
+      <AppShell.Main>{props.children}</AppShell.Main>
     </AppShell>
   )
 }

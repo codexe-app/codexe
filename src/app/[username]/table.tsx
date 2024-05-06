@@ -33,6 +33,10 @@ export default function DocumentsTable(props: any) {
     }
   }
 
+  function getPath(type: any) {
+    return type.toLowerCase() + 's'
+  }
+
   const rows = doclist.map((doc: any) => (
     <Table.Tr key={doc.id}>
       <Table.Td pos='relative'>
@@ -81,7 +85,7 @@ export default function DocumentsTable(props: any) {
             }}>
             <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon variant='subtle' color='gray' component={Link} href={`${pathname}/documents/${doc.slug}`}>
+          <ActionIcon variant='subtle' color='gray' component={Link} href={`${pathname}/${getPath(doc.__typename)}/${doc.slug}`}>
             <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon

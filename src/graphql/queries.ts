@@ -2,11 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from './API'
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
+  __generatedQueryInput: InputType
+  __generatedQueryOutput: OutputType
+}
 
 export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
   getDocument(id: $id) {
@@ -57,10 +57,7 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetDocumentQueryVariables,
-  APITypes.GetDocumentQuery
->;
+` as GeneratedQuery<APITypes.GetDocumentQueryVariables, APITypes.GetDocumentQuery>
 export const listDocuments = /* GraphQL */ `query ListDocuments(
   $filter: ModelDocumentFilterInput
   $limit: Int
@@ -83,61 +80,33 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
         key
         source
         thumbnail
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        createdAt
+        updatedAt
+        __typename
       }
       topicId
+      user {
+        id
+        username
+        firstname
+        lastname
+        role
+        email
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
-      createdAt
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListDocumentsQueryVariables,
-  APITypes.ListDocumentsQuery
->;
-export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
-  getTopic(id: $id) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetTopicQueryVariables, APITypes.GetTopicQuery>;
-export const listTopics = /* GraphQL */ `query ListTopics(
-  $filter: ModelTopicFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      slug
-      description
-      content
-      status
       createdAt
       updatedAt
       __typename
@@ -146,10 +115,7 @@ export const listTopics = /* GraphQL */ `query ListTopics(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListTopicsQueryVariables,
-  APITypes.ListTopicsQuery
->;
+` as GeneratedQuery<APITypes.ListDocumentsQueryVariables, APITypes.ListDocumentsQuery>
 export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
   getDiagram(id: $id) {
     id
@@ -177,6 +143,18 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -195,10 +173,7 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetDiagramQueryVariables,
-  APITypes.GetDiagramQuery
->;
+` as GeneratedQuery<APITypes.GetDiagramQueryVariables, APITypes.GetDiagramQuery>
 export const listDiagrams = /* GraphQL */ `query ListDiagrams(
   $filter: ModelDiagramFilterInput
   $limit: Int
@@ -212,104 +187,17 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
       description
       content
       status
+      topicId
       userId
-      nodes {
-        items {
-          id
-          type
-          position {
-            x
-            y
-            __typename
-          }
-          measured {
-            width
-            height
-            __typename
-          }
-          data {
-            label
-            __typename
-          }
-          sourcePosition
-          targetPosition
-          width
-          height
-          parentId
-          zIndex
-          style
-          className
-          diagramId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
-      edges {
-        items {
-          id
-          type
-          source
-          target
-          sourceHandle
-          targetHandle
-          style
-          animated
-          hidden
-          deletable
-          data {
-            label
-            __typename
-          }
-          className
-          sourceNode
-          targetNode
-          selected
-          markerStart {
-            type
-            color
-            width
-            height
-            markerUnits
-            orient
-            strokeWidth
-            __typename
-          }
-          markerEnd {
-            type
-            color
-            width
-            height
-            markerUnits
-            orient
-            strokeWidth
-            __typename
-          }
-          zIndex
-          ariaLabel
-          interactionWidth
-          focusable
-          updatable
-          diagramId
-          createdAt
-          updatedAt
-          __typename
-        }
-      }
     }
     nextToken
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListDiagramsQueryVariables,
-  APITypes.ListDiagramsQuery
->;
+` as GeneratedQuery<APITypes.ListDiagramsQueryVariables, APITypes.ListDiagramsQuery>
 export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
   getNode(id: $id) {
     id
@@ -365,6 +253,7 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -376,7 +265,7 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetNodeQueryVariables, APITypes.GetNodeQuery>;
+` as GeneratedQuery<APITypes.GetNodeQueryVariables, APITypes.GetNodeQuery>
 export const listNodes = /* GraphQL */ `query ListNodes(
   $filter: ModelNodeFilterInput
   $limit: Int
@@ -386,20 +275,6 @@ export const listNodes = /* GraphQL */ `query ListNodes(
     items {
       id
       type
-      position {
-        x
-        y
-        __typename
-      }
-      measured {
-        width
-        height
-        __typename
-      }
-      data {
-        label
-        __typename
-      }
       sourcePosition
       targetPosition
       hidden
@@ -430,7 +305,7 @@ export const listNodes = /* GraphQL */ `query ListNodes(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListNodesQueryVariables, APITypes.ListNodesQuery>;
+` as GeneratedQuery<APITypes.ListNodesQueryVariables, APITypes.ListNodesQuery>
 export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
   getHandle(id: $id) {
     id
@@ -477,7 +352,7 @@ export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetHandleQueryVariables, APITypes.GetHandleQuery>;
+` as GeneratedQuery<APITypes.GetHandleQueryVariables, APITypes.GetHandleQuery>
 export const listHandles = /* GraphQL */ `query ListHandles(
   $filter: ModelHandleFilterInput
   $limit: Int
@@ -503,10 +378,7 @@ export const listHandles = /* GraphQL */ `query ListHandles(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListHandlesQueryVariables,
-  APITypes.ListHandlesQuery
->;
+` as GeneratedQuery<APITypes.ListHandlesQueryVariables, APITypes.ListHandlesQuery>
 export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
   getEdge(id: $id) {
     id
@@ -559,6 +431,7 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -570,7 +443,7 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetEdgeQueryVariables, APITypes.GetEdgeQuery>;
+` as GeneratedQuery<APITypes.GetEdgeQueryVariables, APITypes.GetEdgeQuery>
 export const listEdges = /* GraphQL */ `query ListEdges(
   $filter: ModelEdgeFilterInput
   $limit: Int
@@ -606,7 +479,203 @@ export const listEdges = /* GraphQL */ `query ListEdges(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListEdgesQueryVariables, APITypes.ListEdgesQuery>;
+` as GeneratedQuery<APITypes.ListEdgesQueryVariables, APITypes.ListEdgesQuery>
+export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
+  getChat(id: $id) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetChatQueryVariables, APITypes.GetChatQuery>
+export const listChats = /* GraphQL */ `query ListChats(
+  $filter: ModelChatFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListChatsQueryVariables, APITypes.ListChatsQuery>
+export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
+  getMessage(id: $id) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetMessageQueryVariables, APITypes.GetMessageQuery>
+export const listMessages = /* GraphQL */ `query ListMessages(
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      content
+      role
+      ui
+      data
+      functioncall
+      name
+      chatId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListMessagesQueryVariables, APITypes.ListMessagesQuery>
+export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
+  getTopic(id: $id) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetTopicQueryVariables, APITypes.GetTopicQuery>
+export const listTopics = /* GraphQL */ `query ListTopics(
+  $filter: ModelTopicFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListTopicsQueryVariables, APITypes.ListTopicsQuery>
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -626,46 +695,15 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
-      items {
-        id
-        name
-        slug
-        graphic {
-          alt
-          title
-          caption
-          description
-          url
-          key
-          source
-          thumbnail
-        }
-        description
-        content
-        status
-        topicId
-        userId
-        createdAt
-        updatedAt
-        __typename
-      }
       nextToken
       __typename
     }
     diagrams {
-      items {
-        id
-        name
-        slug
-        description
-        content
-        status
-        userId
-        createdAt
-        updatedAt
-        __typename
-      }
       nextToken
       __typename
     }
@@ -675,7 +713,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>
 export const listUsers = /* GraphQL */ `query ListUsers(
   $filter: ModelUserFilterInput
   $limit: Int
@@ -685,11 +723,6 @@ export const listUsers = /* GraphQL */ `query ListUsers(
     items {
       id
       username
-      firstname
-      lastname
-      role
-      email
-      cognitoid
       avatar {
         alt
         title
@@ -699,12 +732,39 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         key
         source
         thumbnail
+        __typename
+      }
+      firstname
+      lastname
+      role
+      email
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          path
+          sharePath
+          topicId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
       }
       documents {
         items {
           id
           name
           slug
+          description
+          content
+          status
           graphic {
             alt
             title
@@ -714,10 +774,19 @@ export const listUsers = /* GraphQL */ `query ListUsers(
             key
             source
             thumbnail
+            __typename
           }
-          description
-          content
-          status
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
           topicId
           userId
           createdAt
@@ -744,21 +813,28 @@ export const listUsers = /* GraphQL */ `query ListUsers(
             key
             source
             thumbnail
+            __typename
           }
           nodes {
-            items {
-              id
-            }
             nextToken
             __typename
           }
           edges {
-            items {
-              id
-            }
             nextToken
             __typename
           }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
           userId
           createdAt
           updatedAt
@@ -767,6 +843,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         nextToken
         __typename
       }
+      cognitoid
       createdAt
       updatedAt
       __typename
@@ -775,7 +852,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>
 export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -809,10 +886,7 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DocumentsByTopicIdAndCreatedAtQueryVariables,
-  APITypes.DocumentsByTopicIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DocumentsByTopicIdAndCreatedAtQueryVariables, APITypes.DocumentsByTopicIdAndCreatedAtQuery>
 export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUserIdAndCreatedAt(
   $userId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -846,10 +920,41 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DocumentsByUserIdAndCreatedAtQueryVariables,
-  APITypes.DocumentsByUserIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DocumentsByUserIdAndCreatedAtQueryVariables, APITypes.DocumentsByUserIdAndCreatedAtQuery>
+export const diagramsByTopicIdAndCreatedAt = /* GraphQL */ `query DiagramsByTopicIdAndCreatedAt(
+  $topicId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelDiagramFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  diagramsByTopicIdAndCreatedAt(
+    topicId: $topicId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.DiagramsByTopicIdAndCreatedAtQueryVariables, APITypes.DiagramsByTopicIdAndCreatedAtQuery>
 export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserIdAndCreatedAt(
   $userId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -873,6 +978,7 @@ export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserI
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -882,10 +988,7 @@ export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DiagramsByUserIdAndCreatedAtQueryVariables,
-  APITypes.DiagramsByUserIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DiagramsByUserIdAndCreatedAtQueryVariables, APITypes.DiagramsByUserIdAndCreatedAtQuery>
 export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramIdAndCreatedAt(
   $diagramId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -935,10 +1038,7 @@ export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.NodesByDiagramIdAndCreatedAtQueryVariables,
-  APITypes.NodesByDiagramIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.NodesByDiagramIdAndCreatedAtQueryVariables, APITypes.NodesByDiagramIdAndCreatedAtQuery>
 export const handlesByNodeIdAndCreatedAt = /* GraphQL */ `query HandlesByNodeIdAndCreatedAt(
   $nodeId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -974,10 +1074,7 @@ export const handlesByNodeIdAndCreatedAt = /* GraphQL */ `query HandlesByNodeIdA
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.HandlesByNodeIdAndCreatedAtQueryVariables,
-  APITypes.HandlesByNodeIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.HandlesByNodeIdAndCreatedAtQueryVariables, APITypes.HandlesByNodeIdAndCreatedAtQuery>
 export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramIdAndCreatedAt(
   $diagramId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -1023,7 +1120,110 @@ export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.EdgesByDiagramIdAndCreatedAtQueryVariables,
-  APITypes.EdgesByDiagramIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.EdgesByDiagramIdAndCreatedAtQueryVariables, APITypes.EdgesByDiagramIdAndCreatedAtQuery>
+export const chatsByTopicIdAndCreatedAt = /* GraphQL */ `query ChatsByTopicIdAndCreatedAt(
+  $topicId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelChatFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  chatsByTopicIdAndCreatedAt(
+    topicId: $topicId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ChatsByTopicIdAndCreatedAtQueryVariables, APITypes.ChatsByTopicIdAndCreatedAtQuery>
+export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCreatedAt(
+  $userId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelChatFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  chatsByUserIdAndCreatedAt(
+    userId: $userId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ChatsByUserIdAndCreatedAtQueryVariables, APITypes.ChatsByUserIdAndCreatedAtQuery>
+export const messagesByChatIdAndCreatedAt = /* GraphQL */ `query MessagesByChatIdAndCreatedAt(
+  $chatId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  messagesByChatIdAndCreatedAt(
+    chatId: $chatId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      content
+      role
+      ui
+      data
+      functioncall
+      name
+      chatId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.MessagesByChatIdAndCreatedAtQueryVariables, APITypes.MessagesByChatIdAndCreatedAtQuery>

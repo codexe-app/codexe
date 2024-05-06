@@ -13,18 +13,6 @@ type Document @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime
 }
 
-type Topic @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  name: String
-  slug: String
-  description: String
-  content: String
-  status: Status
-  graphic: ImageFile
-  documents: [Document] @hasMany(indexName: "byTopic", fields: ["id"])
-  createdAt: AWSDateTime
-}
-
 type Diagram @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String
@@ -35,6 +23,8 @@ type Diagram @model @auth(rules: [{ allow: public }]) {
   graphic: ImageFile
   nodes: [Node] @hasMany(indexName: "byDiagram", fields: ["id"])
   edges: [Edge] @hasMany(indexName: "byDiagram", fields: ["id"])
+  topic: Topic @belongsTo(fields: ["topicId"])
+  topicId: ID @index(name: "byTopic", sortKeyFields: ["createdAt"])
   user: User @belongsTo(fields: ["userId"])
   userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
@@ -117,6 +107,51 @@ type Edge @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime
 }
 
+type Chat @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  slug: String
+  description: String
+  content: String
+  status: Status
+  graphic: ImageFile
+  path: String
+  sharePath: String
+  topic: Topic @belongsTo(fields: ["topicId"])
+  topicId: ID @index(name: "byTopic", sortKeyFields: ["createdAt"])
+  messages: [Message] @hasMany(indexName: "byChat", fields: ["id"])
+  user: User @belongsTo(fields: ["userId"])
+  userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime!
+}
+
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String
+  role: String
+  ui: String
+  data: AWSJSON
+  functioncall: String
+  name: String
+  chat: Chat @belongsTo(fields: ["chatId"])
+  chatId: ID! @index(name: "byChat", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime!
+}
+
+type Topic @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String
+  slug: String
+  description: String
+  content: String
+  status: Status
+  graphic: ImageFile
+  diagrams: [Diagram] @hasMany(indexName: "byTopic", fields: ["id"])
+  documents: [Document] @hasMany(indexName: "byTopic", fields: ["id"])
+  chats: [Chat] @hasMany(indexName: "byTopic", fields: ["id"])
+  createdAt: AWSDateTime
+}
+
 type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   username: String
@@ -125,6 +160,7 @@ type User @model @auth(rules: [{ allow: public }]) {
   lastname: String
   role: String
   email: String
+  chats: [Chat] @hasMany(indexName: "byUser", fields: ["id"])
   documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
   diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
   cognitoid: String

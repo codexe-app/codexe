@@ -176,111 +176,6 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
   APITypes.DeleteDocumentMutationVariables,
   APITypes.DeleteDocumentMutation
 >;
-export const createTopic = /* GraphQL */ `mutation CreateTopic(
-  $input: CreateTopicInput!
-  $condition: ModelTopicConditionInput
-) {
-  createTopic(input: $input, condition: $condition) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateTopicMutationVariables,
-  APITypes.CreateTopicMutation
->;
-export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
-  $input: UpdateTopicInput!
-  $condition: ModelTopicConditionInput
-) {
-  updateTopic(input: $input, condition: $condition) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateTopicMutationVariables,
-  APITypes.UpdateTopicMutation
->;
-export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
-  $input: DeleteTopicInput!
-  $condition: ModelTopicConditionInput
-) {
-  deleteTopic(input: $input, condition: $condition) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteTopicMutationVariables,
-  APITypes.DeleteTopicMutation
->;
 export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
   $input: CreateDiagramInput!
   $condition: ModelDiagramConditionInput
@@ -311,6 +206,18 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -363,6 +270,18 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -415,6 +334,18 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -495,6 +426,7 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -568,6 +500,7 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -641,6 +574,7 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -870,6 +804,7 @@ export const createEdge = /* GraphQL */ `mutation CreateEdge(
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -940,6 +875,7 @@ export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -1010,6 +946,7 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -1024,6 +961,432 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
 ` as GeneratedMutation<
   APITypes.DeleteEdgeMutationVariables,
   APITypes.DeleteEdgeMutation
+>;
+export const createChat = /* GraphQL */ `mutation CreateChat(
+  $input: CreateChatInput!
+  $condition: ModelChatConditionInput
+) {
+  createChat(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChatMutationVariables,
+  APITypes.CreateChatMutation
+>;
+export const updateChat = /* GraphQL */ `mutation UpdateChat(
+  $input: UpdateChatInput!
+  $condition: ModelChatConditionInput
+) {
+  updateChat(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChatMutationVariables,
+  APITypes.UpdateChatMutation
+>;
+export const deleteChat = /* GraphQL */ `mutation DeleteChat(
+  $input: DeleteChatInput!
+  $condition: ModelChatConditionInput
+) {
+  deleteChat(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChatMutationVariables,
+  APITypes.DeleteChatMutation
+>;
+export const createMessage = /* GraphQL */ `mutation CreateMessage(
+  $input: CreateMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  createMessage(input: $input, condition: $condition) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMessageMutationVariables,
+  APITypes.CreateMessageMutation
+>;
+export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
+  $input: UpdateMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  updateMessage(input: $input, condition: $condition) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMessageMutationVariables,
+  APITypes.UpdateMessageMutation
+>;
+export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
+  $input: DeleteMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  deleteMessage(input: $input, condition: $condition) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMessageMutationVariables,
+  APITypes.DeleteMessageMutation
+>;
+export const createTopic = /* GraphQL */ `mutation CreateTopic(
+  $input: CreateTopicInput!
+  $condition: ModelTopicConditionInput
+) {
+  createTopic(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTopicMutationVariables,
+  APITypes.CreateTopicMutation
+>;
+export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
+  $input: UpdateTopicInput!
+  $condition: ModelTopicConditionInput
+) {
+  updateTopic(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTopicMutationVariables,
+  APITypes.UpdateTopicMutation
+>;
+export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
+  $input: DeleteTopicInput!
+  $condition: ModelTopicConditionInput
+) {
+  deleteTopic(input: $input, condition: $condition) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTopicMutationVariables,
+  APITypes.DeleteTopicMutation
 >;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
@@ -1047,6 +1410,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -1087,6 +1454,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -1127,6 +1498,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
       nextToken
       __typename

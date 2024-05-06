@@ -1,0 +1,18 @@
+body {
+    height: unset!important;
+}
+
+.m-8983817 {
+    min-height: unset;
+}
+
+.m-8fb7ebe7:disabled, .m-8fb7ebe7[data-disabled] {
+    color: var(--mantine-color-anchor);
+}
+
+.chattitle {
+    input {
+        font-weight: 500;
+        padding-left: 12px;
+    }
+}

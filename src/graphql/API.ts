@@ -149,30 +149,10 @@ export type Topic = {
   content?: string | null,
   status?: Status | null,
   graphic?: ImageFile | null,
-  documents?: ModelDocumentConnection | null,
-  createdAt?: string | null,
-  updatedAt: string,
-};
-
-export type ModelDocumentConnection = {
-  __typename: "ModelDocumentConnection",
-  items:  Array<Document | null >,
-  nextToken?: string | null,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  username?: string | null,
-  avatar?: ImageFile | null,
-  firstname?: string | null,
-  lastname?: string | null,
-  role?: string | null,
-  email?: string | null,
-  documents?: ModelDocumentConnection | null,
   diagrams?: ModelDiagramConnection | null,
-  cognitoid?: string | null,
-  createdAt: string,
+  documents?: ModelDocumentConnection | null,
+  chats?: ModelChatConnection | null,
+  createdAt?: string | null,
   updatedAt: string,
 };
 
@@ -193,6 +173,8 @@ export type Diagram = {
   graphic?: ImageFile | null,
   nodes?: ModelNodeConnection | null,
   edges?: ModelEdgeConnection | null,
+  topic?: Topic | null,
+  topicId?: string | null,
   user?: User | null,
   userId: string,
   createdAt?: string | null,
@@ -353,6 +335,76 @@ export enum MarkerType {
 }
 
 
+export type User = {
+  __typename: "User",
+  id: string,
+  username?: string | null,
+  avatar?: ImageFile | null,
+  firstname?: string | null,
+  lastname?: string | null,
+  role?: string | null,
+  email?: string | null,
+  chats?: ModelChatConnection | null,
+  documents?: ModelDocumentConnection | null,
+  diagrams?: ModelDiagramConnection | null,
+  cognitoid?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelChatConnection = {
+  __typename: "ModelChatConnection",
+  items:  Array<Chat | null >,
+  nextToken?: string | null,
+};
+
+export type Chat = {
+  __typename: "Chat",
+  id: string,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  graphic?: ImageFile | null,
+  path?: string | null,
+  sharePath?: string | null,
+  topic?: Topic | null,
+  topicId?: string | null,
+  messages?: ModelMessageConnection | null,
+  user?: User | null,
+  userId: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelMessageConnection = {
+  __typename: "ModelMessageConnection",
+  items:  Array<Message | null >,
+  nextToken?: string | null,
+};
+
+export type Message = {
+  __typename: "Message",
+  id: string,
+  content?: string | null,
+  role?: string | null,
+  ui?: string | null,
+  data?: string | null,
+  functioncall?: string | null,
+  name?: string | null,
+  chat?: Chat | null,
+  chatId: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelDocumentConnection = {
+  __typename: "ModelDocumentConnection",
+  items:  Array<Document | null >,
+  nextToken?: string | null,
+};
+
 export type UpdateDocumentInput = {
   id: string,
   name?: string | null,
@@ -370,45 +422,6 @@ export type DeleteDocumentInput = {
   id: string,
 };
 
-export type CreateTopicInput = {
-  id?: string | null,
-  name?: string | null,
-  slug?: string | null,
-  description?: string | null,
-  content?: string | null,
-  status?: Status | null,
-  graphic?: ImageFileInput | null,
-  createdAt?: string | null,
-};
-
-export type ModelTopicConditionInput = {
-  name?: ModelStringInput | null,
-  slug?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  content?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelTopicConditionInput | null > | null,
-  or?: Array< ModelTopicConditionInput | null > | null,
-  not?: ModelTopicConditionInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type UpdateTopicInput = {
-  id: string,
-  name?: string | null,
-  slug?: string | null,
-  description?: string | null,
-  content?: string | null,
-  status?: Status | null,
-  graphic?: ImageFileInput | null,
-  createdAt?: string | null,
-};
-
-export type DeleteTopicInput = {
-  id: string,
-};
-
 export type CreateDiagramInput = {
   id?: string | null,
   name?: string | null,
@@ -417,6 +430,7 @@ export type CreateDiagramInput = {
   content?: string | null,
   status?: Status | null,
   graphic?: ImageFileInput | null,
+  topicId?: string | null,
   userId: string,
   createdAt?: string | null,
 };
@@ -427,6 +441,7 @@ export type ModelDiagramConditionInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelDiagramConditionInput | null > | null,
@@ -443,6 +458,7 @@ export type UpdateDiagramInput = {
   content?: string | null,
   status?: Status | null,
   graphic?: ImageFileInput | null,
+  topicId?: string | null,
   userId?: string | null,
   createdAt?: string | null,
 };
@@ -741,6 +757,139 @@ export type DeleteEdgeInput = {
   id: string,
 };
 
+export type CreateChatInput = {
+  id?: string | null,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  graphic?: ImageFileInput | null,
+  path?: string | null,
+  sharePath?: string | null,
+  topicId?: string | null,
+  userId: string,
+  createdAt?: string | null,
+};
+
+export type ModelChatConditionInput = {
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  path?: ModelStringInput | null,
+  sharePath?: ModelStringInput | null,
+  topicId?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChatConditionInput | null > | null,
+  or?: Array< ModelChatConditionInput | null > | null,
+  not?: ModelChatConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateChatInput = {
+  id: string,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  graphic?: ImageFileInput | null,
+  path?: string | null,
+  sharePath?: string | null,
+  topicId?: string | null,
+  userId?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChatInput = {
+  id: string,
+};
+
+export type CreateMessageInput = {
+  id?: string | null,
+  content?: string | null,
+  role?: string | null,
+  ui?: string | null,
+  data?: string | null,
+  functioncall?: string | null,
+  name?: string | null,
+  chatId: string,
+  createdAt?: string | null,
+};
+
+export type ModelMessageConditionInput = {
+  content?: ModelStringInput | null,
+  role?: ModelStringInput | null,
+  ui?: ModelStringInput | null,
+  data?: ModelStringInput | null,
+  functioncall?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  chatId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelMessageConditionInput | null > | null,
+  or?: Array< ModelMessageConditionInput | null > | null,
+  not?: ModelMessageConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateMessageInput = {
+  id: string,
+  content?: string | null,
+  role?: string | null,
+  ui?: string | null,
+  data?: string | null,
+  functioncall?: string | null,
+  name?: string | null,
+  chatId?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteMessageInput = {
+  id: string,
+};
+
+export type CreateTopicInput = {
+  id?: string | null,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  graphic?: ImageFileInput | null,
+  createdAt?: string | null,
+};
+
+export type ModelTopicConditionInput = {
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelTopicConditionInput | null > | null,
+  or?: Array< ModelTopicConditionInput | null > | null,
+  not?: ModelTopicConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateTopicInput = {
+  id: string,
+  name?: string | null,
+  slug?: string | null,
+  description?: string | null,
+  content?: string | null,
+  status?: Status | null,
+  graphic?: ImageFileInput | null,
+  createdAt?: string | null,
+};
+
+export type DeleteTopicInput = {
+  id: string,
+};
+
 export type CreateUserInput = {
   id?: string | null,
   username?: string | null,
@@ -797,26 +946,6 @@ export type ModelDocumentFilterInput = {
   not?: ModelDocumentFilterInput | null,
 };
 
-export type ModelTopicFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  slug?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  content?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelTopicFilterInput | null > | null,
-  or?: Array< ModelTopicFilterInput | null > | null,
-  not?: ModelTopicFilterInput | null,
-};
-
-export type ModelTopicConnection = {
-  __typename: "ModelTopicConnection",
-  items:  Array<Topic | null >,
-  nextToken?: string | null,
-};
-
 export type ModelDiagramFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -824,6 +953,7 @@ export type ModelDiagramFilterInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
@@ -910,6 +1040,60 @@ export type ModelEdgeFilterInput = {
   not?: ModelEdgeFilterInput | null,
 };
 
+export type ModelChatFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  path?: ModelStringInput | null,
+  sharePath?: ModelStringInput | null,
+  topicId?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChatFilterInput | null > | null,
+  or?: Array< ModelChatFilterInput | null > | null,
+  not?: ModelChatFilterInput | null,
+};
+
+export type ModelMessageFilterInput = {
+  id?: ModelIDInput | null,
+  content?: ModelStringInput | null,
+  role?: ModelStringInput | null,
+  ui?: ModelStringInput | null,
+  data?: ModelStringInput | null,
+  functioncall?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  chatId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelMessageFilterInput | null > | null,
+  or?: Array< ModelMessageFilterInput | null > | null,
+  not?: ModelMessageFilterInput | null,
+};
+
+export type ModelTopicFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  slug?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelTopicFilterInput | null > | null,
+  or?: Array< ModelTopicFilterInput | null > | null,
+  not?: ModelTopicFilterInput | null,
+};
+
+export type ModelTopicConnection = {
+  __typename: "ModelTopicConnection",
+  items:  Array<Topic | null >,
+  nextToken?: string | null,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   username?: ModelStringInput | null,
@@ -992,19 +1176,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionTopicFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  slug?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  content?: ModelSubscriptionStringInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTopicFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTopicFilterInput | null > | null,
-};
-
 export type ModelSubscriptionDiagramFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -1012,6 +1183,7 @@ export type ModelSubscriptionDiagramFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  topicId?: ModelSubscriptionIDInput | null,
   userId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
@@ -1109,6 +1281,51 @@ export type ModelSubscriptionEdgeFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionEdgeFilterInput | null > | null,
   or?: Array< ModelSubscriptionEdgeFilterInput | null > | null,
+};
+
+export type ModelSubscriptionChatFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  slug?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  path?: ModelSubscriptionStringInput | null,
+  sharePath?: ModelSubscriptionStringInput | null,
+  topicId?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChatFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChatFilterInput | null > | null,
+};
+
+export type ModelSubscriptionMessageFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  role?: ModelSubscriptionStringInput | null,
+  ui?: ModelSubscriptionStringInput | null,
+  data?: ModelSubscriptionStringInput | null,
+  functioncall?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  chatId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMessageFilterInput | null > | null,
+};
+
+export type ModelSubscriptionTopicFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  slug?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionTopicFilterInput | null > | null,
+  or?: Array< ModelSubscriptionTopicFilterInput | null > | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
@@ -1290,108 +1507,6 @@ export type DeleteDocumentMutation = {
   } | null,
 };
 
-export type CreateTopicMutationVariables = {
-  input: CreateTopicInput,
-  condition?: ModelTopicConditionInput | null,
-};
-
-export type CreateTopicMutation = {
-  createTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateTopicMutationVariables = {
-  input: UpdateTopicInput,
-  condition?: ModelTopicConditionInput | null,
-};
-
-export type UpdateTopicMutation = {
-  updateTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteTopicMutationVariables = {
-  input: DeleteTopicInput,
-  condition?: ModelTopicConditionInput | null,
-};
-
-export type DeleteTopicMutation = {
-  deleteTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
 export type CreateDiagramMutationVariables = {
   input: CreateDiagramInput,
   condition?: ModelDiagramConditionInput | null,
@@ -1425,6 +1540,18 @@ export type CreateDiagramMutation = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -1476,6 +1603,18 @@ export type UpdateDiagramMutation = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -1527,6 +1666,18 @@ export type DeleteDiagramMutation = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -1607,6 +1758,7 @@ export type CreateNodeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -1679,6 +1831,7 @@ export type UpdateNodeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -1751,6 +1904,7 @@ export type DeleteNodeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -1976,6 +2130,7 @@ export type CreateEdgeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -2045,6 +2200,7 @@ export type UpdateEdgeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -2114,11 +2270,429 @@ export type DeleteEdgeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
     diagramId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateChatMutationVariables = {
+  input: CreateChatInput,
+  condition?: ModelChatConditionInput | null,
+};
+
+export type CreateChatMutation = {
+  createChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateChatMutationVariables = {
+  input: UpdateChatInput,
+  condition?: ModelChatConditionInput | null,
+};
+
+export type UpdateChatMutation = {
+  updateChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteChatMutationVariables = {
+  input: DeleteChatInput,
+  condition?: ModelChatConditionInput | null,
+};
+
+export type DeleteChatMutation = {
+  deleteChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateMessageMutationVariables = {
+  input: CreateMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type CreateMessageMutation = {
+  createMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMessageMutationVariables = {
+  input: UpdateMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type UpdateMessageMutation = {
+  updateMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMessageMutationVariables = {
+  input: DeleteMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type DeleteMessageMutation = {
+  deleteMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateTopicMutationVariables = {
+  input: CreateTopicInput,
+  condition?: ModelTopicConditionInput | null,
+};
+
+export type CreateTopicMutation = {
+  createTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateTopicMutationVariables = {
+  input: UpdateTopicInput,
+  condition?: ModelTopicConditionInput | null,
+};
+
+export type UpdateTopicMutation = {
+  updateTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteTopicMutationVariables = {
+  input: DeleteTopicInput,
+  condition?: ModelTopicConditionInput | null,
+};
+
+export type DeleteTopicMutation = {
+  deleteTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
     updatedAt: string,
   } | null,
@@ -2149,6 +2723,10 @@ export type CreateUserMutation = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
@@ -2188,6 +2766,10 @@ export type UpdateUserMutation = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
@@ -2227,6 +2809,10 @@ export type DeleteUserMutation = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
@@ -2321,63 +2907,6 @@ export type ListDocumentsQuery = {
   } | null,
 };
 
-export type GetTopicQueryVariables = {
-  id: string,
-};
-
-export type GetTopicQuery = {
-  getTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListTopicsQueryVariables = {
-  filter?: ModelTopicFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListTopicsQuery = {
-  listTopics?:  {
-    __typename: "ModelTopicConnection",
-    items:  Array< {
-      __typename: "Topic",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      status?: Status | null,
-      createdAt?: string | null,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type GetDiagramQueryVariables = {
   id: string,
 };
@@ -2410,6 +2939,18 @@ export type GetDiagramQuery = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -2445,6 +2986,7 @@ export type ListDiagramsQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -2514,6 +3056,7 @@ export type GetNodeQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -2703,6 +3246,7 @@ export type GetEdgeQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -2751,6 +3295,220 @@ export type ListEdgesQuery = {
   } | null,
 };
 
+export type GetChatQueryVariables = {
+  id: string,
+};
+
+export type GetChatQuery = {
+  getChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListChatsQueryVariables = {
+  filter?: ModelChatFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChatsQuery = {
+  listChats?:  {
+    __typename: "ModelChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMessageQueryVariables = {
+  id: string,
+};
+
+export type GetMessageQuery = {
+  getMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMessagesQueryVariables = {
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMessagesQuery = {
+  listMessages?:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      content?: string | null,
+      role?: string | null,
+      ui?: string | null,
+      data?: string | null,
+      functioncall?: string | null,
+      name?: string | null,
+      chatId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetTopicQueryVariables = {
+  id: string,
+};
+
+export type GetTopicQuery = {
+  getTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListTopicsQueryVariables = {
+  filter?: ModelTopicFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListTopicsQuery = {
+  listTopics?:  {
+    __typename: "ModelTopicConnection",
+    items:  Array< {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -2775,6 +3533,10 @@ export type GetUserQuery = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
@@ -2872,6 +3634,35 @@ export type DocumentsByUserIdAndCreatedAtQuery = {
   } | null,
 };
 
+export type DiagramsByTopicIdAndCreatedAtQueryVariables = {
+  topicId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelDiagramFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type DiagramsByTopicIdAndCreatedAtQuery = {
+  diagramsByTopicIdAndCreatedAt?:  {
+    __typename: "ModelDiagramConnection",
+    items:  Array< {
+      __typename: "Diagram",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type DiagramsByUserIdAndCreatedAtQueryVariables = {
   userId: string,
   createdAt?: ModelStringKeyConditionInput | null,
@@ -2892,6 +3683,7 @@ export type DiagramsByUserIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -3011,6 +3803,97 @@ export type EdgesByDiagramIdAndCreatedAtQuery = {
       updatable?: boolean | null,
       diagramId: string,
       createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ChatsByTopicIdAndCreatedAtQueryVariables = {
+  topicId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChatFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ChatsByTopicIdAndCreatedAtQuery = {
+  chatsByTopicIdAndCreatedAt?:  {
+    __typename: "ModelChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ChatsByUserIdAndCreatedAtQueryVariables = {
+  userId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChatFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ChatsByUserIdAndCreatedAtQuery = {
+  chatsByUserIdAndCreatedAt?:  {
+    __typename: "ModelChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type MessagesByChatIdAndCreatedAtQueryVariables = {
+  chatId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MessagesByChatIdAndCreatedAtQuery = {
+  messagesByChatIdAndCreatedAt?:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      content?: string | null,
+      role?: string | null,
+      ui?: string | null,
+      data?: string | null,
+      functioncall?: string | null,
+      name?: string | null,
+      chatId: string,
+      createdAt: string,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -3179,105 +4062,6 @@ export type OnDeleteDocumentSubscription = {
   } | null,
 };
 
-export type OnCreateTopicSubscriptionVariables = {
-  filter?: ModelSubscriptionTopicFilterInput | null,
-};
-
-export type OnCreateTopicSubscription = {
-  onCreateTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateTopicSubscriptionVariables = {
-  filter?: ModelSubscriptionTopicFilterInput | null,
-};
-
-export type OnUpdateTopicSubscription = {
-  onUpdateTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteTopicSubscriptionVariables = {
-  filter?: ModelSubscriptionTopicFilterInput | null,
-};
-
-export type OnDeleteTopicSubscription = {
-  onDeleteTopic?:  {
-    __typename: "Topic",
-    id: string,
-    name?: string | null,
-    slug?: string | null,
-    description?: string | null,
-    content?: string | null,
-    status?: Status | null,
-    graphic?:  {
-      __typename: "ImageFile",
-      alt?: string | null,
-      title?: string | null,
-      caption?: string | null,
-      description?: string | null,
-      url?: string | null,
-      key?: string | null,
-      source?: string | null,
-      thumbnail?: string | null,
-    } | null,
-    documents?:  {
-      __typename: "ModelDocumentConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt?: string | null,
-    updatedAt: string,
-  } | null,
-};
-
 export type OnCreateDiagramSubscriptionVariables = {
   filter?: ModelSubscriptionDiagramFilterInput | null,
 };
@@ -3310,6 +4094,18 @@ export type OnCreateDiagramSubscription = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -3360,6 +4156,18 @@ export type OnUpdateDiagramSubscription = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -3410,6 +4218,18 @@ export type OnDeleteDiagramSubscription = {
       __typename: "ModelEdgeConnection",
       nextToken?: string | null,
     } | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
     user?:  {
       __typename: "User",
       id: string,
@@ -3489,6 +4309,7 @@ export type OnCreateNodeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -3560,6 +4381,7 @@ export type OnUpdateNodeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -3631,6 +4453,7 @@ export type OnDeleteNodeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -3852,6 +4675,7 @@ export type OnCreateEdgeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -3920,6 +4744,7 @@ export type OnUpdateEdgeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
@@ -3988,11 +4813,420 @@ export type OnDeleteEdgeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      topicId?: string | null,
       userId: string,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
     diagramId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateChatSubscriptionVariables = {
+  filter?: ModelSubscriptionChatFilterInput | null,
+};
+
+export type OnCreateChatSubscription = {
+  onCreateChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateChatSubscriptionVariables = {
+  filter?: ModelSubscriptionChatFilterInput | null,
+};
+
+export type OnUpdateChatSubscription = {
+  onUpdateChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteChatSubscriptionVariables = {
+  filter?: ModelSubscriptionChatFilterInput | null,
+};
+
+export type OnDeleteChatSubscription = {
+  onDeleteChat?:  {
+    __typename: "Chat",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    path?: string | null,
+    sharePath?: string | null,
+    topic?:  {
+      __typename: "Topic",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null,
+    topicId?: string | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      nextToken?: string | null,
+    } | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      cognitoid?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+};
+
+export type OnCreateMessageSubscription = {
+  onCreateMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+};
+
+export type OnUpdateMessageSubscription = {
+  onUpdateMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+};
+
+export type OnDeleteMessageSubscription = {
+  onDeleteMessage?:  {
+    __typename: "Message",
+    id: string,
+    content?: string | null,
+    role?: string | null,
+    ui?: string | null,
+    data?: string | null,
+    functioncall?: string | null,
+    name?: string | null,
+    chat?:  {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    chatId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateTopicSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicFilterInput | null,
+};
+
+export type OnCreateTopicSubscription = {
+  onCreateTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateTopicSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicFilterInput | null,
+};
+
+export type OnUpdateTopicSubscription = {
+  onUpdateTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteTopicSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicFilterInput | null,
+};
+
+export type OnDeleteTopicSubscription = {
+  onDeleteTopic?:  {
+    __typename: "Topic",
+    id: string,
+    name?: string | null,
+    slug?: string | null,
+    description?: string | null,
+    content?: string | null,
+    status?: Status | null,
+    graphic?:  {
+      __typename: "ImageFile",
+      alt?: string | null,
+      title?: string | null,
+      caption?: string | null,
+      description?: string | null,
+      url?: string | null,
+      key?: string | null,
+      source?: string | null,
+      thumbnail?: string | null,
+    } | null,
+    diagrams?:  {
+      __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    documents?:  {
+      __typename: "ModelDocumentConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
     updatedAt: string,
   } | null,
@@ -4022,6 +5256,10 @@ export type OnCreateUserSubscription = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
@@ -4060,6 +5298,10 @@ export type OnUpdateUserSubscription = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,
@@ -4098,6 +5340,10 @@ export type OnDeleteUserSubscription = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     documents?:  {
       __typename: "ModelDocumentConnection",
       nextToken?: string | null,

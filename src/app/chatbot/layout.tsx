@@ -6,7 +6,6 @@ import type { User } from '@/graphql/API'
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from 'aws-amplify/auth/server'
 import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
-import Chatbot from './chat'
 import Shell from './shell'
 
 export const dynamic = 'force-dynamic'
@@ -27,7 +26,7 @@ async function AuthGetCurrentUserServer() {
 export default async function Layout(props: any) {
   const theuser = await AuthGetCurrentUserServer()
   if (props.params.username !== theuser.username) {
-    redirect(`/${theuser.username}`)
+    //redirect(`/${theuser.username}`)
   }
 
   const response = (await cookieBasedClient.graphql({
@@ -42,10 +41,5 @@ export default async function Layout(props: any) {
   }
   const user = response.data.getUser
 
-  return (
-    <Shell user={user}>
-      <Chatbot user={user} />
-      {props.children}
-    </Shell>
-  )
+  return <Shell user={user}>{props.children}</Shell>
 }

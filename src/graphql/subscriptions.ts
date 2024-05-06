@@ -167,102 +167,6 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
   APITypes.OnDeleteDocumentSubscriptionVariables,
   APITypes.OnDeleteDocumentSubscription
 >;
-export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: ModelSubscriptionTopicFilterInput) {
-  onCreateTopic(filter: $filter) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateTopicSubscriptionVariables,
-  APITypes.OnCreateTopicSubscription
->;
-export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: ModelSubscriptionTopicFilterInput) {
-  onUpdateTopic(filter: $filter) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateTopicSubscriptionVariables,
-  APITypes.OnUpdateTopicSubscription
->;
-export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: ModelSubscriptionTopicFilterInput) {
-  onDeleteTopic(filter: $filter) {
-    id
-    name
-    slug
-    description
-    content
-    status
-    graphic {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteTopicSubscriptionVariables,
-  APITypes.OnDeleteTopicSubscription
->;
 export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filter: ModelSubscriptionDiagramFilterInput) {
   onCreateDiagram(filter: $filter) {
     id
@@ -290,6 +194,18 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -339,6 +255,18 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -388,6 +316,18 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
       nextToken
       __typename
     }
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
     user {
       id
       username
@@ -465,6 +405,7 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -535,6 +476,7 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -605,6 +547,7 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -822,6 +765,7 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -889,6 +833,7 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -956,6 +901,7 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
       description
       content
       status
+      topicId
       userId
       createdAt
       updatedAt
@@ -970,6 +916,405 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
 ` as GeneratedSubscription<
   APITypes.OnDeleteEdgeSubscriptionVariables,
   APITypes.OnDeleteEdgeSubscription
+>;
+export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: ModelSubscriptionChatFilterInput) {
+  onCreateChat(filter: $filter) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChatSubscriptionVariables,
+  APITypes.OnCreateChatSubscription
+>;
+export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: ModelSubscriptionChatFilterInput) {
+  onUpdateChat(filter: $filter) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChatSubscriptionVariables,
+  APITypes.OnUpdateChatSubscription
+>;
+export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: ModelSubscriptionChatFilterInput) {
+  onDeleteChat(filter: $filter) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    path
+    sharePath
+    topic {
+      id
+      name
+      slug
+      description
+      content
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    topicId
+    messages {
+      nextToken
+      __typename
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+      role
+      email
+      cognitoid
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChatSubscriptionVariables,
+  APITypes.OnDeleteChatSubscription
+>;
+export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onCreateMessage(filter: $filter) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMessageSubscriptionVariables,
+  APITypes.OnCreateMessageSubscription
+>;
+export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onUpdateMessage(filter: $filter) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMessageSubscriptionVariables,
+  APITypes.OnUpdateMessageSubscription
+>;
+export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onDeleteMessage(filter: $filter) {
+    id
+    content
+    role
+    ui
+    data
+    functioncall
+    name
+    chat {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMessageSubscriptionVariables,
+  APITypes.OnDeleteMessageSubscription
+>;
+export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: ModelSubscriptionTopicFilterInput) {
+  onCreateTopic(filter: $filter) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTopicSubscriptionVariables,
+  APITypes.OnCreateTopicSubscription
+>;
+export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: ModelSubscriptionTopicFilterInput) {
+  onUpdateTopic(filter: $filter) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTopicSubscriptionVariables,
+  APITypes.OnUpdateTopicSubscription
+>;
+export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: ModelSubscriptionTopicFilterInput) {
+  onDeleteTopic(filter: $filter) {
+    id
+    name
+    slug
+    description
+    content
+    status
+    graphic {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    diagrams {
+      nextToken
+      __typename
+    }
+    documents {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTopicSubscriptionVariables,
+  APITypes.OnDeleteTopicSubscription
 >;
 export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
   onCreateUser(filter: $filter) {
@@ -990,6 +1335,10 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -1027,6 +1376,10 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
       nextToken
       __typename
@@ -1064,6 +1417,10 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     lastname
     role
     email
+    chats {
+      nextToken
+      __typename
+    }
     documents {
       nextToken
       __typename
