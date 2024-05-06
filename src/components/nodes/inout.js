@@ -12,13 +12,18 @@ const DEFAULT_HANDLE_STYLE = {
 
 const Shaped = () => {
   return (
-    <svg width='160' height='90' viewBox='0 0 160 90' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <rect width='160' height='90' rx='48' fill='var(--mantine-color-body)' stroke='var(--mantine-color-gray-3)' strokeWidth='2'/>
+    <svg width='164' height='93' viewBox='0 0 164 93' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <path
+        d='M157.097 1H23.4972C21.1226 1 19.0755 2.67019 18.599 4.99648L2.00431 85.9965C1.36913 89.0969 3.73778 92 6.90257 92H140.503C142.877 92 144.924 90.3298 145.401 88.0035L161.996 7.00352C162.631 3.90313 160.262 1 157.097 1Z'
+        fill='var(--mantine-color-body)'
+        stroke='var(--mantine-color-gray-3)'
+        strokeWidth='2'
+      />
     </svg>
   )
 }
 
-function TerminalNode({ data, isConnectable }) {
+function DecisionlNode({ data, isConnectable }) {
   //console.log('node render :', data);
   return (
     <Box className={classes.wrapper}>
@@ -39,4 +44,4 @@ function TerminalNode({ data, isConnectable }) {
   )
 }
 
-export default memo(TerminalNode)
+export default memo(DecisionlNode)

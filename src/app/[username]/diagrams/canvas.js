@@ -16,7 +16,6 @@ import { nodetypes, nodeTypes } from '@/components/nodes'
 var _ = require('lodash')
 
 export default function DiagramCanvas(props) {
-  //console.log(props)
   const client = generateClient()
   const router = useRouter()
   const diagram = useForm({
@@ -68,7 +67,8 @@ export default function DiagramCanvas(props) {
     [setNodes]
   )
 
-  function submitForm(values) {
+  async function submitForm(values) {
+    console.log(`SUBMITING :`, values)
     pushtoForm()
     if (newgram) {
       values.nodes.items.forEach((node, index) => {
@@ -80,18 +80,6 @@ export default function DiagramCanvas(props) {
       newDiagram(values)
       setNewgram(false)
     } else {
-      const newnodes = values.nodes.items.filter((o2) => {
-        return !saved.nodes.items.some((o1) => o1.id === o2.id)
-      })
-      newnodes.forEach((node, index) => {
-        newNode(node)
-      })
-      const newedges = values.edges.items.filter((o2) => {
-        return !saved.edges.items.some((o1) => o1.id === o2.id)
-      })
-      newedges.forEach((edge, index) => {
-        newEdge(edge)
-      })
       const updatednodes = values.nodes.items.filter((o2) => {
         const index = saved.nodes.items.findIndex((o1) => o1.id === o2.id)
         if (index === -1) return true
@@ -107,6 +95,20 @@ export default function DiagramCanvas(props) {
       })
       updatededges.forEach((edge, index) => {
         updatetheEdge(edge)
+      })
+
+      const newnodes = values.nodes.items.filter((o2) => {
+        return !saved.nodes.items.some((o1) => o1.id === o2.id)
+      })
+      newnodes.forEach((node, index) => {
+        newNode(node)
+      })
+      const newedges = values.edges.items.filter((o2) => {
+        return !saved.edges.items.some((o1) => o1.id === o2.id)
+      })
+      newedges.forEach((edge, index) => {
+        edge.diagramId = diagram.values.id
+        newEdge(edge)
       })
       saveDiagram(values)
     }
@@ -164,7 +166,6 @@ export default function DiagramCanvas(props) {
   }
 
   async function newEdge(theedgedata) {
-    console.log(`newEdge :`, theedgedata)
     try {
       const doc = await client.graphql({ query: mutations.createEdge, variables: { input: theedgedata } })
       notifications.show({
@@ -177,6 +178,24 @@ export default function DiagramCanvas(props) {
         message: JSON.stringify(error),
       })
       console.log(`There was a problem creating the Edge :`, error)
+    }
+  }
+
+  async function updatetheEdge(theedgedata) {
+    console.log(`updateEdge :`, theedgedata)
+    let cleaned = _.omit(theedgedata, ['createdAt', 'updatedAt', '__typename'])
+    try {
+      await client.graphql({ query: mutations.updateEdge, variables: { input: cleaned } })
+      notifications.show({
+        title: `${theedgedata.id}`,
+        message: 'The Edge was updated',
+      })
+    } catch (error) {
+      notifications.show({
+        title: 'There was an error updating the Edge',
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem updating the Edge :`, error)
     }
   }
 
@@ -215,29 +234,10 @@ export default function DiagramCanvas(props) {
     }
   }
 
-  async function updatetheEdge(theedgedata) {
-    console.log(`updateEdge :`, theedgedata)
-    try {
-      await client.graphql({ query: mutations.updateEdge, variables: { input: theedgedata } })
-      notifications.show({
-        title: `${theedgedata.id}`,
-        message: 'The Edge was updated',
-      })
-    } catch (error) {
-      notifications.show({
-        title: 'There was an error updating the Edge',
-        message: JSON.stringify(error),
-      })
-      console.log(`There was a problem updating the Edge :`, error)
-    }
-  }
-
   function pushtoForm() {
-    //console.log(nodes)
     nodes.forEach((node, index) => {
       diagram.setFieldValue(`nodes.items.${index}`, node)
     })
-    //console.log(edges)
     edges.forEach((edge, index) => {
       diagram.setFieldValue(`edges.items.${index}`, edge)
     })
@@ -246,11 +246,6 @@ export default function DiagramCanvas(props) {
   function updateView() {
     setNodes(diagram.values.nodes.items)
     setEdges(diagram.values.edges.items)
-  }
-
-  function nodeHandles(thing, node) {
-    const handles = diagram.values.nodes.items[node].handles?.items?.map((handle, index) => <TextInput label='Handle ID ' {...diagram.getInputProps(`item.nodes.items.${node}.handles.items.${index}.id`)} />)
-    return handles
   }
 
   function slugify(text) {
@@ -287,7 +282,7 @@ export default function DiagramCanvas(props) {
         </ReactFlow>
       </Grid.Col>
       <Grid.Col span='content' className={classes.edge} p='0'>
-        <ScrollArea h='100vh' pt='xl' px='0' scrollbars='y' offsetScrollbars='x'>
+        <ScrollArea h='calc(100vh - 60px)' pt='xl' px='0' scrollbars='y' offsetScrollbars='x'>
           <form onSubmit={diagram.onSubmit((values) => submitForm(values))}>
             <Stack w='200px' px='xs' gap='xs'>
               <TextInput {...diagram.getInputProps(`name`)} size='md' fw={600} c='var(--mantine-color-anchor)' rightSection={<IconPencil />} />
@@ -296,9 +291,6 @@ export default function DiagramCanvas(props) {
                 <Select data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} size='xs' />
               </Group>
               <Textarea label='Description' {...diagram.getInputProps(`description`)} size='xs' />
-              <Button leftSection={<IconEyeX size={14} />} variant='outline' onClick={updateView}>
-                Sync to View
-              </Button>
               <Accordion chevronPosition='right' variant='contained'>
                 <Accordion.Item value='graphic' key='graphic'>
                   <Accordion.Control px='xs'>
@@ -372,6 +364,14 @@ export default function DiagramCanvas(props) {
                   </Accordion.Panel>
                 </Accordion.Item>
               </Accordion>
+              <SimpleGrid cols={2}>
+                <Button variant='outline' onClick={updateView}>
+                  VIEW
+                </Button>
+                <Button variant='outline' onClick={pushtoForm}>
+                  FORM
+                </Button>
+              </SimpleGrid>
               <Button type='submit' fullWidth rightSection={<IconDeviceFloppy />}>
                 Save Diagram
               </Button>

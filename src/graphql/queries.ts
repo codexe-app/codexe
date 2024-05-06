@@ -233,23 +233,10 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           }
           sourcePosition
           targetPosition
-          hidden
-          selected
-          dragging
-          draggable
-          selectable
-          connectable
-          resizing
-          deletable
-          dragHandle
           width
           height
           parentId
           zIndex
-          extent
-          expandParent
-          ariaLabel
-          focusable
           style
           className
           diagramId
