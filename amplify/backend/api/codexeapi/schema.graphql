@@ -147,8 +147,8 @@ type WHMeasured {
 }
 
 type XYPosition {
-  x: Int
-  y: Int
+  x: Float
+  y: Float
 }
 
 type NodeData {
