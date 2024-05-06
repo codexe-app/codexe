@@ -735,6 +735,16 @@ export const listUsers = /* GraphQL */ `query ListUsers(
           description
           content
           status
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+          }
           nodes {
             items {
               id
