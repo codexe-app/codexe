@@ -32,6 +32,7 @@ import {
 import '@mdxeditor/editor/style.css'
 
 export default function DocumentForm(props: any) {
+  const { user } = props
   const client = generateClient()
   const router = useRouter()
   const mdxEditorRef = React.useRef<MDXEditorMethods>(null)
@@ -62,7 +63,7 @@ export default function DocumentForm(props: any) {
         title: `${values.name} was created`,
         children: <Text size='sm'>Would you like to continue editing or goto your documents list?</Text>,
         labels: { confirm: 'Edit', cancel: 'Docs' },
-        onCancel: () => router.push('/documents'),
+        onCancel: () => router.push(`/${user.username}/documents`),
         onConfirm: () => router.push(`/documents/edit/${values.slug}`),
       })
     } catch (error) {
@@ -81,8 +82,8 @@ export default function DocumentForm(props: any) {
         title: `${values.name} was updated`,
         children: <Text size='sm'>Would you like to continue editing or goto your documents list?</Text>,
         labels: { confirm: 'Edit', cancel: 'Docs' },
-        onCancel: () => router.push('/documents'),
-        onConfirm: () => router.push(`/documents/edit/${values.slug}`),
+        onCancel: () => router.push(`/${user.username}/documents`),
+        onConfirm: () => router.refresh,
       })
     } catch (error) {
       notifications.show({
