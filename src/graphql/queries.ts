@@ -762,6 +762,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
           userId
           createdAt
           updatedAt
+          __typename
         }
         nextToken
         __typename

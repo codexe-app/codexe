@@ -9,7 +9,6 @@ export default async function CreateCard(props: any) {
   const fileType = file['type']
   const validImageTypes = ['image/gif', 'image/jpeg', 'image/png']
   if (!validImageTypes.includes(fileType)) {
-    console.log(`INVALID`)
     image.url = 'https://apod.nasa.gov/apod/image/2405/BhShredder_NASA_1080.jpg'
   }
 
