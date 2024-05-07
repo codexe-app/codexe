@@ -1,11 +1,11 @@
 'use client'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useChat } from 'ai/react'
 import { useToggle } from '@mantine/hooks'
 import { generateClient } from 'aws-amplify/api'
 import { createMessage, createChat } from '@/graphql/mutations'
 import { IconDeviceFloppy, IconEdit } from '@tabler/icons-react'
-import { Group, Stack, TextInput, Text, ActionIcon, Box, Container, Card, Title } from '@mantine/core'
+import { Group, Stack, TextInput, Text, ActionIcon, Box, LoadingOverlay, Card, Title } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import dayjs from 'dayjs'
@@ -115,7 +115,9 @@ export default function ChatBot(props: any) {
           overflowY: 'scroll',
           flex: 1,
         }}>
-        <Box px='xs'>{messages.length ? <ChatList messages={messages} /> : <ChatHistory userid={user.id} />}</Box>
+        <Suspense fallback={<LoadingOverlay visible={true} zIndex={998} loaderProps={{ size: 'xl', type: 'dots' }} overlayProps={{ blur: 4, backgroundOpacity: 0.6 }} />}>
+          <Box px='xs'>{messages.length ? <ChatList messages={messages} /> : <ChatHistory userid={user.id} />}</Box>
+        </Suspense>
       </Card.Section>
       <Card.Section bg='var(--mantine-primary-color-1)' pt='xs' pb='lg' px='sm'>
         <ChatPanel id={id} isLoading={isLoading} stop={stop} append={append} reload={reload} messages={messages} input={input} setInput={setInput} />

@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   // Ask Claude for a streaming chat completion given the prompt
   const bedrockResponse = await bedrockClient.send(
     new InvokeModelWithResponseStreamCommand({
-      modelId: 'anthropic.claude-v2',
+      modelId: 'anthropic.claude-v2:1',
       contentType: 'application/json',
       accept: 'application/json',
       body: JSON.stringify({
