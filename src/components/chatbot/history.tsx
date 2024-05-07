@@ -1,59 +1,52 @@
-'use client';
-import React, { Suspense, useState, useEffect } from 'react';
+'use client'
+import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { generateClient } from 'aws-amplify/api';
-import { listChats, messagesByChatIdAndCreatedAt } from '@/graphql/queries';
-import { deleteMessage, deleteChat } from '@/graphql/mutations';
-import { useRouter } from 'next/navigation';
-import { modals } from '@mantine/modals';
-import { Chat } from '@/graphql/API';
-import { Box, Group, ActionIcon, Divider, Stack, Text, UnstyledButton, Badge, LoadingOverlay } from '@mantine/core';
-import { IconCalendarClock, IconTrash } from '@tabler/icons-react';
-import { useLocalStorage } from '@mantine/hooks';
-import dayjs from 'dayjs';
+import { generateClient } from 'aws-amplify/api'
+import { chatsByUserIdAndCreatedAt, messagesByChatIdAndCreatedAt } from '@/graphql/queries'
+import { deleteMessage, deleteChat } from '@/graphql/mutations'
+import { useRouter } from 'next/navigation'
+import { modals } from '@mantine/modals'
+import { Chat } from '@/graphql/API'
+import { Box, Group, ActionIcon, Divider, Stack, Title, Text, UnstyledButton, Badge, LoadingOverlay } from '@mantine/core'
+import { IconCalendarClock, IconTrash, IconDeviceAudioTape } from '@tabler/icons-react'
+import dayjs from 'dayjs'
 
-export default function ChatHistory() {
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [mode, setMode] = useLocalStorage<'guest' | 'preview' | 'admin'>({
-    key: 'mode',
-  });
-  const client = generateClient();
-  const router = useRouter();
+export default function ChatHistory(props: any) {
+  const { userid } = props
+  const [chats, setChats] = useState<Chat[]>([])
+  const client = generateClient()
+  const router = useRouter()
 
   const openModal = (chat: any) =>
     modals.openConfirmModal({
       title: `Deleting ${chat.name}`,
       children: (
-        <Text size="sm">
-          Please confirm you want to delete {chat.name} from{' '}
-          {dayjs(chat.createdAt).format('MMM D, YYYY h:mm a')}
+        <Text size='sm'>
+          Please confirm you want to delete {chat.name} from {dayjs(chat.createdAt).format('MMM D, YYYY h:mm a')}
         </Text>
       ),
       labels: { confirm: 'Confirm', cancel: 'Cancel' },
       onCancel: () => console.log('Cancel'),
       onConfirm: () => trashChatMsgs(chat),
-    });
+    })
 
-  async function getChatHistory() {
+  async function listChatHistory() {
     try {
       const chatcall = (await client.graphql({
-        query: listChats,
-        variables: {
-          filter: {
-            _deleted: { ne: true },
-          },
-        },
+        query: chatsByUserIdAndCreatedAt,
+        variables: { userId: userid },
       })) as {
         data: {
-          listChats: {
-            items: Chat[];
-          };
-        };
-      };
-      const chathist = chatcall.data.listChats.items;
-      setChats(chathist);
+          chatsByUserIdAndCreatedAt: {
+            items: Chat[]
+          }
+        }
+      }
+      const chatlist = chatcall.data.chatsByUserIdAndCreatedAt.items
+      setChats(chatlist)
+      console.log(chatlist)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -62,15 +55,15 @@ export default function ChatHistory() {
       const msgcall = await client.graphql({
         query: messagesByChatIdAndCreatedAt,
         variables: { chatId: chat.id },
-      });
-      const messages = msgcall.data.messagesByChatIdAndCreatedAt?.items!;
+      })
+      const messages = msgcall.data.messagesByChatIdAndCreatedAt?.items!
       messages.forEach((msg) => {
-        trashMsg(msg);
-      });
-      trashChat(chat);
-      router.push('/chatbot');
+        trashMsg(msg)
+      })
+      trashChat(chat)
+      router.push('/chatbot')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -78,10 +71,10 @@ export default function ChatHistory() {
     try {
       await client.graphql({
         query: deleteMessage,
-        variables: { input: { id: msg.id, _version: msg._version } },
-      });
+        variables: { input: { id: msg.id } },
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -89,56 +82,55 @@ export default function ChatHistory() {
     try {
       await client.graphql({
         query: deleteChat,
-        variables: { input: { id: chat.id, _version: chat._version } },
-      });
+        variables: { input: { id: chat.id } },
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
   useEffect(() => {
-    getChatHistory();
-  }, []);
+    listChatHistory()
+  }, [])
 
   return (
-    <Suspense
-        fallback={
-          <LoadingOverlay
-            visible={true}
-            zIndex={998}
-            loaderProps={{ size: 'xl', type: 'dots' }}
-            overlayProps={{ blur: 4, backgroundOpacity: 0.6 }}
-          />
-        }
-      >
+    <Box>
+      <Group py='sm' gap='xs'>
+        <IconDeviceAudioTape size={32} color='var(--mantine-color-anchor)' />
+        <Title order={3}>Your Conversations</Title>
+      </Group>
+      <Divider />
       {chats &&
         chats.map((chat, i) => (
-          <Box key={chat.id} mt='xs'>
-            <Group mb="sm" justify="space-between" wrap="nowrap">
-              <Stack gap={2}>
+          <Group key={chat.id} py='sm' justify='space-between' wrap='nowrap'>
+            <Stack gap='xs'>
+              <Group mb={0} justify='space-between' wrap='nowrap'>
                 <UnstyledButton component={Link} href={`/chatbot/${chat.id}`}>
-                  <Text fw={500} lh={1}>{chat.name} </Text>
-                </UnstyledButton>
-                <Group gap={2} mt={4}>                
-                  <Badge size='xs' radius='xl'>{chat.messages?.items.length}</Badge>
-                  <Text size='xs' fw={400} lh={1}>Messages</Text>
-                </Group>
-                <Group gap={2}>
-                  <IconCalendarClock color="gray" size={14} />
-                  <Text c="dimmed" size="xs">
-                    {dayjs(chat.createdAt).format('MMM D, YYYY h:mm a')}
+                  <Text fw={500} lh={1}>
+                    {chat.name}{' '}
                   </Text>
+                </UnstyledButton>
+                <Group gap='xs'>
+                  <Text size='xs' fw={400} lh={1}>
+                    Messages
+                  </Text>
+                  <Badge size='sm' radius='lg'>
+                    {chat.messages?.items.length}
+                  </Badge>
                 </Group>
-              </Stack>
-                {mode == 'admin' && (
-                  <ActionIcon variant="transparent" size="sm" onClick={() => openModal(chat)}>
-                    <IconTrash />
-                  </ActionIcon>
-                )}
-            </Group>
-            <Divider />
-          </Box>
+              </Group>
+              <Group gap={2}>
+                <IconCalendarClock color='gray' size={14} />
+                <Text c='dimmed' size='xs'>
+                  {dayjs(chat.createdAt).format('MMM D, YYYY h:mm a')}
+                </Text>
+              </Group>
+            </Stack>
+            <ActionIcon variant='transparent' size='sm' onClick={() => openModal(chat)}>
+              <IconTrash />
+            </ActionIcon>
+          </Group>
         ))}
-    </Suspense>
-  );
+    </Box>
+  )
 }

@@ -33,7 +33,6 @@ export default function ChatMessage({ message, ...props }: ChatMessageProps) {
               const match = /language-(\w+)/.exec(className || '');
               return match ? (
                 <CodeHighlight
-                  {...rest}
                   code={String(children).replace(/\n$/, '')}
                   language={match[1]}
                 />

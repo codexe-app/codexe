@@ -1,86 +1,54 @@
-import * as React from 'react';
-import { Textarea, Button, ActionIcon } from '@mantine/core';
-import { UseChatHelpers } from 'ai/react';
-import { generateClient } from 'aws-amplify/api';
-import { createChat, createMessage } from '@/graphql/mutations';
-import { useEnterSubmit } from './use-enter-submit';
-import { IconArrowRight, IconPlus } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
-
-const client = generateClient();
+import React, { useEffect } from 'react'
+import { Textarea, ActionIcon } from '@mantine/core'
+import { UseChatHelpers } from 'ai/react'
+import { useEnterSubmit } from './use-enter-submit'
+import { IconArrowRight } from '@tabler/icons-react'
+import { useRouter } from 'next/navigation'
 
 export interface PromptProps extends Pick<UseChatHelpers, 'input' | 'setInput'> {
-  onSubmit: (value: string) => void;
-  isLoading: boolean;
+  onSubmit: (value: string) => void
+  isLoading: boolean
 }
 
 export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps) {
-  const { formRef, onKeyDown } = useEnterSubmit();
-  const inputRef = React.useRef<HTMLTextAreaElement>(null);
-  const router = useRouter();
-  React.useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+  const { formRef, onKeyDown } = useEnterSubmit()
+  const inputRef = React.useRef<HTMLTextAreaElement>(null)
 
-  async function recordChat() {
-    const chatcall = await client.graphql({
-      query: createChat,
-      variables: { input: { name: 'Chat Log' } },
-    });
-    const chatid = chatcall.data.createChat?.id;
-    router.push(`/chat/${chatid}`);
-    router.refresh();
-  }
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [])
 
   return (
     <form
       onSubmit={async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (!input?.trim()) {
-          return;
+          return
         }
-        setInput('');
-        onSubmit(input);
+        setInput('')
+        onSubmit(input)
       }}
-      ref={formRef}
-    >
+      ref={formRef}>
       <Textarea
-        leftSection={
-          <ActionIcon
-            size={28}
-            radius="xl"
-            variant="filled"
-            onClick={(e) => {
-              e.preventDefault();
-              recordChat();
-            }}
-          >
-            <IconPlus style={{ width: 24, height: 24 }} stroke={1.5} />
-          </ActionIcon>
-        }
         ref={inputRef}
         tabIndex={0}
         onKeyDown={onKeyDown}
-        rows={1}
+        autosize
+        minRows={1}
+        maxRows={4}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Send a message."
+        placeholder='Send a message.'
         spellCheck={false}
         rightSectionWidth={32}
         rightSection={
-          <ActionIcon
-            size={28}
-            radius="xl"
-            variant="filled"
-            type="submit"
-            disabled={isLoading || input === ''}
-          >
+          <ActionIcon size={28} radius='xl' variant='filled' type='submit' disabled={isLoading || input === ''}>
             <IconArrowRight style={{ width: 24, height: 24 }} stroke={1.5} />
           </ActionIcon>
         }
       />
     </form>
-  );
+  )
 }
