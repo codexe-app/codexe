@@ -115,7 +115,6 @@ export default function Shell(props: any) {
       </AppShell.Navbar>
       <AppShell.Main>
         {props.children}
-
       </AppShell.Main>
     </AppShell>
   )

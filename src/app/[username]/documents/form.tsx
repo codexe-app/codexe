@@ -30,6 +30,7 @@ import {
   diffSourcePlugin,
 } from '@mdxeditor/editor'
 import '@mdxeditor/editor/style.css'
+var _ = require('lodash')
 
 export default function DocumentForm(props: any) {
   const { user } = props
@@ -43,7 +44,7 @@ export default function DocumentForm(props: any) {
   const form = useForm({
     initialValues: props.data,
     onValuesChange: (values) => {
-      slugify(values.name);
+      slugify(values.name)
     },
   })
 
@@ -64,7 +65,7 @@ export default function DocumentForm(props: any) {
         children: <Text size='sm'>Would you like to continue editing or goto your documents list?</Text>,
         labels: { confirm: 'Edit', cancel: 'Docs' },
         onCancel: () => router.push(`/${user.username}/documents`),
-        onConfirm: () => router.push(`/documents/edit/${values.slug}`),
+        onConfirm: () => router.push(`/${user.username}/documents/${values.slug}`),
       })
     } catch (error) {
       notifications.show({
@@ -76,14 +77,13 @@ export default function DocumentForm(props: any) {
   }
 
   async function saveDocument(values: any) {
+    let cleaned = _.omit(values, ['topic', 'createdAt', 'updatedAt', '__typename'])
+    console.log(cleaned)
     try {
-      const doc = await client.graphql({ query: mutations.updateDocument, variables: { input: values } })
-      modals.openConfirmModal({
-        title: `${values.name} was updated`,
-        children: <Text size='sm'>Would you like to continue editing or goto your documents list?</Text>,
-        labels: { confirm: 'Edit', cancel: 'Docs' },
-        onCancel: () => router.push(`/${user.username}/documents`),
-        onConfirm: () => router.refresh,
+      await client.graphql({ query: mutations.updateDocument, variables: { input: cleaned } })
+      notifications.show({
+        title: values.name,
+        message: 'The Document was updated',
       })
     } catch (error) {
       notifications.show({
@@ -139,7 +139,7 @@ export default function DocumentForm(props: any) {
     }
   }
 
-  function slugify(text : any) {
+  function slugify(text: any) {
     const snail = text
       .toString()
       .toLowerCase()
@@ -159,7 +159,7 @@ export default function DocumentForm(props: any) {
   }, [])
 
   return (
-    <Container size='responsive'>
+    <Container size='responsive' mb='xl'>
       <form
         onSubmit={form.onSubmit(
           (values, event) => {
@@ -230,10 +230,10 @@ export default function DocumentForm(props: any) {
                                 </Dropzone.Idle>
                                 <div>
                                   <Text size='xl' inline>
-                                    Drag images here or click to select files
+                                    Drag image here or click to select file
                                   </Text>
                                   <Text size='sm' c='dimmed' inline mt={7}>
-                                    Attach as many files as you like, each file should not exceed 5mb
+                                    File should not exceed 5mb
                                   </Text>
                                 </div>
                               </Group>
@@ -250,7 +250,7 @@ export default function DocumentForm(props: any) {
           </Stack>
           <Stack>
             <TextInput label='Slug' placeholder='slug' required {...form.getInputProps('slug')} />
-            <TextInput label='Topic' placeholder='topic' disabled {...form.getInputProps('topic')} />
+            <TextInput label='Topic' placeholder='topic' disabled />
             <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...form.getInputProps(`status`)} />
           </Stack>
         </SimpleGrid>
@@ -258,43 +258,41 @@ export default function DocumentForm(props: any) {
           Content
         </Text>
         <Fieldset p={0}>
-          <Paper>
-            <MDXEditor
-              ref={mdxEditorRef}
-              markdown={form.values.content || ''}
-              onChange={(e) => form.setFieldValue('content', e)}
-              contentEditableClassName='prose'
-              plugins={[
-                toolbarPlugin({
-                  toolbarContents: () => (
-                    <>
-                      {' '}
-                      <DiffSourceToggleWrapper>
-                        <BlockTypeSelect />
-                        <BoldItalicUnderlineToggles />
-                        <ListsToggle />
-                        <CreateLink />
-                        <InsertImage />
-                      </DiffSourceToggleWrapper>
-                    </>
-                  ),
-                }),
-                headingsPlugin(),
-                linkPlugin(),
-                linkDialogPlugin(),
-                imagePlugin(),
-                listsPlugin(),
-                diffSourcePlugin(),
-              ]}
-            />
-          </Paper>
+          <MDXEditor
+            ref={mdxEditorRef}
+            markdown={form.values.content || ''}
+            onChange={(e) => form.setFieldValue('content', e)}
+            contentEditableClassName='prose'
+            plugins={[
+              toolbarPlugin({
+                toolbarContents: () => (
+                  <>
+                    {' '}
+                    <DiffSourceToggleWrapper>
+                      <BlockTypeSelect />
+                      <BoldItalicUnderlineToggles />
+                      <ListsToggle />
+                      <CreateLink />
+                      <InsertImage />
+                    </DiffSourceToggleWrapper>
+                  </>
+                ),
+              }),
+              headingsPlugin(),
+              linkPlugin(),
+              linkDialogPlugin(),
+              imagePlugin(),
+              listsPlugin(),
+              diffSourcePlugin(),
+            ]}
+          />
         </Fieldset>
         {apierror.active ? (
           <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
             {apierror.message}
           </Alert>
         ) : null}
-        <Flex justify='end'>
+        <Flex justify='end' mb='xl'>
           <Button mt='md' type='submit' rightSection={<IconDeviceFloppy size={14} />}>
             {props.new ? 'Create Document' : 'Save Document'}
           </Button>

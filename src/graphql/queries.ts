@@ -80,7 +80,6 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
         key
         source
         thumbnail
-        __typename
       }
       topic {
         id
@@ -91,22 +90,8 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
         status
         createdAt
         updatedAt
-        __typename
       }
       topicId
-      user {
-        id
-        username
-        firstname
-        lastname
-        role
-        email
-        cognitoid
-        createdAt
-        updatedAt
-        __typename
-      }
-      userId
       createdAt
       updatedAt
       __typename
@@ -187,7 +172,134 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
       description
       content
       status
+      graphic {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
+      nodes {
+        items {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          draggable
+          selectable
+          connectable
+          deletable
+          dragHandle
+          width
+          height
+          zIndex
+          ariaLabel
+          focusable
+          style
+          className
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          data {
+            label
+            __typename
+          }
+          deletable
+          className
+          sourceNode
+          targetNode
+          selected
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        firstname
+        lastname
+        role
+        email
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt

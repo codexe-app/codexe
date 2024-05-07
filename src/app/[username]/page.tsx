@@ -28,6 +28,7 @@ export default async function Page({ params }: { params: { username: string } })
   const user = response.data.listUsers.items[0]
   const docs = user?.documents?.items
   const dias = user?.diagrams?.items
+  //@ts-ignore
   const everything = docs?.concat(dias)
   const sorted = _.orderBy(everything, ['updatedAt'], ['desc'])
   

@@ -23,10 +23,6 @@ export default async function Page() {
     <Container size='responsive'>
       <Flex align='end' justify='space-between'>
         <Title order={2}>Documents</Title>
-        <Button variant='outline' component={Link} href='/documents/new' size='xs' mb='xs'>
-          New Document
-          <IconFilePlus size={14} />
-        </Button>
       </Flex>
       <Docs data={documents} />
     </Container>
