@@ -1,6 +1,7 @@
 'use client'
-import { ActionIcon, Avatar, Button, Card, Flex, Group, Menu, Space, Stack, Text, Title } from '@mantine/core'
-import { IconDots, IconEye, IconFileZip, IconTrash } from '@tabler/icons-react'
+import Link from 'next/link'
+import { ActionIcon, Avatar, Card, Flex, Group, Menu, Space, Text, Title } from '@mantine/core'
+import { IconDots, IconEdit } from '@tabler/icons-react'
 
 const sectionStyle = {
   padding: 'var(--mantine-spacing-md)',
@@ -22,10 +23,8 @@ export default function ProfileCard(props: any) {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item leftSection={<IconFileZip size={14} />}>Action One</Menu.Item>
-              <Menu.Item leftSection={<IconEye size={14} />}>Action Two</Menu.Item>
-              <Menu.Item leftSection={<IconTrash size={14} />} color='red'>
-                Action Three
+              <Menu.Item leftSection={<IconEdit size={14} />} color='red' component={Link} href={`/${user.username}/profile`}>
+                Edit Profile
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

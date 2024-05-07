@@ -5,7 +5,7 @@ import type { User } from '@/graphql/API'
 import ProfileCard from './profile'
 import CreateCard from './create'
 import DocumentsTable from './table'
-const _ = require("lodash")
+var _ = require('lodash')
 
 export default async function Page({ params }: { params: { username: string } }) {
   const variables = {
@@ -31,10 +31,10 @@ export default async function Page({ params }: { params: { username: string } })
   //@ts-ignore
   const everything = docs?.concat(dias)
   const sorted = _.orderBy(everything, ['updatedAt'], ['desc'])
-  
+
   return (
     <Container size='responsive'>
-      <SimpleGrid cols={{ base: 2, md: 2 }} spacing='md' my='md'>
+      <SimpleGrid cols={{ base: 1, md: 2 }} spacing='md' my='md'>
         <CreateCard user={user} />
         <ProfileCard user={user} />
       </SimpleGrid>

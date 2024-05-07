@@ -41,7 +41,9 @@ export default function DocumentsTable(props: any) {
     <Table.Tr key={doc.id}>
       <Table.Td pos='relative'>
         <Avatar src={doc.graphic.url} radius='xs' size='lg' />
-        <Badge pos='absolute' bottom='0' w='58' >{doc.status}</Badge>
+        <Badge pos='absolute' bottom='0' w='58'>
+          {doc.status}
+        </Badge>
       </Table.Td>
       <Table.Td>
         <Text fz='sm'> {dayjs(doc.updatedAt).format('MMMM D, YYYY')}</Text>
@@ -105,28 +107,28 @@ export default function DocumentsTable(props: any) {
           </ActionIcon>
         </Group>
       </Table.Td>
-      <Table.Td>
-        
-      </Table.Td>
+      <Table.Td></Table.Td>
     </Table.Tr>
   ))
 
   return (
     <Card shadow='sm' padding='lg' radius='md' withBorder>
-      <Table verticalSpacing='sm'>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th></Table.Th>
-            <Table.Th>Modified</Table.Th>
-            <Table.Th>Name</Table.Th>
-            <Table.Th>Description</Table.Th>
-            <Table.Th>Slug</Table.Th>
-            <Table.Th>Type</Table.Th>
-            <Table.Th />
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
+      <Table.ScrollContainer minWidth={320}>
+        <Table verticalSpacing='sm'>
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th></Table.Th>
+              <Table.Th>Modified</Table.Th>
+              <Table.Th>Name</Table.Th>
+              <Table.Th>Description</Table.Th>
+              <Table.Th>Slug</Table.Th>
+              <Table.Th>Type</Table.Th>
+              <Table.Th />
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </Table.ScrollContainer>
     </Card>
   )
 }
