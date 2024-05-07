@@ -29,11 +29,8 @@ export default function Page() {
   async function currentAuthenticatedUser() {
     try {
       const usercheck = await getCurrentUser()
-      //@ts-ignore
-      setUser(usercheck)
-      setSignedin(true)
+      router.push(`/${usercheck.username}`)
     } catch (error) {
-      setSignedin(false)
       //console.log(error)
     }
   }
@@ -45,9 +42,7 @@ export default function Page() {
         username: values.username,
         password: values.password,
       })
-      setSignedin(true)
       router.push(`/${values.username}`)
-      setApierror({ active: false, code: 'No Error', message: 'No Message' })
     } catch (error) {
       //@ts-ignore
       setApierror({ active: true, code: error.name, message: error.message })
@@ -56,22 +51,6 @@ export default function Page() {
     toggle
   }
 
-  async function handleSignOut() {
-    toggle
-    try {
-      await signOut()
-      login.reset()
-      //@ts-ignore
-      setUser({})
-      setSignedin(false)
-      setApierror({ active: false, code: 'No Error', message: 'No Message' })
-    } catch (error) {
-      //@ts-ignore
-      setApierror({ active: true, code: error.name, message: error.message })
-      console.log('error signing out: ', error)
-    }
-    toggle
-  }
 
   useEffect(() => {
     currentAuthenticatedUser()
@@ -108,7 +87,7 @@ export default function Page() {
   return (
     <Container size='responsive'>
       <Box mb='xl'>
-        <Title ta='center' order={2} >
+        <Title ta='center' order={2}>
           Welcome back
         </Title>
         <Text c='dimmed' size='sm' ta='center' mt={5}>
@@ -120,15 +99,29 @@ export default function Page() {
       </Box>
       <Container size={420} my={40}>
         <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-          {signedin ? (
-            <Box mb='xl'>
-              <Title ta='center' order={4}>
-                You are signed in as {user.username}
-              </Title>
-              <Text c='dimmed' size='sm' ta='center' mt={5}>
-                Goto your&nbsp;
-                <Anchor size='sm' component={Link} href={`/${user.username}`}>
-                  Dashboard
+          <form
+            onSubmit={login.onSubmit(
+              (values, event) => {
+                handleSignIn(values)
+              },
+              (validationErrors, values, event) => {
+                console.log(
+                  validationErrors, // <- form.errors at the moment of submit
+                  values, // <- form.getValues() at the moment of submit
+                  event // <- form element submit event
+                )
+              }
+            )}>
+            <Stack>
+              <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
+              <PasswordInput label='Password' placeholder='password' required {...login.getInputProps('password')} />
+              <Text c='dimmed' size='md' ta='center' mt='md'>
+                Forgot your password?
+              </Text>
+              <Text c='dimmed' size='sm' ta='center'>
+                Enter your username, then&nbsp;
+                <Anchor size='sm' onClick={handleResetPassword}>
+                  Reset
                 </Anchor>
               </Text>
               {apierror.active ? (
@@ -136,48 +129,11 @@ export default function Page() {
                   {apierror.message}
                 </Alert>
               ) : null}
-              <Button fullWidth mt='xl' onClick={handleSignOut} loading={loading}>
-                Sign Out
+              <Button fullWidth mt='xl' type='submit' loading={loading}>
+                Sign In
               </Button>
-            </Box>
-          ) : (
-            <form
-              onSubmit={login.onSubmit(
-                (values, event) => {
-                  handleSignIn(values)
-                },
-                (validationErrors, values, event) => {
-                  console.log(
-                    validationErrors, // <- form.errors at the moment of submit
-                    values, // <- form.getValues() at the moment of submit
-                    event // <- form element submit event
-                  )
-                }
-              )}>
-              <Stack>
-                <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
-                <PasswordInput label='Password' placeholder='password' required {...login.getInputProps('password')} />
-                <Text c='dimmed' size='md' ta='center' mt='md'>
-                  Forgot your password?
-                </Text>
-                <Text c='dimmed' size='sm' ta='center'>
-                  
-                  Enter your username, then&nbsp;
-                  <Anchor size='sm' onClick={handleResetPassword}>
-                    Reset
-                  </Anchor>
-                </Text>
-                {apierror.active ? (
-                  <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
-                    {apierror.message}
-                  </Alert>
-                ) : null}
-                <Button fullWidth mt='xl' type='submit' loading={loading}>
-                  Sign In
-                </Button>
-              </Stack>
-            </form>
-          )}
+            </Stack>
+          </form>
         </Paper>
       </Container>
     </Container>
