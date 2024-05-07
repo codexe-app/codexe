@@ -2,13 +2,14 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { AppShell, Switch, Group, Box, ActionIcon, Stack, NavLink, Button, Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Switch, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
 import { signOut } from 'aws-amplify/auth'
-import { IconLogout, IconSearch, IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconIdBadge2, IconFilePlus, IconFiles, IconDashboard } from '@tabler/icons-react'
-import UserMenu from './menu'
+import { IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconFiles, IconDashboard } from '@tabler/icons-react'
+import { HorizontalLogo } from '@/app/logo'
 import cx from 'clsx'
+import UserMenu from './menu'
 import classes from './dash.module.css'
 
 export default function Shell(props: any) {
@@ -46,8 +47,8 @@ export default function Shell(props: any) {
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
-            <Link href='/'>
-              <Image src='/logo.svg' height={36} />
+            <Link href='/' style={{ lineHeight: 1 }}>
+              <HorizontalLogo size={32} color='var(--mantine-color-anchor)' />
             </Link>
             <Group ml='xl' gap='xs'>
               <Group>

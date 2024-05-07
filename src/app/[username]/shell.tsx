@@ -1,19 +1,19 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
-import { Affix, Dialog, AppShell, Switch, Group, ActionIcon, Stack, NavLink,  Avatar, Image, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { useRouter } from 'next/navigation'
+import { AppShell, Switch, Group, ActionIcon, Stack, NavLink,  Avatar, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
 import { signOut } from 'aws-amplify/auth'
-import { IconRobot, IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconFiles, IconDashboard } from '@tabler/icons-react'
+import { IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconFiles, IconDashboard } from '@tabler/icons-react'
+import { HorizontalLogo } from '@/app/logo'
 import UserMenu from './menu'
 import cx from 'clsx'
 import classes from './dash.module.css'
 
 export default function Shell(props: any) {
   const router = useRouter()
-  const pathname = usePathname()
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
   const [nav, setNav] = useState(false)
@@ -28,8 +28,6 @@ export default function Shell(props: any) {
   async function handleSignOut() {
     try {
       await signOut()
-      setUser({})
-      setUserdata('')
       router.push(`/`)
     } catch (error) {
       console.log('error signing out: ', error)
@@ -46,8 +44,8 @@ export default function Shell(props: any) {
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
-            <Link href='/'>
-              <Image src='/logo.svg' height={36} />
+          <Link href='/' style={{ lineHeight: 1 }}>
+              <HorizontalLogo size={32} color='var(--mantine-color-anchor)'/>
             </Link>
             <Group ml='xl' gap='xs'>
               <Group>

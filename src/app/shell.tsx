@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { AppShell, Group, Button, Image, Switch, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Group, Button, Switch, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { IconMoonStars, IconSun } from '@tabler/icons-react'
+import { HorizontalLogo } from '@/app/logo'
 
-export default function Shell({ children }: { children: any }) {
+export default function Shell({ children }: { children: any }): JSX.Element {
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
   const [checked, setChecked] = useState(true)
@@ -19,8 +20,8 @@ export default function Shell({ children }: { children: any }) {
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
-            <Link href='/'>
-              <Image src='/logo.svg' height={36} />
+            <Link href='/' style={{ lineHeight: 1 }}>
+              <HorizontalLogo size={32} color='var(--mantine-color-anchor)'/>
             </Link>
             <Group ml='xl' gap={0}>
               <Button variant='transparent' component={Link} href='/account/signin'>
