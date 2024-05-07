@@ -68,7 +68,7 @@ export default function ChatBot(props: any) {
   }
 
   return (
-    <Card style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 60px)', backgroundColor: 'var(--mantine-primary-color-1)' }}>
+    <Card style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 48px)', backgroundColor: 'var(--mantine-primary-color-1)' }}>
       <Card.Section>
         <Group wrap='nowrap' h='60px'>
           <Box w='20px'>

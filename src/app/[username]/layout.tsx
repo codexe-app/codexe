@@ -6,7 +6,6 @@ import type { User } from '@/graphql/API'
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from 'aws-amplify/auth/server'
 import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
-import Chatbot from './chat'
 import Shell from './shell'
 
 export const dynamic = 'force-dynamic'
@@ -44,7 +43,6 @@ export default async function Layout(props: any) {
 
   return (
     <Shell user={user}>
-      <Chatbot user={user} />
       {props.children}
     </Shell>
   )

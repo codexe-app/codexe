@@ -6,7 +6,7 @@ import type { User } from '@/graphql/API'
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from 'aws-amplify/auth/server'
 import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
-import Shell from './shell'
+import Shell from '@/app/[username]/shell'
 
 export const dynamic = 'force-dynamic'
 

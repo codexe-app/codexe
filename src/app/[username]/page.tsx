@@ -35,8 +35,8 @@ export default async function Page({ params }: { params: { username: string } })
   return (
     <Container size='responsive'>
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing='md' my='md'>
-        <CreateCard user={user} />
         <ProfileCard user={user} />
+        <CreateCard user={user} />
       </SimpleGrid>
       <Flex direction='column' h='100%' justify='space-between' gap='md'>
         <DocumentsTable data={sorted} />

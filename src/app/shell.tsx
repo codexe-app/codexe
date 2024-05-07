@@ -1,22 +1,12 @@
 'use client'
-import { useState } from 'react'
 import Link from 'next/link'
-import { AppShell, Group, Button, Switch, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
-import { IconMoonStars, IconSun } from '@tabler/icons-react'
+import { AppShell, Group, Button } from '@mantine/core'
 import { HorizontalLogo } from '@/app/logo'
 
 export default function Shell({ children }: { children: any }): JSX.Element {
-  const { setColorScheme } = useMantineColorScheme()
-  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
-  const [checked, setChecked] = useState(true)
-
-  function switchScheme() {
-    setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
-    setChecked(!checked)
-  }
 
   return (
-    <AppShell header={{ height: 60 }}>
+    <AppShell header={{ height: 48 }}>
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
@@ -27,14 +17,6 @@ export default function Shell({ children }: { children: any }): JSX.Element {
               <Button variant='transparent' component={Link} href='/account/signin'>
                 SIGN IN
               </Button>
-              <Switch
-                checked={checked}
-                onChange={() => switchScheme()}
-                size='md'
-                color='dark.4'
-                onLabel={<IconSun style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
-                offLabel={<IconMoonStars style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
-              />
             </Group>
           </Group>
         </Group>

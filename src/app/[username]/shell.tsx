@@ -2,15 +2,31 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { AppShell, Switch, Group, ActionIcon, Stack, NavLink,  Avatar, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Switch, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useLocalStorage } from '@mantine/hooks'
 import { signOut } from 'aws-amplify/auth'
-import { IconLayoutSidebarLeftCollapse, IconMoon, IconSun, IconHierarchy2, IconMarkdown, IconLayoutSidebarLeftExpand, IconFiles, IconDashboard } from '@tabler/icons-react'
+import {
+  IconRosette,
+  IconMessage,
+  IconRobot,
+  IconMoon,
+  IconSun,
+  IconHierarchy2,
+  IconMarkdown,
+  IconLayoutSidebarLeftExpand,
+  IconLogout,
+  IconSearch,
+  IconUsersGroup,
+  IconIdBadge2,
+  IconMessages,
+  IconFiles,
+  IconDashboard,
+} from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
-import UserMenu from './menu'
-import cx from 'clsx'
-import classes from './dash.module.css'
+import ChatBot from '@/components/chatbot'
+import { nanoid } from 'nanoid'
+import dayjs from 'dayjs'
 
 export default function Shell(props: any) {
   const router = useRouter()
@@ -20,10 +36,17 @@ export default function Shell(props: any) {
   const [checked, setChecked] = useState(true)
   const [user, setUser] = useState(props.user)
   const [opened, { toggle, close }] = useDisclosure(false)
-  const [userdata, setUserdata] = useLocalStorage({
-    key: 'userId',
-    defaultValue: props.user.userId,
-  })
+  const cid = nanoid()
+  const chat = {
+    new: true,
+    id: cid,
+    name: 'New Chat Session',
+    path: '',
+    userId: props.user.id,
+    createdAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+    updatedAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+    __typename: 'Chat',
+  }
 
   async function handleSignOut() {
     try {
@@ -40,43 +63,72 @@ export default function Shell(props: any) {
   }
 
   return (
-    <AppShell header={{ height: 60 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: nav, mobile: !opened } }}>
+    <AppShell header={{ height: 48 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: !nav, mobile: !nav } }}>
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
-          <Link href='/' style={{ lineHeight: 1 }}>
-              <HorizontalLogo size={32} color='var(--mantine-primary-color-filled)'/>
+            <Link href='/' style={{ lineHeight: 1 }}>
+              <HorizontalLogo size={32} color='var(--mantine-primary-color-filled)' />
             </Link>
             <Group ml='xl' gap='xs'>
-              <Group>
-                <Switch
-                  onChange={() => setNav(!nav)}
-                  size='md'
-                  color='dark.4'
-                  onLabel={<IconLayoutSidebarLeftExpand style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
-                  offLabel={<IconLayoutSidebarLeftCollapse style={{ width: rem(16), height: rem(16) }} stroke={2.5} />}
-                  visibleFrom='sm'
-                />
-                <ActionIcon onClick={() => switchScheme()} variant='default' size='lg' aria-label='Toggle color scheme'>
-                  <IconSun className={cx(classes.icon, classes.light)} stroke={2} />
-                  <IconMoon className={cx(classes.icon, classes.dark)} stroke={2} />
-                </ActionIcon>
-              </Group>
+              <ActionIcon variant='gradient' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
+                <IconMessage size={20} stroke={2} />
+              </ActionIcon>
+              <Dialog opened={opened} withCloseButton onClose={close} size='xl' p={0} radius={0}>
+                <ChatBot id={cid} chat={chat} user={user} />
+              </Dialog>
               <Menu shadow='md' width={200}>
                 <Menu.Target>
-                  <Avatar src={user.avatar.url} radius='xl' hiddenFrom='sm' />
+                  <Avatar src={user.avatar.url} radius='xl' size={32} style={{cursor: 'pointer'}}/>
                 </Menu.Target>
-                <UserMenu user={user} handleSignOut={handleSignOut} />
+                <Menu.Dropdown>
+                  <Menu.Item
+                    leftSection={<IconSearch style={{ width: rem(14), height: rem(14) }} />}
+                    rightSection={
+                      <Text size='xs' c='dimmed'>
+                        ⌘K
+                      </Text>
+                    }>
+                    Search
+                  </Menu.Item>
+                  <Menu.Label>Welcome {user.username}</Menu.Label>
+                  <Menu.Item leftSection={<IconDashboard style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}`}>
+                    Dashboard
+                  </Menu.Item>
+                  <Menu.Item leftSection={<IconIdBadge2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/profile`}>
+                    Profile
+                  </Menu.Item>
+                  <Menu.Divider />
+                  <Menu.Label>Stuff</Menu.Label>
+                  <Menu.Item leftSection={<IconFiles style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/documents`}>
+                    Documents
+                  </Menu.Item>
+                  <Menu.Item leftSection={<IconHierarchy2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${user.username}/diagrams`}>
+                    Diagrams
+                  </Menu.Item>
+                  <Menu.Divider />
+                  <Menu.Label>Toggle</Menu.Label>
+                  <Menu.Item leftSection={<IconLayoutSidebarLeftExpand style={{ width: rem(14), height: rem(14) }} />} onClick={() => setNav(!nav)} fw='600'>
+                    Sidebar
+                  </Menu.Item>
+                  <Menu.Item leftSection={<IconMoon style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
+                    Scheme
+                  </Menu.Item>
+                  <Menu.Divider />
+                  <Menu.Item color='red' leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />} onClick={handleSignOut} fw='600'>
+                    Log Out
+                  </Menu.Item>
+                </Menu.Dropdown>
               </Menu>
             </Group>
           </Group>
         </Group>
       </AppShell.Header>
       <AppShell.Navbar py='md'>
-        <Stack h='calc(100vh - 60px)' justify='space-between'>
+        <Stack h='calc(100vh - 48px)' justify='space-between'>
           <Stack w='100%' gap='xs'>
             <NavLink href={`/${user.username}`} label='Dashboard' leftSection={<IconDashboard size='1rem' stroke={1.5} />} />
-            <NavLink href='#' label='Documents' leftSection={<IconMarkdown size='1rem' stroke={1.5} />} childrenOffset={28}>
+            <NavLink href='#' label='Documents' leftSection={<IconFiles size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink label='All Documents' href={`/${user.username}/documents`} />
               <NavLink label='New Document' href={`/${user.username}/documents/new`} />
             </NavLink>
@@ -84,36 +136,16 @@ export default function Shell(props: any) {
               <NavLink label='All Diagrams' href={`/${user.username}/diagrams`} />
               <NavLink label='New Diagram' href={`/${user.username}/diagrams/new`} />
             </NavLink>
-            <NavLink href='#' label='Entries' leftSection={<IconFiles size='1rem' stroke={1.5} />} childrenOffset={28}>
+            <NavLink href='#' label='Entries' leftSection={<IconRosette size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink href='#' label='Coming Soon' />
               <NavLink label='Nested' childrenOffset={28} href='#'>
                 <NavLink label='Child' href='#' />
               </NavLink>
             </NavLink>
           </Stack>
-          <Menu shadow='md' width={200}>
-            <Menu.Target>
-              <UnstyledButton className={classes.user}>
-                <Flex direction='row' gap={8}>
-                  <Avatar src={user.avatar.url} radius='xl' />
-                  <div style={{ flex: 1 }}>
-                    <Text size='sm' w={500}>
-                      {user.username}
-                    </Text>
-                    <Text c='dimmed' size='xs'>
-                      {user.email}
-                    </Text>
-                  </div>
-                </Flex>
-              </UnstyledButton>
-            </Menu.Target>
-            <UserMenu user={user} handleSignOut={handleSignOut} />
-          </Menu>
         </Stack>
       </AppShell.Navbar>
-      <AppShell.Main>
-        {props.children}
-      </AppShell.Main>
+      <AppShell.Main>{props.children}</AppShell.Main>
     </AppShell>
   )
 }

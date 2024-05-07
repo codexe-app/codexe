@@ -282,7 +282,7 @@ export default function DiagramCanvas(props) {
         </ReactFlow>
       </Grid.Col>
       <Grid.Col span='content' className={classes.edge} p='0'>
-        <ScrollArea h='calc(100vh - 60px)' pt='xl' px='0' scrollbars='y' offsetScrollbars='x'>
+        <ScrollArea h='calc(100vh - 48px)' pt='xl' px='0' scrollbars='y' offsetScrollbars='x'>
           <form onSubmit={diagram.onSubmit((values) => submitForm(values))}>
             <Stack w='200px' px='xs' gap='xs'>
               <TextInput {...diagram.getInputProps(`name`)} size='md' fw={600} c='var(--mantine-primary-color-filled)' rightSection={<IconPencil />} />

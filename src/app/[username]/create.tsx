@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { BackgroundImage, Button, Text, Title, Group, Stack } from '@mantine/core'
-import classes from './dash.module.css'
+import {
+  IconHierarchy2,
+  IconFiles
+} from '@tabler/icons-react'
 
 export default async function CreateCard(props: any) {
   const user = props.user
@@ -21,17 +24,17 @@ export default async function CreateCard(props: any) {
   return (
     <BackgroundImage src={image.url} h='100%' p='xl' radius='md'>
       <Stack>
-        <Title order={3} fw={700} className={classes.title}>
+        <Title order={3} fw={700} c='var(--mantine-color-primary-2)'>
           Create Item
         </Title>
-        <Text size='sm' className={classes.description}>
+        <Text size='sm' c='var(--mantine-color-primary-1)'>
           It all starts with some kind of information.
         </Text>
         <Group>
-          <Button component={Link} href={`/${user.username}/documents/new`}>
+          <Button rightSection={<IconFiles size={14} />} component={Link} href={`/${user.username}/documents/new`}>
             Create Document
           </Button>
-          <Button component={Link} href={`/${user.username}/diagrams/new`}>
+          <Button rightSection={<IconHierarchy2 size={14} />} component={Link} href={`/${user.username}/diagrams/new`}>
             Create Diagram
           </Button>
         </Group>

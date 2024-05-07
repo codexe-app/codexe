@@ -21,8 +21,12 @@ const theme = createTheme({
       name: 'primary',
       dark: 'indigo',
       light: 'indigo',
-    }),
-    
+    }), 
+  },
+  defaultGradient: {
+    from: 'primary.3',
+    to: 'primary.7',
+    deg: 75,
   },
   primaryColor: 'primary',
   primaryShade: { light: 7, dark: 4 },
