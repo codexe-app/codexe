@@ -1,14 +1,12 @@
 import Link from 'next/link'
-import { BackgroundImage, Overlay, Button, Text, Title, Group, Stack } from '@mantine/core'
+import { BackgroundImage, Button, Text, Title, Group, Stack } from '@mantine/core'
 import classes from './dash.module.css'
 
 export default async function CreateCard(props: any) {
   const user = props.user
   const image = await getData()
-  const file = image.url
-  const fileType = file['type']
-  const validImageTypes = ['image/gif', 'image/jpeg', 'image/png']
-  if (!validImageTypes.includes(fileType)) {
+
+  if ( image.media_type != 'image') {
     image.url = 'https://apod.nasa.gov/apod/image/2405/BhShredder_NASA_1080.jpg'
   }
 
