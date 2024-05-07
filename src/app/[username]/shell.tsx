@@ -9,7 +9,6 @@ import { signOut } from 'aws-amplify/auth'
 import {
   IconRosette,
   IconMessage,
-  IconRobot,
   IconMoon,
   IconSun,
   IconHierarchy2,
@@ -72,10 +71,10 @@ export default function Shell(props: any) {
             </Link>
             <Group ml='xl' gap='xs'>
               <ActionIcon variant='gradient' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
-                <IconMessage size={20} stroke={2} />
+                { opened ? <IconMessage size={16} stroke={2} />  : <IconMessage size={20} stroke={2} /> }
               </ActionIcon>
-              <Dialog opened={opened} withCloseButton onClose={close} size='xl' p={0} radius={0}>
-                <ChatBot id={cid} chat={chat} user={user} />
+              <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8}>
+                <ChatBot id={cid} chat={chat} user={user} close={close}/>
               </Dialog>
               <Menu shadow='md' width={200}>
                 <Menu.Target>
@@ -108,10 +107,10 @@ export default function Shell(props: any) {
                   </Menu.Item>
                   <Menu.Divider />
                   <Menu.Label>Toggle</Menu.Label>
-                  <Menu.Item leftSection={<IconLayoutSidebarLeftExpand style={{ width: rem(14), height: rem(14) }} />} onClick={() => setNav(!nav)} fw='600'>
+                  <Menu.Item color='primary' leftSection={<IconLayoutSidebarLeftExpand style={{ width: rem(14), height: rem(14) }} />} onClick={() => setNav(!nav)} fw='600'>
                     Sidebar
                   </Menu.Item>
-                  <Menu.Item leftSection={<IconMoon style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
+                  <Menu.Item color='primary' leftSection={<IconMoon style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
                     Scheme
                   </Menu.Item>
                   <Menu.Divider />

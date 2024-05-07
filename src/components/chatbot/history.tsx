@@ -97,7 +97,7 @@ export default function ChatHistory(props: any) {
     <Box>
       <Group py='sm' gap='xs'>
         <IconDeviceAudioTape size={32} color='var(--mantine-primary-color-filled)' />
-        <Title order={3}>Your Conversations</Title>
+        <Title order={3}>Saved Conversations</Title>
       </Group>
       <Divider />
       {chats &&
@@ -111,7 +111,7 @@ export default function ChatHistory(props: any) {
                   </Text>
                 </UnstyledButton>
                 <Group gap='xs'>
-                  <Text size='xs' fw={400} lh={1}>
+                  <Text size='xs' fw={500} lh={1} c='grey'>
                     Messages
                   </Text>
                   <Badge size='sm' radius='lg'>
