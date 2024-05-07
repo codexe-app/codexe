@@ -7,7 +7,7 @@ body {
 }
 
 .m-8fb7ebe7:disabled, .m-8fb7ebe7[data-disabled] {
-    color: var(--mantine-color-anchor);
+    color: var(--mantine-primary-color-filled);
 }
 
 .chattitle {

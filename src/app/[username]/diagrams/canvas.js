@@ -285,7 +285,7 @@ export default function DiagramCanvas(props) {
         <ScrollArea h='calc(100vh - 60px)' pt='xl' px='0' scrollbars='y' offsetScrollbars='x'>
           <form onSubmit={diagram.onSubmit((values) => submitForm(values))}>
             <Stack w='200px' px='xs' gap='xs'>
-              <TextInput {...diagram.getInputProps(`name`)} size='md' fw={600} c='var(--mantine-color-anchor)' rightSection={<IconPencil />} />
+              <TextInput {...diagram.getInputProps(`name`)} size='md' fw={600} c='var(--mantine-primary-color-filled)' rightSection={<IconPencil />} />
               <Group wrap='nowrap' gap='xs'>
                 <TextInput {...diagram.getInputProps(`slug`)} size='xs' />
                 <Select data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} size='xs' />
@@ -295,7 +295,7 @@ export default function DiagramCanvas(props) {
                 <Accordion.Item value='graphic' key='graphic'>
                   <Accordion.Control px='xs'>
                     <Group wrap='nowrap'>
-                      <IconDialpad color='var(--mantine-color-anchor)' />
+                      <IconDialpad color='var(--mantine-primary-color-filled)' />
                       <Title order={5}>Nodes</Title>
                     </Group>
                   </Accordion.Control>
@@ -339,7 +339,7 @@ export default function DiagramCanvas(props) {
                 <Accordion.Item value='graphic' key='graphic'>
                   <Accordion.Control px='xs'>
                     <Group wrap='nowrap'>
-                      <IconLine color='var(--mantine-color-anchor)' />
+                      <IconLine color='var(--mantine-primary-color-filled)' />
                       <Title order={5}>Edges</Title>
                     </Group>
                   </Accordion.Control>

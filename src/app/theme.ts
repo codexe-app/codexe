@@ -1,5 +1,5 @@
 'use client'
-import { createTheme, MantineColorsTuple, rem } from '@mantine/core';
+import { createTheme, MantineColorsTuple, virtualColor, rem } from '@mantine/core';
 
 const indigo: MantineColorsTuple = [
   "#f1f3f8",
@@ -14,12 +14,17 @@ const indigo: MantineColorsTuple = [
   "#394a74"
 ]
 
-
 const theme = createTheme({
   colors: {
     indigo,
+    primary: virtualColor({
+      name: 'primary',
+      dark: 'indigo',
+      light: 'indigo',
+    }),
+    
   },
-  primaryColor: 'indigo',
+  primaryColor: 'primary',
   primaryShade: { light: 7, dark: 4 },
   fontFamily: 'var(--font-dinpro)',
   fontFamilyMonospace: 'var(--font-mononoki)',

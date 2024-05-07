@@ -96,7 +96,7 @@ export default function ChatHistory(props: any) {
   return (
     <Box>
       <Group py='sm' gap='xs'>
-        <IconDeviceAudioTape size={32} color='var(--mantine-color-anchor)' />
+        <IconDeviceAudioTape size={32} color='var(--mantine-primary-color-filled)' />
         <Title order={3}>Your Conversations</Title>
       </Group>
       <Divider />

@@ -21,7 +21,7 @@ export default function Shell({ children }: { children: any }): JSX.Element {
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
             <Link href='/' style={{ lineHeight: 1 }}>
-              <HorizontalLogo size={32} color='var(--mantine-color-anchor)'/>
+              <HorizontalLogo size={32} color='var(--mantine-primary-color-filled)'/>
             </Link>
             <Group ml='xl' gap={0}>
               <Button variant='transparent' component={Link} href='/account/signin'>
