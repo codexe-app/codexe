@@ -182,7 +182,7 @@ export default function DocumentForm(props: any) {
             {form.values.name}
           </Title>
         </Box>
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={{ base: 1, sm: 2}}>
           <Stack>
             <TextInput label='Name' placeholder='Name' required key={form.key('name')} {...form.getInputProps('name')} />
             <Textarea label='Description' placeholder='Description' {...form.getInputProps('description')} />

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
-import { Avatar, Badge, Table, Group, Text, ActionIcon, Card, Title, rem } from '@mantine/core'
+import { Avatar, Badge, Table, Group, Text, ActionIcon, Card, Title, Stack, rem } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import Markdown from 'react-markdown'
@@ -39,6 +39,16 @@ export default function DocumentsTable(props: any) {
 
   const rows = doclist.map((doc: any) => (
     <Table.Tr key={doc.id}>
+      <Table.Td>
+        <Stack gap={0} align='center'>
+          <Title order={6} tt='uppercase' lh={1}>
+            {dayjs(doc.updatedAt).format('MMMM')}
+          </Title>
+          <Title order={3} lh={1}>
+            {dayjs(doc.updatedAt).format('D')}
+          </Title>
+        </Stack>
+      </Table.Td>
       <Table.Td pos='relative'>
         <Avatar src={doc.graphic.url} radius='xs' size='lg' />
         <Badge pos='absolute' bottom='0' w='58'>
@@ -46,12 +56,9 @@ export default function DocumentsTable(props: any) {
         </Badge>
       </Table.Td>
       <Table.Td>
-        <Text fz='sm'> {dayjs(doc.updatedAt).format('MMMM D, YYYY')}</Text>
-      </Table.Td>
-      <Table.Td>
-        <Text fz='sm' fw={500}>
+      <Title order={5} lh={1}>
           {doc.name}
-        </Text>
+        </Title>
       </Table.Td>
       <Table.Td>
         <Text fz='sm'>{doc.description}</Text>
@@ -61,14 +68,13 @@ export default function DocumentsTable(props: any) {
           {doc.slug}
         </Text>
       </Table.Td>
-
       <Table.Td>
         <Badge variant='light'>{doc.__typename}</Badge>
       </Table.Td>
       <Table.Td>
-        <Group gap={0} justify='flex-end'>
+        <ActionIcon.Group>
           <ActionIcon
-            variant='subtle'
+            variant='outline'
             color='gray'
             onClick={() => {
               modals.openConfirmModal({
@@ -87,11 +93,11 @@ export default function DocumentsTable(props: any) {
             }}>
             <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon variant='subtle' color='gray' component={Link} href={`${pathname}/${getPath(doc.__typename)}/${doc.slug}`}>
+          <ActionIcon variant='outline' color='gray' component={Link} href={`${pathname}/${getPath(doc.__typename)}/${doc.slug}`}>
             <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon
-            variant='subtle'
+            variant='outline'
             color='gray'
             onClick={() => {
               modals.open({
@@ -105,7 +111,7 @@ export default function DocumentsTable(props: any) {
             }}>
             <IconEye style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
-        </Group>
+        </ActionIcon.Group>
       </Table.Td>
       <Table.Td></Table.Td>
     </Table.Tr>
