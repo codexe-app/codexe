@@ -4,7 +4,8 @@ import { listUsers } from '@/graphql/queries'
 import type { User } from '@/graphql/API'
 import ProfileCard from './profile'
 import CreateCard from './create'
-import DocumentsTable from './table'
+import RecentActivity from './recent'
+
 var _ = require('lodash')
 
 export default async function Page({ params }: { params: { username: string } }) {
@@ -39,7 +40,7 @@ export default async function Page({ params }: { params: { username: string } })
         <CreateCard user={user} />
       </SimpleGrid>
       <Flex direction='column' h='100%' justify='space-between' gap='md'>
-        <DocumentsTable data={sorted} />
+        <RecentActivity data={sorted} />
       </Flex>
     </Container>
   )
