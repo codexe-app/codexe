@@ -57,19 +57,6 @@ export default function ChatPanel({ id, title, isLoading, stop, append, reload, 
               </Button>
             )
           )}
-        <ActionIcon
-          variant='filled'
-          size='lg'
-          aria-label='Gradient action icon'
-          radius='xl'
-          onClick={() =>
-            window.scrollTo({
-              top: document.body.offsetHeight,
-              behavior: 'smooth',
-            })
-          }>
-          <IconArrowNarrowDown />
-        </ActionIcon>
       </Group>
       <PromptForm
         onSubmit={async (value) => {

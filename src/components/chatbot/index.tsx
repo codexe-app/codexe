@@ -68,7 +68,7 @@ export default function ChatBot(props: any) {
   }
 
   return (
-    <Card radius='sm' withBorder style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 48px)', backgroundColor: 'var(--mantine-primary-color-1)' }}>
+    <Card radius='md' withBorder style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 64px)', backgroundColor: 'var(--mantine-primary-color-1)' }}>
       <Card.Section>
         <Group wrap='nowrap' h='60px'>
           <Box w='20px'>
@@ -79,7 +79,7 @@ export default function ChatBot(props: any) {
               Welcome {user.username}
             </Title>
             <Text c='var(--mantine-primary-color-7)' size='sm'>
-              An AI assistant powered by Anthropic's Claude via AWS Bedrock.
+              An AI assistant powered by Anthropic's Claude.
             </Text>
           </Stack>
         </Group>
