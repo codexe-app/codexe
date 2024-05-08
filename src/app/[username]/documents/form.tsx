@@ -10,7 +10,7 @@ import { modals } from '@mantine/modals'
 import { useForm } from '@mantine/form'
 import dayjs from 'dayjs'
 import { IconAlertCircle, IconDeviceFloppy, IconUpload, IconPhoto, IconX } from '@tabler/icons-react'
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
+import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone'
 import {
   MDXEditor,
   MDXEditorMethods,
@@ -40,6 +40,7 @@ export default function DocumentForm(props: any) {
   const [apierror, setApierror] = useState({ active: false, code: '', message: '' })
   const [uploadProgress, setUploadProgress] = useState(0)
   const [graphic, setGraphic] = useState(props.data.graphic.url)
+  const [file, setFile] = useState<FileWithPath[]>([]);
   const [activeTab, setActiveTab] = useState<string | null>(props.tab)
   const form = useForm({
     initialValues: props.data,
@@ -95,6 +96,13 @@ export default function DocumentForm(props: any) {
   }
 
   async function uploadMedia(file: any) {
+    console.log(file)
+    const imageUrl = URL.createObjectURL(file)
+    setGraphic(imageUrl)
+    setActiveTab('view')
+    var title = file.name
+    title = title.split('.').slice(0, -1).join('.')
+    form.setFieldValue('graphic.title', title)
     const thepath = `public/${dayjs().format('YYYY/MM/DD')}/${file.name}`
     try {
       const result = uploadData({
@@ -196,53 +204,57 @@ export default function DocumentForm(props: any) {
                     </Group>
                   </Accordion.Control>
                   <Accordion.Panel>
-                    <Stack>
-                      <TextInput label='Title' placeholder='Title' {...form.getInputProps('graphic.title')} />
-                      <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('graphic.alt')} />
-                      <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('graphic.caption')} />
-                      <TextInput label='Description' placeholder='Description' {...form.getInputProps('graphic.description')} />
-                      <TextInput label='S3 Key' placeholder='S3 Key' {...form.getInputProps('graphic.key')} />
-                      <TextInput label='URL' placeholder='Image URL' {...form.getInputProps('graphic.url')} />
-                      <Tabs value={activeTab} onChange={setActiveTab}>
-                        <Tabs.List>
-                          <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
-                            View
-                          </Tabs.Tab>
-                          <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
-                            Upload
-                          </Tabs.Tab>
-                        </Tabs.List>
-                        <Tabs.Panel value='view'>
-                          <Image src={graphic || ''} />
-                        </Tabs.Panel>
-                        <Tabs.Panel value='upload'>
-                          <Card shadow='sm' padding='lg' radius='md' withBorder>
-                            <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
-                              <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
-                                <Dropzone.Accept>
-                                  <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
-                                </Dropzone.Accept>
-                                <Dropzone.Reject>
-                                  <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
-                                </Dropzone.Reject>
-                                <Dropzone.Idle>
-                                  <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
-                                </Dropzone.Idle>
-                                <div>
-                                  <Text size='xl' inline>
-                                    Drag image here or click to select file
-                                  </Text>
-                                  <Text size='sm' c='dimmed' inline mt={7}>
-                                    File should not exceed 5mb
-                                  </Text>
-                                </div>
-                              </Group>
-                              <Progress value={uploadProgress} />
-                            </Dropzone>
-                          </Card>
-                        </Tabs.Panel>
-                      </Tabs>
-                    </Stack>
+                    <SimpleGrid cols={2} px='xs' pb='xs'>
+                      <Stack>
+                        <TextInput label='Title' placeholder='Title' {...form.getInputProps('graphic.title')} />
+                        <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('graphic.alt')} />
+                        <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('graphic.caption')} />
+                        <TextInput label='Description' placeholder='Description' {...form.getInputProps('graphic.description')} />
+                        <TextInput label='S3 Key' placeholder='S3 Key' {...form.getInputProps('graphic.key')} />
+                        <TextInput label='URL' placeholder='Image URL' {...form.getInputProps('graphic.url')} />
+                      </Stack>
+                      <Stack>
+                        <Tabs value={activeTab} onChange={setActiveTab}>
+                          <Tabs.List>
+                            <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
+                              View
+                            </Tabs.Tab>
+                            <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
+                              Upload
+                            </Tabs.Tab>
+                          </Tabs.List>
+                          <Tabs.Panel value='view'>
+                            <Image src={graphic || ''} />
+                          </Tabs.Panel>
+                          <Tabs.Panel value='upload'>
+                            <Card shadow='sm' padding='lg' radius='md' withBorder>
+                              <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
+                                <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
+                                  <Dropzone.Accept>
+                                    <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
+                                  </Dropzone.Accept>
+                                  <Dropzone.Reject>
+                                    <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
+                                  </Dropzone.Reject>
+                                  <Dropzone.Idle>
+                                    <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
+                                  </Dropzone.Idle>
+                                  <div>
+                                    <Text size='xl' inline>
+                                      Drag image here or click to select file
+                                    </Text>
+                                    <Text size='sm' c='dimmed' inline mt={7}>
+                                      File should not exceed 5mb
+                                    </Text>
+                                  </div>
+                                </Group>
+                                <Progress value={uploadProgress} />
+                              </Dropzone>
+                            </Card>
+                          </Tabs.Panel>
+                        </Tabs>
+                      </Stack>
+                    </SimpleGrid>
                   </Accordion.Panel>
                 </Accordion.Item>
               </Accordion>
