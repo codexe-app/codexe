@@ -1,10 +1,8 @@
 import { cookieBasedClient } from '@/utils/cookiebasedclient'
-import { Container, Flex, SimpleGrid } from '@mantine/core'
+import { Container } from '@mantine/core'
 import { listUsers } from '@/graphql/queries'
 import type { User } from '@/graphql/API'
-import ProfileCard from './profile'
-import CreateCard from './create'
-import RecentActivity from './recent'
+import Dashboard from '@/components/dashboard'
 
 var _ = require('lodash')
 
@@ -27,21 +25,15 @@ export default async function Page({ params }: { params: { username: string } })
   }
 
   const user = response.data.listUsers.items[0]
-  const docs = user?.documents?.items
-  const dias = user?.diagrams?.items
+  const documents = user?.documents?.items
+  const diagrams = user?.diagrams?.items
   //@ts-ignore
-  const everything = docs?.concat(dias)
+  const everything = documents?.concat(diagrams)
   const sorted = _.orderBy(everything, ['updatedAt'], ['desc'])
 
   return (
     <Container size='responsive'>
-      <SimpleGrid cols={{ base: 1, md: 2 }} spacing='md' my='md'>
-        <ProfileCard user={user} />
-        <CreateCard user={user} />
-      </SimpleGrid>
-      <Flex direction='column' h='100%' justify='space-between' gap='md'>
-        <RecentActivity data={sorted} />
-      </Flex>
+      <Dashboard user={user} data={sorted} />
     </Container>
   )
 }

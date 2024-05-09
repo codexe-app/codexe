@@ -1,6 +1,6 @@
 'use client'
-import { Paper, Badge, Image, Group, Container, Flex, SimpleGrid, ActionIcon, Card, Title, Stack, Tabs, rem } from '@mantine/core'
-import { IconCarouselHorizontal, IconListDetails, IconPhoto, IconMessageCircle, IconSettings, IconAlertCircle, IconClock } from '@tabler/icons-react'
+import { Paper, Group, Title, Tabs, rem } from '@mantine/core'
+import { IconCarouselHorizontal, IconListDetails, IconClock } from '@tabler/icons-react'
 import DocumentsTable from './table'
 import RecentCarousel from './carousel'
 import classes from './recent.module.css'

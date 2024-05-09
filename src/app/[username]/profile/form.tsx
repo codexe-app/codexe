@@ -6,7 +6,7 @@ import { uploadData } from 'aws-amplify/storage'
 import { TextInput, SimpleGrid, Image, Paper, Title, Text, Group, Stack, Button, Progress, rem, Badge } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone'
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 

@@ -12,7 +12,7 @@ import { IconTrash, IconDeviceFloppy, IconRestore, IconDialpad, IconLine, IconRe
 import { nanoid } from 'nanoid'
 import '@xyflow/react/dist/style.css'
 import classes from './diagrams.module.css'
-import { nodetypes, nodeTypes } from '@/components/nodes'
+import { nodetypes, nodeTypes } from '@/components/diagram/nodes'
 var _ = require('lodash')
 
 export default function DiagramCanvas(props) {

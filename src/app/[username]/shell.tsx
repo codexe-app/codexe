@@ -2,23 +2,18 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { AppShell, Switch, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, UnstyledButton, Flex, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { useLocalStorage } from '@mantine/hooks'
 import { signOut } from 'aws-amplify/auth'
 import {
   IconRosette,
   IconMessage,
   IconMoon,
-  IconSun,
   IconHierarchy2,
-  IconMarkdown,
   IconLayoutSidebarLeftExpand,
   IconLogout,
   IconSearch,
-  IconUsersGroup,
   IconIdBadge2,
-  IconMessages,
   IconFiles,
   IconDashboard,
 } from '@tabler/icons-react'
