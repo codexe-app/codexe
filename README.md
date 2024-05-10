@@ -43,3 +43,7 @@ DynamoDB
 Cognito
 Lambda
 S3
+
+## License
+
+MIT
