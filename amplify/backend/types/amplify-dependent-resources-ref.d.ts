@@ -31,5 +31,11 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     }
+  },
+  "storage": {
+    "codexemedia": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

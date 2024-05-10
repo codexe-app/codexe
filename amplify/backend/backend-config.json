@@ -81,14 +81,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_codexeauthPostConfirmation_GROUP": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "codexeauthPostConfirmation"
-        }
-      ]
-    },
     "AMPLIFY_function_codexeauthPostConfirmation_deploymentBucketName": {
       "usedBy": [
         {
@@ -104,6 +96,13 @@
           "resourceName": "codexeauthPostConfirmation"
         }
       ]
+    }
+  },
+  "storage": {
+    "codexemedia": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
