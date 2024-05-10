@@ -67,12 +67,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "codexe215c4ac3PostConfirmation",
+            "codexeauthPostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "codexe215c4ac3PostConfirmation",
+                  "codexeauthPostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "codexe215c4ac3PostConfirmation",
+            "codexeauthPostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "codexe215c4ac3PostConfirmation",
+                  "codexeauthPostConfirmation",
                   "-",
                   {
                     "Ref": "env"

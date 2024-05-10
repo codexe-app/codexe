@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "codexe215c4ac3_identitypool_215c4ac3",
+    "identityPoolName": "codexeauth_identitypool",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "codexe215c4ac3",
-    "userPoolName": "codexe215c4ac3_userpool_215c4ac3",
+    "resourceNameTruncated": "codexeauth",
+    "userPoolName": "codexeauth_userpool",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -33,10 +33,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "codexe215c4ac3_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "codexeauth_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "215c4ac3",
-    "resourceName": "codexe215c4ac3",
+    "resourceName": "codexeauth",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "triggers": {
@@ -69,7 +69,7 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "codexe215c4ac3PostConfirmation",
+        "resourceName": "codexeauthPostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -81,7 +81,7 @@
       "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
     ],
     "authTriggerConnections": [
-      "{\"triggerType\":\"PostConfirmation\",\"lambdaFunctionName\":\"codexe215c4ac3PostConfirmation\"}"
+      "{\"triggerType\":\"PostConfirmation\",\"lambdaFunctionName\":\"codexeauthPostConfirmation\"}"
     ],
     "parentStack": {
       "Ref": "AWS::StackId"
