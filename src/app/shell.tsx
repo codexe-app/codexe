@@ -2,12 +2,10 @@
 import Link from 'next/link'
 import { AppShell, Group, Button } from '@mantine/core'
 import { HorizontalLogo } from '@/app/logo'
-import { RouterTransition } from '@/utils/routertrans'
 
 export default function Shell({ children }: { children: any }): JSX.Element {
   return (
     <AppShell header={{ height: 48 }}>
-      <RouterTransition />
       <AppShell.Header>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
