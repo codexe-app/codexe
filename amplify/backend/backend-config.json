@@ -74,11 +74,6 @@
     }
   },
   "function": {
-    "S3Trigger9c3862cd": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "codexeauthPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -86,22 +81,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_S3Trigger9c3862cd_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger9c3862cd"
-        }
-      ]
-    },
-    "AMPLIFY_function_S3Trigger9c3862cd_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger9c3862cd"
-        }
-      ]
-    },
     "AMPLIFY_function_codexeauthPostConfirmation_GROUP": {
       "usedBy": [
         {
@@ -125,58 +104,6 @@
           "resourceName": "codexeauthPostConfirmation"
         }
       ]
-    }
-  },
-  "storage": {
-    "codexemedia": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ],
-          "category": "function",
-          "resourceName": "S3Trigger9c3862cd"
-        },
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "codexeauth"
-        },
-        {
-          "attributes": [
-            "SuperGroupRole"
-          ],
-          "category": "auth",
-          "resourceName": "userPoolGroups"
-        },
-        {
-          "attributes": [
-            "AdminGroupRole"
-          ],
-          "category": "auth",
-          "resourceName": "userPoolGroups"
-        },
-        {
-          "attributes": [
-            "UserGroupRole"
-          ],
-          "category": "auth",
-          "resourceName": "userPoolGroups"
-        },
-        {
-          "attributes": [
-            "GuestGroupRole"
-          ],
-          "category": "auth",
-          "resourceName": "userPoolGroups"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
     }
   }
 }
