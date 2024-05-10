@@ -6,8 +6,226 @@ import * as APITypes from './API'
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType
   __generatedQueryOutput: OutputType
-}
+};
 
+export const searchDocuments = /* GraphQL */ `query SearchDocuments(
+  $filter: SearchableDocumentFilterInput
+  $sort: [SearchableDocumentSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableDocumentAggregationInput]
+) {
+  searchDocuments(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+            __typename
+          }
+        }
+      }
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SearchDocumentsQueryVariables,
+  APITypes.SearchDocumentsQuery
+>;
+export const searchDiagrams = /* GraphQL */ `query SearchDiagrams(
+  $filter: SearchableDiagramFilterInput
+  $sort: [SearchableDiagramSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableDiagramAggregationInput]
+) {
+  searchDiagrams(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+            __typename
+          }
+        }
+      }
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SearchDiagramsQueryVariables,
+  APITypes.SearchDiagramsQuery
+>;
+export const searchChats = /* GraphQL */ `query SearchChats(
+  $filter: SearchableChatFilterInput
+  $sort: [SearchableChatSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableChatAggregationInput]
+) {
+  searchChats(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      id
+      name
+      slug
+      description
+      content
+      status
+      path
+      sharePath
+      topicId
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+            __typename
+          }
+        }
+      }
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SearchChatsQueryVariables,
+  APITypes.SearchChatsQuery
+>;
+export const searchMessages = /* GraphQL */ `query SearchMessages(
+  $filter: SearchableMessageFilterInput
+  $sort: [SearchableMessageSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableMessageAggregationInput]
+) {
+  searchMessages(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      id
+      content
+      role
+      ui
+      data
+      functioncall
+      name
+      chatId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+            __typename
+          }
+        }
+      }
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SearchMessagesQueryVariables,
+  APITypes.SearchMessagesQuery
+>;
 export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
   getDocument(id: $id) {
     id
@@ -92,6 +310,7 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
         updatedAt
       }
       topicId
+      userId
       createdAt
       updatedAt
       __typename

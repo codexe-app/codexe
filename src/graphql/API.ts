@@ -930,6 +930,336 @@ export type DeleteUserInput = {
   id: string,
 };
 
+export type SearchableDocumentFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  name?: SearchableStringFilterInput | null,
+  slug?: SearchableStringFilterInput | null,
+  description?: SearchableStringFilterInput | null,
+  content?: SearchableStringFilterInput | null,
+  topicId?: SearchableIDFilterInput | null,
+  userId?: SearchableIDFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  status?: SearchableStringFilterInput | null,
+  and?: Array< SearchableDocumentFilterInput | null > | null,
+  or?: Array< SearchableDocumentFilterInput | null > | null,
+  not?: SearchableDocumentFilterInput | null,
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableDocumentSortInput = {
+  field?: SearchableDocumentSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableDocumentSortableFields {
+  id = "id",
+  name = "name",
+  slug = "slug",
+  description = "description",
+  content = "content",
+  topicId = "topicId",
+  userId = "userId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc",
+}
+
+
+export type SearchableDocumentAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableDocumentAggregateField,
+};
+
+export enum SearchableAggregateType {
+  terms = "terms",
+  avg = "avg",
+  min = "min",
+  max = "max",
+  sum = "sum",
+  cardinality = "cardinality",
+}
+
+
+export enum SearchableDocumentAggregateField {
+  id = "id",
+  name = "name",
+  slug = "slug",
+  description = "description",
+  content = "content",
+  status = "status",
+  topicId = "topicId",
+  userId = "userId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableDocumentConnection = {
+  __typename: "SearchableDocumentConnection",
+  items:  Array<Document | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableAggregateResult = {
+  __typename: "SearchableAggregateResult",
+  name: string,
+  result?: SearchableAggregateGenericResult | null,
+};
+
+export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
+
+
+export type SearchableAggregateScalarResult = {
+  __typename: "SearchableAggregateScalarResult",
+  value: number,
+};
+
+export type SearchableAggregateBucketResult = {
+  __typename: "SearchableAggregateBucketResult",
+  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
+};
+
+export type SearchableAggregateBucketResultItem = {
+  __typename: "SearchableAggregateBucketResultItem",
+  key: string,
+  doc_count: number,
+};
+
+export type SearchableDiagramFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  name?: SearchableStringFilterInput | null,
+  slug?: SearchableStringFilterInput | null,
+  description?: SearchableStringFilterInput | null,
+  content?: SearchableStringFilterInput | null,
+  topicId?: SearchableIDFilterInput | null,
+  userId?: SearchableIDFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  status?: SearchableStringFilterInput | null,
+  and?: Array< SearchableDiagramFilterInput | null > | null,
+  or?: Array< SearchableDiagramFilterInput | null > | null,
+  not?: SearchableDiagramFilterInput | null,
+};
+
+export type SearchableDiagramSortInput = {
+  field?: SearchableDiagramSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableDiagramSortableFields {
+  id = "id",
+  name = "name",
+  slug = "slug",
+  description = "description",
+  content = "content",
+  topicId = "topicId",
+  userId = "userId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableDiagramAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableDiagramAggregateField,
+};
+
+export enum SearchableDiagramAggregateField {
+  id = "id",
+  name = "name",
+  slug = "slug",
+  description = "description",
+  content = "content",
+  status = "status",
+  topicId = "topicId",
+  userId = "userId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableDiagramConnection = {
+  __typename: "SearchableDiagramConnection",
+  items:  Array<Diagram | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableChatFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  name?: SearchableStringFilterInput | null,
+  slug?: SearchableStringFilterInput | null,
+  description?: SearchableStringFilterInput | null,
+  content?: SearchableStringFilterInput | null,
+  path?: SearchableStringFilterInput | null,
+  sharePath?: SearchableStringFilterInput | null,
+  topicId?: SearchableIDFilterInput | null,
+  userId?: SearchableIDFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  status?: SearchableStringFilterInput | null,
+  and?: Array< SearchableChatFilterInput | null > | null,
+  or?: Array< SearchableChatFilterInput | null > | null,
+  not?: SearchableChatFilterInput | null,
+};
+
+export type SearchableChatSortInput = {
+  field?: SearchableChatSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableChatSortableFields {
+  id = "id",
+  name = "name",
+  slug = "slug",
+  description = "description",
+  content = "content",
+  path = "path",
+  sharePath = "sharePath",
+  topicId = "topicId",
+  userId = "userId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableChatAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableChatAggregateField,
+};
+
+export enum SearchableChatAggregateField {
+  id = "id",
+  name = "name",
+  slug = "slug",
+  description = "description",
+  content = "content",
+  status = "status",
+  path = "path",
+  sharePath = "sharePath",
+  topicId = "topicId",
+  userId = "userId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableChatConnection = {
+  __typename: "SearchableChatConnection",
+  items:  Array<Chat | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableMessageFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  content?: SearchableStringFilterInput | null,
+  role?: SearchableStringFilterInput | null,
+  ui?: SearchableStringFilterInput | null,
+  data?: SearchableStringFilterInput | null,
+  functioncall?: SearchableStringFilterInput | null,
+  name?: SearchableStringFilterInput | null,
+  chatId?: SearchableIDFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  and?: Array< SearchableMessageFilterInput | null > | null,
+  or?: Array< SearchableMessageFilterInput | null > | null,
+  not?: SearchableMessageFilterInput | null,
+};
+
+export type SearchableMessageSortInput = {
+  field?: SearchableMessageSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableMessageSortableFields {
+  id = "id",
+  content = "content",
+  role = "role",
+  ui = "ui",
+  data = "data",
+  functioncall = "functioncall",
+  name = "name",
+  chatId = "chatId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableMessageAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableMessageAggregateField,
+};
+
+export enum SearchableMessageAggregateField {
+  id = "id",
+  content = "content",
+  role = "role",
+  ui = "ui",
+  data = "data",
+  functioncall = "functioncall",
+  name = "name",
+  chatId = "chatId",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableMessageConnection = {
+  __typename: "SearchableMessageConnection",
+  items:  Array<Message | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
 export type ModelDocumentFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -2824,6 +3154,192 @@ export type DeleteUserMutation = {
     cognitoid?: string | null,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type SearchDocumentsQueryVariables = {
+  filter?: SearchableDocumentFilterInput | null,
+  sort?: Array< SearchableDocumentSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableDocumentAggregationInput | null > | null,
+};
+
+export type SearchDocumentsQuery = {
+  searchDocuments?:  {
+    __typename: "SearchableDocumentConnection",
+    items:  Array< {
+      __typename: "Document",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
+  } | null,
+};
+
+export type SearchDiagramsQueryVariables = {
+  filter?: SearchableDiagramFilterInput | null,
+  sort?: Array< SearchableDiagramSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableDiagramAggregationInput | null > | null,
+};
+
+export type SearchDiagramsQuery = {
+  searchDiagrams?:  {
+    __typename: "SearchableDiagramConnection",
+    items:  Array< {
+      __typename: "Diagram",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
+  } | null,
+};
+
+export type SearchChatsQueryVariables = {
+  filter?: SearchableChatFilterInput | null,
+  sort?: Array< SearchableChatSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableChatAggregationInput | null > | null,
+};
+
+export type SearchChatsQuery = {
+  searchChats?:  {
+    __typename: "SearchableChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      name?: string | null,
+      slug?: string | null,
+      description?: string | null,
+      content?: string | null,
+      status?: Status | null,
+      path?: string | null,
+      sharePath?: string | null,
+      topicId?: string | null,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
+  } | null,
+};
+
+export type SearchMessagesQueryVariables = {
+  filter?: SearchableMessageFilterInput | null,
+  sort?: Array< SearchableMessageSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableMessageAggregationInput | null > | null,
+};
+
+export type SearchMessagesQuery = {
+  searchMessages?:  {
+    __typename: "SearchableMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      content?: string | null,
+      role?: string | null,
+      ui?: string | null,
+      data?: string | null,
+      functioncall?: string | null,
+      name?: string | null,
+      chatId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
   } | null,
 };
 

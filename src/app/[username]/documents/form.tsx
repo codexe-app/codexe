@@ -8,6 +8,7 @@ import { TextInput, SimpleGrid, Textarea, Flex, Fieldset, Accordion, Tabs, Avata
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import { useForm } from '@mantine/form'
+import { useHotkeys } from '@mantine/hooks'
 import dayjs from 'dayjs'
 import { IconAlertCircle, IconDeviceFloppy, IconUpload, IconPhoto, IconX } from '@tabler/icons-react'
 import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone'
@@ -48,6 +49,10 @@ export default function DocumentForm(props: any) {
       slugify(values.name)
     },
   })
+
+  useHotkeys([
+    ['mod+S', () => submitForm(form.values)  ],
+  ])
 
   function submitForm(values: any) {
     //NEED SLUG DUPE CHECK
