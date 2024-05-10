@@ -7,12 +7,7 @@ Too much information running through my brain
 
 ## Install
 
-If you would like to set up your own CODEXE server, you will need an AWS account.&#x20;
-
-`yarn
-amplify init
-amplify push
-yarn dev`
+If you would like to set up your own CODEXE server, you will need an AWS account. Fork this repo into your GIT, then goto the AWS Amplify Console and create a (GEN 1) app.  Then point the app to the repo, and it will start building everything.
 
 [http://localhost:3000](http://localhost:3000/)
 
