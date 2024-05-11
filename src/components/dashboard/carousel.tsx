@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Carousel } from '@mantine/carousel'
 import { modals } from '@mantine/modals'
-import { Flex, Badge, Image, Group, Text, ActionIcon, Card, Title, Stack, rem } from '@mantine/core'
+import { Flex, Badge, Group, Text, ActionIcon, Card, Title, Stack, rem } from '@mantine/core'
 import { IconPencil, IconEye, IconTrash, IconAlertCircle } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 import DocumentView from './view'
 import '@mantine/carousel/styles.css'
 import classes from './recent.module.css'
+import S3Media from '@/utils/s3signedurl'
 
 export default function RecentCarousel(props: any) {
   const items = props.data
@@ -17,6 +18,7 @@ export default function RecentCarousel(props: any) {
   function getPath(type: any) {
     return type.toLowerCase() + 's'
   }
+
 
   return (
     <Carousel height={260} slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }}slideGap='md' loop align='start' slidesToScroll={6} controlsOffset={0} classNames={classes}>
@@ -30,7 +32,7 @@ export default function RecentCarousel(props: any) {
               </Group>
             </Card.Section>
             <Card.Section pos='relative'>
-              <Image src={item.graphic.url} height={80} alt={item.graphic.alt || ''} />
+              <S3Media graphic={item.graphic} />
             </Card.Section>
             <Card.Section>
               <Group gap='xs' m='xs' wrap='nowrap' align='start'>
