@@ -13,7 +13,7 @@ export default async function Dashboard(props: any) {
         <CreateCard user={user} />
       </SimpleGrid>
       <Flex direction='column' h='100%' justify='space-between' gap='md'>
-        <RecentActivity data={data} />
+        <RecentActivity data={data} user={user}/>
       </Flex>
     </Stack>
   )

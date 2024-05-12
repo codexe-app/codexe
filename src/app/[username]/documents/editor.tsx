@@ -4,6 +4,8 @@ import { uploadData, getUrl } from 'aws-amplify/storage'
 import { useRouter } from 'next/navigation'
 import type { MilkdownRef } from '@/components/markdown'
 import { MarkdownEditor } from '@/components/markdown'
+import { CodemirrorRef } from '@/components/markdown/codemirror'
+import { ControlPanel } from '@/components/markdown/codeview'
 import { FeatureToggleProvider } from '@/components/markdown/FeatureToggleProvider'
 import { InspectorProvider } from '@/components/markdown/InspectorProvider'
 import { ProseStateProvider } from '@/components/markdown/ProseStateProvider'
@@ -12,33 +14,38 @@ import { compose } from '@/utils/compose'
 import { MilkdownProvider } from '@milkdown/react'
 import { useForm } from '@mantine/form'
 import { ProsemirrorAdapterProvider } from '@prosemirror-adapter/react'
-import { useHotkeys } from '@mantine/hooks'
+import { useHotkeys, useDisclosure } from '@mantine/hooks'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
-import { ActionIcon, TextInput, SimpleGrid, Textarea, Center, Flex, Accordion, AccordionControlProps, Tabs, Avatar, Title, Text, Box, Card, Group, Image, Stack, Button, Select, Progress, rem, Space, Container } from '@mantine/core'
-import { IconUpload, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
+import { ActionIcon, TextInput, SimpleGrid, Textarea, Modal, Flex, Accordion, AccordionControlProps, Tabs, Avatar, Title, Text, Box, Card, Group, Image, Stack, Button, Select, Progress, rem, Space, Container } from '@mantine/core'
+import { IconUpload, IconMarkdown, IconCode, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import dayjs from 'dayjs'
+import { PluginToggle } from '@/components/markdown/plugin-toggle'
 var _ = require('lodash')
 
 const Provider = compose(FeatureToggleProvider, MilkdownProvider, ProsemirrorAdapterProvider, ProseStateProvider, ShareProvider, InspectorProvider)
 
 export default function Editor(props: any) {
+  const hideme = true
   const { document, user } = props
+  const [codeview, { open, close }] = useDisclosure(false)
   const [graphic, setGraphic] = useState(document?.graphic?.url)
   const [activeTab, setActiveTab] = useState<string | null>(props.tab)
   const [content, setContent] = useState(props.markdown)
   const [uploadProgress, setUploadProgress] = useState(0)
   const client = generateClient()
   const router = useRouter()
+  const lockCodemirror = useRef(false)
   const milkdownRef = useRef<MilkdownRef>(null)
+  const codemirrorRef = useRef<CodemirrorRef>(null)
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: props.document,
     onValuesChange: (values) => {
-      slugify(values.name)
+      //slugify(values.name)
     },
   })
   const markdownRef = useRef('')
@@ -58,9 +65,35 @@ export default function Editor(props: any) {
 
   const onMilkdownChange = useCallback((markdown: string) => {
     markdownRef.current = markdown
+    const lock = lockCodemirror.current
+    if (lock) return
+    const codemirror = codemirrorRef.current
+    if (!codemirror) return
+    codemirror.update(markdown)
   }, [])
 
+  const onCodemirrorChange = useCallback((getCode: () => string) => {
+    const value = getCode()
+    markdownRef.current = value
+  }, [])
+
+  function openCodeview() {
+    const value = markdownRef.current
+    setContent(value)
+    open()
+  }
+
+  function closeCodeview() {
+    const { current } = milkdownRef
+    if (!current) return
+    const value = markdownRef.current
+    current.update(value)
+    setContent(value)
+    close()
+  }
+
   function submitForm(values: any) {
+    slugify(values.name)
     const value = markdownRef.current
     values.content = value
     setContent(value)
@@ -77,7 +110,7 @@ export default function Editor(props: any) {
       const doc = await client.graphql({ query: mutations.createDocument, variables: { input: values } })
       modals.openConfirmModal({
         title: `${values.name} was created`,
-        children: <Text size='sm'>Would you like to continue editing or goto your doashboard?</Text>,
+        children: <Text size='sm'>Would you like to continue editing or goto your dashboard?</Text>,
         labels: { confirm: 'Edit', cancel: 'Dash' },
         onCancel: () => router.push(`/${user.username}/`),
         onConfirm: () => router.push(`/${user.username}/documents/${values.slug}`),
@@ -165,16 +198,24 @@ export default function Editor(props: any) {
   function AccordionControl(props: AccordionControlProps) {
     return (
       <Group gap='lg' wrap='nowrap'>
-        <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-color-primary-filled)'/>}/>
-        <ActionIcon size='lg' type='submit' variant='outline'>
-          <IconDeviceFloppy size='1.25rem' />
-        </ActionIcon>
+        <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-color-primary-filled)' />} />
+        <ActionIcon.Group>
+          <ActionIcon variant='outline' onClick={openCodeview}>
+            <IconMarkdown style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size='md' type='submit' variant='outline'>
+            <IconDeviceFloppy size='1.25rem' />
+          </ActionIcon>
+        </ActionIcon.Group>
       </Group>
     )
   }
 
   return (
     <Box className='prose'>
+      <Modal opened={codeview} onClose={closeCodeview} title={`CODE VIEW - ${form.values.name}` }fullScreen radius={0} zIndex={301} transitionProps={{ transition: 'fade', duration: 200 }} >
+        <ControlPanel codemirrorRef={codemirrorRef} content={content} onChange={onCodemirrorChange} lock={lockCodemirror} />
+      </Modal>
       <form
         onSubmit={form.onSubmit(
           (values, event) => {
@@ -188,18 +229,21 @@ export default function Editor(props: any) {
           <Accordion w='100%'>
             <Accordion.Item key='meta' value='meta'>
               <Container size='responsive'>
-                <AccordionControl style={{paddingInline: 0}}>
-                  <Title ta='left' order={4}>
-                    {form.values.name}
+                <AccordionControl style={{ paddingInline: 0 }}>
+                  <Title ta='left' order={5}>
+                    CODEXE {`>`} Documents {`>`} {form.values.name}
                   </Title>
                 </AccordionControl>
               </Container>
               <Accordion.Panel>
                 <Container size='responsive'>
-                  <Flex>
+                  <Flex gap='xs' wrap='wrap' pb='xs'>
                     <TextInput label='Name' placeholder='Name' required key={form.key('name')} {...form.getInputProps('name')} />
                     <Textarea label='Description' placeholder='Description' {...form.getInputProps('description')} />
-                    <TextInput label='CONTENT' placeholder='CONTENT' {...form.getInputProps('content')} />
+                    <TextInput label='Content' placeholder='Edit Below' {...form.getInputProps('content')} />
+                    <TextInput label='Slug' placeholder='slug' required {...form.getInputProps('slug')} />
+                    <TextInput label='Topic' placeholder='Topic' disabled />
+                    <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...form.getInputProps(`status`)} />
                     <Stack gap={2}>
                       <Text fw={500} size='sm'>
                         Graphic
@@ -273,9 +317,7 @@ export default function Editor(props: any) {
                         </Accordion.Item>
                       </Accordion>
                     </Stack>
-                    <TextInput label='Slug' placeholder='slug' required {...form.getInputProps('slug')} />
-                    <TextInput label='Topic' placeholder='topic' disabled />
-                    <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...form.getInputProps(`status`)} />
+                    {!hideme && <PluginToggle />}
                   </Flex>
                 </Container>
               </Accordion.Panel>

@@ -1,4 +1,4 @@
-import { config, slash } from "@/components/slash-menu/config";
+import { config, slash } from "@/components/markdown/slash-menu/config";
 import { rootDOMCtx } from "@milkdown/core";
 import { Instance } from "@milkdown/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";

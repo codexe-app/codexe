@@ -8,6 +8,7 @@ h6 {
 }
 
 a {
+  color: var(--mantine-primary-color-filled);
   font-weight: 600 !important;
 }
 

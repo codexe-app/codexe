@@ -1,5 +1,4 @@
 import React from 'react'
-import { useLinkClass } from '@/hooks'
 import type { CmdKey } from '@milkdown/core'
 import { editorViewCtx, parserCtx } from '@milkdown/core'
 import { redoCommand, undoCommand } from '@milkdown/plugin-history'
@@ -8,27 +7,12 @@ import { insertTableCommand, toggleStrikethroughCommand } from '@milkdown/preset
 import { Slice } from '@milkdown/prose/model'
 import { Milkdown as Editor } from '@milkdown/react'
 import { callCommand } from '@milkdown/utils'
-import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import { useImperativeHandle } from 'react'
 import { usePlayground } from './usePlayground'
-import { Flex, ActionIcon, Container,Box, rem } from '@mantine/core'
+import { Flex, ActionIcon, Container, Box, rem } from '@mantine/core'
 import { IconItalic, IconTablePlus, IconStrikethrough, IconBlockquote, IconListNumbers, IconBold, IconList, IconArrowForward, IconArrowBackUp } from '@tabler/icons-react'
 import './playground.css'
-
-const Button: FC<{ icon: string; onClick?: () => void }> = ({ icon, onClick }) => {
-  const linkClass = useLinkClass()
-  return (
-    <div
-      className={clsx('flex h-10 w-10 cursor-pointer items-center justify-center rounded', linkClass(false))}
-      onMouseDown={(e) => {
-        onClick?.()
-        e.preventDefault()
-      }}>
-      <span className='material-symbols-outlined !text-base'>{icon}</span>
-    </div>
-  )
-}
 
 interface MilkdownProps {
   content: string

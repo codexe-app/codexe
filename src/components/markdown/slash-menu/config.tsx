@@ -5,6 +5,7 @@ import { createCodeBlockCommand, insertHrCommand, wrapInHeadingCommand } from '@
 import { ReactNode } from 'react'
 import { Group, Title, Text, Avatar } from '@mantine/core'
 import { IconH1, IconH2, IconH3, IconH4, IconCode, IconBorderHorizontal } from '@tabler/icons-react'
+import { wrapInTaskListInputRule } from '@milkdown/preset-gfm'
 
 type ConfigItem = {
   renderer: ReactNode
@@ -84,7 +85,7 @@ export const config: Array<ConfigItem> = [
         </Title>
       </Group>
     ),
-  },
+  }
 ].map((item) => ({
   ...item,
   onSelect: (ctx: Ctx) => {

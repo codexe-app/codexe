@@ -1,5 +1,5 @@
-import { slash } from "@/components/slash-menu/config";
-import { Slash } from "@/components/slash-menu/Slash";
+import { slash } from "@/components/markdown/slash-menu/config";
+import { Slash } from "@/components/markdown/slash-menu/Slash";
 import { Ctx } from "@milkdown/ctx";
 import { usePluginViewFactory } from "@prosemirror-adapter/react";
 

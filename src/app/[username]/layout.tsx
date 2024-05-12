@@ -100,7 +100,7 @@ export default function Layout({ children }: { children: any }) {
               <ActionIcon variant='gradient' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
                 {opened ? <IconMessage size={16} stroke={2} /> : <IconMessage size={20} stroke={2} />}
               </ActionIcon>
-              <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8}>
+              <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8} zIndex={202}>
                 <ChatBot id={cid} chat={chat} user={theuser} close={close} />
               </Dialog>
               <Menu shadow='md' width={200}>

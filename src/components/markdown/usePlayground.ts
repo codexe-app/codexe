@@ -1,14 +1,11 @@
 'use client'
-import { useEmojiMenu } from '@/components/emoji-menu'
 import { useSetInspector } from '@/components/markdown/InspectorProvider'
-import { useSlash } from '@/components/slash-menu'
+import { useSlash } from '@/components/markdown/slash-menu'
 import { defaultValueCtx, Editor, editorViewOptionsCtx, rootCtx } from '@milkdown/core'
 import type { Ctx, MilkdownPlugin } from '@milkdown/ctx'
 import { block } from '@milkdown/plugin-block'
 import { clipboard } from '@milkdown/plugin-clipboard'
 import { cursor } from '@milkdown/plugin-cursor'
-import { diagram, diagramSchema } from '@milkdown/plugin-diagram'
-import { emoji, emojiAttr } from '@milkdown/plugin-emoji'
 import { history } from '@milkdown/plugin-history'
 import { indent } from '@milkdown/plugin-indent'
 import { listener, listenerCtx } from '@milkdown/plugin-listener'
@@ -17,7 +14,7 @@ import { prism, prismConfig } from '@milkdown/plugin-prism'
 import { trailing } from '@milkdown/plugin-trailing'
 import { upload } from '@milkdown/plugin-upload'
 import { codeBlockSchema, commonmark, listItemSchema } from '@milkdown/preset-commonmark'
-import { footnoteDefinitionSchema, footnoteReferenceSchema, gfm } from '@milkdown/preset-gfm'
+import { extendListItemSchemaForTask, wrapInTaskListInputRule, footnoteDefinitionSchema, footnoteReferenceSchema, gfm } from '@milkdown/preset-gfm'
 import { useEditor } from '@milkdown/react'
 import { nord } from '@milkdown/theme-nord'
 import { $view, getMarkdown } from '@milkdown/utils'
@@ -26,15 +23,14 @@ import debounce from 'lodash.debounce'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo } from 'react'
 import { refractor } from 'refractor/lib/common'
-import { Block } from '@/components/markdown/editor-component/Block'
-import { CodeBlock } from '@/components/markdown/editor-component/CodeBlock'
-import { Diagram } from '@/components/markdown/editor-component/Diagram'
-import { FootnoteDef, FootnoteRef } from '@/components/markdown/editor-component/Footnote'
-import { ImageTooltip, imageTooltip } from '@/components/markdown/editor-component/ImageTooltip'
-import { linkPlugin } from '@/components/markdown/editor-component/LinkWidget'
-import { ListItem } from '@/components/markdown/editor-component/ListItem'
-import { MathBlock } from '@/components/markdown/editor-component/MathBlock'
-import { tableSelectorPlugin, TableTooltip, tableTooltip, tableTooltipCtx } from '@/components/markdown/editor-component/TableWidget'
+import { Block } from '@/components/markdown/components/Block'
+import { CodeBlock } from '@/components/markdown/components/CodeBlock'
+import { FootnoteDef, FootnoteRef } from '@/components/markdown/components/Footnote'
+import { ImageTooltip, imageTooltip } from '@/components/markdown/components/ImageTooltip'
+import { linkPlugin } from '@/components/markdown/components/LinkWidget'
+import { ListItem } from '@/components/markdown/components/ListItem'
+import { MathBlock } from '@/components/markdown/components/MathBlock'
+import { tableSelectorPlugin, TableTooltip, tableTooltip, tableTooltipCtx } from '@/components/markdown/components/TableWidget'
 import { encode } from '@/utils/share'
 import { useSetShare } from './ShareProvider'
 import { notifications } from '@mantine/notifications'
@@ -48,7 +44,7 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
   const setProseState = useSetProseState()
   const setShare = useSetShare()
   const setInspector = useSetInspector()
-  const { enableGFM, enableMath, enableDiagram, enableBlockHandle, enableTwemoji } = useFeatureToggle()
+  const { enableGFM, enableMath, enableBlockHandle } = useFeatureToggle()
 
   const gfmPlugins: MilkdownPlugin[] = useMemo(() => {
     return [
@@ -80,18 +76,6 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
     ].flat()
   }, [nodeViewFactory])
 
-  const diagramPlugins: MilkdownPlugin[] = useMemo(() => {
-    return [
-      diagram,
-      $view(diagramSchema.node, () =>
-        nodeViewFactory({
-          component: Diagram,
-          stopEvent: () => true,
-        })
-      ),
-    ].flat()
-  }, [nodeViewFactory])
-
   const blockPlugins: MilkdownPlugin[] = useMemo(() => {
     return [
       block,
@@ -105,22 +89,7 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
     ].flat()
   }, [pluginViewFactory])
 
-  const twemojiPlugins: MilkdownPlugin[] = useMemo(() => {
-    return [
-      emoji,
-      (ctx: Ctx) => () => {
-        ctx.set(emojiAttr.key, () => ({
-          container: {},
-          img: {
-            class: 'emoji',
-          },
-        }))
-      },
-    ].flat()
-  }, [])
-
   const slash = useSlash()
-  const emojiMenu = useEmojiMenu()
 
   const editorInfo = useEditor(
     (root) => {
@@ -155,10 +124,8 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
             }),
           })
           slash.config(ctx)
-          emojiMenu.config(ctx)
         })
         .config(nord)
-        .use(emojiMenu.plugins)
         .use(commonmark)
         .use(linkPlugin(widgetViewFactory))
         .use(listener)
@@ -172,6 +139,7 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
         .use(imageTooltip)
         .use(slash.plugins)
         .use($view(listItemSchema.node, () => nodeViewFactory({ component: ListItem })))
+        .use([extendListItemSchemaForTask, wrapInTaskListInputRule])
         .use($view(codeBlockSchema.node, () => nodeViewFactory({ component: CodeBlock })))
     },
     [onChange, defaultValue]
@@ -184,43 +152,28 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
       const effect = async () => {
         const editor = get()
         if (!editor) return
-
-        if (enableGFM) {
-          editor.use(gfmPlugins)
-        } else {
-          await editor.remove(gfmPlugins)
-        }
         if (enableMath) {
           editor.use(mathPlugins)
         } else {
           await editor.remove(mathPlugins)
         }
-        if (enableDiagram) {
-          editor.use(diagramPlugins)
+        if (enableGFM) {
+          editor.use(gfmPlugins)
         } else {
-          await editor.remove(diagramPlugins)
+          await editor.remove(gfmPlugins)
         }
         if (enableBlockHandle) {
           editor.use(blockPlugins)
         } else {
           await editor.remove(blockPlugins)
         }
-        if (enableTwemoji) {
-          editor.use(twemojiPlugins)
-        } else {
-          await editor.remove(twemojiPlugins)
-        }
-
         await editor.create()
-
-        //setInspector(() => editor.inspect())
       }
-
       effect().catch((e) => {
         console.error(e)
       })
     })
-  }, [blockPlugins, diagramPlugins, get, gfmPlugins, mathPlugins, twemojiPlugins, loading, enableGFM, enableMath, enableDiagram, enableBlockHandle, enableTwemoji, setInspector])
+  }, [blockPlugins, get, gfmPlugins, mathPlugins, loading, enableMath, enableBlockHandle, setInspector])
 
   useEffect(() => {
     onChange(defaultValue)

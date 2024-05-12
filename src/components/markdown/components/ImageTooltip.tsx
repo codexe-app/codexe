@@ -1,3 +1,5 @@
+import React from 'react'
+import { Paper, Fieldset, TextInput } from '@mantine/core'
 import { commandsCtx } from '@milkdown/core'
 import { tooltipFactory, TooltipProvider } from '@milkdown/plugin-tooltip'
 import { updateImageCommand } from '@milkdown/preset-commonmark'
@@ -7,6 +9,7 @@ import { usePluginViewContext } from '@prosemirror-adapter/react'
 import debounce from 'lodash.debounce'
 import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
+var _ = require('lodash')
 
 export const ImageTooltip: FC = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -29,21 +32,15 @@ export const ImageTooltip: FC = () => {
         shouldShow: (view) => {
           const { selection } = view.state
           const { empty, from } = selection
-
           const isTooltipChildren = provider.element.contains(document.activeElement)
-
           const notHasFocus = !view.hasFocus() && !isTooltipChildren
-
           const isReadonly = !view.editable
-
           if (notHasFocus || empty || isReadonly) {
             return false
           }
-
           return selection instanceof NodeSelection && view.state.doc.nodeAt(from)?.type.name === 'image'
         },
       })
-
       tooltipProvider.current = provider
     }
 
@@ -60,12 +57,10 @@ export const ImageTooltip: FC = () => {
     if (loading) {
       return
     }
-
     const value = e.target.value
     if (value === imageNode?.attrs[key]) {
       return
     }
-
     getEditor().action((ctx) => {
       const commands = ctx.get(commandsCtx)
       commands.call(updateImageCommand.key, {
@@ -76,53 +71,43 @@ export const ImageTooltip: FC = () => {
 
   return (
     <div className='hidden'>
-      <div ref={ref} className='flex w-96 flex-col gap-2 rounded border-gray-300 bg-white p-4 shadow ring dark:border-gray-600 dark:bg-black'>
-        <label className='flex flex-row items-center justify-center gap-4'>
-          <span className='w-10'>Link</span>
-          <input
+      <Paper ref={ref} w='180'>
+        <Fieldset legend='Image Data' p='xs'>
+          <TextInput
+            label='Link'
             onBlur={(e) => {
               onChange('src', e)
             }}
             onChange={debounce((e) => {
               onChange('src', e)
             }, 2000)}
-            type='text'
-            className='mt-1 block w-full rounded-md bg-gray-300 shadow-sm focus:border-indigo-300
-            focus:ring focus:ring-indigo-200/50 dark:bg-gray-600'
+            size='xs'
             defaultValue={src}
           />
-        </label>
-        <label className='flex flex-row items-center justify-center gap-4'>
-          <span className='w-10'>Alt</span>
-          <input
+          <TextInput
+            label='Alt'
             onBlur={(e) => {
               onChange('alt', e)
             }}
             onChange={debounce((e) => {
               onChange('alt', e)
             }, 2000)}
-            type='text'
-            className='mt-1 block w-full rounded-md bg-gray-300 shadow-sm focus:border-indigo-300
-            focus:ring focus:ring-indigo-200/50 dark:bg-gray-600'
+            size='xs'
             defaultValue={alt}
           />
-        </label>
-        <label className='flex flex-row items-center justify-center gap-4'>
-          <span className='w-10'>Title</span>
-          <input
+          <TextInput
+            label='Title'
             onBlur={(e) => {
               onChange('title', e)
             }}
             onChange={debounce((e) => {
               onChange('title', e)
             }, 2000)}
-            type='text'
-            className='mt-1 block w-full rounded-md bg-gray-300 shadow-sm focus:border-indigo-300
-            focus:ring focus:ring-indigo-200/50 dark:bg-gray-600'
+            size='xs'
             defaultValue={title}
           />
-        </label>
-      </div>
+        </Fieldset>
+      </Paper>
     </div>
   )
 }

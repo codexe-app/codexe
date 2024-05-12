@@ -1,6 +1,9 @@
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { generateClient } from 'aws-amplify/api'
+import * as mutations from '@/graphql/mutations'
+import { notifications } from '@mantine/notifications'
 import { Carousel } from '@mantine/carousel'
 import { modals } from '@mantine/modals'
 import { Flex, Badge, Group, Text, ActionIcon, Card, Title, Stack, AspectRatio, Image, rem } from '@mantine/core'
@@ -9,9 +12,10 @@ import dayjs from 'dayjs'
 import DocumentView from './view'
 import '@mantine/carousel/styles.css'
 import classes from './recent.module.css'
-import S3Media from '@/utils/s3signedurl'
 
 export default function RecentCarousel(props: any) {
+  const client = generateClient()
+  const router = useRouter()
   const items = props.data
   const pathname = usePathname()
 
@@ -19,12 +23,28 @@ export default function RecentCarousel(props: any) {
     return type.toLowerCase() + 's'
   }
 
+  async function trashDocument(doc: any) {
+    try {
+      await client.graphql({ query: mutations.deleteDocument, variables: { input: { id: doc.id } } })
+      notifications.show({
+        title: doc.name,
+        message: 'This document was deleted.',
+      })
+      router.refresh()
+    } catch (error) {
+      notifications.show({
+        title: `There was an error deleting ${doc.name}`,
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem deleting the Doc :`, error)
+    }
+  }
 
   return (
-    <Carousel height={260} slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }}slideGap='md' loop align='start' slidesToScroll={6} controlsOffset={0} classNames={classes}>
+    <Carousel height={300} slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }} slideGap='md' loop align='start' slidesToScroll={6} controlsOffset={0} classNames={classes}>
       {items.map((item: any) => (
         <Carousel.Slide key={item.id}>
-          <Card withBorder h={260}>
+          <Card withBorder h={280}>
             <Card.Section bg='primary'>
               <Group justify='space-between' wrap='nowrap'>
                 <Badge>{item.__typename}</Badge>
@@ -71,11 +91,11 @@ export default function RecentCarousel(props: any) {
                             <Title order={4}>{item.name}</Title>
                           </Group>
                         ),
-                        children: <Text size='sm'>(NOT IMPLEMENTED)Are you sure you would like to delete this document?</Text>,
+                        children: <Text size='sm'>Are you sure you would like to delete this document?</Text>,
                         labels: { confirm: 'Delete', cancel: 'Cancel' },
                         confirmProps: { color: 'red' },
                         onCancel: () => console.log(`Canceled Delete`),
-                        onConfirm: () => console.log(`Not Implemented`),
+                        onConfirm: () => trashDocument(item),
                       })
                     }}>
                     <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />

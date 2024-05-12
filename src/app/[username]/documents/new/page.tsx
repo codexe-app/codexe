@@ -21,7 +21,7 @@ async function AuthGetCurrentUserServer() {
 
 export default async function Page() {
   const theuser = await AuthGetCurrentUserServer()
-  const res = await fetch('https://codexemedia6aa5d-next.s3-us-west-2.amazonaws.com/public/markdown/old.md')
+  const res = await fetch('https://codexemedia6aa5d-next.s3-us-west-2.amazonaws.com/public/markdown/new.md')
   const markdown = await res.text()
   const document = { id: nanoid(), name: 'New Document', slug: 'new-document', description: '', content: '', status: 'draft', graphic: { title: 'No Graphic', alt: '', caption: '', description: '', key: '', source: '', url: '' }, userId: theuser.userId }
 

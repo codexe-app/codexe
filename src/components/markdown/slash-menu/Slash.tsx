@@ -1,6 +1,6 @@
-import { config } from "@/components/slash-menu/config";
-import { SlashItem } from "@/components/slash-menu/SlashItem";
-import { useSlashState } from "@/components/slash-menu/state";
+import { config } from "@/components/markdown/slash-menu/config";
+import { SlashItem } from "@/components/markdown/slash-menu/SlashItem";
+import { useSlashState } from "@/components/markdown/slash-menu/state";
 import { SlashProvider } from "@milkdown/plugin-slash";
 import { useInstance } from "@milkdown/react";
 import { usePluginViewContext } from "@prosemirror-adapter/react";
