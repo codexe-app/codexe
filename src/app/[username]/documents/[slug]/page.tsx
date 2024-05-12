@@ -2,7 +2,7 @@ import { cookieBasedClient } from '@/utils/cookiebasedclient'
 import { listDocuments } from '@/graphql/queries'
 import { Container } from '@mantine/core'
 import type { Document } from '@/graphql/API'
-import DocumentForm from '../form'
+import Editor from '../editor'
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const variables = {
@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <Container size='responsive'>
-      <DocumentForm data={document} new={false} tab='view' />
+      <Editor document={document} markdown={document.content} new={false} />
     </Container>
   )
 }

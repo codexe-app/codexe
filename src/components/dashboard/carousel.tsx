@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Carousel } from '@mantine/carousel'
 import { modals } from '@mantine/modals'
-import { Flex, Badge, Group, Text, ActionIcon, Card, Title, Stack, Image, rem } from '@mantine/core'
+import { Flex, Badge, Group, Text, ActionIcon, Card, Title, Stack, AspectRatio, Image, rem } from '@mantine/core'
 import { IconPencil, IconEye, IconTrash, IconAlertCircle } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 import DocumentView from './view'
@@ -32,7 +32,9 @@ export default function RecentCarousel(props: any) {
               </Group>
             </Card.Section>
             <Card.Section pos='relative'>
+            <AspectRatio ratio={16 / 9}>
               <Image src={item.graphic.url} />
+              </AspectRatio>
             </Card.Section>
             <Card.Section>
               <Group gap='xs' m='xs' wrap='nowrap' align='start'>

@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation'
 import { Container } from '@mantine/core'
 import { getCurrentUser } from 'aws-amplify/auth/server'
 import { runWithAmplifyServerContext } from '@/utils/amplifyserverutils'
-
-import DocumentForm from '../form'
+import { nanoid } from 'nanoid'
+import Editor from '../../documents/editor'
 
 async function AuthGetCurrentUserServer() {
   try {
@@ -21,11 +21,13 @@ async function AuthGetCurrentUserServer() {
 
 export default async function Page() {
   const theuser = await AuthGetCurrentUserServer()
-  const document = { name: 'New Document', slug: 'new-document', description: '', content: '', status: 'draft', graphic: { title: 'No Graphic', alt: '', caption: '', description: '', key: '', source: '', url: '' }, userId: theuser.userId }
+  const res = await fetch('https://codexemedia6aa5d-next.s3-us-west-2.amazonaws.com/public/markdown/old.md')
+  const markdown = await res.text()
+  const document = { id: nanoid(), name: 'New Document', slug: 'new-document', description: '', content: '', status: 'draft', graphic: { title: 'No Graphic', alt: '', caption: '', description: '', key: '', source: '', url: '' }, userId: theuser.userId }
 
   return (
-    <Container size='responsive'>
-      <DocumentForm user={theuser} data={document} new={true} tab='upload'/>
+    <Container size='lg'>
+      <Editor document={document} markdown={markdown} new={true} user={theuser}/>
     </Container>
   )
 }
