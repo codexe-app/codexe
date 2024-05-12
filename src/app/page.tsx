@@ -19,7 +19,7 @@ export default function HomePage() {
               </Title>
               <Container p={0} size={600}>
                 <Text size='lg' c='dimmed' className={classes.description}>
-                  A new kind of notebook
+                  21st Century Journaling
                 </Text>
               </Container>
               <div className={classes.controls}>

@@ -9,6 +9,7 @@ export type CreateDocumentInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   topicId?: string | null,
   userId: string,
@@ -41,6 +42,7 @@ export type ModelDocumentConditionInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
@@ -95,6 +97,13 @@ export type ModelStatusInput = {
   ne?: Status | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -119,6 +128,7 @@ export type Document = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFile | null,
   topic?: Topic | null,
   topicId?: string | null,
@@ -148,6 +158,7 @@ export type Topic = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFile | null,
   diagrams?: ModelDiagramConnection | null,
   documents?: ModelDocumentConnection | null,
@@ -170,6 +181,7 @@ export type Diagram = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFile | null,
   nodes?: ModelNodeConnection | null,
   edges?: ModelEdgeConnection | null,
@@ -366,6 +378,7 @@ export type Chat = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFile | null,
   path?: string | null,
   sharePath?: string | null,
@@ -412,6 +425,7 @@ export type UpdateDocumentInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   topicId?: string | null,
   userId?: string | null,
@@ -429,6 +443,7 @@ export type CreateDiagramInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   topicId?: string | null,
   userId: string,
@@ -441,6 +456,7 @@ export type ModelDiagramConditionInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
@@ -457,6 +473,7 @@ export type UpdateDiagramInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   topicId?: string | null,
   userId?: string | null,
@@ -547,13 +564,6 @@ export type ModelNodeConditionInput = {
 export type ModelPositionInput = {
   eq?: Position | null,
   ne?: Position | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ModelIntInput = {
@@ -764,6 +774,7 @@ export type CreateChatInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   path?: string | null,
   sharePath?: string | null,
@@ -778,6 +789,7 @@ export type ModelChatConditionInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   path?: ModelStringInput | null,
   sharePath?: ModelStringInput | null,
   topicId?: ModelIDInput | null,
@@ -796,6 +808,7 @@ export type UpdateChatInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   path?: string | null,
   sharePath?: string | null,
@@ -858,6 +871,7 @@ export type CreateTopicInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   createdAt?: string | null,
 };
@@ -868,6 +882,7 @@ export type ModelTopicConditionInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelTopicConditionInput | null > | null,
   or?: Array< ModelTopicConditionInput | null > | null,
@@ -882,6 +897,7 @@ export type UpdateTopicInput = {
   description?: string | null,
   content?: string | null,
   status?: Status | null,
+  pinned?: boolean | null,
   graphic?: ImageFileInput | null,
   createdAt?: string | null,
 };
@@ -930,336 +946,6 @@ export type DeleteUserInput = {
   id: string,
 };
 
-export type SearchableDocumentFilterInput = {
-  id?: SearchableIDFilterInput | null,
-  name?: SearchableStringFilterInput | null,
-  slug?: SearchableStringFilterInput | null,
-  description?: SearchableStringFilterInput | null,
-  content?: SearchableStringFilterInput | null,
-  topicId?: SearchableIDFilterInput | null,
-  userId?: SearchableIDFilterInput | null,
-  createdAt?: SearchableStringFilterInput | null,
-  updatedAt?: SearchableStringFilterInput | null,
-  status?: SearchableStringFilterInput | null,
-  and?: Array< SearchableDocumentFilterInput | null > | null,
-  or?: Array< SearchableDocumentFilterInput | null > | null,
-  not?: SearchableDocumentFilterInput | null,
-};
-
-export type SearchableIDFilterInput = {
-  ne?: string | null,
-  gt?: string | null,
-  lt?: string | null,
-  gte?: string | null,
-  lte?: string | null,
-  eq?: string | null,
-  match?: string | null,
-  matchPhrase?: string | null,
-  matchPhrasePrefix?: string | null,
-  multiMatch?: string | null,
-  exists?: boolean | null,
-  wildcard?: string | null,
-  regexp?: string | null,
-  range?: Array< string | null > | null,
-};
-
-export type SearchableStringFilterInput = {
-  ne?: string | null,
-  gt?: string | null,
-  lt?: string | null,
-  gte?: string | null,
-  lte?: string | null,
-  eq?: string | null,
-  match?: string | null,
-  matchPhrase?: string | null,
-  matchPhrasePrefix?: string | null,
-  multiMatch?: string | null,
-  exists?: boolean | null,
-  wildcard?: string | null,
-  regexp?: string | null,
-  range?: Array< string | null > | null,
-};
-
-export type SearchableDocumentSortInput = {
-  field?: SearchableDocumentSortableFields | null,
-  direction?: SearchableSortDirection | null,
-};
-
-export enum SearchableDocumentSortableFields {
-  id = "id",
-  name = "name",
-  slug = "slug",
-  description = "description",
-  content = "content",
-  topicId = "topicId",
-  userId = "userId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export enum SearchableSortDirection {
-  asc = "asc",
-  desc = "desc",
-}
-
-
-export type SearchableDocumentAggregationInput = {
-  name: string,
-  type: SearchableAggregateType,
-  field: SearchableDocumentAggregateField,
-};
-
-export enum SearchableAggregateType {
-  terms = "terms",
-  avg = "avg",
-  min = "min",
-  max = "max",
-  sum = "sum",
-  cardinality = "cardinality",
-}
-
-
-export enum SearchableDocumentAggregateField {
-  id = "id",
-  name = "name",
-  slug = "slug",
-  description = "description",
-  content = "content",
-  status = "status",
-  topicId = "topicId",
-  userId = "userId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableDocumentConnection = {
-  __typename: "SearchableDocumentConnection",
-  items:  Array<Document | null >,
-  nextToken?: string | null,
-  total?: number | null,
-  aggregateItems:  Array<SearchableAggregateResult | null >,
-};
-
-export type SearchableAggregateResult = {
-  __typename: "SearchableAggregateResult",
-  name: string,
-  result?: SearchableAggregateGenericResult | null,
-};
-
-export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
-
-
-export type SearchableAggregateScalarResult = {
-  __typename: "SearchableAggregateScalarResult",
-  value: number,
-};
-
-export type SearchableAggregateBucketResult = {
-  __typename: "SearchableAggregateBucketResult",
-  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
-};
-
-export type SearchableAggregateBucketResultItem = {
-  __typename: "SearchableAggregateBucketResultItem",
-  key: string,
-  doc_count: number,
-};
-
-export type SearchableDiagramFilterInput = {
-  id?: SearchableIDFilterInput | null,
-  name?: SearchableStringFilterInput | null,
-  slug?: SearchableStringFilterInput | null,
-  description?: SearchableStringFilterInput | null,
-  content?: SearchableStringFilterInput | null,
-  topicId?: SearchableIDFilterInput | null,
-  userId?: SearchableIDFilterInput | null,
-  createdAt?: SearchableStringFilterInput | null,
-  updatedAt?: SearchableStringFilterInput | null,
-  status?: SearchableStringFilterInput | null,
-  and?: Array< SearchableDiagramFilterInput | null > | null,
-  or?: Array< SearchableDiagramFilterInput | null > | null,
-  not?: SearchableDiagramFilterInput | null,
-};
-
-export type SearchableDiagramSortInput = {
-  field?: SearchableDiagramSortableFields | null,
-  direction?: SearchableSortDirection | null,
-};
-
-export enum SearchableDiagramSortableFields {
-  id = "id",
-  name = "name",
-  slug = "slug",
-  description = "description",
-  content = "content",
-  topicId = "topicId",
-  userId = "userId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableDiagramAggregationInput = {
-  name: string,
-  type: SearchableAggregateType,
-  field: SearchableDiagramAggregateField,
-};
-
-export enum SearchableDiagramAggregateField {
-  id = "id",
-  name = "name",
-  slug = "slug",
-  description = "description",
-  content = "content",
-  status = "status",
-  topicId = "topicId",
-  userId = "userId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableDiagramConnection = {
-  __typename: "SearchableDiagramConnection",
-  items:  Array<Diagram | null >,
-  nextToken?: string | null,
-  total?: number | null,
-  aggregateItems:  Array<SearchableAggregateResult | null >,
-};
-
-export type SearchableChatFilterInput = {
-  id?: SearchableIDFilterInput | null,
-  name?: SearchableStringFilterInput | null,
-  slug?: SearchableStringFilterInput | null,
-  description?: SearchableStringFilterInput | null,
-  content?: SearchableStringFilterInput | null,
-  path?: SearchableStringFilterInput | null,
-  sharePath?: SearchableStringFilterInput | null,
-  topicId?: SearchableIDFilterInput | null,
-  userId?: SearchableIDFilterInput | null,
-  createdAt?: SearchableStringFilterInput | null,
-  updatedAt?: SearchableStringFilterInput | null,
-  status?: SearchableStringFilterInput | null,
-  and?: Array< SearchableChatFilterInput | null > | null,
-  or?: Array< SearchableChatFilterInput | null > | null,
-  not?: SearchableChatFilterInput | null,
-};
-
-export type SearchableChatSortInput = {
-  field?: SearchableChatSortableFields | null,
-  direction?: SearchableSortDirection | null,
-};
-
-export enum SearchableChatSortableFields {
-  id = "id",
-  name = "name",
-  slug = "slug",
-  description = "description",
-  content = "content",
-  path = "path",
-  sharePath = "sharePath",
-  topicId = "topicId",
-  userId = "userId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableChatAggregationInput = {
-  name: string,
-  type: SearchableAggregateType,
-  field: SearchableChatAggregateField,
-};
-
-export enum SearchableChatAggregateField {
-  id = "id",
-  name = "name",
-  slug = "slug",
-  description = "description",
-  content = "content",
-  status = "status",
-  path = "path",
-  sharePath = "sharePath",
-  topicId = "topicId",
-  userId = "userId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableChatConnection = {
-  __typename: "SearchableChatConnection",
-  items:  Array<Chat | null >,
-  nextToken?: string | null,
-  total?: number | null,
-  aggregateItems:  Array<SearchableAggregateResult | null >,
-};
-
-export type SearchableMessageFilterInput = {
-  id?: SearchableIDFilterInput | null,
-  content?: SearchableStringFilterInput | null,
-  role?: SearchableStringFilterInput | null,
-  ui?: SearchableStringFilterInput | null,
-  data?: SearchableStringFilterInput | null,
-  functioncall?: SearchableStringFilterInput | null,
-  name?: SearchableStringFilterInput | null,
-  chatId?: SearchableIDFilterInput | null,
-  createdAt?: SearchableStringFilterInput | null,
-  updatedAt?: SearchableStringFilterInput | null,
-  and?: Array< SearchableMessageFilterInput | null > | null,
-  or?: Array< SearchableMessageFilterInput | null > | null,
-  not?: SearchableMessageFilterInput | null,
-};
-
-export type SearchableMessageSortInput = {
-  field?: SearchableMessageSortableFields | null,
-  direction?: SearchableSortDirection | null,
-};
-
-export enum SearchableMessageSortableFields {
-  id = "id",
-  content = "content",
-  role = "role",
-  ui = "ui",
-  data = "data",
-  functioncall = "functioncall",
-  name = "name",
-  chatId = "chatId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableMessageAggregationInput = {
-  name: string,
-  type: SearchableAggregateType,
-  field: SearchableMessageAggregateField,
-};
-
-export enum SearchableMessageAggregateField {
-  id = "id",
-  content = "content",
-  role = "role",
-  ui = "ui",
-  data = "data",
-  functioncall = "functioncall",
-  name = "name",
-  chatId = "chatId",
-  createdAt = "createdAt",
-  updatedAt = "updatedAt",
-}
-
-
-export type SearchableMessageConnection = {
-  __typename: "SearchableMessageConnection",
-  items:  Array<Message | null >,
-  nextToken?: string | null,
-  total?: number | null,
-  aggregateItems:  Array<SearchableAggregateResult | null >,
-};
-
 export type ModelDocumentFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -1267,6 +953,7 @@ export type ModelDocumentFilterInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
@@ -1283,6 +970,7 @@ export type ModelDiagramFilterInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   topicId?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
@@ -1377,6 +1065,7 @@ export type ModelChatFilterInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   path?: ModelStringInput | null,
   sharePath?: ModelStringInput | null,
   topicId?: ModelIDInput | null,
@@ -1411,6 +1100,7 @@ export type ModelTopicFilterInput = {
   description?: ModelStringInput | null,
   content?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  pinned?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelTopicFilterInput | null > | null,
@@ -1468,6 +1158,7 @@ export type ModelSubscriptionDocumentFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  pinned?: ModelSubscriptionBooleanInput | null,
   topicId?: ModelSubscriptionIDInput | null,
   userId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
@@ -1506,6 +1197,11 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
 export type ModelSubscriptionDiagramFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -1513,6 +1209,7 @@ export type ModelSubscriptionDiagramFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  pinned?: ModelSubscriptionBooleanInput | null,
   topicId?: ModelSubscriptionIDInput | null,
   userId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
@@ -1550,11 +1247,6 @@ export type ModelSubscriptionNodeFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionNodeFilterInput | null > | null,
   or?: Array< ModelSubscriptionNodeFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -1620,6 +1312,7 @@ export type ModelSubscriptionChatFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  pinned?: ModelSubscriptionBooleanInput | null,
   path?: ModelSubscriptionStringInput | null,
   sharePath?: ModelSubscriptionStringInput | null,
   topicId?: ModelSubscriptionIDInput | null,
@@ -1652,6 +1345,7 @@ export type ModelSubscriptionTopicFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  pinned?: ModelSubscriptionBooleanInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTopicFilterInput | null > | null,
@@ -1686,6 +1380,7 @@ export type CreateDocumentMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -1705,6 +1400,7 @@ export type CreateDocumentMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -1741,6 +1437,7 @@ export type UpdateDocumentMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -1760,6 +1457,7 @@ export type UpdateDocumentMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -1796,6 +1494,7 @@ export type DeleteDocumentMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -1815,6 +1514,7 @@ export type DeleteDocumentMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -1851,6 +1551,7 @@ export type CreateDiagramMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -1878,6 +1579,7 @@ export type CreateDiagramMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -1914,6 +1616,7 @@ export type UpdateDiagramMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -1941,6 +1644,7 @@ export type UpdateDiagramMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -1977,6 +1681,7 @@ export type DeleteDiagramMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -2004,6 +1709,7 @@ export type DeleteDiagramMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -2088,6 +1794,7 @@ export type CreateNodeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -2161,6 +1868,7 @@ export type UpdateNodeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -2234,6 +1942,7 @@ export type DeleteNodeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -2460,6 +2169,7 @@ export type CreateEdgeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -2530,6 +2240,7 @@ export type UpdateEdgeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -2600,6 +2311,7 @@ export type DeleteEdgeMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -2625,6 +2337,7 @@ export type CreateChatMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -2646,6 +2359,7 @@ export type CreateChatMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -2686,6 +2400,7 @@ export type UpdateChatMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -2707,6 +2422,7 @@ export type UpdateChatMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -2747,6 +2463,7 @@ export type DeleteChatMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -2768,6 +2485,7 @@ export type DeleteChatMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -2817,6 +2535,7 @@ export type CreateMessageMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -2853,6 +2572,7 @@ export type UpdateMessageMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -2889,6 +2609,7 @@ export type DeleteMessageMutation = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -2916,6 +2637,7 @@ export type CreateTopicMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -2958,6 +2680,7 @@ export type UpdateTopicMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -3000,6 +2723,7 @@ export type DeleteTopicMutation = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -3157,192 +2881,6 @@ export type DeleteUserMutation = {
   } | null,
 };
 
-export type SearchDocumentsQueryVariables = {
-  filter?: SearchableDocumentFilterInput | null,
-  sort?: Array< SearchableDocumentSortInput | null > | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  from?: number | null,
-  aggregates?: Array< SearchableDocumentAggregationInput | null > | null,
-};
-
-export type SearchDocumentsQuery = {
-  searchDocuments?:  {
-    __typename: "SearchableDocumentConnection",
-    items:  Array< {
-      __typename: "Document",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      status?: Status | null,
-      topicId?: string | null,
-      userId: string,
-      createdAt?: string | null,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-    total?: number | null,
-    aggregateItems:  Array< {
-      __typename: "SearchableAggregateResult",
-      name: string,
-      result: ( {
-          __typename: "SearchableAggregateScalarResult",
-          value: number,
-        } | {
-          __typename: "SearchableAggregateBucketResult",
-          buckets?:  Array< {
-            __typename: string,
-            key: string,
-            doc_count: number,
-          } | null > | null,
-        }
-      ) | null,
-    } | null >,
-  } | null,
-};
-
-export type SearchDiagramsQueryVariables = {
-  filter?: SearchableDiagramFilterInput | null,
-  sort?: Array< SearchableDiagramSortInput | null > | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  from?: number | null,
-  aggregates?: Array< SearchableDiagramAggregationInput | null > | null,
-};
-
-export type SearchDiagramsQuery = {
-  searchDiagrams?:  {
-    __typename: "SearchableDiagramConnection",
-    items:  Array< {
-      __typename: "Diagram",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      status?: Status | null,
-      topicId?: string | null,
-      userId: string,
-      createdAt?: string | null,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-    total?: number | null,
-    aggregateItems:  Array< {
-      __typename: "SearchableAggregateResult",
-      name: string,
-      result: ( {
-          __typename: "SearchableAggregateScalarResult",
-          value: number,
-        } | {
-          __typename: "SearchableAggregateBucketResult",
-          buckets?:  Array< {
-            __typename: string,
-            key: string,
-            doc_count: number,
-          } | null > | null,
-        }
-      ) | null,
-    } | null >,
-  } | null,
-};
-
-export type SearchChatsQueryVariables = {
-  filter?: SearchableChatFilterInput | null,
-  sort?: Array< SearchableChatSortInput | null > | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  from?: number | null,
-  aggregates?: Array< SearchableChatAggregationInput | null > | null,
-};
-
-export type SearchChatsQuery = {
-  searchChats?:  {
-    __typename: "SearchableChatConnection",
-    items:  Array< {
-      __typename: "Chat",
-      id: string,
-      name?: string | null,
-      slug?: string | null,
-      description?: string | null,
-      content?: string | null,
-      status?: Status | null,
-      path?: string | null,
-      sharePath?: string | null,
-      topicId?: string | null,
-      userId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-    total?: number | null,
-    aggregateItems:  Array< {
-      __typename: "SearchableAggregateResult",
-      name: string,
-      result: ( {
-          __typename: "SearchableAggregateScalarResult",
-          value: number,
-        } | {
-          __typename: "SearchableAggregateBucketResult",
-          buckets?:  Array< {
-            __typename: string,
-            key: string,
-            doc_count: number,
-          } | null > | null,
-        }
-      ) | null,
-    } | null >,
-  } | null,
-};
-
-export type SearchMessagesQueryVariables = {
-  filter?: SearchableMessageFilterInput | null,
-  sort?: Array< SearchableMessageSortInput | null > | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  from?: number | null,
-  aggregates?: Array< SearchableMessageAggregationInput | null > | null,
-};
-
-export type SearchMessagesQuery = {
-  searchMessages?:  {
-    __typename: "SearchableMessageConnection",
-    items:  Array< {
-      __typename: "Message",
-      id: string,
-      content?: string | null,
-      role?: string | null,
-      ui?: string | null,
-      data?: string | null,
-      functioncall?: string | null,
-      name?: string | null,
-      chatId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-    total?: number | null,
-    aggregateItems:  Array< {
-      __typename: "SearchableAggregateResult",
-      name: string,
-      result: ( {
-          __typename: "SearchableAggregateScalarResult",
-          value: number,
-        } | {
-          __typename: "SearchableAggregateBucketResult",
-          buckets?:  Array< {
-            __typename: string,
-            key: string,
-            doc_count: number,
-          } | null > | null,
-        }
-      ) | null,
-    } | null >,
-  } | null,
-};
-
 export type GetDocumentQueryVariables = {
   id: string,
 };
@@ -3356,6 +2894,7 @@ export type GetDocumentQuery = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -3375,6 +2914,7 @@ export type GetDocumentQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -3414,6 +2954,7 @@ export type ListDocumentsQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -3436,6 +2977,7 @@ export type GetDiagramQuery = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -3463,6 +3005,7 @@ export type GetDiagramQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -3502,6 +3045,7 @@ export type ListDiagramsQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -3572,6 +3116,7 @@ export type GetNodeQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -3762,6 +3307,7 @@ export type GetEdgeQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -3824,6 +3370,7 @@ export type GetChatQuery = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -3845,6 +3392,7 @@ export type GetChatQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -3888,6 +3436,7 @@ export type ListChatsQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -3921,6 +3470,7 @@ export type GetMessageQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -3973,6 +3523,7 @@ export type GetTopicQuery = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4018,6 +3569,7 @@ export type ListTopicsQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null >,
@@ -4112,6 +3664,7 @@ export type DocumentsByTopicIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4141,6 +3694,7 @@ export type DocumentsByUserIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4170,6 +3724,7 @@ export type DiagramsByTopicIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4199,6 +3754,7 @@ export type DiagramsByUserIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4345,6 +3901,7 @@ export type ChatsByTopicIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -4376,6 +3933,7 @@ export type ChatsByUserIdAndCreatedAtQuery = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -4429,6 +3987,7 @@ export type OnCreateDocumentSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4448,6 +4007,7 @@ export type OnCreateDocumentSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -4483,6 +4043,7 @@ export type OnUpdateDocumentSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4502,6 +4063,7 @@ export type OnUpdateDocumentSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -4537,6 +4099,7 @@ export type OnDeleteDocumentSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4556,6 +4119,7 @@ export type OnDeleteDocumentSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -4591,6 +4155,7 @@ export type OnCreateDiagramSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4618,6 +4183,7 @@ export type OnCreateDiagramSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -4653,6 +4219,7 @@ export type OnUpdateDiagramSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4680,6 +4247,7 @@ export type OnUpdateDiagramSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -4715,6 +4283,7 @@ export type OnDeleteDiagramSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -4742,6 +4311,7 @@ export type OnDeleteDiagramSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -4825,6 +4395,7 @@ export type OnCreateNodeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4897,6 +4468,7 @@ export type OnUpdateNodeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4969,6 +4541,7 @@ export type OnDeleteNodeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -5191,6 +4764,7 @@ export type OnCreateEdgeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -5260,6 +4834,7 @@ export type OnUpdateEdgeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -5329,6 +4904,7 @@ export type OnDeleteEdgeSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -5353,6 +4929,7 @@ export type OnCreateChatSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -5374,6 +4951,7 @@ export type OnCreateChatSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -5413,6 +4991,7 @@ export type OnUpdateChatSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -5434,6 +5013,7 @@ export type OnUpdateChatSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -5473,6 +5053,7 @@ export type OnDeleteChatSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -5494,6 +5075,7 @@ export type OnDeleteChatSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       createdAt?: string | null,
       updatedAt: string,
     } | null,
@@ -5542,6 +5124,7 @@ export type OnCreateMessageSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -5577,6 +5160,7 @@ export type OnUpdateMessageSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -5612,6 +5196,7 @@ export type OnDeleteMessageSubscription = {
       description?: string | null,
       content?: string | null,
       status?: Status | null,
+      pinned?: boolean | null,
       path?: string | null,
       sharePath?: string | null,
       topicId?: string | null,
@@ -5638,6 +5223,7 @@ export type OnCreateTopicSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -5679,6 +5265,7 @@ export type OnUpdateTopicSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,
@@ -5720,6 +5307,7 @@ export type OnDeleteTopicSubscription = {
     description?: string | null,
     content?: string | null,
     status?: Status | null,
+    pinned?: boolean | null,
     graphic?:  {
       __typename: "ImageFile",
       alt?: string | null,

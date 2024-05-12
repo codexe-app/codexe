@@ -231,7 +231,7 @@ export default function Editor(props: any) {
               <Container size='responsive'>
                 <AccordionControl style={{ paddingInline: 0 }}>
                   <Title ta='left' order={5}>
-                    CODEXE {`>`} Documents {`>`} {form.values.name}
+                    {`>`} {form.values.name}
                   </Title>
                 </AccordionControl>
               </Container>

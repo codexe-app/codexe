@@ -19,6 +19,7 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -37,6 +38,7 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -75,6 +77,7 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -93,6 +96,7 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -131,6 +135,7 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -149,6 +154,7 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -187,6 +193,7 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -213,6 +220,7 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -251,6 +259,7 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -277,6 +286,7 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -315,6 +325,7 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -341,6 +352,7 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -426,6 +438,7 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -500,6 +513,7 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -574,6 +588,7 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -804,6 +819,7 @@ export const createEdge = /* GraphQL */ `mutation CreateEdge(
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -875,6 +891,7 @@ export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -946,6 +963,7 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -973,6 +991,7 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -993,6 +1012,7 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -1035,6 +1055,7 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1055,6 +1076,7 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -1097,6 +1119,7 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1117,6 +1140,7 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -1167,6 +1191,7 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
       description
       content
       status
+      pinned
       path
       sharePath
       topicId
@@ -1204,6 +1229,7 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
       description
       content
       status
+      pinned
       path
       sharePath
       topicId
@@ -1241,6 +1267,7 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
       description
       content
       status
+      pinned
       path
       sharePath
       topicId
@@ -1270,6 +1297,7 @@ export const createTopic = /* GraphQL */ `mutation CreateTopic(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1313,6 +1341,7 @@ export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1356,6 +1385,7 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
     description
     content
     status
+    pinned
     graphic {
       alt
       title

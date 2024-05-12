@@ -16,6 +16,7 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -34,6 +35,7 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -69,6 +71,7 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -87,6 +90,7 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -122,6 +126,7 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -140,6 +145,7 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -175,6 +181,7 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -201,6 +208,7 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -236,6 +244,7 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -262,6 +271,7 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -297,6 +307,7 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -323,6 +334,7 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -405,6 +417,7 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -476,6 +489,7 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -547,6 +561,7 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -765,6 +780,7 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -833,6 +849,7 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -901,6 +918,7 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
       description
       content
       status
+      pinned
       topicId
       userId
       createdAt
@@ -925,6 +943,7 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -945,6 +964,7 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -984,6 +1004,7 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1004,6 +1025,7 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -1043,6 +1065,7 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1063,6 +1086,7 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
       description
       content
       status
+      pinned
       createdAt
       updatedAt
       __typename
@@ -1110,6 +1134,7 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filt
       description
       content
       status
+      pinned
       path
       sharePath
       topicId
@@ -1144,6 +1169,7 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filt
       description
       content
       status
+      pinned
       path
       sharePath
       topicId
@@ -1178,6 +1204,7 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filt
       description
       content
       status
+      pinned
       path
       sharePath
       topicId
@@ -1204,6 +1231,7 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1244,6 +1272,7 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
     description
     content
     status
+    pinned
     graphic {
       alt
       title
@@ -1284,6 +1313,7 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
     description
     content
     status
+    pinned
     graphic {
       alt
       title

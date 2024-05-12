@@ -5,6 +5,7 @@ type Document @model @auth(rules: [{ allow: public }]) {
   description: String
   content: String
   status: Status
+  pinned: Boolean
   graphic: ImageFile
   topic: Topic @belongsTo(fields: ["topicId"])
   topicId: ID @index(name: "byTopic", sortKeyFields: ["createdAt"])
@@ -20,6 +21,7 @@ type Diagram @model @auth(rules: [{ allow: public }]) {
   description: String
   content: String
   status: Status
+  pinned: Boolean
   graphic: ImageFile
   nodes: [Node] @hasMany(indexName: "byDiagram", fields: ["id"])
   edges: [Edge] @hasMany(indexName: "byDiagram", fields: ["id"])
@@ -114,6 +116,7 @@ type Chat @model @auth(rules: [{allow: public}]) {
   description: String
   content: String
   status: Status
+  pinned: Boolean
   graphic: ImageFile
   path: String
   sharePath: String
@@ -145,6 +148,7 @@ type Topic @model @auth(rules: [{ allow: public }]) {
   description: String
   content: String
   status: Status
+  pinned: Boolean
   graphic: ImageFile
   diagrams: [Diagram] @hasMany(indexName: "byTopic", fields: ["id"])
   documents: [Document] @hasMany(indexName: "byTopic", fields: ["id"])
