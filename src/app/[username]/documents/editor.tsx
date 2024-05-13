@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { uploadData, getUrl } from 'aws-amplify/storage'
 import { useRouter } from 'next/navigation'
 import type { MilkdownRef } from '@/components/markdown'
@@ -45,6 +45,7 @@ import {
   Space,
   Container,
   Switch,
+  Checkbox,
 } from '@mantine/core'
 import { IconUpload, IconMarkdown, IconTools, IconToolsOff, IconCode, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
@@ -56,6 +57,7 @@ const Provider = compose(FeatureToggleProvider, MilkdownProvider, ProsemirrorAda
 
 export default function Editor(props: any) {
   const hideme = true
+  const [pinned, setPinned] = useState(props?.document?.pinned)
   const { document, user } = props
   const [codeview, { open, close }] = useDisclosure(false)
   const [graphic, setGraphic] = useState(document?.graphic?.url)
@@ -233,12 +235,24 @@ export default function Editor(props: any) {
           <ActionIcon variant='outline' onClick={openCodeview}>
             <IconMarkdown size='1.25rem' stroke={1.5} />
           </ActionIcon>
-          <ActionIcon size='md' type='submit' variant='outline' onClick={() => setShowtb(!showtb)}>
-            {showtb ? <IconTools size='1.25rem' /> : <IconToolsOff size='1.25rem' />}
-          </ActionIcon>
+          {showtb ? (
+            <ActionIcon size='md' type='submit' variant='outline' onClick={() => setShowtb(!showtb)}>
+              <IconTools size='1.25rem' />
+            </ActionIcon>
+          ) : (
+            <ActionIcon size='md' type='submit' variant='subtle' onClick={() => setShowtb(!showtb)}>
+              <IconToolsOff size='1.25rem' />
+            </ActionIcon>
+          )}
         </ActionIcon.Group>
       </Group>
     )
+  }
+
+  function switchPinned(pinned: boolean) {
+    console.log(pinned)
+    form.setFieldValue('pinned', pinned)
+    setPinned(pinned)
   }
 
   return (
@@ -260,7 +274,7 @@ export default function Editor(props: any) {
             <Accordion.Item key='meta' value='meta'>
               <Container size='responsive'>
                 <AccordionControl style={{ paddingInline: 0 }}>
-                  <Title ta='left' order={5}>
+                  <Title ta='left' order={5} textWrap='nowrap'>
                     {`>`} {form.values.name}
                   </Title>
                 </AccordionControl>
@@ -272,7 +286,6 @@ export default function Editor(props: any) {
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                         <TextInput label='Name' placeholder='Name' required key={form.key('name')} {...form.getInputProps('name')} />
                       </Grid.Col>
-
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                         <Textarea label='Description' placeholder='Description' {...form.getInputProps('description')} />
                       </Grid.Col>
@@ -285,9 +298,9 @@ export default function Editor(props: any) {
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                         <Group wrap='nowrap' align='top'>
                           <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...form.getInputProps(`status`)} />
-                          <Switch.Group label='Pinned'>
-                            <Switch size='lg' {...form.getInputProps('pinned')} />
-                          </Switch.Group>
+                          <Checkbox.Group label='Pinned'>
+                            <Checkbox size='lg' checked={pinned} onChange={(e) => switchPinned(!pinned)} />
+                          </Checkbox.Group>
                         </Group>
                       </Grid.Col>
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
