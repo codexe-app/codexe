@@ -47,6 +47,384 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
         thumbnail
         __typename
       }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -55,10 +433,399 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     user {
       id
       username
+      avatar {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
       firstname
       lastname
       role
       email
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       cognitoid
       createdAt
       updatedAt
@@ -99,7 +866,399 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
         thumbnail
         __typename
       }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -134,10 +1293,469 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
       __typename
     }
     nodes {
+      items {
+        id
+        position {
+          x
+          y
+          __typename
+        }
+        measured {
+          width
+          height
+          __typename
+        }
+        data {
+          label
+          __typename
+        }
+        type
+        sourcePosition
+        targetPosition
+        hidden
+        selected
+        dragging
+        draggable
+        selectable
+        connectable
+        resizing
+        deletable
+        dragHandle
+        width
+        height
+        parentId
+        zIndex
+        extent
+        expandParent
+        positionAbsolute {
+          x
+          y
+          __typename
+        }
+        ariaLabel
+        focusable
+        style
+        className
+        handles {
+          items {
+            id
+            type
+            position
+            connectable
+            connectstart
+            connectend
+            onconnect
+            isvalid
+            style
+            node {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nodeId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagram {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        diagramId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
     edges {
+      items {
+        id
+        type
+        source
+        target
+        sourceHandle
+        targetHandle
+        style
+        animated
+        hidden
+        deletable
+        data {
+          label
+          __typename
+        }
+        className
+        sourceNode
+        targetNode
+        selected
+        markerStart {
+          type
+          color
+          width
+          height
+          markerUnits
+          orient
+          strokeWidth
+          __typename
+        }
+        markerEnd {
+          type
+          color
+          width
+          height
+          markerUnits
+          orient
+          strokeWidth
+          __typename
+        }
+        zIndex
+        ariaLabel
+        interactionWidth
+        focusable
+        updatable
+        diagram {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        diagramId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -160,6 +1778,384 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
         thumbnail
         __typename
       }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -168,10 +2164,399 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     user {
       id
       username
+      avatar {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
       firstname
       lastname
       role
       email
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       cognitoid
       createdAt
       updatedAt
@@ -212,7 +2597,637 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
         thumbnail
         __typename
       }
+      nodes {
+        items {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          positionAbsolute {
+            x
+            y
+            __typename
+          }
+          ariaLabel
+          focusable
+          style
+          className
+          handles {
+            items {
+              id
+              type
+              position
+              connectable
+              connectstart
+              connectend
+              onconnect
+              isvalid
+              style
+              nodeId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          deletable
+          data {
+            label
+            __typename
+          }
+          className
+          sourceNode
+          targetNode
+          selected
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -271,6 +3286,145 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     style
     className
     handles {
+      items {
+        id
+        type
+        position
+        connectable
+        connectstart
+        connectend
+        onconnect
+        isvalid
+        style
+        node {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          positionAbsolute {
+            x
+            y
+            __typename
+          }
+          ariaLabel
+          focusable
+          style
+          className
+          handles {
+            items {
+              id
+              type
+              position
+              connectable
+              connectstart
+              connectend
+              onconnect
+              isvalid
+              style
+              nodeId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nodeId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -293,7 +3447,637 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
         thumbnail
         __typename
       }
+      nodes {
+        items {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          positionAbsolute {
+            x
+            y
+            __typename
+          }
+          ariaLabel
+          focusable
+          style
+          className
+          handles {
+            items {
+              id
+              type
+              position
+              connectable
+              connectstart
+              connectend
+              onconnect
+              isvalid
+              style
+              nodeId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          deletable
+          data {
+            label
+            __typename
+          }
+          className
+          sourceNode
+          targetNode
+          selected
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -314,6 +4098,20 @@ export const listNodes = /* GraphQL */ `query ListNodes(
   listNodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      position {
+        x
+        y
+        __typename
+      }
+      measured {
+        width
+        height
+        __typename
+      }
+      data {
+        label
+        __typename
+      }
       type
       sourcePosition
       targetPosition
@@ -332,10 +4130,420 @@ export const listNodes = /* GraphQL */ `query ListNodes(
       zIndex
       extent
       expandParent
+      positionAbsolute {
+        x
+        y
+        __typename
+      }
       ariaLabel
       focusable
       style
       className
+      handles {
+        items {
+          id
+          type
+          position
+          connectable
+          connectstart
+          connectend
+          onconnect
+          isvalid
+          style
+          node {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nodeId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagram {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       diagramId
       createdAt
       updatedAt
@@ -359,6 +4567,20 @@ export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
     style
     node {
       id
+      position {
+        x
+        y
+        __typename
+      }
+      measured {
+        width
+        height
+        __typename
+      }
+      data {
+        label
+        __typename
+      }
       type
       sourcePosition
       targetPosition
@@ -377,10 +4599,420 @@ export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
       zIndex
       extent
       expandParent
+      positionAbsolute {
+        x
+        y
+        __typename
+      }
       ariaLabel
       focusable
       style
       className
+      handles {
+        items {
+          id
+          type
+          position
+          connectable
+          connectstart
+          connectend
+          onconnect
+          isvalid
+          style
+          node {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nodeId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagram {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       diagramId
       createdAt
       updatedAt
@@ -409,6 +5041,259 @@ export const listHandles = /* GraphQL */ `query ListHandles(
       onconnect
       isvalid
       style
+      node {
+        id
+        position {
+          x
+          y
+          __typename
+        }
+        measured {
+          width
+          height
+          __typename
+        }
+        data {
+          label
+          __typename
+        }
+        type
+        sourcePosition
+        targetPosition
+        hidden
+        selected
+        dragging
+        draggable
+        selectable
+        connectable
+        resizing
+        deletable
+        dragHandle
+        width
+        height
+        parentId
+        zIndex
+        extent
+        expandParent
+        positionAbsolute {
+          x
+          y
+          __typename
+        }
+        ariaLabel
+        focusable
+        style
+        className
+        handles {
+          items {
+            id
+            type
+            position
+            connectable
+            connectstart
+            connectend
+            onconnect
+            isvalid
+            style
+            node {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nodeId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagram {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        diagramId
+        createdAt
+        updatedAt
+        __typename
+      }
       nodeId
       createdAt
       updatedAt
@@ -486,7 +5371,637 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
         thumbnail
         __typename
       }
+      nodes {
+        items {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          positionAbsolute {
+            x
+            y
+            __typename
+          }
+          ariaLabel
+          focusable
+          style
+          className
+          handles {
+            items {
+              id
+              type
+              position
+              connectable
+              connectstart
+              connectend
+              onconnect
+              isvalid
+              style
+              nodeId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          deletable
+          data {
+            label
+            __typename
+          }
+          className
+          sourceNode
+          targetNode
+          selected
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -516,15 +6031,359 @@ export const listEdges = /* GraphQL */ `query ListEdges(
       animated
       hidden
       deletable
+      data {
+        label
+        __typename
+      }
       className
       sourceNode
       targetNode
       selected
+      markerStart {
+        type
+        color
+        width
+        height
+        markerUnits
+        orient
+        strokeWidth
+        __typename
+      }
+      markerEnd {
+        type
+        color
+        width
+        height
+        markerUnits
+        orient
+        strokeWidth
+        __typename
+      }
       zIndex
       ariaLabel
       interactionWidth
       focusable
       updatable
+      diagram {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       diagramId
       createdAt
       updatedAt
@@ -565,23 +6424,927 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
       content
       status
       pinned
-      graphic
+      graphic {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
     }
     topicId
     messages {
+      items {
+        id
+        content
+        role
+        ui
+        data
+        functioncall
+        name
+        chat {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        chatId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
     user {
       id
       username
+      avatar {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
       firstname
       lastname
       role
       email
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagrams {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       cognitoid
       createdAt
       updatedAt
@@ -621,7 +7384,471 @@ export const listChats = /* GraphQL */ `query ListChats(
       }
       path
       sharePath
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      messages {
+        items {
+          id
+          content
+          role
+          ui
+          data
+          functioncall
+          name
+          chat {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          chatId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -649,10 +7876,484 @@ export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
       content
       status
       pinned
-      graphic
+      graphic {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
       path
       sharePath
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      messages {
+        items {
+          id
+          content
+          role
+          ui
+          data
+          functioncall
+          name
+          chat {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          chatId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -682,6 +8383,224 @@ export const listMessages = /* GraphQL */ `query ListMessages(
       data
       functioncall
       name
+      chat {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        path
+        sharePath
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        messages {
+          items {
+            id
+            content
+            role
+            ui
+            data
+            functioncall
+            name
+            chat {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            chatId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       chatId
       createdAt
       updatedAt
@@ -716,14 +8635,735 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
       __typename
     }
     diagrams {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
     documents {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
     chats {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        path
+        sharePath
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        messages {
+          items {
+            id
+            content
+            role
+            ui
+            data
+            functioncall
+            name
+            chat {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            chatId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -758,85 +9398,7 @@ export const listTopics = /* GraphQL */ `query ListTopics(
         thumbnail
         __typename
       }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListTopicsQueryVariables,
-  APITypes.ListTopicsQuery
->;
-export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
-  getUser(id: $id) {
-    id
-    username
-    avatar {
-      alt
-      title
-      caption
-      description
-      url
-      key
-      source
-      thumbnail
-      __typename
-    }
-    firstname
-    lastname
-    role
-    email
-    chats {
-      nextToken
-      __typename
-    }
-    documents {
-      nextToken
-      __typename
-    }
-    diagrams {
-      nextToken
-      __typename
-    }
-    cognitoid
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
-export const listUsers = /* GraphQL */ `query ListUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      username
-      firstname
-      lastname
-      role
-      email
-      avatar {
-        alt
-        title
-        caption
-        description
-        url
-        key
-        source
-        thumbnail
-        __typename
-      }
-      firstname
-      lastname
-      role
-      email
-      chats {
+      diagrams {
         items {
           id
           name
@@ -845,9 +9407,150 @@ export const listUsers = /* GraphQL */ `query ListUsers(
           content
           status
           pinned
-          path
-          sharePath
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
           userId
           createdAt
           updatedAt
@@ -883,11 +9586,1200 @@ export const listUsers = /* GraphQL */ `query ListUsers(
             description
             content
             status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
             createdAt
             updatedAt
             __typename
           }
           topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListTopicsQueryVariables,
+  APITypes.ListTopicsQuery
+>;
+export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    username
+    avatar {
+      alt
+      title
+      caption
+      description
+      url
+      key
+      source
+      thumbnail
+      __typename
+    }
+    firstname
+    lastname
+    role
+    email
+    chats {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        path
+        sharePath
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        messages {
+          items {
+            id
+            content
+            role
+            ui
+            data
+            functioncall
+            name
+            chat {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            chatId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    documents {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    diagrams {
+      items {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    cognitoid
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+export const listUsers = /* GraphQL */ `query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      username
+      avatar {
+        alt
+        title
+        caption
+        description
+        url
+        key
+        source
+        thumbnail
+        __typename
+      }
+      firstname
+      lastname
+      role
+      email
+      chats {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          path
+          sharePath
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          messages {
+            items {
+              id
+              content
+              role
+              ui
+              data
+              functioncall
+              name
+              chatId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      documents {
+        items {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
           userId
           createdAt
           updatedAt
@@ -917,10 +10809,64 @@ export const listUsers = /* GraphQL */ `query ListUsers(
             __typename
           }
           nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
             nextToken
             __typename
           }
           edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
             nextToken
             __typename
           }
@@ -931,11 +10877,70 @@ export const listUsers = /* GraphQL */ `query ListUsers(
             description
             content
             status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
             createdAt
             updatedAt
             __typename
           }
           topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
           userId
           createdAt
           updatedAt
@@ -989,7 +10994,399 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
         thumbnail
         __typename
       }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -1038,95 +11435,399 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
         thumbnail
         __typename
       }
-      documents {
-        items {
-          id
-          name
-          slug
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
           description
-          content
-          status
-          pinned
-          graphic {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          topic {
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
             id
             name
             slug
             description
             content
             status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
             createdAt
             updatedAt
             __typename
           }
-          topicId
-          userId
-          createdAt
-          updatedAt
+          nextToken
           __typename
         }
-        nextToken
-        __typename
-      }
-      diagrams {
-        items {
-          id
-          name
-          slug
-          description
-          content
-          status
-          pinned
-          graphic {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          nodes {
-            nextToken
-            __typename
-          }
-          edges {
-            nextToken
-            __typename
-          }
-          topic {
+        documents {
+          items {
             id
             name
             slug
             description
             content
             status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
             createdAt
             updatedAt
             __typename
           }
-          topicId
-          userId
-          createdAt
-          updatedAt
+          nextToken
           __typename
         }
-        nextToken
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -1175,7 +11876,637 @@ export const diagramsByTopicIdAndCreatedAt = /* GraphQL */ `query DiagramsByTopi
         thumbnail
         __typename
       }
+      nodes {
+        items {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          positionAbsolute {
+            x
+            y
+            __typename
+          }
+          ariaLabel
+          focusable
+          style
+          className
+          handles {
+            items {
+              id
+              type
+              position
+              connectable
+              connectstart
+              connectend
+              onconnect
+              isvalid
+              style
+              nodeId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          deletable
+          data {
+            label
+            __typename
+          }
+          className
+          sourceNode
+          targetNode
+          selected
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -1224,7 +12555,637 @@ export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserI
         thumbnail
         __typename
       }
+      nodes {
+        items {
+          id
+          position {
+            x
+            y
+            __typename
+          }
+          measured {
+            width
+            height
+            __typename
+          }
+          data {
+            label
+            __typename
+          }
+          type
+          sourcePosition
+          targetPosition
+          hidden
+          selected
+          dragging
+          draggable
+          selectable
+          connectable
+          resizing
+          deletable
+          dragHandle
+          width
+          height
+          parentId
+          zIndex
+          extent
+          expandParent
+          positionAbsolute {
+            x
+            y
+            __typename
+          }
+          ariaLabel
+          focusable
+          style
+          className
+          handles {
+            items {
+              id
+              type
+              position
+              connectable
+              connectstart
+              connectend
+              onconnect
+              isvalid
+              style
+              nodeId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      edges {
+        items {
+          id
+          type
+          source
+          target
+          sourceHandle
+          targetHandle
+          style
+          animated
+          hidden
+          deletable
+          data {
+            label
+            __typename
+          }
+          className
+          sourceNode
+          targetNode
+          selected
+          markerStart {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          markerEnd {
+            type
+            color
+            width
+            height
+            markerUnits
+            orient
+            strokeWidth
+            __typename
+          }
+          zIndex
+          ariaLabel
+          interactionWidth
+          focusable
+          updatable
+          diagram {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          diagramId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -1256,6 +13217,20 @@ export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramI
   ) {
     items {
       id
+      position {
+        x
+        y
+        __typename
+      }
+      measured {
+        width
+        height
+        __typename
+      }
+      data {
+        label
+        __typename
+      }
       type
       sourcePosition
       targetPosition
@@ -1274,10 +13249,420 @@ export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramI
       zIndex
       extent
       expandParent
+      positionAbsolute {
+        x
+        y
+        __typename
+      }
       ariaLabel
       focusable
       style
       className
+      handles {
+        items {
+          id
+          type
+          position
+          connectable
+          connectstart
+          connectend
+          onconnect
+          isvalid
+          style
+          node {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nodeId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      diagram {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       diagramId
       createdAt
       updatedAt
@@ -1317,6 +13702,259 @@ export const handlesByNodeIdAndCreatedAt = /* GraphQL */ `query HandlesByNodeIdA
       onconnect
       isvalid
       style
+      node {
+        id
+        position {
+          x
+          y
+          __typename
+        }
+        measured {
+          width
+          height
+          __typename
+        }
+        data {
+          label
+          __typename
+        }
+        type
+        sourcePosition
+        targetPosition
+        hidden
+        selected
+        dragging
+        draggable
+        selectable
+        connectable
+        resizing
+        deletable
+        dragHandle
+        width
+        height
+        parentId
+        zIndex
+        extent
+        expandParent
+        positionAbsolute {
+          x
+          y
+          __typename
+        }
+        ariaLabel
+        focusable
+        style
+        className
+        handles {
+          items {
+            id
+            type
+            position
+            connectable
+            connectstart
+            connectend
+            onconnect
+            isvalid
+            style
+            node {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nodeId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagram {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          nodes {
+            items {
+              id
+              type
+              sourcePosition
+              targetPosition
+              hidden
+              selected
+              dragging
+              draggable
+              selectable
+              connectable
+              resizing
+              deletable
+              dragHandle
+              width
+              height
+              parentId
+              zIndex
+              extent
+              expandParent
+              ariaLabel
+              focusable
+              style
+              className
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          edges {
+            items {
+              id
+              type
+              source
+              target
+              sourceHandle
+              targetHandle
+              style
+              animated
+              hidden
+              deletable
+              className
+              sourceNode
+              targetNode
+              selected
+              zIndex
+              ariaLabel
+              interactionWidth
+              focusable
+              updatable
+              diagramId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          topic {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            chats {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          topicId
+          user {
+            id
+            username
+            avatar {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            firstname
+            lastname
+            role
+            email
+            chats {
+              nextToken
+              __typename
+            }
+            documents {
+              nextToken
+              __typename
+            }
+            diagrams {
+              nextToken
+              __typename
+            }
+            cognitoid
+            createdAt
+            updatedAt
+            __typename
+          }
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        diagramId
+        createdAt
+        updatedAt
+        __typename
+      }
       nodeId
       createdAt
       updatedAt
@@ -1357,15 +13995,359 @@ export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramI
       animated
       hidden
       deletable
+      data {
+        label
+        __typename
+      }
       className
       sourceNode
       targetNode
       selected
+      markerStart {
+        type
+        color
+        width
+        height
+        markerUnits
+        orient
+        strokeWidth
+        __typename
+      }
+      markerEnd {
+        type
+        color
+        width
+        height
+        markerUnits
+        orient
+        strokeWidth
+        __typename
+      }
       zIndex
       ariaLabel
       interactionWidth
       focusable
       updatable
+      diagram {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        nodes {
+          items {
+            id
+            position {
+              x
+              y
+              __typename
+            }
+            measured {
+              width
+              height
+              __typename
+            }
+            data {
+              label
+              __typename
+            }
+            type
+            sourcePosition
+            targetPosition
+            hidden
+            selected
+            dragging
+            draggable
+            selectable
+            connectable
+            resizing
+            deletable
+            dragHandle
+            width
+            height
+            parentId
+            zIndex
+            extent
+            expandParent
+            positionAbsolute {
+              x
+              y
+              __typename
+            }
+            ariaLabel
+            focusable
+            style
+            className
+            handles {
+              nextToken
+              __typename
+            }
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        edges {
+          items {
+            id
+            type
+            source
+            target
+            sourceHandle
+            targetHandle
+            style
+            animated
+            hidden
+            deletable
+            data {
+              label
+              __typename
+            }
+            className
+            sourceNode
+            targetNode
+            selected
+            markerStart {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            markerEnd {
+              type
+              color
+              width
+              height
+              markerUnits
+              orient
+              strokeWidth
+              __typename
+            }
+            zIndex
+            ariaLabel
+            interactionWidth
+            focusable
+            updatable
+            diagram {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            diagramId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       diagramId
       createdAt
       updatedAt
@@ -1416,7 +14398,471 @@ export const chatsByTopicIdAndCreatedAt = /* GraphQL */ `query ChatsByTopicIdAnd
       }
       path
       sharePath
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topicId
+      messages {
+        items {
+          id
+          content
+          role
+          ui
+          data
+          functioncall
+          name
+          chat {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          chatId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -1467,6 +14913,203 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
       }
       path
       sharePath
+      topic {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      topicId
       messages {
         items {
           id
@@ -1476,6 +15119,61 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
           data
           functioncall
           name
+          chat {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
           chatId
           createdAt
           updatedAt
@@ -1484,7 +15182,202 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
         nextToken
         __typename
       }
-      topicId
+      user {
+        id
+        username
+        avatar {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        firstname
+        lastname
+        role
+        email
+        chats {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            path
+            sharePath
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            messages {
+              nextToken
+              __typename
+            }
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        documents {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        diagrams {
+          items {
+            id
+            name
+            slug
+            description
+            content
+            status
+            pinned
+            graphic {
+              alt
+              title
+              caption
+              description
+              url
+              key
+              source
+              thumbnail
+              __typename
+            }
+            nodes {
+              nextToken
+              __typename
+            }
+            edges {
+              nextToken
+              __typename
+            }
+            topic {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              createdAt
+              updatedAt
+              __typename
+            }
+            topicId
+            user {
+              id
+              username
+              firstname
+              lastname
+              role
+              email
+              cognitoid
+              createdAt
+              updatedAt
+              __typename
+            }
+            userId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        cognitoid
+        createdAt
+        updatedAt
+        __typename
+      }
       userId
       createdAt
       updatedAt
@@ -1522,6 +15415,224 @@ export const messagesByChatIdAndCreatedAt = /* GraphQL */ `query MessagesByChatI
       data
       functioncall
       name
+      chat {
+        id
+        name
+        slug
+        description
+        content
+        status
+        pinned
+        graphic {
+          alt
+          title
+          caption
+          description
+          url
+          key
+          source
+          thumbnail
+          __typename
+        }
+        path
+        sharePath
+        topic {
+          id
+          name
+          slug
+          description
+          content
+          status
+          pinned
+          graphic {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        topicId
+        messages {
+          items {
+            id
+            content
+            role
+            ui
+            data
+            functioncall
+            name
+            chat {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            chatId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        user {
+          id
+          username
+          avatar {
+            alt
+            title
+            caption
+            description
+            url
+            key
+            source
+            thumbnail
+            __typename
+          }
+          firstname
+          lastname
+          role
+          email
+          chats {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              path
+              sharePath
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          documents {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          diagrams {
+            items {
+              id
+              name
+              slug
+              description
+              content
+              status
+              pinned
+              topicId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          cognitoid
+          createdAt
+          updatedAt
+          __typename
+        }
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
       chatId
       createdAt
       updatedAt

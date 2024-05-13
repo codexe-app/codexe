@@ -1,26 +1,17 @@
 projects:
-  codexe:
+  codexeapi:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/*.ts
     excludes:
       - ./amplify/**
+      - src/graphql/API.ts
     extensions:
       amplify:
         codeGenTarget: typescript
         generatedFileName: src/graphql/API.ts
         docsFilePath: src/graphql
-  codexeapi:
-    schemaPath: src/graphql/schema.json
-    includes:
-      - src/graphql/**/*.ts
-    excludes:
-      - ./amplify/**
-    extensions:
-      amplify:
-        codeGenTarget: typescript
-        generatedFileName: src/graphql/API.ts
-        docsFilePath: src/graphql
+        maxDepth: 6
 extensions:
   amplify:
     version: 3
