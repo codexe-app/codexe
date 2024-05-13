@@ -5,25 +5,29 @@ import APODcredit from './apod'
 
 export default async function CreateCard(props: any) {
   const user = props.user
-  var imageurl
-  const image = await getData()
+
+  var image = await getData()
 
   if (image.media_type != 'image') {
-    imageurl = 'https://apod.nasa.gov/apod/image/2405/BhShredder_NASA_1080.jpg'
-  } else {
-    imageurl = image.url
+    image = {
+      title: 'Ta Prohm',
+      explanation: 'Way back in 2004 we took a trip to Thailand and Cambodia. Part of it was spent at Angkor, and one of the more impressive templates we visited was Ta Phrohm, the one in which they left to the jungle.',
+      copyright: 'Rex Wesley Reyes',
+      hdurl: 'https://media.casadereyes.net/2004/05/17/IMG_0813-scaled.jpg',
+      url: 'https://media.casadereyes.net/2004/05/17/IMG_0813.jpg',
+    }
   }
 
   async function getData() {
     const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`)
     if (!res.ok) {
-      return 'https://apod.nasa.gov/apod/image/2405/BhShredder_NASA_1080.jpg'
+      return ''
     }
     return res.json()
   }
 
   return (
-    <BackgroundImage src={imageurl} h='100%' p='xl' pos='relative'> 
+    <BackgroundImage src={image.url} h='100%' p='xl' pos='relative'>
       <Stack>
         <Group justify='start' wrap='nowrap' gap='xs'>
           <IconRocket size='2rem' color='var(--mantine-color-primary-2)' />
