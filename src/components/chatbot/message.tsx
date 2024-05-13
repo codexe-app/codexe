@@ -1,3 +1,4 @@
+'use client'
 import { Message } from 'ai';
 import { Group, Avatar, ActionIcon, Paper, Code } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';

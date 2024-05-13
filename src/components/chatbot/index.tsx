@@ -1,5 +1,5 @@
 'use client'
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { useChat } from 'ai/react'
 import { useToggle } from '@mantine/hooks'
 import { generateClient } from 'aws-amplify/api'
@@ -7,8 +7,6 @@ import { createMessage, createChat } from '@/graphql/mutations'
 import { IconDeviceFloppy, IconEdit } from '@tabler/icons-react'
 import { Group, Stack, TextInput, Text, ActionIcon, Box, LoadingOverlay, Card, Title } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
-import { modals } from '@mantine/modals'
-import dayjs from 'dayjs'
 import ChatPanel from './panel'
 import ChatHistory from './history'
 import ChatList from './list'
@@ -27,14 +25,14 @@ const Shaped = () => {
 }
 
 export default function ChatBot(props: any) {
+  //console.log(`Chatbot Props:`, props)
   const { id, initialMessages, chat, user } = props
   const [name, setName] = useState(chat.name)
   const [locked, setLocked] = useToggle([true, false])
   const client = generateClient()
-  const { messages, append, reload, stop, isLoading, input, setInput } = useChat({
+  const { messages, setMessages, append, reload, stop, isLoading, input, setInput } = useChat({
     api: '/api/anthropic',
-    // @ts-ignore
-    initialMessages,
+    initialMessages: initialMessages?.items,
     id,
     body: {
       id,
@@ -49,15 +47,26 @@ export default function ChatBot(props: any) {
       recordMessage(message.content, message.role)
       //console.log(message);
     },
+    onError(message) {
+      //recordMessage(message.content, message.role)
+      console.log(message);
+    },
   })
 
   async function chatTitle(chat: any) {
     chat.name = name
-    let cleaned = _.omit(chat, ['new', 'updatedAt', '__typename'])
-    await client.graphql({
-      query: createChat,
-      variables: { input: cleaned },
-    })
+    let cleaned = _.omit(chat, ['new', 'messages', 'updatedAt', '__typename'])
+    //console.log(cleaned)
+    try {
+      await client.graphql({
+        query: createChat,
+        variables: { input: cleaned },
+      })
+      notifications.show({ message: `${chat.name} was saved.` })
+    } catch (error) {
+      notifications.show({ message: `There was an error saving the chat` })
+    }
+
   }
 
   async function recordMessage(content: string, role: string) {
@@ -76,7 +85,7 @@ export default function ChatBot(props: any) {
           </Box>
           <Stack p='sm' gap='0'>
             <Title order={4} c='var(--mantine-primary-color-7)'>
-              Welcome {user.username}
+              Welcome {user?.username}
             </Title>
             <Text c='var(--mantine-primary-color-7)' size='sm'>
               An AI assistant powered by Anthropic's Claude.
@@ -116,7 +125,7 @@ export default function ChatBot(props: any) {
           flex: 1,
         }}>
         <Suspense fallback={<LoadingOverlay visible={true} zIndex={998} loaderProps={{ size: 'xl', type: 'dots' }} overlayProps={{ blur: 4, backgroundOpacity: 0.6 }} />}>
-          <Box px='xs'>{messages.length ? <ChatList messages={messages} /> : <ChatHistory userid={user.id} />}</Box>
+          <Box px='xs'>{messages.length ? <ChatList messages={messages} /> : <ChatHistory user={user} />}</Box>
         </Suspense>
       </Card.Section>
       <Card.Section bg='var(--mantine-primary-color-1)' pt='xs' pb='lg' px='sm'>

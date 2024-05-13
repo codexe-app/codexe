@@ -28,7 +28,6 @@ export default function Layout({ children }: { children: any }) {
     updatedAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
     __typename: 'Chat',
   })
-  const [aside, setAside] = useState(true)
   const [theuser, setTheuser] = useState<User>()
   const router = useRouter()
   const { setColorScheme } = useMantineColorScheme()
@@ -87,9 +86,6 @@ export default function Layout({ children }: { children: any }) {
     AuthGetCurrentUser()
   }, [])
 
-  function updateChat(newchat : any){
-    setChat(newchat)
-  }
 
   return (
     <AppShell header={{ height: 48 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: !nav, mobile: !nav } }}>
@@ -104,7 +100,7 @@ export default function Layout({ children }: { children: any }) {
                 {opened ? <IconMessage size={16} stroke={2} /> : <IconMessage size={20} stroke={2} />}
               </ActionIcon>
               <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8} zIndex={202}>
-                <ChatBot id={chat.id} chat={chat} updateChat={updateChat} user={theuser} close={close} />
+                <ChatBot id={chat.id} chat={chat} initialMessages={null} user={theuser} close={close} />
               </Dialog>
               <Menu shadow='md' width={200}>
                 <Menu.Target>

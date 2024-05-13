@@ -2,11 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "./API";
+import * as APITypes from './API'
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
+  __generatedQueryInput: InputType
+  __generatedQueryOutput: OutputType
+}
 
 export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
   getDocument(id: $id) {
@@ -59,10 +59,7 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetDocumentQueryVariables,
-  APITypes.GetDocumentQuery
->;
+` as GeneratedQuery<APITypes.GetDocumentQueryVariables, APITypes.GetDocumentQuery>
 export const listDocuments = /* GraphQL */ `query ListDocuments(
   $filter: ModelDocumentFilterInput
   $limit: Int
@@ -114,10 +111,7 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
     nextToken
   }
 }
-` as GeneratedQuery<
-  APITypes.ListDocumentsQueryVariables,
-  APITypes.ListDocumentsQuery
->;
+` as GeneratedQuery<APITypes.ListDocumentsQueryVariables, APITypes.ListDocumentsQuery>
 export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
   getDiagram(id: $id) {
     id
@@ -177,10 +171,7 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetDiagramQueryVariables,
-  APITypes.GetDiagramQuery
->;
+` as GeneratedQuery<APITypes.GetDiagramQueryVariables, APITypes.GetDiagramQuery>
 export const listDiagrams = /* GraphQL */ `query ListDiagrams(
   $filter: ModelDiagramFilterInput
   $limit: Int
@@ -846,10 +837,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListDiagramsQueryVariables,
-  APITypes.ListDiagramsQuery
->;
+` as GeneratedQuery<APITypes.ListDiagramsQueryVariables, APITypes.ListDiagramsQuery>
 export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
   getNode(id: $id) {
     id
@@ -918,7 +906,7 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetNodeQueryVariables, APITypes.GetNodeQuery>;
+` as GeneratedQuery<APITypes.GetNodeQueryVariables, APITypes.GetNodeQuery>
 export const listNodes = /* GraphQL */ `query ListNodes(
   $filter: ModelNodeFilterInput
   $limit: Int
@@ -958,7 +946,7 @@ export const listNodes = /* GraphQL */ `query ListNodes(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListNodesQueryVariables, APITypes.ListNodesQuery>;
+` as GeneratedQuery<APITypes.ListNodesQueryVariables, APITypes.ListNodesQuery>
 export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
   getHandle(id: $id) {
     id
@@ -1005,7 +993,7 @@ export const getHandle = /* GraphQL */ `query GetHandle($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetHandleQueryVariables, APITypes.GetHandleQuery>;
+` as GeneratedQuery<APITypes.GetHandleQueryVariables, APITypes.GetHandleQuery>
 export const listHandles = /* GraphQL */ `query ListHandles(
   $filter: ModelHandleFilterInput
   $limit: Int
@@ -1031,10 +1019,7 @@ export const listHandles = /* GraphQL */ `query ListHandles(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListHandlesQueryVariables,
-  APITypes.ListHandlesQuery
->;
+` as GeneratedQuery<APITypes.ListHandlesQueryVariables, APITypes.ListHandlesQuery>
 export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
   getEdge(id: $id) {
     id
@@ -1100,7 +1085,7 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetEdgeQueryVariables, APITypes.GetEdgeQuery>;
+` as GeneratedQuery<APITypes.GetEdgeQueryVariables, APITypes.GetEdgeQuery>
 export const listEdges = /* GraphQL */ `query ListEdges(
   $filter: ModelEdgeFilterInput
   $limit: Int
@@ -1136,7 +1121,7 @@ export const listEdges = /* GraphQL */ `query ListEdges(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListEdgesQueryVariables, APITypes.ListEdgesQuery>;
+` as GeneratedQuery<APITypes.ListEdgesQueryVariables, APITypes.ListEdgesQuery>
 export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
   getChat(id: $id) {
     id
@@ -1173,6 +1158,19 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
     }
     topicId
     messages {
+      items {
+        id
+        content
+        role
+        ui
+        data
+        functioncall
+        name
+        chatId
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -1194,7 +1192,7 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetChatQueryVariables, APITypes.GetChatQuery>;
+` as GeneratedQuery<APITypes.GetChatQueryVariables, APITypes.GetChatQuery>
 export const listChats = /* GraphQL */ `query ListChats(
   $filter: ModelChatFilterInput
   $limit: Int
@@ -1221,7 +1219,7 @@ export const listChats = /* GraphQL */ `query ListChats(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListChatsQueryVariables, APITypes.ListChatsQuery>;
+` as GeneratedQuery<APITypes.ListChatsQueryVariables, APITypes.ListChatsQuery>
 export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
   getMessage(id: $id) {
     id
@@ -1253,10 +1251,7 @@ export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetMessageQueryVariables,
-  APITypes.GetMessageQuery
->;
+` as GeneratedQuery<APITypes.GetMessageQueryVariables, APITypes.GetMessageQuery>
 export const listMessages = /* GraphQL */ `query ListMessages(
   $filter: ModelMessageFilterInput
   $limit: Int
@@ -1280,10 +1275,7 @@ export const listMessages = /* GraphQL */ `query ListMessages(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListMessagesQueryVariables,
-  APITypes.ListMessagesQuery
->;
+` as GeneratedQuery<APITypes.ListMessagesQueryVariables, APITypes.ListMessagesQuery>
 export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
   getTopic(id: $id) {
     id
@@ -1321,7 +1313,7 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetTopicQueryVariables, APITypes.GetTopicQuery>;
+` as GeneratedQuery<APITypes.GetTopicQueryVariables, APITypes.GetTopicQuery>
 export const listTopics = /* GraphQL */ `query ListTopics(
   $filter: ModelTopicFilterInput
   $limit: Int
@@ -1344,10 +1336,7 @@ export const listTopics = /* GraphQL */ `query ListTopics(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListTopicsQueryVariables,
-  APITypes.ListTopicsQuery
->;
+` as GeneratedQuery<APITypes.ListTopicsQueryVariables, APITypes.ListTopicsQuery>
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -2106,7 +2095,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>
 export const listUsers = /* GraphQL */ `query ListUsers(
   $filter: ModelUserFilterInput
   $limit: Int
@@ -2255,7 +2244,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>
 export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2290,10 +2279,7 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DocumentsByTopicIdAndCreatedAtQueryVariables,
-  APITypes.DocumentsByTopicIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DocumentsByTopicIdAndCreatedAtQueryVariables, APITypes.DocumentsByTopicIdAndCreatedAtQuery>
 export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUserIdAndCreatedAt(
   $userId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2328,10 +2314,7 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DocumentsByUserIdAndCreatedAtQueryVariables,
-  APITypes.DocumentsByUserIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DocumentsByUserIdAndCreatedAtQueryVariables, APITypes.DocumentsByUserIdAndCreatedAtQuery>
 export const diagramsByTopicIdAndCreatedAt = /* GraphQL */ `query DiagramsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2366,10 +2349,7 @@ export const diagramsByTopicIdAndCreatedAt = /* GraphQL */ `query DiagramsByTopi
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DiagramsByTopicIdAndCreatedAtQueryVariables,
-  APITypes.DiagramsByTopicIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DiagramsByTopicIdAndCreatedAtQueryVariables, APITypes.DiagramsByTopicIdAndCreatedAtQuery>
 export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserIdAndCreatedAt(
   $userId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2404,10 +2384,7 @@ export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.DiagramsByUserIdAndCreatedAtQueryVariables,
-  APITypes.DiagramsByUserIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.DiagramsByUserIdAndCreatedAtQueryVariables, APITypes.DiagramsByUserIdAndCreatedAtQuery>
 export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramIdAndCreatedAt(
   $diagramId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2457,10 +2434,7 @@ export const nodesByDiagramIdAndCreatedAt = /* GraphQL */ `query NodesByDiagramI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.NodesByDiagramIdAndCreatedAtQueryVariables,
-  APITypes.NodesByDiagramIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.NodesByDiagramIdAndCreatedAtQueryVariables, APITypes.NodesByDiagramIdAndCreatedAtQuery>
 export const handlesByNodeIdAndCreatedAt = /* GraphQL */ `query HandlesByNodeIdAndCreatedAt(
   $nodeId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2496,10 +2470,7 @@ export const handlesByNodeIdAndCreatedAt = /* GraphQL */ `query HandlesByNodeIdA
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.HandlesByNodeIdAndCreatedAtQueryVariables,
-  APITypes.HandlesByNodeIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.HandlesByNodeIdAndCreatedAtQueryVariables, APITypes.HandlesByNodeIdAndCreatedAtQuery>
 export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramIdAndCreatedAt(
   $diagramId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2545,10 +2516,7 @@ export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.EdgesByDiagramIdAndCreatedAtQueryVariables,
-  APITypes.EdgesByDiagramIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.EdgesByDiagramIdAndCreatedAtQueryVariables, APITypes.EdgesByDiagramIdAndCreatedAtQuery>
 export const chatsByTopicIdAndCreatedAt = /* GraphQL */ `query ChatsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2585,10 +2553,7 @@ export const chatsByTopicIdAndCreatedAt = /* GraphQL */ `query ChatsByTopicIdAnd
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ChatsByTopicIdAndCreatedAtQueryVariables,
-  APITypes.ChatsByTopicIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.ChatsByTopicIdAndCreatedAtQueryVariables, APITypes.ChatsByTopicIdAndCreatedAtQuery>
 export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCreatedAt(
   $userId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2615,6 +2580,21 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
       pinned
       path
       sharePath
+      messages {
+        items {
+          id
+          content
+          role
+          ui
+          data
+          functioncall
+          name
+          chatId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       topicId
       userId
       createdAt
@@ -2625,10 +2605,7 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ChatsByUserIdAndCreatedAtQueryVariables,
-  APITypes.ChatsByUserIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.ChatsByUserIdAndCreatedAtQueryVariables, APITypes.ChatsByUserIdAndCreatedAtQuery>
 export const messagesByChatIdAndCreatedAt = /* GraphQL */ `query MessagesByChatIdAndCreatedAt(
   $chatId: ID!
   $createdAt: ModelStringKeyConditionInput
@@ -2662,7 +2639,4 @@ export const messagesByChatIdAndCreatedAt = /* GraphQL */ `query MessagesByChatI
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.MessagesByChatIdAndCreatedAtQueryVariables,
-  APITypes.MessagesByChatIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.MessagesByChatIdAndCreatedAtQueryVariables, APITypes.MessagesByChatIdAndCreatedAtQuery>

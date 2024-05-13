@@ -12,7 +12,8 @@ import { IconCalendarClock, IconTrash, IconDeviceAudioTape } from '@tabler/icons
 import dayjs from 'dayjs'
 
 export default function ChatHistory(props: any) {
-  const { userid } = props
+  //console.log(`ChatHistory Props:`, props)
+  const { user } = props
   const [chats, setChats] = useState<Chat[]>([])
   const client = generateClient()
   const router = useRouter()
@@ -34,7 +35,7 @@ export default function ChatHistory(props: any) {
     try {
       const chatcall = (await client.graphql({
         query: chatsByUserIdAndCreatedAt,
-        variables: { userId: userid },
+        variables: { userId: user.id },
       })) as {
         data: {
           chatsByUserIdAndCreatedAt: {
@@ -105,7 +106,7 @@ export default function ChatHistory(props: any) {
           <Group key={chat.id} py='sm' justify='space-between' wrap='nowrap'>
             <Stack gap='xs'>
               <Group mb={0} justify='space-between' wrap='nowrap'>
-                <UnstyledButton component={Link} href={`/chatbot/${chat.id}`}>
+                <UnstyledButton component={Link} href={`/${user.username}/conversations/${chat.id}`}>
                   <Text fw={500} lh={1}>
                     {chat.name}{' '}
                   </Text>

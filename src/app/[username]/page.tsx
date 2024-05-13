@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { username: string } })
   const sortpinned = _.orderBy(allpinned, ['updatedAt'], ['asc'])
   var pinned = _.slice(sortpinned, 0, 1);
   pinned = pinned[0]
-  console.log(pinned)
+
   return (
     <Container size='responsive'>
       <Dashboard user={user} data={sorteverything} carousel={carousel} pinned={pinned}/>
