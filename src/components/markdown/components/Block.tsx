@@ -13,7 +13,7 @@ export const Block = () => {
   const blockProvider = useRef<BlockProvider>()
   const [element, setElement] = useState<HTMLDivElement | null>(null)
   const [loading, get] = useInstance()
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(true)
 
   useEffect(() => {
     if (element && !loading) {
@@ -22,6 +22,7 @@ export const Block = () => {
         content: element,
         tippyOptions: {
           zIndex: 20,
+          offset: [0, 8],
           appendTo: document.body,
           onBeforeUpdate: () => setShowMenu(false),
           onClickOutside: () => setShowMenu(false),
@@ -42,16 +43,14 @@ export const Block = () => {
   return (
     <div className='hidden'>
       <div className={clsx('relative cursor-grab rounded-full border-2 bg-gray-50 dark:border-gray-900 dark:bg-gray-900', showMenu ? 'ring-2 ring-offset-2' : '')} ref={setElement}>
-        <ActionIcon  variant="outline" aria-label='Settings' onClick={() => setShowMenu((x) => !x)}>
-          <IconGrain style={{ width: '70%', height: '70%' }} stroke={1.5} />
+        <ActionIcon size='md' variant="outline" aria-label='grab' onClick={() => setShowMenu((x) => !x)}>
+          <IconGrain size='1rem' stroke={1.5} />
         </ActionIcon>
-
         {showMenu && (
           <div className='absolute top-full mt-2 w-60 cursor-pointer rounded border-2 bg-gray-50 shadow dark:border-gray-900 dark:bg-gray-900'>
             <div
               onClick={() => {
                 if (loading) return
-
                 const commands = get().ctx.get(commandsCtx)
                 commands.call(wrapInHeadingCommand.key, 1)
               }}
@@ -61,7 +60,6 @@ export const Block = () => {
             <div
               onClick={() => {
                 if (loading) return
-
                 const commands = get().ctx.get(commandsCtx)
                 commands.call(wrapInHeadingCommand.key, 2)
               }}
@@ -71,7 +69,6 @@ export const Block = () => {
             <div
               onClick={() => {
                 if (loading) return
-
                 const commands = get().ctx.get(commandsCtx)
                 commands.call(wrapInHeadingCommand.key, 3)
               }}
@@ -81,7 +78,6 @@ export const Block = () => {
             <div
               onClick={() => {
                 if (loading) return
-
                 const commands = get().ctx.get(commandsCtx)
                 commands.call(turnIntoTextCommand.key)
               }}

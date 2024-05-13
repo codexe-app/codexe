@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState}from 'react'
 import type { CmdKey } from '@milkdown/core'
 import { editorViewCtx, parserCtx } from '@milkdown/core'
 import { redoCommand, undoCommand } from '@milkdown/plugin-history'
@@ -12,9 +12,10 @@ import { useImperativeHandle } from 'react'
 import { usePlayground } from './usePlayground'
 import { Flex, ActionIcon, Container, Box, rem } from '@mantine/core'
 import { IconItalic, IconTablePlus, IconStrikethrough, IconBlockquote, IconListNumbers, IconBold, IconList, IconArrowForward, IconArrowBackUp } from '@tabler/icons-react'
-import './playground.css'
+import './editor.scss'
 
 interface MilkdownProps {
+  showtb: boolean
   content: string
   onChange: (markdown: string) => void
   milkdownRef: RefObject<MilkdownRef>
@@ -24,7 +25,7 @@ export interface MilkdownRef {
   update: (markdown: string) => void
 }
 
-export const MarkdownEditor: FC<MilkdownProps> = ({ content, onChange, milkdownRef }) => {
+export const MarkdownEditor: FC<MilkdownProps> = ({ showtb ,content, onChange, milkdownRef }) => {
   //console.log(`PlaygroundMilkdown: `, content)
   const { loading, get } = usePlayground(content, onChange)
 
@@ -49,8 +50,9 @@ export const MarkdownEditor: FC<MilkdownProps> = ({ content, onChange, milkdownR
 
   return (
     <React.Fragment>
-      <Flex pos='fixed' top='96px' left='0'>
-        <ActionIcon.Group orientation='vertical'>
+      { showtb &&
+      <Flex pos='fixed' top='96px' left='0' w='100%' justify='space-around'>
+        <ActionIcon.Group orientation='horizontal'>
           <ActionIcon variant='default' size='lg' aria-label='undo' onClick={() => call(undoCommand.key)}>
             <IconArrowBackUp style={{ width: rem(20) }} stroke={1.5} />
           </ActionIcon>
@@ -79,7 +81,7 @@ export const MarkdownEditor: FC<MilkdownProps> = ({ content, onChange, milkdownR
             <IconBlockquote style={{ width: rem(20) }} stroke={1.5} />
           </ActionIcon>
         </ActionIcon.Group>
-      </Flex>
+      </Flex>}
       <div className='h-full overflow-auto overscroll-none'>
         <Editor />
       </div>

@@ -19,8 +19,34 @@ import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
-import { ActionIcon, TextInput, SimpleGrid, Textarea, Modal, Flex, Accordion, AccordionControlProps, Tabs, Avatar, Title, Text, Box, Card, Group, Image, Stack, Button, Select, Progress, rem, Space, Container } from '@mantine/core'
-import { IconUpload, IconMarkdown, IconCode, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
+import {
+  ActionIcon,
+  TextInput,
+  SimpleGrid,
+  Grid,
+  Textarea,
+  Modal,
+  Flex,
+  Accordion,
+  AccordionControlProps,
+  Tabs,
+  Avatar,
+  Title,
+  Text,
+  Box,
+  Card,
+  Group,
+  Image,
+  Stack,
+  Button,
+  Select,
+  Progress,
+  rem,
+  Space,
+  Container,
+  Switch,
+} from '@mantine/core'
+import { IconUpload, IconMarkdown, IconTools, IconToolsOff, IconCode, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import dayjs from 'dayjs'
 import { PluginToggle } from '@/components/markdown/plugin-toggle'
@@ -36,6 +62,7 @@ export default function Editor(props: any) {
   const [activeTab, setActiveTab] = useState<string | null>(props.tab)
   const [content, setContent] = useState(props.markdown)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [showtb, setShowtb] = useState(true)
   const client = generateClient()
   const router = useRouter()
   const lockCodemirror = useRef(false)
@@ -198,13 +225,16 @@ export default function Editor(props: any) {
   function AccordionControl(props: AccordionControlProps) {
     return (
       <Group gap='lg' wrap='nowrap'>
+        <ActionIcon size='md' type='submit' variant='outline'>
+          <IconDeviceFloppy size='1.25rem' />
+        </ActionIcon>
         <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-color-primary-filled)' />} />
         <ActionIcon.Group>
           <ActionIcon variant='outline' onClick={openCodeview}>
-            <IconMarkdown style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+            <IconMarkdown size='1.25rem' stroke={1.5} />
           </ActionIcon>
-          <ActionIcon size='md' type='submit' variant='outline'>
-            <IconDeviceFloppy size='1.25rem' />
+          <ActionIcon size='md' type='submit' variant='outline' onClick={() => setShowtb(!showtb)}>
+            {showtb ? <IconTools size='1.25rem' /> : <IconToolsOff size='1.25rem' />}
           </ActionIcon>
         </ActionIcon.Group>
       </Group>
@@ -213,7 +243,7 @@ export default function Editor(props: any) {
 
   return (
     <Box className='prose'>
-      <Modal opened={codeview} onClose={closeCodeview} title={`CODE VIEW - ${form.values.name}` }fullScreen radius={0} zIndex={301} transitionProps={{ transition: 'fade', duration: 200 }} >
+      <Modal opened={codeview} onClose={closeCodeview} title={`CODE VIEW - ${form.values.name}`} fullScreen radius={0} zIndex={301} transitionProps={{ transition: 'fade', duration: 200 }}>
         <ControlPanel codemirrorRef={codemirrorRef} content={content} onChange={onCodemirrorChange} lock={lockCodemirror} />
       </Modal>
       <form
@@ -237,86 +267,110 @@ export default function Editor(props: any) {
               </Container>
               <Accordion.Panel>
                 <Container size='responsive'>
-                  <Flex gap='xs' wrap='wrap' pb='xs'>
-                    <TextInput label='Name' placeholder='Name' required key={form.key('name')} {...form.getInputProps('name')} />
-                    <Textarea label='Description' placeholder='Description' {...form.getInputProps('description')} />
-                    <TextInput label='Content' placeholder='Edit Below' {...form.getInputProps('content')} />
-                    <TextInput label='Slug' placeholder='slug' required {...form.getInputProps('slug')} />
-                    <TextInput label='Topic' placeholder='Topic' disabled />
-                    <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...form.getInputProps(`status`)} />
-                    <Stack gap={2}>
-                      <Text fw={500} size='sm'>
-                        Graphic
-                      </Text>
-                      <Accordion chevronPosition='right' variant='contained'>
-                        <Accordion.Item value='graphic' key='graphic'>
-                          <Accordion.Control>
-                            <Group wrap='nowrap'>
-                              <Avatar src={graphic} radius='xs' size='lg' />
-                              <div>
-                                <Text>{form.values.graphic?.title || ''}</Text>
-                                <Text size='sm' c='dimmed' fw={400}>
-                                  {form.values.graphic?.key || ''}
-                                </Text>
-                              </div>
-                            </Group>
-                          </Accordion.Control>
-                          <Accordion.Panel>
-                            <SimpleGrid cols={2} px='xs' pb='xs'>
-                              <Stack>
-                                <TextInput label='Title' placeholder='Title' {...form.getInputProps('graphic.title')} />
-                                <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('graphic.alt')} />
-                                <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('graphic.caption')} />
-                                <TextInput label='Description' placeholder='Description' {...form.getInputProps('graphic.description')} />
-                                <TextInput label='S3 Key' placeholder='S3 Key' {...form.getInputProps('graphic.key')} />
-                                <TextInput label='URL' placeholder='Image URL' {...form.getInputProps('graphic.url')} />
-                              </Stack>
-                              <Stack>
-                                <Tabs value={activeTab} onChange={setActiveTab}>
-                                  <Tabs.List>
-                                    <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
-                                      View
-                                    </Tabs.Tab>
-                                    <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
-                                      Upload
-                                    </Tabs.Tab>
-                                  </Tabs.List>
-                                  <Tabs.Panel value='view'>
-                                    <Image src={graphic || ''} />
-                                  </Tabs.Panel>
-                                  <Tabs.Panel value='upload'>
-                                    <Card shadow='sm' padding='lg' radius='md' withBorder>
-                                      <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
-                                        <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
-                                          <Dropzone.Accept>
-                                            <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
-                                          </Dropzone.Accept>
-                                          <Dropzone.Reject>
-                                            <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
-                                          </Dropzone.Reject>
-                                          <Dropzone.Idle>
-                                            <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
-                                          </Dropzone.Idle>
-                                          <div>
-                                            <Text size='xl' inline>
-                                              Drag image here or click to select file
-                                            </Text>
-                                            <Text size='sm' c='dimmed' inline mt={7}>
-                                              File should not exceed 5mb
-                                            </Text>
-                                          </div>
-                                        </Group>
-                                        <Progress value={uploadProgress} />
-                                      </Dropzone>
-                                    </Card>
-                                  </Tabs.Panel>
-                                </Tabs>
-                              </Stack>
-                            </SimpleGrid>
-                          </Accordion.Panel>
-                        </Accordion.Item>
-                      </Accordion>
-                    </Stack>
+                  <Flex gap='xs' wrap='wrap' pb='xs' justify='space-between'>
+                    <Grid>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <TextInput label='Name' placeholder='Name' required key={form.key('name')} {...form.getInputProps('name')} />
+                      </Grid.Col>
+
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Textarea label='Description' placeholder='Description' {...form.getInputProps('description')} />
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <TextInput label='Content' placeholder='Edit Below' {...form.getInputProps('content')} />
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <TextInput label='Slug' placeholder='slug' required {...form.getInputProps('slug')} />
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Group wrap='nowrap' align='top'>
+                          <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...form.getInputProps(`status`)} />
+                          <Switch.Group label='Pinned'>
+                            <Switch size='lg' {...form.getInputProps('pinned')} />
+                          </Switch.Group>
+                        </Group>
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <TextInput label='Topic' placeholder='Topic' disabled />
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
+                        {' '}
+                        <Stack gap={2}>
+                          <Text fw={500} size='sm'>
+                            Graphic
+                          </Text>
+                          <Accordion chevronPosition='right' variant='contained'>
+                            <Accordion.Item value='graphic' key='graphic'>
+                              <Accordion.Control>
+                                <Group wrap='nowrap'>
+                                  <Avatar src={graphic} radius='xs' size='lg' />
+                                  <div>
+                                    <Text>{form.values.graphic?.title || ''}</Text>
+                                    <Text size='sm' c='dimmed' fw={400}>
+                                      {form.values.graphic?.key || ''}
+                                    </Text>
+                                  </div>
+                                </Group>
+                              </Accordion.Control>
+                              <Accordion.Panel>
+                                <SimpleGrid cols={2} px='xs' pb='xs'>
+                                  <Stack>
+                                    <TextInput label='Title' placeholder='Title' {...form.getInputProps('graphic.title')} />
+                                    <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('graphic.alt')} />
+                                    <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('graphic.caption')} />
+                                    <TextInput label='Description' placeholder='Description' {...form.getInputProps('graphic.description')} />
+                                    <TextInput label='S3 Key' placeholder='S3 Key' {...form.getInputProps('graphic.key')} />
+                                    <TextInput label='URL' placeholder='Image URL' {...form.getInputProps('graphic.url')} />
+                                  </Stack>
+                                  <Stack>
+                                    <Tabs value={activeTab} onChange={setActiveTab}>
+                                      <Tabs.List>
+                                        <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
+                                          View
+                                        </Tabs.Tab>
+                                        <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
+                                          Upload
+                                        </Tabs.Tab>
+                                      </Tabs.List>
+                                      <Tabs.Panel value='view'>
+                                        <Image src={graphic || ''} />
+                                      </Tabs.Panel>
+                                      <Tabs.Panel value='upload'>
+                                        <Card shadow='sm' padding='lg' radius='md' withBorder>
+                                          <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
+                                            <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
+                                              <Dropzone.Accept>
+                                                <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
+                                              </Dropzone.Accept>
+                                              <Dropzone.Reject>
+                                                <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
+                                              </Dropzone.Reject>
+                                              <Dropzone.Idle>
+                                                <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
+                                              </Dropzone.Idle>
+                                              <div>
+                                                <Text size='xl' inline>
+                                                  Drag image here or click to select file
+                                                </Text>
+                                                <Text size='sm' c='dimmed' inline mt={7}>
+                                                  File should not exceed 5mb
+                                                </Text>
+                                              </div>
+                                            </Group>
+                                            <Progress value={uploadProgress} />
+                                          </Dropzone>
+                                        </Card>
+                                      </Tabs.Panel>
+                                    </Tabs>
+                                  </Stack>
+                                </SimpleGrid>
+                              </Accordion.Panel>
+                            </Accordion.Item>
+                          </Accordion>
+                        </Stack>
+                      </Grid.Col>
+                    </Grid>
+
                     {!hideme && <PluginToggle />}
                   </Flex>
                 </Container>
@@ -327,7 +381,7 @@ export default function Editor(props: any) {
       </form>
       <Space h='48' />
       <Provider>
-        <MarkdownEditor milkdownRef={milkdownRef} content={content} onChange={onMilkdownChange} />
+        <MarkdownEditor milkdownRef={milkdownRef} content={content} onChange={onMilkdownChange} showtb={showtb} />
       </Provider>
     </Box>
   )
