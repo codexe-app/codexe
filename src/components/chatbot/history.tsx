@@ -44,7 +44,7 @@ export default function ChatHistory(props: any) {
       }
       const chatlist = chatcall.data.chatsByUserIdAndCreatedAt.items
       setChats(chatlist)
-      console.log(chatlist)
+      //console.log(chatlist)
     } catch (error) {
       console.error(error)
     }
@@ -61,7 +61,7 @@ export default function ChatHistory(props: any) {
         trashMsg(msg)
       })
       trashChat(chat)
-      router.push('/chatbot')
+      router.refresh
     } catch (error) {
       console.error(error)
     }

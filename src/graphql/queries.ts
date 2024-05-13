@@ -1467,6 +1467,23 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
       }
       path
       sharePath
+      messages {
+        items {
+          id
+          content
+          role
+          ui
+          data
+          functioncall
+          name
+          chatId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       topicId
       userId
       createdAt

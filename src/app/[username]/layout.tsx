@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { generateClient } from 'aws-amplify/api'
 import { getUser } from '@/graphql/queries'
@@ -17,6 +17,17 @@ import dayjs from 'dayjs'
 import '@mantine/spotlight/styles.css'
 
 export default function Layout({ children }: { children: any }) {
+  const [chat, setChat] = useState({
+    new: true,
+    id: nanoid(),
+    name: 'New Chat Session',
+    path: '',
+    userId: '',
+    messages: [],
+    createdAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+    updatedAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+    __typename: 'Chat',
+  })
   const [aside, setAside] = useState(true)
   const [theuser, setTheuser] = useState<User>()
   const router = useRouter()
@@ -25,7 +36,6 @@ export default function Layout({ children }: { children: any }) {
   const [nav, setNav] = useState(false)
   const [checked, setChecked] = useState(true)
   const [opened, { toggle, close }] = useDisclosure(false)
-  const cid = nanoid()
   const client = generateClient()
 
   const actions: SpotlightActionData[] = [
@@ -65,7 +75,7 @@ export default function Layout({ children }: { children: any }) {
           getUser: User
         }
       }
-      //console.log(response.data.getUser)
+      setChat({...chat,  userId : userId })
       setTheuser(response.data.getUser)
     } catch (error) {
       console.error(error)
@@ -77,15 +87,8 @@ export default function Layout({ children }: { children: any }) {
     AuthGetCurrentUser()
   }, [])
 
-  const chat = {
-    new: true,
-    id: cid,
-    name: 'New Chat Session',
-    path: '',
-    userId: theuser?.id,
-    createdAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
-    updatedAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
-    __typename: 'Chat',
+  function updateChat(newchat : any){
+    setChat(newchat)
   }
 
   return (
@@ -101,7 +104,7 @@ export default function Layout({ children }: { children: any }) {
                 {opened ? <IconMessage size={16} stroke={2} /> : <IconMessage size={20} stroke={2} />}
               </ActionIcon>
               <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8} zIndex={202}>
-                <ChatBot id={cid} chat={chat} user={theuser} close={close} />
+                <ChatBot id={chat.id} chat={chat} updateChat={updateChat} user={theuser} close={close} />
               </Dialog>
               <Menu shadow='md' width={200}>
                 <Menu.Target>
