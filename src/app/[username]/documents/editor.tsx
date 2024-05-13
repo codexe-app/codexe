@@ -154,9 +154,8 @@ export default function Editor(props: any) {
   }
 
   async function saveDocument(values: any) {
-    let cleaned = _.omit(values, ['topic', 'createdAt', 'updatedAt', '__typename'])
-    console.log(cleaned)
-
+    let cleaned = _.omit(values, ['topic', 'user', 'createdAt', 'updatedAt'])
+    //console.log(cleaned)
     try {
       await client.graphql({ query: mutations.updateDocument, variables: { input: cleaned } })
       notifications.show({

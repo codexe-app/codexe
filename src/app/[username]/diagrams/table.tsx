@@ -120,7 +120,7 @@ export default function DiagramsTable(props: any) {
             }}>
             <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon variant='subtle' color='gray' component={Link} href={`${pathname}/diagrams/${doc.slug}`}>
+          <ActionIcon variant='subtle' color='gray' component={Link} href={`${pathname}/${doc.slug}`}>
             <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon

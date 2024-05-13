@@ -29,11 +29,16 @@ export default async function Page({ params }: { params: { username: string } })
   const diagrams = user?.diagrams?.items
   //@ts-ignore
   const everything = documents?.concat(diagrams)
-  const sorted = _.orderBy(everything, ['updatedAt'], ['desc'])
-
+  const sorteverything = _.orderBy(everything, ['updatedAt'], ['desc'])
+  const carousel = _.slice(sorteverything, 0, 12);
+  const allpinned = _.filter(everything, (item : any) => item.pinned);
+  const sortpinned = _.orderBy(allpinned, ['updatedAt'], ['asc'])
+  var pinned = _.slice(sortpinned, 0, 1);
+  pinned = pinned[0]
+  console.log(pinned)
   return (
     <Container size='responsive'>
-      <Dashboard user={user} data={sorted} />
+      <Dashboard user={user} data={sorteverything} carousel={carousel} pinned={pinned}/>
     </Container>
   )
 }
