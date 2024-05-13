@@ -16,7 +16,7 @@ export default async function Dashboard(props: any) {
         <GridCol span='auto'>
           <PinnedCard />
         </GridCol>
-        <GridCol span={6}>
+        <GridCol span={{ base: 12, sm: 12, lg: 6 }}>
           <CreateCard user={user} />
         </GridCol>
       </Grid>

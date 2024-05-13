@@ -44,7 +44,7 @@ import {
   rem,
   Space,
   Container,
-  Switch,
+  useMatches,
   Checkbox,
 } from '@mantine/core'
 import { IconUpload, IconMarkdown, IconTools, IconToolsOff, IconCode, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
@@ -226,7 +226,7 @@ export default function Editor(props: any) {
 
   function AccordionControl(props: AccordionControlProps) {
     return (
-      <Group gap='lg' wrap='nowrap'>
+      <Group gap={sizeme} wrap='nowrap' justify='space-between'>
         <ActionIcon size='md' type='submit' variant='outline'>
           <IconDeviceFloppy size='1.25rem' />
         </ActionIcon>
@@ -255,6 +255,12 @@ export default function Editor(props: any) {
     setPinned(pinned)
   }
 
+  const sizeme = useMatches({
+    base: 'sm',
+    sm: 'xs',
+    lg: 'md',
+  });
+
   return (
     <Box className='prose'>
       <Modal opened={codeview} onClose={closeCodeview} title={`CODE VIEW - ${form.values.name}`} fullScreen radius={0} zIndex={301} transitionProps={{ transition: 'fade', duration: 200 }}>
@@ -273,9 +279,9 @@ export default function Editor(props: any) {
           <Accordion w='100%'>
             <Accordion.Item key='meta' value='meta'>
               <Container size='responsive'>
-                <AccordionControl style={{ paddingInline: 0 }}>
-                  <Title ta='left' order={5} textWrap='nowrap'>
-                    {`>`} {form.values.name}
+                <AccordionControl style={{ paddingInline: 0 }} className='doctitle'>
+                  <Title ta='left' order={5} textWrap='nowrap' >
+                    {form.values.name}
                   </Title>
                 </AccordionControl>
               </Container>

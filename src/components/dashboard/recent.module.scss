@@ -58,6 +58,11 @@
 }
 
 .viewport {
-    margin-left: 32px;
-    margin-right: 32px;
+  margin-left: var(--mantine-spacing-sm);
+  margin-right: var(--mantine-spacing-sm);
+
+  @include smaller-than($mantine-breakpoint-sm) {
+    margin-left: var(--mantine-spacing-xs);
+    margin-right: var(--mantine-spacing-xs);
+  }
 }

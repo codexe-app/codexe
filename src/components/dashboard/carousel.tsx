@@ -11,7 +11,7 @@ import { IconPencil, IconEye, IconTrash, IconAlertCircle } from '@tabler/icons-r
 import dayjs from 'dayjs'
 import DocumentView from './view'
 import '@mantine/carousel/styles.css'
-import classes from './recent.module.css'
+import classes from './recent.module.scss'
 
 export default function RecentCarousel(props: any) {
   const client = generateClient()
