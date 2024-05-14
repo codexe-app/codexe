@@ -229,7 +229,7 @@ export default function Editor(props: any) {
         <ActionIcon size='md' type='submit' variant='outline'>
           <IconDeviceFloppy size='1.25rem' />
         </ActionIcon>
-        <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-color-primary-filled)' />} />
+        <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-primary-color-filled)' />} />
         <ActionIcon.Group>
           <ActionIcon variant='outline' onClick={openCodeview}>
             <IconMarkdown size='1.25rem' stroke={1.5} />

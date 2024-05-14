@@ -26,6 +26,12 @@ const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     lastname
     role
     email
+    theme {
+      primary
+      font
+      mono
+      tuple
+    }
   }
 }
 `

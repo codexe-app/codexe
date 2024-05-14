@@ -3,22 +3,66 @@ import React, { useState } from 'react'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
 import { uploadData } from 'aws-amplify/storage'
-import { TextInput, SimpleGrid, Image, Paper, Title, Text, Group, Stack, Button, Progress, rem, Badge } from '@mantine/core'
+import { TextInput, ColorSwatch, SimpleGrid, useCombobox, Combobox, InputBase, Input, Image, Paper, Title, Text, Group, Stack, Button, Progress, rem, Badge, DEFAULT_THEME, ColorPicker } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react'
+import { createCookie } from '@/app/actions'
 import dayjs from 'dayjs'
+
+interface Item {
+  color: string
+  value: string
+  description: string
+}
 
 export default function UserForm(props: any) {
   const client = generateClient()
   const [uploadProgress, setUploadProgress] = useState(0)
-
   const form = useForm({
     initialValues: props.user,
   })
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  })
+  const [value, setValue] = useState<string | null>(props.user.theme.primary)
+  const themecolors: Item[] = [
+    { color: 'red', value: 'red', description: 'Red' },
+    { color: 'pink', value: 'pink', description: 'Pink' },
+    { color: 'grape', value: 'grape', description: 'Grape' },
+    { color: 'violet', value: 'violet', description: 'Violet' },
+    { color: 'indigo', value: 'indigo', description: 'Indigo' },
+    { color: 'blue', value: 'blue', description: 'Blue' },
+    { color: 'cyan', value: 'cyan', description: 'Cyan' },
+    { color: 'teal', value: 'teal', description: 'Teal' },
+    { color: 'green', value: 'green', description: 'Green' },
+    { color: 'lime', value: 'lime', description: 'Lime' },
+    { color: 'yellow', value: 'yellow', description: 'Yellow' },
+    { color: 'orange', value: 'orange', description: 'Orange' },
+  ]
+
+  function SelectOption({ color, value, description }: Item) {
+    return (
+      <Group>
+        <ColorSwatch color={`var(--mantine-color-${color}-filled)`} />
+        <Text fz='xs' opacity={0.6}>
+          {description} / {value}
+        </Text>
+      </Group>
+    )
+  }
+  const selectedOption = themecolors.find((item) => item.value === value)
+
+  const options = themecolors.map((item) => (
+    <Combobox.Option value={item.value} key={item.value}>
+      <SelectOption {...item} />
+    </Combobox.Option>
+  ))
 
   async function saveUser(values: any) {
+    values.theme.primary = value
+    createCookie(value)
     try {
       const doc = await client.graphql({ query: mutations.updateUser, variables: { input: values } })
       notifications.show({
@@ -92,8 +136,28 @@ export default function UserForm(props: any) {
             <TextInput label='Email' placeholder='you@codexe.info' {...form.getInputProps('email')} size='xs' radius='xs' />
             <Badge>{form.values.role}</Badge>
             <Badge>{form.values.id}</Badge>
+         
           </Stack>
           <Stack gap='xs'>
+          <Title ta='center' order={6} mb='xs'>
+              Primary Theme Color
+            </Title>
+            <Combobox
+              store={combobox}
+              withinPortal={false}
+              onOptionSubmit={(val) => {
+                setValue(val)
+                combobox.closeDropdown()
+              }}>
+              <Combobox.Target>
+                <InputBase component='button' type='button' pointer rightSection={<Combobox.Chevron />} onClick={() => combobox.toggleDropdown()} rightSectionPointerEvents='none' multiline>
+                  {selectedOption ? <SelectOption {...selectedOption} /> : <Input.Placeholder>Pick value</Input.Placeholder>}
+                </InputBase>
+              </Combobox.Target>
+              <Combobox.Dropdown>
+                <Combobox.Options>{options}</Combobox.Options>
+              </Combobox.Dropdown>
+            </Combobox>
             <Image src={form.values.avatar.url} />
             <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
               <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>

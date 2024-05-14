@@ -5,6 +5,7 @@ import CreateCard from './create'
 import RecentActivity from './recent'
 
 export default async function Dashboard(props: any) {
+  //console.log(`dashboard props: `, props)
 
   return (
     <Stack>

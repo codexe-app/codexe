@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { generateClient } from 'aws-amplify/api'
-import { getUser } from '@/graphql/queries'
-import type { User } from '@/graphql/API'
+import { getUser, listSpotlights } from '@/graphql/queries'
+import type { User, Spotlight as SpotlightEntry } from '@/graphql/API'
 import { redirect, useRouter } from 'next/navigation'
 import { getCurrentUser, signOut } from 'aws-amplify/auth'
 import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
@@ -28,6 +28,7 @@ export default function Layout({ children }: { children: any }) {
     updatedAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
     __typename: 'Chat',
   })
+  const [spotlist, setSpotlist] =useState<SpotlightEntry[]>()
   const [theuser, setTheuser] = useState<User>()
   const router = useRouter()
   const { setColorScheme } = useMantineColorScheme()
@@ -74,8 +75,25 @@ export default function Layout({ children }: { children: any }) {
           getUser: User
         }
       }
-      setChat({...chat,  userId : userId })
+      setChat({ ...chat, userId: userId })
       setTheuser(response.data.getUser)
+    } catch (error) {
+      console.error(error)
+      redirect('/')
+    }
+  }
+  async function loadSpotlight() {
+    try {
+      const response = (await client.graphql({
+        query: listSpotlights,
+      })) as {
+        data: {
+          listSpotlights: { items: SpotlightEntry[] }
+        }
+      }
+      const thespotlist =response.data.listSpotlights.items
+      setSpotlist(thespotlist)
+      console.log(`Dashboard layout thespotlist :`, thespotlist)
     } catch (error) {
       console.error(error)
       redirect('/')
@@ -84,8 +102,8 @@ export default function Layout({ children }: { children: any }) {
 
   useEffect(() => {
     AuthGetCurrentUser()
+    //loadSpotlight()
   }, [])
-
 
   return (
     <AppShell header={{ height: 48 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: !nav, mobile: !nav } }}>

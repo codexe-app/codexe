@@ -30,12 +30,12 @@ export default async function CreateCard(props: any) {
     <BackgroundImage src={image.url} h='100%' p='xl' pos='relative'>
       <Stack>
         <Group justify='start' wrap='nowrap' gap='xs'>
-          <IconRocket size='2rem' color='var(--mantine-color-primary-2)' />
-          <Title order={3} c='var(--mantine-color-primary-2)'>
+          <IconRocket size='2rem' color='var(--mantine-primary-color-2)' />
+          <Title order={3} c='var(--mantine-primary-color-2)'>
             Start Something New
           </Title>
         </Group>
-        <Text size='sm' c='var(--mantine-color-primary-2)'>
+        <Text size='sm' c='var(--mantine-primary-color-2)'>
           Get down an idea or store that information...
         </Text>
         <Group>

@@ -108,7 +108,6 @@ export const usePlayground = (defaultValue: string, onChange: (markdown: string)
             .get(listenerCtx)
             .markdownUpdated((_, markdown) => {
               debounce(onChange, 100)(markdown)
-              //console.log(`use playgroud: `, markdown)
             })
             .updated((_, doc) => {
               const state = doc.toJSON()

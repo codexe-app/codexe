@@ -368,12 +368,21 @@ export type User = {
   lastname?: string | null,
   role?: string | null,
   email?: string | null,
+  theme?: ThemeOptions | null,
   chats?: ModelChatConnection | null,
   documents?: ModelDocumentConnection | null,
   diagrams?: ModelDiagramConnection | null,
   spotlightId?: string | null,
   createdAt: string,
   updatedAt: string,
+};
+
+export type ThemeOptions = {
+  __typename: "ThemeOptions",
+  primary?: string | null,
+  font?: string | null,
+  mono?: string | null,
+  tuple?: string | null,
 };
 
 export type ModelChatConnection = {
@@ -956,7 +965,15 @@ export type CreateUserInput = {
   lastname?: string | null,
   role?: string | null,
   email?: string | null,
+  theme?: ThemeOptionsInput | null,
   spotlightId?: string | null,
+};
+
+export type ThemeOptionsInput = {
+  primary?: string | null,
+  font?: string | null,
+  mono?: string | null,
+  tuple?: string | null,
 };
 
 export type ModelUserConditionInput = {
@@ -983,6 +1000,7 @@ export type UpdateUserInput = {
   lastname?: string | null,
   role?: string | null,
   email?: string | null,
+  theme?: ThemeOptionsInput | null,
   spotlightId?: string | null,
 };
 
@@ -3078,6 +3096,13 @@ export type CreateUserMutation = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
@@ -3122,6 +3147,13 @@ export type UpdateUserMutation = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
@@ -3166,6 +3198,13 @@ export type DeleteUserMutation = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
@@ -4028,6 +4067,13 @@ export type GetUserQuery = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
@@ -5943,6 +5989,13 @@ export type OnCreateUserSubscription = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
@@ -5986,6 +6039,13 @@ export type OnUpdateUserSubscription = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
@@ -6029,6 +6089,13 @@ export type OnDeleteUserSubscription = {
     lastname?: string | null,
     role?: string | null,
     email?: string | null,
+    theme?:  {
+      __typename: "ThemeOptions",
+      primary?: string | null,
+      font?: string | null,
+      mono?: string | null,
+      tuple?: string | null,
+    } | null,
     chats?:  {
       __typename: "ModelChatConnection",
       nextToken?: string | null,

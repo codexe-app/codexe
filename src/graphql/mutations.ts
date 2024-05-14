@@ -1519,6 +1519,13 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     lastname
     role
     email
+    theme {
+      primary
+      font
+      mono
+      tuple
+      __typename
+    }
     chats {
       nextToken
       __typename
@@ -1564,6 +1571,13 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     lastname
     role
     email
+    theme {
+      primary
+      font
+      mono
+      tuple
+      __typename
+    }
     chats {
       nextToken
       __typename
@@ -1609,6 +1623,13 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     lastname
     role
     email
+    theme {
+      primary
+      font
+      mono
+      tuple
+      __typename
+    }
     chats {
       nextToken
       __typename

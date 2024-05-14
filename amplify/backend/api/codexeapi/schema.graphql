@@ -175,6 +175,7 @@ type User @model @auth(rules: [{ allow: public }]) {
   lastname: String
   role: String
   email: String
+  theme: ThemeOptions
   chats: [Chat] @hasMany(indexName: "byUser", fields: ["id"])
   documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
   diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
@@ -208,6 +209,13 @@ enum SpotlightModels {
   Message
   Topic
   User
+}
+
+type ThemeOptions {
+  primary: String
+  font: String
+  mono: String
+  tuple: AWSJSON
 }
 
 type ImageFile {

@@ -1355,6 +1355,13 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     lastname
     role
     email
+    theme {
+      primary
+      font
+      mono
+      tuple
+      __typename
+    }
     chats {
       items {
         id
@@ -1490,86 +1497,6 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           nextToken
           __typename
         }
-        user {
-          id
-          username
-          avatar {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          firstname
-          lastname
-          role
-          email
-          chats {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          documents {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          diagrams {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          
-          createdAt
-          updatedAt
-          __typename
-        }
-        userId
         createdAt
         updatedAt
         __typename
@@ -1677,85 +1604,6 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           __typename
         }
         topicId
-        user {
-          id
-          username
-          avatar {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          firstname
-          lastname
-          role
-          email
-          chats {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          documents {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          diagrams {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          
-          createdAt
-          updatedAt
-          __typename
-        }
         userId
         createdAt
         updatedAt
@@ -2118,6 +1966,13 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       lastname
       role
       email
+      theme {
+        primary
+        font
+        mono
+        tuple
+        __typename
+      }
       chats {
         items {
           id
@@ -2244,7 +2099,53 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>
-export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
+export const getSpotlight = /* GraphQL */ `query GetSpotlight($id: ID!) {
+  getSpotlight(id: $id) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetSpotlightQueryVariables,
+  APITypes.GetSpotlightQuery
+>;
+export const listSpotlights = /* GraphQL */ `query ListSpotlights(
+  $filter: ModelSpotlightFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSpotlights(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      label
+      description
+      leftSection
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListSpotlightsQueryVariables,
+  APITypes.ListSpotlightsQuery
+>;export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection

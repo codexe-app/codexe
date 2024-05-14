@@ -43,7 +43,7 @@ export default function PinnedCard(props: any) {
         <Badge radius='sm'>{pinned.status}</Badge>
       </Box>
       <Group justify='start' wrap='nowrap' gap='xs'>
-        <IconPinned color='var(--mantine-color-primary-filled)' />
+        <IconPinned color='var(--mantine-primary-color-filled)' />
         <Title order={5}>Revisit</Title>
       </Group>
       <Card.Section>

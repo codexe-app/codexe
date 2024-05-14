@@ -41,7 +41,7 @@ export default function RecentCarousel(props: any) {
   }
 
   return (
-    <Carousel height={300} slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }} slideGap='md' loop align='start' slidesToScroll={6} controlsOffset={0} classNames={classes}>
+    <Carousel height={300} slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }} slideGap='md' loop align='start' slidesToScroll={2} controlsOffset={0} classNames={classes}>
       {items.map((item: any) => (
         <Carousel.Slide key={item.id}>
           <Card withBorder h={280}>

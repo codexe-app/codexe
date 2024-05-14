@@ -18,7 +18,7 @@ export default function RecentActivity(props: any) {
       <Tabs defaultValue='carousel' classNames={classes}>
         <Tabs.List justify='space-between' mb='xs'>
           <Group justify='start' wrap='nowrap' gap='xs'>
-            <IconClock color='var(--mantine-color-primary-filled)' />
+            <IconClock color='var(--mantine-primary-color-filled)' />
             <Title order={5}>Recent Activity</Title>
           </Group>
           <Group gap={0} mb={0}>
