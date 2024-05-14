@@ -6,12 +6,14 @@ type Document @model @auth(rules: [{ allow: public }]) {
   content: String
   status: Status
   pinned: Boolean
+  icon: String
   graphic: ImageFile
   topic: Topic @belongsTo(fields: ["topicId"])
   topicId: ID @index(name: "byTopic", sortKeyFields: ["createdAt"])
   user: User @belongsTo(fields: ["userId"])
   userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
+  spotlightId: ID
 }
 
 type Diagram @model @auth(rules: [{ allow: public }]) {
@@ -22,6 +24,7 @@ type Diagram @model @auth(rules: [{ allow: public }]) {
   content: String
   status: Status
   pinned: Boolean
+  icon: String
   graphic: ImageFile
   nodes: [Node] @hasMany(indexName: "byDiagram", fields: ["id"])
   edges: [Edge] @hasMany(indexName: "byDiagram", fields: ["id"])
@@ -30,6 +33,7 @@ type Diagram @model @auth(rules: [{ allow: public }]) {
   user: User @belongsTo(fields: ["userId"])
   userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
+  spotlightId: ID
 }
 
 type Node @model @auth(rules: [{ allow: public }]) {
@@ -64,6 +68,7 @@ type Node @model @auth(rules: [{ allow: public }]) {
   diagram: Diagram @belongsTo(fields: ["diagramId"])
   diagramId: ID! @index(name: "byDiagram", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime
+  spotlightId: ID
 }
 
 type Handle @model @auth(rules: [{ allow: public }]) {
@@ -117,6 +122,7 @@ type Chat @model @auth(rules: [{allow: public}]) {
   content: String
   status: Status
   pinned: Boolean
+  icon: String
   graphic: ImageFile
   path: String
   sharePath: String
@@ -126,6 +132,7 @@ type Chat @model @auth(rules: [{allow: public}]) {
   user: User @belongsTo(fields: ["userId"])
   userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime!
+  spotlightId: ID
 }
 
 type Message @model @auth(rules: [{allow: public}]) {
@@ -139,6 +146,7 @@ type Message @model @auth(rules: [{allow: public}]) {
   chat: Chat @belongsTo(fields: ["chatId"])
   chatId: ID! @index(name: "byChat", sortKeyFields: ["createdAt"])
   createdAt: AWSDateTime!
+  spotlightId: ID
 }
 
 type Topic @model @auth(rules: [{ allow: public }]) {
@@ -149,16 +157,19 @@ type Topic @model @auth(rules: [{ allow: public }]) {
   content: String
   status: Status
   pinned: Boolean
+  icon: String
   graphic: ImageFile
   diagrams: [Diagram] @hasMany(indexName: "byTopic", fields: ["id"])
   documents: [Document] @hasMany(indexName: "byTopic", fields: ["id"])
   chats: [Chat] @hasMany(indexName: "byTopic", fields: ["id"])
   createdAt: AWSDateTime
+  spotlightId: ID
 }
 
 type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   username: String
+  icon: String
   avatar: ImageFile
   firstname: String
   lastname: String
@@ -167,7 +178,36 @@ type User @model @auth(rules: [{ allow: public }]) {
   chats: [Chat] @hasMany(indexName: "byUser", fields: ["id"])
   documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
   diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
-  cognitoid: String
+  spotlightId: ID
+}
+
+type Spotlight @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  active: Boolean
+  label: String
+  description: String
+  leftSection: String
+  rightSection: String
+  children: String
+  dimmedSections: Boolean
+  highlightQuery: Boolean
+  highlightColor: String
+  closeSpotlightOnTrigger: Boolean
+  keywords: AWSJSON
+  name: String
+  icon: String
+  model: SpotlightModels
+  modelId: ID!
+}
+
+enum SpotlightModels {
+  Document
+  Diagram
+  Node
+  Chat
+  Message
+  Topic
+  User
 }
 
 type ImageFile {

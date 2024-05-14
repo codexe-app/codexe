@@ -47,8 +47,7 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
       firstname
       lastname
       role
-      email
-      cognitoid
+      email     
       createdAt
       updatedAt
       __typename
@@ -160,7 +159,7 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
       lastname
       role
       email
-      cognitoid
+      
       createdAt
       updatedAt
       __typename
@@ -307,7 +306,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -417,7 +416,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -502,7 +501,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -555,7 +554,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -614,7 +613,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -696,7 +695,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -749,7 +748,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -810,7 +809,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               lastname
               role
               email
-              cognitoid
+              
               createdAt
               updatedAt
               __typename
@@ -823,7 +822,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           nextToken
           __typename
         }
-        cognitoid
+        
         createdAt
         updatedAt
         __typename
@@ -1181,7 +1180,7 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
       lastname
       role
       email
-      cognitoid
+      
       createdAt
       updatedAt
       __typename
@@ -1565,7 +1564,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
             nextToken
             __typename
           }
-          cognitoid
+          
           createdAt
           updatedAt
           __typename
@@ -1752,7 +1751,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
             nextToken
             __typename
           }
-          cognitoid
+          
           createdAt
           updatedAt
           __typename
@@ -2076,7 +2075,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
             nextToken
             __typename
           }
-          cognitoid
+          
           createdAt
           updatedAt
           __typename
@@ -2089,7 +2088,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       nextToken
       __typename
     }
-    cognitoid
+    
     createdAt
     updatedAt
     __typename
@@ -2235,7 +2234,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         nextToken
         __typename
       }
-      cognitoid
+      
       createdAt
       updatedAt
       __typename

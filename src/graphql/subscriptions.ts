@@ -17,6 +17,7 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -36,7 +37,9 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -44,17 +47,19 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -72,6 +77,7 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -91,7 +97,9 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -99,17 +107,19 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -127,6 +137,7 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -146,7 +157,9 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -154,17 +167,19 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -182,6 +197,7 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -209,7 +225,9 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -217,17 +235,19 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -245,6 +265,7 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -272,7 +293,9 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -280,17 +303,19 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -308,6 +333,7 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -335,7 +361,9 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -343,17 +371,19 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -418,14 +448,17 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     diagramId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -490,14 +523,17 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     diagramId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -562,14 +598,17 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     diagramId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -615,6 +654,7 @@ export const onCreateHandle = /* GraphQL */ `subscription OnCreateHandle($filter
       className
       diagramId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -665,6 +705,7 @@ export const onUpdateHandle = /* GraphQL */ `subscription OnUpdateHandle($filter
       className
       diagramId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -715,6 +756,7 @@ export const onDeleteHandle = /* GraphQL */ `subscription OnDeleteHandle($filter
       className
       diagramId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -781,9 +823,11 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -850,9 +894,11 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -919,9 +965,11 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -944,6 +992,7 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -965,7 +1014,9 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -977,17 +1028,19 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1005,6 +1058,7 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1026,7 +1080,9 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -1038,17 +1094,19 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1066,6 +1124,7 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1087,7 +1146,9 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -1099,17 +1160,19 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1135,16 +1198,19 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filt
       content
       status
       pinned
+      icon
       path
       sharePath
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     chatId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1170,16 +1236,19 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filt
       content
       status
       pinned
+      icon
       path
       sharePath
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     chatId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1205,16 +1274,19 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filt
       content
       status
       pinned
+      icon
       path
       sharePath
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     chatId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1232,6 +1304,7 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1256,6 +1329,7 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
       __typename
     }
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1273,6 +1347,7 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1297,6 +1372,7 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
       __typename
     }
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1314,6 +1390,7 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1338,6 +1415,7 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
       __typename
     }
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1350,6 +1428,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
   onCreateUser(filter: $filter) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1377,7 +1456,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       nextToken
       __typename
     }
-    cognitoid
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -1391,6 +1470,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
   onUpdateUser(filter: $filter) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1418,7 +1498,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       nextToken
       __typename
     }
-    cognitoid
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -1432,6 +1512,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
   onDeleteUser(filter: $filter) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1459,7 +1540,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       nextToken
       __typename
     }
-    cognitoid
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -1468,4 +1549,85 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
 ` as GeneratedSubscription<
   APITypes.OnDeleteUserSubscriptionVariables,
   APITypes.OnDeleteUserSubscription
+>;
+export const onCreateSpotlight = /* GraphQL */ `subscription OnCreateSpotlight($filter: ModelSubscriptionSpotlightFilterInput) {
+  onCreateSpotlight(filter: $filter) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateSpotlightSubscriptionVariables,
+  APITypes.OnCreateSpotlightSubscription
+>;
+export const onUpdateSpotlight = /* GraphQL */ `subscription OnUpdateSpotlight($filter: ModelSubscriptionSpotlightFilterInput) {
+  onUpdateSpotlight(filter: $filter) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateSpotlightSubscriptionVariables,
+  APITypes.OnUpdateSpotlightSubscription
+>;
+export const onDeleteSpotlight = /* GraphQL */ `subscription OnDeleteSpotlight($filter: ModelSubscriptionSpotlightFilterInput) {
+  onDeleteSpotlight(filter: $filter) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteSpotlightSubscriptionVariables,
+  APITypes.OnDeleteSpotlightSubscription
 >;

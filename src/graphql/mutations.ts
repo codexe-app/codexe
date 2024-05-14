@@ -20,6 +20,7 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -39,7 +40,9 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -47,17 +50,19 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -78,6 +83,7 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -97,7 +103,9 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -105,17 +113,19 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -136,6 +146,7 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -155,7 +166,9 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -163,17 +176,19 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -194,6 +209,7 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -221,7 +237,9 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -229,17 +247,19 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -260,6 +280,7 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -287,7 +308,9 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -295,17 +318,19 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -326,6 +351,7 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -353,7 +379,9 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -361,17 +389,19 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -439,14 +469,17 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     diagramId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -514,14 +547,17 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     diagramId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -589,14 +625,17 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     diagramId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -645,6 +684,7 @@ export const createHandle = /* GraphQL */ `mutation CreateHandle(
       className
       diagramId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -698,6 +738,7 @@ export const updateHandle = /* GraphQL */ `mutation UpdateHandle(
       className
       diagramId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -751,6 +792,7 @@ export const deleteHandle = /* GraphQL */ `mutation DeleteHandle(
       className
       diagramId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -820,9 +862,11 @@ export const createEdge = /* GraphQL */ `mutation CreateEdge(
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -892,9 +936,11 @@ export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -964,9 +1010,11 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
       content
       status
       pinned
+      icon
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -992,6 +1040,7 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1013,7 +1062,9 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -1025,17 +1076,19 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1056,6 +1109,7 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1077,7 +1131,9 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -1089,17 +1145,19 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1120,6 +1178,7 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1141,7 +1200,9 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
       content
       status
       pinned
+      icon
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
@@ -1153,17 +1214,19 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
     user {
       id
       username
+      icon
       firstname
       lastname
       role
       email
-      cognitoid
+      spotlightId
       createdAt
       updatedAt
       __typename
     }
     userId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1192,16 +1255,19 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
       content
       status
       pinned
+      icon
       path
       sharePath
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     chatId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1230,16 +1296,19 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
       content
       status
       pinned
+      icon
       path
       sharePath
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     chatId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1268,16 +1337,19 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
       content
       status
       pinned
+      icon
       path
       sharePath
       topicId
       userId
       createdAt
+      spotlightId
       updatedAt
       __typename
     }
     chatId
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1298,6 +1370,7 @@ export const createTopic = /* GraphQL */ `mutation CreateTopic(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1322,6 +1395,7 @@ export const createTopic = /* GraphQL */ `mutation CreateTopic(
       __typename
     }
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1342,6 +1416,7 @@ export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1366,6 +1441,7 @@ export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
       __typename
     }
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1386,6 +1462,7 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
     content
     status
     pinned
+    icon
     graphic {
       alt
       title
@@ -1410,6 +1487,7 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
       __typename
     }
     createdAt
+    spotlightId
     updatedAt
     __typename
   }
@@ -1425,6 +1503,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   createUser(input: $input, condition: $condition) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1452,7 +1531,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
-    cognitoid
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -1469,6 +1548,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
   updateUser(input: $input, condition: $condition) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1496,7 +1576,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
-    cognitoid
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -1513,6 +1593,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   deleteUser(input: $input, condition: $condition) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1540,7 +1621,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       nextToken
       __typename
     }
-    cognitoid
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -1549,4 +1630,94 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
 ` as GeneratedMutation<
   APITypes.DeleteUserMutationVariables,
   APITypes.DeleteUserMutation
+>;
+export const createSpotlight = /* GraphQL */ `mutation CreateSpotlight(
+  $input: CreateSpotlightInput!
+  $condition: ModelSpotlightConditionInput
+) {
+  createSpotlight(input: $input, condition: $condition) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateSpotlightMutationVariables,
+  APITypes.CreateSpotlightMutation
+>;
+export const updateSpotlight = /* GraphQL */ `mutation UpdateSpotlight(
+  $input: UpdateSpotlightInput!
+  $condition: ModelSpotlightConditionInput
+) {
+  updateSpotlight(input: $input, condition: $condition) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateSpotlightMutationVariables,
+  APITypes.UpdateSpotlightMutation
+>;
+export const deleteSpotlight = /* GraphQL */ `mutation DeleteSpotlight(
+  $input: DeleteSpotlightInput!
+  $condition: ModelSpotlightConditionInput
+) {
+  deleteSpotlight(input: $input, condition: $condition) {
+    id
+    active
+    label
+    description
+    leftSection
+    rightSection
+    children
+    dimmedSections
+    highlightQuery
+    highlightColor
+    closeSpotlightOnTrigger
+    keywords
+    name
+    icon
+    model
+    modelId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteSpotlightMutationVariables,
+  APITypes.DeleteSpotlightMutation
 >;
