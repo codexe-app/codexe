@@ -1,9 +1,34 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
 import { uploadData } from 'aws-amplify/storage'
-import { TextInput, Box, ColorSwatch, SimpleGrid, Select, useCombobox, Combobox, InputBase, Input, Image, Paper, Title, Text, Group, Stack, Button, Progress, rem, Badge, DEFAULT_THEME, ColorPicker } from '@mantine/core'
+import {
+  TextInput,
+  Box,
+  Flex,
+  Code,
+  ColorSwatch,
+  SimpleGrid,
+  Select,
+  useCombobox,
+  Combobox,
+  InputBase,
+  Input,
+  Image,
+  Paper,
+  Title,
+  Text,
+  Group,
+  Stack,
+  Button,
+  Progress,
+  rem,
+  Badge,
+  DEFAULT_THEME,
+  ColorPicker,
+  Textarea,
+} from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
@@ -12,6 +37,8 @@ import { createCookie } from '@/app/actions'
 import dayjs from 'dayjs'
 
 interface Item {
+  mode: string
+  primary: string
   text: string
   body: string
   anchor: string
@@ -20,37 +47,48 @@ interface Item {
 }
 
 export default function UserForm(props: any) {
-  //console.log(`Profile Form Props :`, props)
+  console.log(`Profile Form Props :`, props)
   const client = generateClient()
-  const [uploadProgress, setUploadProgress] = useState(0)
-  const form = useForm({
-    initialValues: props.user,
-  })
-  const combobox = useCombobox({
-    onDropdownClose: () => combobox.resetSelectedOption(),
-  })
-  const [palette, setPalette] = useState<string | null>(props.user.theme.primary)
+  const [palette, setPalette] = useState<string | null>(props.user.theme.palette)
   const [font, setFont] = useState<string | null>(props.user.theme.font)
   const [heading, setHeading] = useState<string | null>(props.user.theme.heading)
   const [mono, setMono] = useState<string | null>(props.user.theme.mono)
+  const [image, setImage] = useState<string | null>(props.user.avatar.url)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const form = useForm({ initialValues: props.user })
+  const combobox = useCombobox({ onDropdownClose: () => combobox.resetSelectedOption() })
 
   const themecolors: Item[] = [
-    { text: '', body: '#', anchor: '', value: 'tachyon', description: 'Tachyon' },
-    { text: '#1f2937', body: '#ffffff', anchor: '#222244', value: 'bumblebee', description: 'Bumblebee' },
-    { text: '#291334', body: '#faf7f5', anchor: '#2e163b', value: 'cupcake', description: 'Cupcake' },
-    { text: '#282425', body: '#e4d8b4', anchor: '#83785d', value: 'retro', description: 'Retro' },
-    { text: '#785cd6', body: '#382182', anchor: '#222244', value: 'synthwave', description: 'Synthwave' },
-    { text: '#7476aa', body: '#363859', anchor: '#94a0db', value: 'moonlight', description: 'Moonlight' },
+    { mode: 'LIGHT', primary: '#465682', text: '#2e3440', body: '#ECEFF4', anchor: '#465682', value: 'tachyon', description: 'Tachyon' },
+    { mode: 'LIGHT', primary: '#222244', text: '#1f2937', body: '#ffffff', anchor: '#222244', value: 'bumblebee', description: 'Bumblebee' },
+    { mode: 'LIGHT', primary: '#211452', text: '#291334', body: '#faf7f5', anchor: '#2e163b', value: 'cupcake', description: 'Cupcake' },
+    { mode: 'LIGHT', primary: '#83785d', text: '#282425', body: '#e4d8b4', anchor: '#83785d', value: 'retro', description: 'Retro' },
+    { mode: 'DARK', primary: '#211452', text: '#785cd6', body: '#382182', anchor: '#222244', value: 'synthwave', description: 'Synthwave' },
+    { mode: 'DARK', primary: '#5769c7', text: '#7476aa', body: '#363859', anchor: '#94a0db', value: 'moonlight', description: 'Moonlight' },
   ]
 
-  function SelectOption({ text, body, anchor, value, description }: Item) {
+  const fontlist = [
+    { label: 'DIN Pro', value: 'var(--font-dinpro)' },
+    { label: 'Roboto', value: 'var(--font-roboto)' },
+    { label: 'Mononoki', value: 'var(--font-mononoki)' },
+  ]
+
+  function SelectOption({ mode, primary, text, body, anchor, value, description }: Item) {
     return (
-      <Group>
-        <ColorSwatch color={anchor} />
-        <ColorSwatch color={text} />
-        <ColorSwatch color={body} />
-        <Text fz='sm'>{description}</Text>
-        <Box hidden>{value}</Box>
+      <Group justify='space-between'>
+        <Group>
+          <Badge>{mode}</Badge>
+          <Text fz='md' fw='500'>
+            {description}
+          </Text>
+        </Group>
+        <Group>
+          <ColorSwatch color={primary} />
+          <ColorSwatch color={anchor} />
+          <ColorSwatch color={text} />
+          <ColorSwatch color={body} />
+          <Box hidden>{value}</Box>
+        </Group>
       </Group>
     )
   }
@@ -58,7 +96,7 @@ export default function UserForm(props: any) {
   //console.log(selectedOption)
 
   const options = themecolors.map((item) => (
-    <Combobox.Option value={item.value} key={item.value}>
+    <Combobox.Option value={item.value} key={item.value} active={item.value === palette}>
       <SelectOption {...item} />
     </Combobox.Option>
   ))
@@ -135,56 +173,79 @@ export default function UserForm(props: any) {
             )
           }
         )}>
-        <SimpleGrid cols={{ base: 1, xs: 1, sm: 2 }}>
+        <SimpleGrid cols={{ base: 1, xs: 1, sm: 2 }} spacing='xl'>
           <Stack gap='xs'>
-            <Title ta='center' order={4} mb='xs'>
-              Your Profile
-            </Title>
-            <Badge>{form.values.role}</Badge>
-            <Badge>{form.values.id}</Badge>
-            <TextInput label='Username' placeholder='username' {...form.getInputProps('username')} size='xs' radius='xs' disabled />
-            <TextInput label='First Name' placeholder='First Name' {...form.getInputProps('firstname')} size='xs' radius='xs' />
-            <TextInput label='Last Name' placeholder='Last Name' {...form.getInputProps('lastname')} size='xs' radius='xs' />
-            <TextInput label='Email' placeholder='you@codexe.info' {...form.getInputProps('email')} size='xs' radius='xs' />
-            <SimpleGrid cols={{ base: 1, sm: 1, md: 2 }}>
-              <Stack>
-                <Image src={form.values.avatar?.url} /> <TextInput label='Title' placeholder='Title' {...form.getInputProps('avatar.title')} />
-                <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('avatar.alt')} />
+            <SimpleGrid cols={{ base: 1, xs: 1, sm: 2 }}>
+              <Stack gap='0'>
+                <Title ta='left' order={2} mb='0'>
+                  {form.values.username}
+                </Title>
+                <Badge>{form.values.role}</Badge>
               </Stack>
-              <Stack>
-                <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
-                  <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
-                    <Dropzone.Accept>
-                      <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
-                    </Dropzone.Accept>
-                    <Dropzone.Reject>
-                      <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
-                    </Dropzone.Reject>
-                    <Dropzone.Idle>
-                      <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
-                    </Dropzone.Idle>
-                    <div>
-                      <Text size='xl' inline>
-                        Drag image here or click to select file
-                      </Text>
-                      <Text size='sm' c='dimmed' inline mt={7}>
-                        File should not exceed 5mb
-                      </Text>
-                    </div>
-                  </Group>
-                  <Progress value={uploadProgress} />
-                </Dropzone>
-                <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('avatar.caption')} />
-                <TextInput label='Description' placeholder='Description' {...form.getInputProps('avatar.description')} />
+              <Stack justify='end'>
+                <Code p='xs' ta='center'>
+                  {form.values.id}
+                </Code>
+              </Stack>
+            </SimpleGrid>
+            <SimpleGrid cols={{ base: 1, xs: 1, sm: 2 }}>
+              <TextInput label='First Name' placeholder='First Name' {...form.getInputProps('firstname')} radius='xs' />
+              <TextInput label='Last Name' placeholder='Last Name' {...form.getInputProps('lastname')} radius='xs' />
+            </SimpleGrid>
+            <TextInput label='Email' placeholder='you@codexe.info' {...form.getInputProps('email')} radius='xs' />
+            <SimpleGrid cols={{ base: 1, sm: 1, md: 2 }}>
+              <Flex align='center'>
+                {image != '' ? (
+                  <Image src={form.values.avatar?.url} />
+                ) : (
+                  <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
+                    <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
+                      <Dropzone.Accept>
+                        <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
+                      </Dropzone.Accept>
+                      <Dropzone.Reject>
+                        <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
+                      </Dropzone.Reject>
+                      <Dropzone.Idle>
+                        <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
+                      </Dropzone.Idle>
+                      <div>
+                        <Text size='xl' inline>
+                          Drag image here or click to select file
+                        </Text>
+                        <Text size='sm' c='dimmed' inline mt={7}>
+                          File should not exceed 5mb
+                        </Text>
+                      </div>
+                    </Group>
+                    <Progress value={uploadProgress} />
+                  </Dropzone>
+                )}
+              </Flex>
+              <Stack gap='0'>
+                <TextInput label='Title' placeholder='Title' {...form.getInputProps('avatar.title')} size='xs' radius='xs' />
+                <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('avatar.alt')} size='xs' radius='xs' />
+                <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('avatar.caption')} size='xs' radius='xs' />
+                <TextInput label='Description' placeholder='Description' {...form.getInputProps('avatar.description')} size='xs' radius='xs' />
+                <TextInput label='S3 Key' placeholder='Key' {...form.getInputProps('avatar.key')} size='xs' radius='xs' />
+                <Textarea label='URL' placeholder='URL' {...form.getInputProps('avatar.url')} size='xs' radius='xs' />
               </Stack>
             </SimpleGrid>
           </Stack>
-          <Stack gap='xs'>
-            <Title ta='center' order={4} mb='xs'>
-              Your Theme
-            </Title>
-
+          <Stack gap='4'>
             <Box>
+              <Group justify='space-between' mb='4'>
+                <Group>
+                  <Text size='sm' fw='500'>
+                    Color Scheme
+                  </Text>
+                </Group>
+                <Group pr='xl'>
+                  <Text size='sm' fw='500'>
+                    Primary | Anchor | Text | Body{' '}
+                  </Text>
+                </Group>
+              </Group>
               <Combobox
                 store={combobox}
                 withinPortal={false}
@@ -208,12 +269,17 @@ export default function UserForm(props: any) {
                 </Combobox.Dropdown>
               </Combobox>
             </Box>
-            <Text>BODY FONT</Text>
-            <Select placeholder={form.values.theme.font} data={['var(--font-dinpro)', 'var(--font-roboto)', 'var(--font-mononoki)']} value={font} onChange={setFont} />
-            <Text>HEADING FONT</Text>
-            <Select placeholder={form.values.theme.heading} data={['var(--font-dinpro)', 'var(--font-roboto)', 'var(--font-mononoki)']} value={heading} onChange={setHeading} />
-            <Text>MONO FONT</Text>
-            <Select placeholder={form.values.theme.mono} data={['var(--font-dinpro)', 'var(--font-roboto)', 'var(--font-mononoki)']} value={mono} onChange={setMono} />
+            <Text size='sm' fw='500' mb='0'>Body Font</Text>
+            <Select
+              placeholder={form.values.theme.font}
+              data={fontlist}
+              value={font}
+              onChange={setFont}
+            />
+            <Text size='sm' fw='500' mb='4'>Heading Font</Text>
+            <Select placeholder={form.values.theme.heading} data={fontlist} value={heading} onChange={setHeading} />
+            <Text size='sm' fw='500' mb='4'>Monospace Font</Text>
+            <Select placeholder={form.values.theme.mono} data={fontlist} value={mono} onChange={setMono} />
             <Paper p='sm' withBorder>
               <Text c='dimmed' size='sm'>
                 The ability to customize the theme is currently implemented through cookies. If the theme doesn't match your settings, your cookie was probably cleared for some reason. You can create it again here.
