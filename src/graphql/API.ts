@@ -379,10 +379,12 @@ export type User = {
 
 export type ThemeOptions = {
   __typename: "ThemeOptions",
+  config?: string | null,
+  palette?: string | null,
   primary?: string | null,
   font?: string | null,
+  heading?: string | null,
   mono?: string | null,
-  tuple?: string | null,
 };
 
 export type ModelChatConnection = {
@@ -970,10 +972,12 @@ export type CreateUserInput = {
 };
 
 export type ThemeOptionsInput = {
+  config?: string | null,
+  palette?: string | null,
   primary?: string | null,
   font?: string | null,
+  heading?: string | null,
   mono?: string | null,
-  tuple?: string | null,
 };
 
 export type ModelUserConditionInput = {
@@ -3098,10 +3102,12 @@ export type CreateUserMutation = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",
@@ -3149,10 +3155,12 @@ export type UpdateUserMutation = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",
@@ -3200,10 +3208,12 @@ export type DeleteUserMutation = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",
@@ -4069,10 +4079,12 @@ export type GetUserQuery = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",
@@ -5991,10 +6003,12 @@ export type OnCreateUserSubscription = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",
@@ -6041,10 +6055,12 @@ export type OnUpdateUserSubscription = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",
@@ -6091,10 +6107,12 @@ export type OnDeleteUserSubscription = {
     email?: string | null,
     theme?:  {
       __typename: "ThemeOptions",
+      config?: string | null,
+      palette?: string | null,
       primary?: string | null,
       font?: string | null,
+      heading?: string | null,
       mono?: string | null,
-      tuple?: string | null,
     } | null,
     chats?:  {
       __typename: "ModelChatConnection",

@@ -1356,11 +1356,12 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
-      __typename
     }
     chats {
       items {
@@ -1967,11 +1968,12 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       role
       email
       theme {
+        config
+        palette
         primary
         font
+        heading
         mono
-        tuple
-        __typename
       }
       chats {
         items {

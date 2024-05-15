@@ -1445,10 +1445,12 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
       __typename
     }
     chats {
@@ -1494,10 +1496,12 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
       __typename
     }
     chats {
@@ -1543,10 +1547,12 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
       __typename
     }
     chats {

@@ -1520,10 +1520,12 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
       __typename
     }
     chats {
@@ -1572,10 +1574,12 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
       __typename
     }
     chats {
@@ -1624,10 +1628,12 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     role
     email
     theme {
+      config
+      palette
       primary
       font
+      heading
       mono
-      tuple
       __typename
     }
     chats {

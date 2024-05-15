@@ -212,11 +212,14 @@ enum SpotlightModels {
 }
 
 type ThemeOptions {
+  config: String
+  palette: String
   primary: String
   font: String
+  heading: String
   mono: String
-  tuple: AWSJSON
 }
+
 
 type ImageFile {
   alt: String

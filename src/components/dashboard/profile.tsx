@@ -15,7 +15,7 @@ export default function ProfileCard(props: any) {
     <Card shadow='xs' padding='lg' withBorder w='100%' h='240px'>
       <Card.Section style={sectionStyle}>
         <Group justify='space-between'>
-          <Avatar radius='xl' size='lg' src={user.avatar.url}></Avatar>
+          <Avatar radius='xl' size='lg' src={user?.avatar?.url}></Avatar>
           <Menu withinPortal position='bottom-end' shadow='sm'>
             <Menu.Target>
               <ActionIcon variant='subtle'>

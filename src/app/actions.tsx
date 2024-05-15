@@ -2,12 +2,12 @@
 
 import { cookies } from 'next/headers'
 
-export async function createCookie(data: any) {
-  cookies().set('colour', data)
+export async function createCookie(key: any, value: any) {
+  cookies().set(key, value)
   return
 }
 
-export async function deleteCookie(data: any) {
-  cookies().delete('name')
+export async function deleteCookie(key: any) {
+  cookies().delete(key)
   return
 }

@@ -9,7 +9,7 @@ import { getCurrentUser, signOut } from 'aws-amplify/auth'
 import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
 import { useDisclosure } from '@mantine/hooks'
 import ChatBot from '@/components/chatbot'
-import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem } from '@mantine/core'
 import { IconRosette, IconMessage, IconMoon, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
 import { nanoid } from 'nanoid'
@@ -31,8 +31,6 @@ export default function Layout({ children }: { children: any }) {
   const [spotlist, setSpotlist] =useState<SpotlightEntry[]>()
   const [theuser, setTheuser] = useState<User>()
   const router = useRouter()
-  const { setColorScheme } = useMantineColorScheme()
-  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
   const [nav, setNav] = useState(false)
   const [checked, setChecked] = useState(true)
   const [opened, { toggle, close }] = useDisclosure(false)
@@ -55,11 +53,6 @@ export default function Layout({ children }: { children: any }) {
     } catch (error) {
       console.log('error signing out: ', error)
     }
-  }
-
-  function switchScheme() {
-    setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
-    setChecked(!checked)
   }
 
   async function AuthGetCurrentUser() {
@@ -114,7 +107,7 @@ export default function Layout({ children }: { children: any }) {
               <HorizontalLogo size={32} color='var(--mantine-primary-color-filled)' />
             </Link>
             <Group ml='xl' gap='xs'>
-              <ActionIcon variant='gradient' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
+              <ActionIcon variant='gradient.9' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
                 {opened ? <IconMessage size={16} stroke={2} /> : <IconMessage size={20} stroke={2} />}
               </ActionIcon>
               <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8} zIndex={202}>
@@ -154,9 +147,6 @@ export default function Layout({ children }: { children: any }) {
                   <Menu.Label>Toggle</Menu.Label>
                   <Menu.Item color='primary' leftSection={<IconLayoutSidebarLeftExpand style={{ width: rem(14), height: rem(14) }} />} onClick={() => setNav(!nav)} fw='600'>
                     Sidebar
-                  </Menu.Item>
-                  <Menu.Item color='primary' leftSection={<IconMoon style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
-                    Scheme
                   </Menu.Item>
                   <Menu.Divider />
                   <Menu.Item color='red' leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />} onClick={handleSignOut} fw='600'>

@@ -54,7 +54,7 @@ export default function PinnedCard(props: any) {
           <Stack align='start'>
             <Group>
               <Stack gap={0} align='center'>
-                <Text tt='uppercase' lh={1} fz='.9rem' fw='600' c='primary'>
+                <Text tt='uppercase' lh={1} fz='.9rem' fw='600' c='primary.8'>
                   {dayjs(pinned.updatedAt).format('MMMM')}
                 </Text>
                 <Title order={3} lh={0.75}>

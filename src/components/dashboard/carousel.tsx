@@ -45,13 +45,11 @@ export default function RecentCarousel(props: any) {
       {items.map((item: any) => (
         <Carousel.Slide key={item.id}>
           <Card withBorder h={280}>
-            <Card.Section bg='primary'>
-              <Group justify='space-between' wrap='nowrap'>
-                <Badge>{item.__typename}</Badge>
-                <Badge>{item.status}</Badge>
-              </Group>
-            </Card.Section>
             <Card.Section pos='relative'>
+            <Group pos='absolute' justify='space-between' wrap='nowrap' w='100%'>
+                <Badge radius='sm'>{item.__typename}</Badge>
+                <Badge radius='sm'>{item.status}</Badge>
+              </Group>
             <AspectRatio ratio={16 / 9}>
               <Image src={item.graphic.url} />
               </AspectRatio>
@@ -59,7 +57,7 @@ export default function RecentCarousel(props: any) {
             <Card.Section>
               <Group gap='xs' m='xs' wrap='nowrap' align='start'>
                 <Stack gap={0} align='center'>
-                  <Text tt='uppercase' lh={1} fz='10px' fw='600' c='primary'>
+                  <Text tt='uppercase' lh={1} fz='10px' fw='600' c='primary.8'>
                     {dayjs(item.updatedAt).format('MMMM')}
                   </Text>
                   <Title order={4} lh={0.75}>
