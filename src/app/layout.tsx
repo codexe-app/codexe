@@ -29,17 +29,20 @@ const colours = { tachyon, moonlight, bumblebee, cupcake, synthwave, retro }
 export default function RootLayout({ children }: { children: any }) {
   const cookieStore = cookies()
   var storedtheme = []
-  //console.log(cookieStore)
+  var usertheme = []
+  console.log(cookieStore)
   const hasCookie = cookieStore.has('theme')
   if (hasCookie) {
     var stored = cookieStore.get('theme')
     //@ts-ignore
     storedtheme = JSON.parse(stored.value)
+    usertheme = colours[storedtheme.palette]
   } else {
-    storedtheme = [{ palette: 'cupcake', font: 'var(--font-dinpro)', heading: 'var(--font-dinpro)', mono: 'var(--font-mononoki)' }]
+    usertheme = tachyon
+    storedtheme = [{ palette: 'tachyon', font: 'var(--font-dinpro)', heading: 'var(--font-dinpro)', mono: 'var(--font-mononoki)' }]
   }
   //@ts-ignore
-  const usertheme = colours[storedtheme.palette]
+  //usertheme = colours[storedtheme.palette]
 
   const theme = createTheme({
     //@ts-ignore

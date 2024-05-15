@@ -1,7 +1,7 @@
 export const tachyon = {
   colorScheme: 'light',
-  white: '#e4f3fa',
-  black: '#1B1E2B',
+  white: '#ECEFF4',
+  black: '#2E3440',
   primaryColor: 'indigo',
   primaryShade: 8,
   colors: {

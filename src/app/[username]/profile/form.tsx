@@ -49,9 +49,7 @@ export default function UserForm(props: any) {
         <ColorSwatch color={anchor} />
         <ColorSwatch color={text} />
         <ColorSwatch color={body} />
-        <Text fz='sm'>
-          {description}
-        </Text>
+        <Text fz='sm'>{description}</Text>
         <Box hidden>{value}</Box>
       </Group>
     )
