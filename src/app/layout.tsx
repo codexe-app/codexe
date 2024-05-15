@@ -82,6 +82,7 @@ export default function RootLayout({ children }: { children: any }) {
       </head>
       <body>
         <ConfigureAmplifyClientSide />
+        <ColorSchemeScript forceColorScheme={usertheme.colorScheme} />
         <MantineProvider theme={theme} forceColorScheme={usertheme.colorScheme}>
           <ModalsProvider>
             {children}
