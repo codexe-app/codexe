@@ -30,19 +30,18 @@ export default function RootLayout({ children }: { children: any }) {
   const cookieStore = cookies()
   var storedtheme = []
   var usertheme = []
-  console.log(cookieStore)
   const hasCookie = cookieStore.has('theme')
   if (hasCookie) {
     var stored = cookieStore.get('theme')
     //@ts-ignore
     storedtheme = JSON.parse(stored.value)
+    //@ts-ignore
     usertheme = colours[storedtheme.palette]
   } else {
+    //@ts-ignore
     usertheme = tachyon
     storedtheme = [{ palette: 'tachyon', font: 'var(--font-dinpro)', heading: 'var(--font-dinpro)', mono: 'var(--font-mononoki)' }]
   }
-  //@ts-ignore
-  //usertheme = colours[storedtheme.palette]
 
   const theme = createTheme({
     //@ts-ignore
