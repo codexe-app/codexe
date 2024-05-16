@@ -15,7 +15,7 @@ export default function RecentActivity(props: any) {
   });
   return (
     <Paper withBorder p={sizeme}>
-      <Tabs defaultValue='carousel' classNames={classes.tab}>
+      <Tabs defaultValue='carousel' classNames={classes}>
         <Tabs.List justify='space-between' mb='xs'>
           <Group justify='start' wrap='nowrap' gap='xs'>
             <IconClock color='var(--mantine-primary-color-filled)' />
