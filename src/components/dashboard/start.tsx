@@ -1,12 +1,31 @@
 import Link from 'next/link'
-import { BackgroundImage, Button, Text, Title, Group, Stack, Paper, Box } from '@mantine/core'
+import { BackgroundImage, Button, Text, Title, Group, Stack, Flex, Overlay } from '@mantine/core'
 import { IconHierarchy2, IconFiles, IconRocket } from '@tabler/icons-react'
 import APODcredit from './apod'
+import classes from './dash.module.scss'
 
-export default async function CreateCard(props: any) {
+interface ImageData {
+  title: string | ''
+  explanation : string | ''
+  media_type : string | ''
+  copyright : string | ''
+  hdurl : string | ''
+  url : string | ''
+}
+
+export default async function StartCard(props: any) {
   const user = props.user
 
-  var image = await getData()
+  var image : ImageData = {
+    title: 'Ta Prohm',
+    explanation: 'Way back in 2004 we took a trip to Thailand and Cambodia. Part of it was spent at Angkor, and one of the more impressive templates we visited was Ta Phrohm, the one in which they left to the jungle.',
+    copyright: 'Rex Wesley Reyes',
+    hdurl: 'https://media.casadereyes.net/2004/05/17/IMG_0813-scaled.jpg',
+    url: 'https://media.casadereyes.net/2004/05/17/IMG_0813.jpg',
+    media_type: 'image'
+  }
+
+  //image = await getData()
 
   if (image.media_type != 'image') {
     image = {
@@ -15,6 +34,7 @@ export default async function CreateCard(props: any) {
       copyright: 'Rex Wesley Reyes',
       hdurl: 'https://media.casadereyes.net/2004/05/17/IMG_0813-scaled.jpg',
       url: 'https://media.casadereyes.net/2004/05/17/IMG_0813.jpg',
+      media_type: 'fallback'
     }
   }
 
@@ -28,14 +48,15 @@ export default async function CreateCard(props: any) {
 
   return (
     <BackgroundImage src={image.url} h='100%' p='xl' pos='relative'>
-      <Stack>
-        <Group justify='start' wrap='nowrap' gap='xs'>
-          <IconRocket size='2rem' color='var(--mantine-primary-color-2)' />
-          <Title order={3} c='var(--mantine-primary-color-2)'>
+      <Overlay color="#000" backgroundOpacity={0.5} zIndex={0}/>
+      <Stack className={classes.hero}>
+        <Flex justify='start' wrap='nowrap' gap='xs'>
+          <IconRocket size='2rem' color='var(--mantine-primary-color-1)' />
+          <Title order={3} c='var(--mantine-primary-color-1)'>
             Start Something New
           </Title>
-        </Group>
-        <Text size='sm' fw='600' c='var(--mantine-primary-color-2)'>
+        </Flex>
+        <Text size='sm' fw='600' c='var(--mantine-primary-color-1)'>
           Get down an idea. Store that info.
         </Text>
         <Group>

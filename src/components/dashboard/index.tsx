@@ -1,7 +1,7 @@
 import { Stack, Flex, SimpleGrid, Grid, GridCol } from '@mantine/core'
 import ProfileCard from './profile'
 import PinnedCard from './pinned'
-import CreateCard from './create'
+import StartCard from './start'
 import RecentActivity from './recent'
 
 export default async function Dashboard(props: any) {
@@ -17,7 +17,7 @@ export default async function Dashboard(props: any) {
           <PinnedCard user={props.user} pinned={props.pinned}/>
         </GridCol>
         <GridCol span={{ base: 12, sm: 12, lg: 6 }}>
-          <CreateCard user={props.user} />
+          <StartCard user={props.user} />
         </GridCol>
       </Grid>
       <Flex direction='column' h='100%' justify='space-between' gap='md'>

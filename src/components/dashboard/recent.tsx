@@ -3,7 +3,7 @@ import { Paper, Group, Title, Tabs, rem, useMatches } from '@mantine/core'
 import { IconCarouselHorizontal, IconListDetails, IconClock } from '@tabler/icons-react'
 import DocumentsTable from './table'
 import RecentCarousel from './carousel'
-import classes from './recent.module.scss'
+import classes from './dash.module.scss'
 
 export default function RecentActivity(props: any) {
   const { data } = props
@@ -15,7 +15,7 @@ export default function RecentActivity(props: any) {
   });
   return (
     <Paper withBorder p={sizeme}>
-      <Tabs defaultValue='carousel' classNames={classes}>
+      <Tabs defaultValue='carousel' classNames={classes.tab}>
         <Tabs.List justify='space-between' mb='xs'>
           <Group justify='start' wrap='nowrap' gap='xs'>
             <IconClock color='var(--mantine-primary-color-filled)' />

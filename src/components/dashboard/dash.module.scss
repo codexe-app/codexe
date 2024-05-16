@@ -66,3 +66,8 @@
     margin-right: var(--mantine-spacing-xs);
   }
 }
+
+.hero {
+  position: relative;
+  z-index: 1;
+}
