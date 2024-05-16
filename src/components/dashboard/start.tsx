@@ -6,26 +6,18 @@ import classes from './dash.module.scss'
 
 interface ImageData {
   title: string | ''
-  explanation : string | ''
-  media_type : string | ''
-  copyright : string | ''
-  hdurl : string | ''
-  url : string | ''
+  explanation: string | ''
+  media_type: string | ''
+  copyright: string | ''
+  hdurl: string | ''
+  url: string | ''
 }
 
 export default async function StartCard(props: any) {
   const user = props.user
 
-  var image : ImageData = {
-    title: 'Ta Prohm',
-    explanation: 'Way back in 2004 we took a trip to Thailand and Cambodia. Part of it was spent at Angkor, and one of the more impressive templates we visited was Ta Phrohm, the one in which they left to the jungle.',
-    copyright: 'Rex Wesley Reyes',
-    hdurl: 'https://media.casadereyes.net/2004/05/17/IMG_0813-scaled.jpg',
-    url: 'https://media.casadereyes.net/2004/05/17/IMG_0813.jpg',
-    media_type: 'image'
-  }
-
-  //image = await getData()
+  var image = await getData()
+  console.log(image)
 
   if (image.media_type != 'image') {
     image = {
@@ -34,21 +26,26 @@ export default async function StartCard(props: any) {
       copyright: 'Rex Wesley Reyes',
       hdurl: 'https://media.casadereyes.net/2004/05/17/IMG_0813-scaled.jpg',
       url: 'https://media.casadereyes.net/2004/05/17/IMG_0813.jpg',
-      media_type: 'fallback'
+      media_type: 'fallback',
     }
   }
 
   async function getData() {
-    const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`)
-    if (!res.ok) {
+    try {
+      const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`, {
+        signal: AbortSignal.timeout(5000)
+      })
+      console.log(response)
+      return response.json()
+    } catch (error) {
+      console.log(`There was an error connecting to the NASA API :`, error)
       return ''
     }
-    return res.json()
   }
 
   return (
     <BackgroundImage src={image.url} h='100%' p='xl' pos='relative'>
-      <Overlay color="#000" backgroundOpacity={0.5} zIndex={0}/>
+      <Overlay color='#000' backgroundOpacity={0.5} zIndex={0} />
       <Stack className={classes.hero}>
         <Flex justify='start' wrap='nowrap' gap='xs'>
           <IconRocket size='2rem' color='var(--mantine-primary-color-1)' />
