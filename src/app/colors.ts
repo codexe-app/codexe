@@ -6,6 +6,32 @@ export const tachyon = {
   primaryShade: 8,
   colors: {
     indigo: ['#f1f3f8', '#e1e4ea', '#c0c6d6', '#9ca6c3', '#7e8cb2', '#6a7ba8', '#6072a6', '#506191', '#465682', '#394a74'],
+    red: ['#ffecef', '#f7dbde', '#e5b7bb', '#d39097', '#c57078', '#bc5b64', '#b94f5a', '#a43f4a', '#933741', '#822c36'],
+    orange: ['#ffefe9', '#f8e0d7', '#e8bfb2', '#da9d8a', '#cd8067', '#c66d51', '#c36445', '#ad5336', '#9b482f', '#893c25'],
+    yellow: ['#fff7e4', '#faedd3', '#f0d9a9', '#e8c47b', '#e1b255', '#dda73c', '#dba12d', '#c28c1f', '#ad7c17', '#966a09'],
+    green: ['#f1fae9', '#e5efdd', '#cbdbbd', '#afc79b', '#98b67e', '#89ac6b', '#80a661', '#6e9150', '#608245', '#517037'],
+    purple: ['#fff0fb', '#f0e1ed', '#d9c2d5', '#c2a2bd', '#af86a7', '#a3749a', '#9e6b95', '#895a81', '#7c4e74', '#6d4166'],
+    blue: ['#edf4ff', '#dde7f3', '#bcccde', '#99afca', '#7b97b9', '#6888af', '#5d80ab', '#4c6e97', '#416189', '#31557a'],
+  },
+}
+
+export const nord = {
+  colorScheme: 'light',
+  white: '#ECEFF4',
+  black: '#3B4252',
+  primaryColor: 'frost',
+  primaryShade: 7,
+  colors: {
+    dark: ['#fafafa', '#ECEFF4', '#E5E9F0', '#D8DEE9', '#a1a1a1', '#4C566A', '#434C5E', '#3B4252', '#2E3440', '#1a1a1a'],
+    gray: ['#f3f4f6', '#e6e6e6', '#c9cbcd', '#aaaeb5', '#8f95a1', '#7e8594', '#757d8f', '#636b7d', '#575f70', '#495265'],
+    frost: ['#e7f7ff', '#dbe8f4', '#bacde1', '#96b2cd', '#789abd', '#8FBCBB', '#88C0D0', '#81A1C1', '#5E81AC', '#2b587d'],
+    aurora: ['#BF616A', '#D08770', '#EBCB8B', '#A3BE8C', '#B48EAD', '#BF616A', '#D08770', '#EBCB8B', '#A3BE8C', '#B48EAD'],
+    red: ['#ffecef', '#f7dbde', '#e5b7bb', '#d39097', '#c57078', '#BF616A', '#b94f5a', '#a43f4a', '#933741', '#822c36'],
+    orange: ['#ffefe9', '#f8e0d7', '#e8bfb2', '#da9d8a', '#cd8067', '#c66d51', '#c36445', '#ad5336', '#9b482f', '#893c25'],
+    yellow: ['#fff7e4', '#faedd3', '#f0d9a9', '#e8c47b', '#e1b255', '#dda73c', '#dba12d', '#c28c1f', '#ad7c17', '#966a09'],
+    green: ['#f1fae9', '#e5efdd', '#cbdbbd', '#afc79b', '#98b67e', '#89ac6b', '#80a661', '#6e9150', '#608245', '#517037'],
+    purple: ['#fff0fb', '#f0e1ed', '#d9c2d5', '#c2a2bd', '#af86a7', '#a3749a', '#9e6b95', '#895a81', '#7c4e74', '#6d4166'],
+    blue: ['#edf4ff', '#dde7f3', '#bcccde', '#99afca', '#7b97b9', '#6888af', '#5d80ab', '#4c6e97', '#416189', '#31557a'],
   },
 }
 
@@ -98,5 +124,22 @@ export const retro = {
     green: ['#6FEB9D', '#5DE991', '#4BE784', '#3AE478', '#28E26C', '#1DD762', '#1BC559', '#18B451', '#16A249', '#149041'],
     orange: ['#FBC688', '#FBBC74', '#FBB360', '#FAA94C', '#FA9F38', '#F99624', '#F98C10', '#EF8206', '#DB7706', '#C76C05'],
     red: ['#F4B8B8', '#F1A7A7', '#EE9696', '#EB8484', '#E87373', '#E56161', '#E25050', '#E03E3E', '#DD2C2C', '#D32222'],
+  },
+}
+
+export const dracula = {
+  colorScheme: 'dark',
+  black: '#282a36',
+  white: '#f8f8f2',
+  primaryShade: 5,
+  primaryColor: 'pink',
+  colors: {
+    cyan: ['#e5faff', '#d6f7fe', '#c7f4fe', '#b8f2fe', '#a9effe', '#8be9fd', '#7ce6fd', '#6de3fc', '#5ee0fc', '#4fdefc'],
+    green: ['#a9fdbe', '#9afcb3', '#8bfca8', '#7dfb9d', '#6efb91', '#50fa7b', '#41fa70', '#32f965', '#23f959', '#14f84e'],
+    orange: ['#ffe4c8', '#ffddb9', '#ffd6a9', '#ffce9a', '#ffc78b', '#ffb86c', '#ffb15d', '#ffa94d', '#ffa23e', '#ff9a2f'],
+    pink: ['#ffd5ed', '#ffc6e7', '#ffb6e0', '#ffa7da', '#ff98d3', '#ff79c6', '#ff6abf', '#ff5ab9', '#ff4bb2', '#ff3cac'],
+    purple: ['#f2eafe', '#e9dbfd', '#e0cdfc', '#d8befb', '#cfb0fb', '#bd93f9', '#b485f8', '#ab76f7', '#a268f7', '#9a59f6'],
+    red: ['#ffb1b1', '#ffa2a2', '#ff9292', '#ff8383', '#ff7474', '#ff5555', '#ff4646', '#ff3636', '#ff2727', '#ff1818'],
+    yellow: ['#fcfee4', '#fafdd5', '#f8fdc7', '#f6fcb8', '#f5fba9', '#f1fa8c', '#eff97d', '#edf96f', '#ecf860', '#eaf751'],
   },
 }

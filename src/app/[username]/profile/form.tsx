@@ -60,17 +60,20 @@ export default function UserForm(props: any) {
 
   const themecolors: Item[] = [
     { mode: 'LIGHT', primary: '#465682', text: '#2e3440', body: '#ECEFF4', anchor: '#465682', value: 'tachyon', description: 'Tachyon' },
+    { mode: 'LIGHT', primary: '#5e81ac', text: '#2E3440', body: '#ECEFF4', anchor: '#5e81ac', value: 'nord', description: 'Nord' },
     { mode: 'LIGHT', primary: '#222244', text: '#1f2937', body: '#ffffff', anchor: '#222244', value: 'bumblebee', description: 'Bumblebee' },
     { mode: 'LIGHT', primary: '#211452', text: '#291334', body: '#faf7f5', anchor: '#2e163b', value: 'cupcake', description: 'Cupcake' },
     { mode: 'LIGHT', primary: '#83785d', text: '#282425', body: '#e4d8b4', anchor: '#83785d', value: 'retro', description: 'Retro' },
     { mode: 'DARK', primary: '#211452', text: '#785cd6', body: '#382182', anchor: '#222244', value: 'synthwave', description: 'Synthwave' },
     { mode: 'DARK', primary: '#5769c7', text: '#7476aa', body: '#363859', anchor: '#94a0db', value: 'moonlight', description: 'Moonlight' },
+    { mode: 'DARK', primary: '#', text: '#', body: '#', anchor: '#', value: 'dracula', description: 'Dracula' },
   ]
 
   const fontlist = [
     { label: 'DIN Pro', value: 'var(--font-dinpro)' },
     { label: 'Roboto', value: 'var(--font-roboto)' },
     { label: 'Mononoki', value: 'var(--font-mononoki)' },
+    { label: 'Lexend', value: 'var(--font-lexend)' },
   ]
 
   function SelectOption({ mode, primary, text, body, anchor, value, description }: Item) {
@@ -269,18 +272,19 @@ export default function UserForm(props: any) {
                 </Combobox.Dropdown>
               </Combobox>
             </Box>
-            <Text size='sm' fw='500' mb='0'>Body Font</Text>
-            <Select
-              placeholder={form.values.theme.font}
-              data={fontlist}
-              value={font}
-              onChange={setFont}
-            />
-            <Text size='sm' fw='500' mb='4'>Heading Font</Text>
+            <Text size='sm' fw='500' mb='0'>
+              Body Font
+            </Text>
+            <Select placeholder={form.values.theme.font} data={fontlist} value={font} onChange={setFont} />
+            <Text size='sm' fw='500' mb='4'>
+              Heading Font
+            </Text>
             <Select placeholder={form.values.theme.heading} data={fontlist} value={heading} onChange={setHeading} />
-            <Text size='sm' fw='500' mb='4'>Monospace Font</Text>
+            <Text size='sm' fw='500' mb='4'>
+              Monospace Font
+            </Text>
             <Select placeholder={form.values.theme.mono} data={fontlist} value={mono} onChange={setMono} />
-            <Paper p='sm' withBorder>
+            <Paper p='sm' withBorder mt='xs'>
               <Text c='dimmed' size='sm'>
                 The ability to customize the theme is currently implemented through cookies. If the theme doesn't match your settings, your cookie was probably cleared for some reason. You can create it again here.
               </Text>

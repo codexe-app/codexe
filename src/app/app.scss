@@ -12,16 +12,22 @@ a {
   font-weight: 600 !important;
 }
 
-.mdxeditor-toolbar {
-  border-radius: 0 !important;
-}
-
 .react-flow {
   height: calc(100vh - 48px) !important;
 }
 
 .mantine-NumberInput-input {
   max-width: 80px;
+}
+
+.mantine-Paper-root {
+  @include light {
+    background-color: var(--mantine-color-gray-0);
+  }
+
+  @include dark {
+    background-color: var(--mantine-color-gray-7);
+  }
 }
 
 .mantine-Stepper-steps {

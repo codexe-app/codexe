@@ -54,10 +54,10 @@ export default function PinnedCard(props: any) {
           <Stack align='start'>
             <Group>
               <Stack gap={0} align='center'>
-                <Text tt='uppercase' lh={1} fz='.9rem' fw='600' c='primary.8'>
+                <Text tt='uppercase' lh={1} fz='.9rem' fw='600' c='var(--mantine-primary-color-filled)'>
                   {dayjs(pinned.updatedAt).format('MMMM')}
                 </Text>
-                <Title order={3} lh={0.75}>
+                <Title order={3} lh={0.75} c='var(--mantine-primary-color-filled)'>
                   {dayjs(pinned.updatedAt).format('D')}
                 </Title>
               </Stack>
@@ -79,7 +79,8 @@ export default function PinnedCard(props: any) {
         <Flex justify='end'>
           <ActionIcon.Group>
             <ActionIcon
-              variant='filled'
+              variant='outline'
+              color='var(--mantine-color-red-4)'
               onClick={() => {
                 modals.openConfirmModal({
                   title: (
@@ -97,11 +98,11 @@ export default function PinnedCard(props: any) {
               }}>
               <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
             </ActionIcon>
-            <ActionIcon variant='filled' component={Link} href={`${user.username}/${getPath(pinned.__typename)}/${pinned.slug}`}>
+            <ActionIcon variant='outline' component={Link} href={`${user.username}/${getPath(pinned.__typename)}/${pinned.slug}`} color='var(--mantine-primary-color-6)'>
               <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
             </ActionIcon>
             <ActionIcon
-              variant='filled'
+              variant='outline'
               onClick={() => {
                 modals.open({
                   title: `${pinned.name} - ${pinned.updatedAt}`,

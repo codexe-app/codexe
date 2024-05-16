@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BackgroundImage, Button, Text, Title, Group, Stack, Popover, Box } from '@mantine/core'
+import { BackgroundImage, Button, Text, Title, Group, Stack, Paper, Box } from '@mantine/core'
 import { IconHierarchy2, IconFiles, IconRocket } from '@tabler/icons-react'
 import APODcredit from './apod'
 
@@ -35,8 +35,8 @@ export default async function CreateCard(props: any) {
             Start Something New
           </Title>
         </Group>
-        <Text size='sm' c='var(--mantine-primary-color-2)'>
-          Get down an idea or store that information...
+        <Text size='sm' fw='600' c='var(--mantine-primary-color-2)'>
+          Get down an idea. Store that info.
         </Text>
         <Group>
           <Button rightSection={<IconFiles size={14} />} component={Link} href={`/${user.username}/documents/new`}>

@@ -57,10 +57,10 @@ export default function RecentCarousel(props: any) {
             <Card.Section>
               <Group gap='xs' m='xs' wrap='nowrap' align='start'>
                 <Stack gap={0} align='center'>
-                  <Text tt='uppercase' lh={1} fz='10px' fw='600' c='primary.8'>
+                  <Text tt='uppercase' lh={1} fz='10px' fw='600' color='var(--mantine-primary-color-6)'>
                     {dayjs(item.updatedAt).format('MMMM')}
                   </Text>
-                  <Title order={4} lh={0.75}>
+                  <Title order={4} lh={0.75} c='var(--mantine-primary-color-6)'>
                     {dayjs(item.updatedAt).format('D')}
                   </Title>
                 </Stack>
@@ -80,7 +80,8 @@ export default function RecentCarousel(props: any) {
               <Flex justify='end'>
                 <ActionIcon.Group>
                   <ActionIcon
-                    variant='filled'
+                    variant='outline'
+                    color='var(--mantine-color-red-4)'
                     onClick={() => {
                       modals.openConfirmModal({
                         title: (
@@ -98,11 +99,11 @@ export default function RecentCarousel(props: any) {
                     }}>
                     <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
                   </ActionIcon>
-                  <ActionIcon variant='filled' component={Link} href={`${pathname}/${getPath(item.__typename)}/${item.slug}`}>
+                  <ActionIcon variant='outline' color='var(--mantine-primary-color-6)' component={Link} href={`${pathname}/${getPath(item.__typename)}/${item.slug}`}>
                     <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
                   </ActionIcon>
                   <ActionIcon
-                    variant='filled'
+                    variant='outline'
                     onClick={() => {
                       modals.open({
                         title: `${item.name} - ${item.updatedAt}`,

@@ -9,8 +9,8 @@ import { getCurrentUser, signOut } from 'aws-amplify/auth'
 import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
 import { useDisclosure } from '@mantine/hooks'
 import ChatBot from '@/components/chatbot'
-import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem } from '@mantine/core'
-import { IconRosette, IconMessage, IconMoon, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
+import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem,useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { IconRosette, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
@@ -35,6 +35,8 @@ export default function Layout({ children }: { children: any }) {
   const [checked, setChecked] = useState(true)
   const [opened, { toggle, close }] = useDisclosure(false)
   const client = generateClient()
+  const { setColorScheme } = useMantineColorScheme()
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true })
 
   const actions: SpotlightActionData[] = [
     {
@@ -75,6 +77,7 @@ export default function Layout({ children }: { children: any }) {
       redirect('/')
     }
   }
+
   async function loadSpotlight() {
     try {
       const response = (await client.graphql({
@@ -91,6 +94,11 @@ export default function Layout({ children }: { children: any }) {
       console.error(error)
       redirect('/')
     }
+  }
+
+  function switchScheme() {
+    setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
+    setChecked(!checked)
   }
 
   useEffect(() => {
@@ -144,8 +152,11 @@ export default function Layout({ children }: { children: any }) {
                     Diagrams
                   </Menu.Item>
                   <Menu.Divider />
-                  <Menu.Label>Toggle</Menu.Label>
-                  <Menu.Item color='primary' leftSection={<IconLayoutSidebarLeftExpand style={{ width: rem(14), height: rem(14) }} />} onClick={() => setNav(!nav)} fw='600'>
+                  <Menu.Label>Toggle</Menu.Label> 
+                  <Menu.Item color='green' leftSection={checked ? <IconMoon style={{ width: rem(14), height: rem(14) }} /> : <IconSun style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
+                    Scheme
+                  </Menu.Item>
+                  <Menu.Item color='green' leftSection={<IconLayoutSidebarLeftExpand style={{ width: rem(14), height: rem(14) }} />} onClick={() => setNav(!nav)} fw='600'>
                     Sidebar
                   </Menu.Item>
                   <Menu.Divider />

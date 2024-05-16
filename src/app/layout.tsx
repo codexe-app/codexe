@@ -6,11 +6,11 @@ import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import { mononoki, dinpro } from '@/app/fonts'
-import { Roboto } from 'next/font/google'
-import { tachyon, moonlight, bumblebee, cupcake, synthwave, retro } from "@/app/colors"; 
+import { Roboto, Lexend } from 'next/font/google'
+import { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula } from '@/app/colors'
 
 import '@mantine/notifications/styles.css'
-import '@/app/app.css'
+import '@/app/app.scss'
 
 export const metadata = {
   title: 'CODEXE',
@@ -24,7 +24,14 @@ const roboto = Roboto({
   variable: '--font-roboto',
 })
 
-const colours = { tachyon, moonlight, bumblebee, cupcake, synthwave, retro }
+const lexend = Lexend({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-lexend',
+})
+
+const colours = { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula }
 
 export default function RootLayout({ children }: { children: any }) {
   const cookieStore = cookies()
@@ -77,15 +84,15 @@ export default function RootLayout({ children }: { children: any }) {
     },
   })
   return (
-    <html lang='en' className={`${mononoki.variable} ${dinpro.variable} ${roboto.variable}`}>
+    <html lang='en' className={`${mononoki.variable} ${dinpro.variable} ${lexend.variable} ${roboto.variable}`}>
       <head>
         <link rel='shortcut icon' href='/favicon.svg' />
         <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no' />
       </head>
       <body>
         <ConfigureAmplifyClientSide />
-        <ColorSchemeScript forceColorScheme={usertheme.colorScheme} />
-        <MantineProvider theme={theme} forceColorScheme={usertheme.colorScheme}>
+        <ColorSchemeScript defaultColorScheme={usertheme.colorScheme} />
+        <MantineProvider theme={theme} defaultColorScheme={usertheme.colorScheme}>
           <ModalsProvider>
             {children}
             <Notifications />
