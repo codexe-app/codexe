@@ -47,8 +47,8 @@ export default function RecentCarousel(props: any) {
           <Card withBorder h={280}>
             <Card.Section pos='relative'>
             <Group pos='absolute' justify='space-between' wrap='nowrap' w='100%'>
-                <Badge radius='sm'>{item.__typename}</Badge>
-                <Badge radius='sm'>{item.status}</Badge>
+                <Badge radius='xs'>{item.__typename}</Badge>
+                <Badge radius='xs'>{item.status}</Badge>
               </Group>
             <AspectRatio ratio={16 / 9}>
               <Image src={item.graphic.url} />
@@ -77,7 +77,7 @@ export default function RecentCarousel(props: any) {
               </Flex>
             </Card.Section>
             <Card.Section>
-              <Flex justify='end'>
+              <Flex justify='end' mr='4' mb='4'>
                 <ActionIcon.Group>
                   <ActionIcon
                     variant='outline'

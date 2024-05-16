@@ -46,7 +46,7 @@ export default function PinnedCard(props: any) {
         <IconPinned color='var(--mantine-primary-color-filled)' />
         <Title order={5}>Revisit</Title>
       </Group>
-      <Card.Section>
+      <Card.Section flex='1'>
         <Group justify='start' wrap='nowrap' mt='sm'>
           <AspectRatio ratio={1 / 1} w='140px'>
             <Image src={pinned.graphic?.url} />
@@ -72,11 +72,8 @@ export default function PinnedCard(props: any) {
           </Stack>
         </Group>
       </Card.Section>
-      <Card.Section flex={1}>
-        <Flex align='start' p='xs'></Flex>
-      </Card.Section>
       <Card.Section>
-        <Flex justify='end'>
+        <Flex justify='end' mr='4' mb='4'>
           <ActionIcon.Group>
             <ActionIcon
               variant='outline'
