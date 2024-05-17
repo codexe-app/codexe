@@ -14,9 +14,11 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt
@@ -74,9 +76,11 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt
@@ -134,9 +138,11 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt

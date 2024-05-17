@@ -17,9 +17,11 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt
@@ -80,9 +82,11 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt
@@ -143,9 +147,11 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt

@@ -14,9 +14,11 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
     icon
     graphic {
       alt
@@ -79,9 +81,11 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
       name
       slug
       description
+      source
       content
       status
       pinned
+      public
       icon
       topicId
       userId
@@ -871,9 +875,11 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
       name
       slug
       description
+      source
       content
       status
       pinned
+      public
       icon
       topicId
       userId
@@ -911,9 +917,11 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
       name
       slug
       description
+      source
       content
       status
       pinned
+      public
       icon
       topicId
       userId

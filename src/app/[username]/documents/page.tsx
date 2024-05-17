@@ -5,8 +5,10 @@ import { Title, Container, Flex, Button } from '@mantine/core'
 import { IconFilePlus } from '@tabler/icons-react'
 import type { Document } from '@/graphql/API'
 import Docs from './table'
+import DataTable from './datatable'
 
 export default async function Page() {
+  
   const response = (await cookieBasedClient.graphql({
     query: listDocuments,
   })) as {
@@ -20,11 +22,8 @@ export default async function Page() {
   const documents = response.data.listDocuments.items
 
   return (
-    <Container size='responsive'>
-      <Flex align='end' justify='space-between'>
-        <Title order={2}>Documents</Title>
-      </Flex>
-      <Docs data={documents} />
+    <Container size='responsive' pt='xl'>
+      <DataTable data={documents} />     
     </Container>
   )
 }

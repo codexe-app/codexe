@@ -14,9 +14,12 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
+    icon
     graphic {
       alt
       title
@@ -117,9 +120,12 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
+    icon
     graphic {
       alt
       title
@@ -1127,9 +1133,12 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
+    icon
     graphic {
       alt
       title
@@ -1281,9 +1290,12 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
     name
     slug
     description
+    source
     content
     status
     pinned
+    public
+    icon
     graphic {
       alt
       title
