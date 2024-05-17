@@ -22,7 +22,7 @@ export default async function Page() {
   const documents = response.data.listDocuments.items
 
   return (
-    <Container size='responsive' pt='xl'>
+    <Container size='responsive' py='xl'>
       <DataTable data={documents} />     
     </Container>
   )

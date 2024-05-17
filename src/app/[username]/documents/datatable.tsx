@@ -1,14 +1,16 @@
 'use client'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
 import './documents.css'
 import { useMemo } from 'react'
-import { MantineReactTable, useMantineReactTable} from 'mantine-react-table'
-import { ActionIcon, Group, Stack, Box, Button, Flex, Menu, Text, Title, Avatar, Badge, ScrollArea } from '@mantine/core'
+import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFiltersButton } from 'mantine-react-table'
+import { ActionIcon, Group, Stack, Box, Button, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, ScrollArea } from '@mantine/core'
+import { type Document } from '@/graphql/API'
 import { IconEdit, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconDots, IconSend, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 
-
-export default function DataTable(props) {
+export default function DataTable(props: any) {
+  const [isMounted, setIsMounted] = useState<boolean>(false)
   const { data } = props
   const columns = useMemo<MRT_ColumnDef<Document>[]>(
     () => [
@@ -31,8 +33,7 @@ export default function DataTable(props) {
         ),
       },
       {
-        accessorFn: (row) => `${row.name} `, //accessorFn used to join multiple data into a single cell
-        id: 'name', //id is still required when using accessorFn instead of accessorKey
+        accessorKey: 'name',
         header: 'Name',
         size: 220,
         filterVariant: 'autocomplete',
@@ -43,7 +44,7 @@ export default function DataTable(props) {
               alignItems: 'center',
               gap: '16px',
             }}>
-            <Avatar height={30} src={row.original.graphic?.url} />
+            <Avatar size='md' src={row.original.graphic?.url} />
             <Title order={6}>{renderedCellValue}</Title>
           </Box>
         ),
@@ -91,23 +92,25 @@ export default function DataTable(props) {
         //custom conditional format and styling
         Cell: ({ cell, row }) => (
           <Box>
-            {cell.getValue == 'draft' ? (
+            {cell.getValue() == 'draft' ? (
               <Badge>draft</Badge>
-            ) : cell.getValue == 'live' ? (
-              <Badge>live</Badge>
-            ) : cell.getValue == 'private' ? (
-              <Badge>private</Badge>
+            ) : cell.getValue() == 'live' ? (
+              <Badge color='green'>live</Badge>
+            ) : cell.getValue() == 'private' ? (
+              <Badge color='purple'>private</Badge>
             ) : (
-              cell.getValue == 'archive' && <Badge>archive</Badge>
+              cell.getValue() == 'archive' && <Badge color='yellow'>archive</Badge>
             )}
           </Box>
         ),
       },
       {
         accessorFn: (row) => {
-          //convert to Date for sorting and filtering
+          if (!row.createdAt) {
+            return null
+          }
           const sDay = new Date(row.createdAt)
-          sDay.setHours(0, 0, 0, 0) // remove time from date (useful if filter by equals exact date)
+          sDay.setHours(0, 0, 0, 0)
           return sDay
         },
         id: 'createdAt',
@@ -117,14 +120,14 @@ export default function DataTable(props) {
         sortingFn: 'datetime',
         enableEditing: false,
         enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
-        Cell: ({ cell }) => cell.getValue?.toLocaleDateString(), //render Date as a string
+        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(), //render Date as a string
         Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
       },
       {
         accessorFn: (row) => {
           //convert to Date for sorting and filtering
           const sDay = new Date(row.updatedAt)
-          sDay.setHours(0, 0, 0, 0) // remove time from date (useful if filter by equals exact date)
+          sDay.setHours(0, 0, 0, 0)
           return sDay
         },
         id: 'updatedAt',
@@ -134,7 +137,7 @@ export default function DataTable(props) {
         sortingFn: 'datetime',
         enableEditing: false,
         enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
-        Cell: ({ cell }) => cell.getValue?.toLocaleDateString(), //render Date as a string
+        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(), //render Date as a string
         Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
       },
     ],
@@ -144,6 +147,7 @@ export default function DataTable(props) {
   const table = useMantineReactTable({
     columns,
     data, //must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    autoResetPageIndex: false,
     enableColumnFilterModes: true,
     enableColumnOrdering: false,
     enableColumnDragging: false,
@@ -194,7 +198,7 @@ export default function DataTable(props) {
               <IconDots />
             </ActionIcon>
           </Menu.Target>
-          <Menu.Dropdown>{table.options.renderRowActionMenuItems({ row })}</Menu.Dropdown>
+          <Menu.Dropdown>{table.options.renderRowActionMenuItems && table.options.renderRowActionMenuItems({ row, table })}</Menu.Dropdown>
         </Menu>
       </Group>
     ),
@@ -206,28 +210,12 @@ export default function DataTable(props) {
         <Menu.Item leftSection={<IconExternalLink />} component={Link} href={`./documents/${row.original.slug}`}>
           Full Page Edit
         </Menu.Item>
-        <Menu.Item leftSection={<IconTrash />} color='red'>Delete </Menu.Item>
+        <Menu.Item leftSection={<IconTrash />} color='red'>
+          Delete{' '}
+        </Menu.Item>
       </>
     ),
     renderTopToolbar: ({ table }) => {
-      const handleDeactivate = () => {
-        table.getSelectedRowModel().flatRows.map((row) => {
-          alert('deactivating ' + row.getValue('name'))
-        })
-      }
-
-      const handleActivate = () => {
-        table.getSelectedRowModel().flatRows.map((row) => {
-          alert('activating ' + row.getValue('name'))
-        })
-      }
-
-      const handleContact = () => {
-        table.getSelectedRowModel().flatRows.map((row) => {
-          alert('contact ' + row.getValue('name'))
-        })
-      }
-
       return (
         <Flex p='md' justify='end' bg='var(--mantine-color-gray-1)'>
           <MRT_GlobalFilterTextInput table={table} />
@@ -237,5 +225,19 @@ export default function DataTable(props) {
     },
   })
 
-  return <MantineReactTable table={table} />
+  useEffect(() => {
+    setIsMounted(true)
+    return () => setIsMounted(false)
+  }, [])
+
+  return (
+    <>
+      {isMounted && (
+        <Box>
+          {' '}
+          <MantineReactTable table={table} /> <LoadingOverlay visible={!isMounted} zIndex={1000} overlayProps={{ radius: 'sm', blur: 2 }} />
+        </Box>
+      )}
+    </>
+  )
 }
