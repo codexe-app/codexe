@@ -24,6 +24,16 @@ a {
   background-color: #f8f8f2;
 }
 
+.MRT_GlobalFilterTextInput-module_collapse__v311d {
+  background-color: #f8f8f2;
+}
+
+[data-mantine-color-scheme='light'] .m_6c018570[data-variant='filled'] {
+  --input-bd: transparent;
+  --input-bg: var(--mantine-color-white);
+  --input-bd-focus: var(--mantine-primary-color-filled);
+}
+
 .navprogress {
   position:absolute;
   width: 100%;

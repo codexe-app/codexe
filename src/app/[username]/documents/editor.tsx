@@ -1,9 +1,8 @@
 'use client'
-import React, { useState, useCallback, useRef, useEffect } from 'react'
+import React, { useState, useCallback, useRef} from 'react'
 import { uploadData, getUrl } from 'aws-amplify/storage'
 import { useRouter } from 'next/navigation'
-import type { MilkdownRef } from '@/components/markdown'
-import { MarkdownEditor } from '@/components/markdown'
+import { MarkdownEditor, type MilkdownRef } from '@/components/markdown'
 import { CodemirrorRef } from '@/components/markdown/codemirror'
 import { ControlPanel } from '@/components/markdown/codeview'
 import { FeatureToggleProvider } from '@/components/markdown/FeatureToggleProvider'
@@ -46,6 +45,7 @@ import {
   Container,
   useMatches,
   Checkbox,
+  LoadingOverlay,
 } from '@mantine/core'
 import { IconUpload, IconMarkdown, IconTools, IconToolsOff, IconCode, IconDatabaseEdit, IconX, IconPhoto, IconDeviceFloppy } from '@tabler/icons-react'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
@@ -258,7 +258,7 @@ export default function Editor(props: any) {
     base: 'sm',
     sm: 'xs',
     lg: 'md',
-  });
+  })
 
   return (
     <Box className='prose'>
@@ -279,7 +279,7 @@ export default function Editor(props: any) {
             <Accordion.Item key='meta' value='meta'>
               <Container size='responsive'>
                 <AccordionControl style={{ paddingInline: 0 }} className='doctitle'>
-                  <Title ta='left' order={5} textWrap='nowrap' >
+                  <Title ta='left' order={5} textWrap='nowrap'>
                     {form.values.name}
                   </Title>
                 </AccordionControl>
