@@ -1,6 +1,6 @@
 'use client'
 import React, { Suspense, useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { generateClient } from 'aws-amplify/api'
 import { chatsByUserIdAndCreatedAt, messagesByChatIdAndCreatedAt } from '@/graphql/queries'
 import { deleteMessage, deleteChat } from '@/graphql/mutations'

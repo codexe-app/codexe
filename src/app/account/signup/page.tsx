@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { useState } from 'react'
 import { signUp, confirmSignUp, autoSignIn } from 'aws-amplify/auth'
 import { useForm } from '@mantine/form'

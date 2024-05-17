@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { BackgroundImage, Button, Text, Title, Group, Stack, Flex, Overlay } from '@mantine/core'
 import { IconHierarchy2, IconFiles, IconRocket } from '@tabler/icons-react'
 import APODcredit from './apod'
@@ -16,8 +16,9 @@ interface ImageData {
 export default async function StartCard(props: any) {
   const user = props.user
 
-  var image = await getData()
-  console.log(image)
+  var image: ImageData = { title: '', explanation: '', media_type: '', copyright: '', hdurl: '', url: '' }
+  image = await getData()
+  //console.log(image)
 
   if (image.media_type != 'image') {
     image = {
@@ -33,7 +34,7 @@ export default async function StartCard(props: any) {
   async function getData() {
     try {
       const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`, {
-        signal: AbortSignal.timeout(5000)
+        signal: AbortSignal.timeout(5000),
       })
       console.log(response)
       return response.json()

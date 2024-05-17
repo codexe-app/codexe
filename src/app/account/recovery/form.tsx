@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { confirmResetPassword, type ConfirmResetPasswordInput } from 'aws-amplify/auth'

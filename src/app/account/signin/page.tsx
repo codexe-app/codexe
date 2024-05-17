@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { useState, useEffect } from 'react'
 import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, Container, Box, Button, Alert } from '@mantine/core'
 import { useForm } from '@mantine/form'

@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { usePathname, useRouter } from 'next/navigation'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'

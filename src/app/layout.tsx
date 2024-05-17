@@ -1,11 +1,12 @@
 import '@mantine/core/styles.css'
 import React from 'react'
 import { cookies } from 'next/headers'
-import { MantineProvider, ColorSchemeScript, createTheme, rem } from '@mantine/core'
+import { MantineProvider, ColorSchemeScript, createTheme, rem, type MantineColorScheme, MantineColorShade, MantinePrimaryShade} from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import { PageStateProvider } from '@/utils/context'
+import { HandleOnComplete } from '@/utils/router-events';
 import { mononoki, dinpro } from '@/app/fonts'
 import { Roboto, Lexend } from 'next/font/google'
 import { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula } from '@/app/colors'
@@ -34,10 +35,33 @@ const lexend = Lexend({
 
 const colours = { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula }
 
+export type ThemeOptions = {
+  config?: string,
+  palette?: string,
+  primary?: string,
+  font?: string ,
+  heading?: string,
+  mono?: string,
+}
+
+export type CodexeTheme = {
+  colorScheme: MantineColorScheme,
+  white: string,
+  black: string,
+  primaryColor: string,
+  primaryShade: {}
+  colors: {},
+}
+
 export default function RootLayout({ children }: { children: any }) {
   const cookieStore = cookies()
-  var storedtheme = []
-  var usertheme = []
+  var storedtheme: ThemeOptions = { 
+    palette: 'nord',
+    font: 'var(--font-dinpro)',
+    heading: 'var(--font-dinpro)',
+    mono: 'var(--font-mononoki)'
+  }  
+  var usertheme: CodexeTheme = nord
   const hasCookie = cookieStore.has('theme')
   if (hasCookie) {
     var stored = cookieStore.get('theme')
@@ -46,9 +70,7 @@ export default function RootLayout({ children }: { children: any }) {
     //@ts-ignore
     usertheme = colours[storedtheme.palette]
   } else {
-    //@ts-ignore
-    usertheme = tachyon
-    storedtheme = [{ palette: 'tachyon', font: 'var(--font-dinpro)', heading: 'var(--font-dinpro)', mono: 'var(--font-mononoki)' }]
+    console.log(`NO COOKIE, default theme loaded`)
   }
 
   const theme = createTheme({
@@ -58,7 +80,6 @@ export default function RootLayout({ children }: { children: any }) {
     black: usertheme.black,
     primaryColor: usertheme.primaryColor,
     primaryShade: usertheme.primaryShade,
-    //@ts-ignore
     colors: usertheme.colors,
     defaultGradient: {
       from: 'primary.3',
@@ -99,6 +120,7 @@ export default function RootLayout({ children }: { children: any }) {
               {children}
               <Notifications />
             </PageStateProvider>
+            <HandleOnComplete />
           </ModalsProvider>
         </MantineProvider>
       </body>

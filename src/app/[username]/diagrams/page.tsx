@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { cookieBasedClient } from '@/utils/cookiebasedclient'
 import { listDiagrams } from '@/graphql/queries'
 import { Title, Container, Flex, Button } from '@mantine/core'

@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { ActionIcon, Avatar, Card, Flex, Group, Menu, Space, Text, Title } from '@mantine/core'
 import { IconDots, IconEdit } from '@tabler/icons-react'
 

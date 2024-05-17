@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { AppShell, Group, Button } from '@mantine/core'
 import { HorizontalLogo } from '@/app/logo'
 

@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { useState, useEffect } from 'react'
 import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
 import './documents.css'

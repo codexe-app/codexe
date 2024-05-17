@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
 import { Title, Text, Button, Container, BackgroundImage, Flex, Stack } from '@mantine/core'
 import Shell from '@/app/shell'
 import classes from './page.module.css'

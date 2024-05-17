@@ -1,5 +1,7 @@
+import { MantineColorScheme } from '@mantine/core';
+
 export const tachyon = {
-  colorScheme: 'light',
+  colorScheme: 'light' as MantineColorScheme,
   white: '#ECEFF4',
   black: '#2E3440',
   primaryColor: 'indigo',
@@ -16,7 +18,7 @@ export const tachyon = {
 }
 
 export const nord = {
-  colorScheme: 'light',
+  colorScheme: 'light' as MantineColorScheme,
   white: '#ECEFF4',
   black: '#3B4252',
   primaryColor: 'frost',
@@ -36,7 +38,7 @@ export const nord = {
 }
 
 export const moonlight = {
-  colorScheme: 'dark',
+  colorScheme: 'dark' as MantineColorScheme,
   white: '#e4f3fa',
   black: '#1B1E2B',
   primaryColor: 'gray',
@@ -54,7 +56,7 @@ export const moonlight = {
 }
 
 export const bumblebee = {
-  colorScheme: 'light',
+  colorScheme: 'light' as MantineColorScheme,
   black: '#1f2937',
   white: '#ffffff',
   primaryColor: 'neutral',
@@ -73,7 +75,7 @@ export const bumblebee = {
 }
 
 export const cupcake = {
-  colorScheme: 'light',
+  colorScheme: 'light' as MantineColorScheme,
   white: '#faf7f5',
   black: '#291334',
   primaryColor: 'neutral',
@@ -91,7 +93,7 @@ export const cupcake = {
 }
 
 export const synthwave = {
-  colorScheme: 'dark',
+  colorScheme: 'dark' as MantineColorScheme,
   black: '#2d1b69',
   white: '#f9f7fd',
   primaryColor: 'neutral',
@@ -110,7 +112,7 @@ export const synthwave = {
 }
 
 export const retro = {
-  colorScheme: 'light',
+  colorScheme: 'light' as MantineColorScheme,
   white: '#e4d8b4',
   black: '#282425',
   primaryColor: 'neutral',
@@ -128,7 +130,7 @@ export const retro = {
 }
 
 export const dracula = {
-  colorScheme: 'dark',
+  colorScheme: 'dark' as MantineColorScheme,
   black: '#282a36',
   white: '#f8f8f2',
   primaryShade: 5,

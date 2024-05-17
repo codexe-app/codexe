@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Link } from '@/utils/router-events'
-import { nprogress } from '@mantine/nprogress';
+import { nprogress } from '@mantine/nprogress'
 import { NavigationProgress } from '@mantine/nprogress'
 import { generateClient } from 'aws-amplify/api'
 import { getUser, listSpotlights } from '@/graphql/queries'
@@ -11,7 +11,7 @@ import { getCurrentUser, signOut } from 'aws-amplify/auth'
 import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
 import { useDisclosure } from '@mantine/hooks'
 import ChatBot from '@/components/chatbot'
-import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem,useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
+import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
 import { IconRosette, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
 import { nanoid } from 'nanoid'
@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: any }) {
     updatedAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
     __typename: 'Chat',
   })
-  const [spotlist, setSpotlist] =useState<SpotlightEntry[]>()
+  const [spotlist, setSpotlist] = useState<SpotlightEntry[]>()
   const [theuser, setTheuser] = useState<User>()
   const router = useRouter()
   const [nav, setNav] = useState(false)
@@ -89,7 +89,7 @@ export default function Layout({ children }: { children: any }) {
           listSpotlights: { items: SpotlightEntry[] }
         }
       }
-      const thespotlist =response.data.listSpotlights.items
+      const thespotlist = response.data.listSpotlights.items
       setSpotlist(thespotlist)
       console.log(`Dashboard layout thespotlist :`, thespotlist)
     } catch (error) {
@@ -111,7 +111,7 @@ export default function Layout({ children }: { children: any }) {
   return (
     <AppShell header={{ height: 48 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: !nav, mobile: !nav } }}>
       <AppShell.Header>
-      <NavigationProgress size={48} withinPortal={false} zIndex={201} className='navprogress' color='rgba(0,0,0,.1)'/>
+        <NavigationProgress size={48} withinPortal={false} zIndex={201} className='navprogress' color='rgba(0,0,0,.1)' />
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
             <Link href='/' className='navlogo'>
@@ -155,7 +155,7 @@ export default function Layout({ children }: { children: any }) {
                     Diagrams
                   </Menu.Item>
                   <Menu.Divider />
-                  <Menu.Label>Toggle</Menu.Label> 
+                  <Menu.Label>Toggle</Menu.Label>
                   <Menu.Item color='green' leftSection={checked ? <IconMoon style={{ width: rem(14), height: rem(14) }} /> : <IconSun style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
                     Scheme
                   </Menu.Item>

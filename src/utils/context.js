@@ -1,8 +1,6 @@
 'use client';
 import { createContext, useState } from 'react';
 
-export const HomeLoc = createContext();
-
 export const PageState = createContext();
 
 export function PageStateProvider({ children }) {
