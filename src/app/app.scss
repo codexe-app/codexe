@@ -20,6 +20,21 @@ a {
   max-width: 80px;
 }
 
+#mantine-kk9zevk4q {
+  background-color: #f8f8f2;
+}
+
+.navprogress {
+  position:absolute;
+  width: 100%;
+  background-color: transparent;
+}
+
+.navlogo {
+  line-height: 1;
+  z-index: 201;
+}
+
 .mantine-Paper-root {
   @include light {
     background-color: var(--mantine-color-gray-0);

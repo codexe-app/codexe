@@ -1,10 +1,11 @@
 import '@mantine/core/styles.css'
 import React from 'react'
 import { cookies } from 'next/headers'
-import { MantineProvider, ColorSchemeScript, createTheme, virtualColor, MantineColorsTuple, rem } from '@mantine/core'
+import { MantineProvider, ColorSchemeScript, createTheme, rem } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
+import { PageStateProvider } from '@/utils/context'
 import { mononoki, dinpro } from '@/app/fonts'
 import { Roboto, Lexend } from 'next/font/google'
 import { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula } from '@/app/colors'
@@ -94,8 +95,10 @@ export default function RootLayout({ children }: { children: any }) {
         <ColorSchemeScript defaultColorScheme={usertheme.colorScheme} />
         <MantineProvider theme={theme} defaultColorScheme={usertheme.colorScheme}>
           <ModalsProvider>
-            {children}
-            <Notifications />
+            <PageStateProvider>
+              {children}
+              <Notifications />
+            </PageStateProvider>
           </ModalsProvider>
         </MantineProvider>
       </body>

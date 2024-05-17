@@ -1,6 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
+import { Link } from '@/utils/router-events'
+import { nprogress } from '@mantine/nprogress';
+import { NavigationProgress } from '@mantine/nprogress'
 import { generateClient } from 'aws-amplify/api'
 import { getUser, listSpotlights } from '@/graphql/queries'
 import type { User, Spotlight as SpotlightEntry } from '@/graphql/API'
@@ -109,9 +111,10 @@ export default function Layout({ children }: { children: any }) {
   return (
     <AppShell header={{ height: 48 }} navbar={{ width: 200, breakpoint: 'sm', collapsed: { desktop: !nav, mobile: !nav } }}>
       <AppShell.Header>
+      <NavigationProgress size={48} withinPortal={false} zIndex={201} className='navprogress' color='rgba(0,0,0,.1)'/>
         <Group h='100%' px='sm'>
           <Group justify='space-between' style={{ flex: 1 }}>
-            <Link href='/' style={{ lineHeight: 1 }}>
+            <Link href='/' className='navlogo'>
               <HorizontalLogo size={32} color='var(--mantine-primary-color-filled)' />
             </Link>
             <Group ml='xl' gap='xs'>
