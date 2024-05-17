@@ -38,13 +38,7 @@ export default function RecentActivity(props: any) {
         </Tabs.Panel>
         <Tabs.Panel value='table'>
           <DocumentsTable data={data} />
-        </Tabs.Panel>{' '}
-        <Group justify='end' wrap='nowrap' gap='xs' mt='xs' mr='xs'>
-          <IconTableShortcut color='var(--mantine-primary-color-filled)' />
-          <Title order={5} c='var(--mantine-primary-color-filled)' component={Link} href={`/${user.username}/documents`} td='none'>
-            View All
-          </Title>
-        </Group>
+        </Tabs.Panel>
       </Tabs>
     </Paper>
   )

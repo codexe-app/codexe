@@ -3,22 +3,12 @@ import Link from 'next/link'
 import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
 import './documents.css'
 import { useMemo } from 'react'
-import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFiltersButton } from 'mantine-react-table'
+import { MantineReactTable, useMantineReactTable} from 'mantine-react-table'
 import { ActionIcon, Group, Stack, Box, Button, Flex, Menu, Text, Title, Avatar, Badge, ScrollArea } from '@mantine/core'
 import { IconEdit, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconDots, IconSend, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 
-export type Employee = {
-  firstName: string
-  lastName: string
-  email: string
-  jobTitle: string
-  salary: number
-  startDate: string
-  signatureCatchPhrase: string
-  avatar: string
-}
 
-export default function DataTable(props: any) {
+export default function DataTable(props) {
   const { data } = props
   const columns = useMemo<MRT_ColumnDef<Document>[]>(
     () => [
@@ -101,14 +91,14 @@ export default function DataTable(props: any) {
         //custom conditional format and styling
         Cell: ({ cell, row }) => (
           <Box>
-            {cell.getValue<string>() == 'draft' ? (
+            {cell.getValue == 'draft' ? (
               <Badge>draft</Badge>
-            ) : cell.getValue<string>() == 'live' ? (
+            ) : cell.getValue == 'live' ? (
               <Badge>live</Badge>
-            ) : cell.getValue<string>() == 'private' ? (
+            ) : cell.getValue == 'private' ? (
               <Badge>private</Badge>
             ) : (
-              cell.getValue<string>() == 'archive' && <Badge>archive</Badge>
+              cell.getValue == 'archive' && <Badge>archive</Badge>
             )}
           </Box>
         ),
@@ -127,7 +117,7 @@ export default function DataTable(props: any) {
         sortingFn: 'datetime',
         enableEditing: false,
         enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
-        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(), //render Date as a string
+        Cell: ({ cell }) => cell.getValue?.toLocaleDateString(), //render Date as a string
         Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
       },
       {
@@ -144,7 +134,7 @@ export default function DataTable(props: any) {
         sortingFn: 'datetime',
         enableEditing: false,
         enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
-        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(), //render Date as a string
+        Cell: ({ cell }) => cell.getValue?.toLocaleDateString(), //render Date as a string
         Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
       },
     ],
@@ -152,7 +142,6 @@ export default function DataTable(props: any) {
   )
 
   const table = useMantineReactTable({
-    //@ts-ignore
     columns,
     data, //must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
     enableColumnFilterModes: true,
