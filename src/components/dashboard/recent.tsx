@@ -1,25 +1,28 @@
 'use client'
+import Link from 'next/link'
 import { Paper, Group, Title, Tabs, rem, useMatches } from '@mantine/core'
-import { IconCarouselHorizontal, IconListDetails, IconClock } from '@tabler/icons-react'
+import { IconCarouselHorizontal, IconListDetails, IconClock,IconTableShortcut } from '@tabler/icons-react'
 import DocumentsTable from './table'
 import RecentCarousel from './carousel'
 import classes from './dash.module.scss'
 
 export default function RecentActivity(props: any) {
-  const { data } = props
+  const { data, user } = props
   const iconStyle = { width: rem(18), height: rem(18) }
   const sizeme = useMatches({
     base: 'sm',
     sm: 'xs',
     lg: 'md',
-  });
+  })
   return (
     <Paper withBorder p={sizeme}>
       <Tabs defaultValue='carousel' classNames={classes}>
         <Tabs.List justify='space-between' mb='xs'>
           <Group justify='start' wrap='nowrap' gap='xs'>
             <IconClock color='var(--mantine-primary-color-filled)' />
-            <Title order={5} c='var(--mantine-primary-color-filled)'>Recent Activity</Title>
+            <Title order={5} c='var(--mantine-primary-color-filled)'>
+              Recent Activity
+            </Title>
           </Group>
           <Group gap={0} mb={0}>
             <Tabs.Tab value='carousel'>
@@ -35,7 +38,13 @@ export default function RecentActivity(props: any) {
         </Tabs.Panel>
         <Tabs.Panel value='table'>
           <DocumentsTable data={data} />
-        </Tabs.Panel>
+        </Tabs.Panel>{' '}
+        <Group justify='end' wrap='nowrap' gap='xs' mt='xs' mr='xs'>
+          <IconTableShortcut color='var(--mantine-primary-color-filled)' />
+          <Title order={5} c='var(--mantine-primary-color-filled)' component={Link} href={`/${user.username}/documents`} td='none'>
+            View All
+          </Title>
+        </Group>
       </Tabs>
     </Paper>
   )

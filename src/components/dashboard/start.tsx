@@ -60,7 +60,7 @@ export default async function StartCard(props: any) {
           <Button rightSection={<IconFiles size={14} />} component={Link} href={`/${user.username}/documents/new`}>
             New Document
           </Button>
-          <Button rightSection={<IconHierarchy2 size={14} />} component={Link} href={`/${user.username}/diagrams/new`}>
+          <Button color='var(--mantine-primary-color-4)' rightSection={<IconHierarchy2 size={14} />} component={Link} href={`/${user.username}/diagrams/new`}>
             New Diagram
           </Button>
         </Group>

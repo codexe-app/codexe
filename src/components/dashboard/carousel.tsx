@@ -46,12 +46,12 @@ export default function RecentCarousel(props: any) {
         <Carousel.Slide key={item.id}>
           <Card withBorder h={280}>
             <Card.Section pos='relative'>
-            <Group pos='absolute' justify='space-between' wrap='nowrap' w='100%'>
+              <Group pos='absolute' justify='space-between' wrap='nowrap' w='100%'>
                 <Badge radius='xs'>{item.__typename}</Badge>
-                <Badge radius='xs'>{item.status}</Badge>
+                <Badge color='var(--mantine-primary-color-4)'  radius='xs'>{item.status}</Badge>
               </Group>
-            <AspectRatio ratio={16 / 9}>
-              <Image src={item.graphic.url} />
+              <AspectRatio ratio={16 / 9}>
+                <Image src={item.graphic.url} />
               </AspectRatio>
             </Card.Section>
             <Card.Section>
@@ -71,9 +71,9 @@ export default function RecentCarousel(props: any) {
             </Card.Section>
             <Card.Section flex={1}>
               <Flex align='start' p='xs'>
-              <Text fz='xs' lh={1.25} c='gray.6'>
-                {item.description}
-              </Text>
+                <Text fz='xs' lh={1.25} c='gray.6'>
+                  {item.description}
+                </Text>
               </Flex>
             </Card.Section>
             <Card.Section>
@@ -81,7 +81,7 @@ export default function RecentCarousel(props: any) {
                 <ActionIcon.Group>
                   <ActionIcon
                     variant='outline'
-                    color='var(--mantine-color-red-4)'
+                    color='orange'
                     onClick={() => {
                       modals.openConfirmModal({
                         title: (
@@ -99,11 +99,12 @@ export default function RecentCarousel(props: any) {
                     }}>
                     <IconTrash style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
                   </ActionIcon>
-                  <ActionIcon variant='outline' color='var(--mantine-primary-color-6)' component={Link} href={`${pathname}/${getPath(item.__typename)}/${item.slug}`}>
+                  <ActionIcon variant='outline' color='var(--mantine-primary-color-4)' component={Link} href={`${pathname}/${getPath(item.__typename)}/${item.slug}`}>
                     <IconPencil style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
                   </ActionIcon>
                   <ActionIcon
                     variant='outline'
+                    color='purple'
                     onClick={() => {
                       modals.open({
                         title: `${item.name} - ${item.updatedAt}`,
