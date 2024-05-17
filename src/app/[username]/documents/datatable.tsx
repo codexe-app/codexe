@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/Link'
+import Link from 'next/link'
 import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
 import './documents.css'
 import { useMemo } from 'react'
@@ -152,6 +152,7 @@ export default function DataTable(props: any) {
   )
 
   const table = useMantineReactTable({
+    //@ts-ignore
     columns,
     data, //must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
     enableColumnFilterModes: true,
