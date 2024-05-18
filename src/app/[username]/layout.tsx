@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Link } from '@/utils/router-events'
-import { nprogress } from '@mantine/nprogress'
 import { NavigationProgress } from '@mantine/nprogress'
 import { generateClient } from 'aws-amplify/api'
 import { getUser, listSpotlights } from '@/graphql/queries'
@@ -12,7 +11,7 @@ import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
 import { useDisclosure } from '@mantine/hooks'
 import ChatBot from '@/components/chatbot'
 import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
-import { IconRosette, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
+import { IconRosette, IconComponents, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
@@ -153,6 +152,9 @@ export default function Layout({ children }: { children: any }) {
                   </Menu.Item>
                   <Menu.Item leftSection={<IconHierarchy2 style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${theuser?.username}/diagrams`}>
                     Diagrams
+                  </Menu.Item>
+                  <Menu.Item leftSection={<IconComponents style={{ width: rem(14), height: rem(14) }} />} component={Link} href={`/${theuser?.username}/topics`}>
+                    Topics
                   </Menu.Item>
                   <Menu.Divider />
                   <Menu.Label>Toggle</Menu.Label>

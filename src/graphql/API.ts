@@ -3422,6 +3422,7 @@ export type ListDocumentsQuery = {
       pinned?: boolean | null,
       public?: boolean | null,
       icon?: string | null,
+      topic?: Topic | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,

@@ -3,6 +3,7 @@ import { Container } from '@mantine/core'
 import { listUsers } from '@/graphql/queries'
 import type { User } from '@/graphql/API'
 import Dashboard from '@/components/dashboard'
+import { createCookie } from '@/app/actions'
 
 var _ = require('lodash')
 
@@ -27,6 +28,7 @@ export default async function Page({ params }: { params: { username: string } })
   const user = response.data.listUsers.items[0]
   const documents = user?.documents?.items
   const diagrams = user?.diagrams?.items
+  createCookie('theme', JSON.stringify(user.theme))
   //@ts-ignore
   const everything = documents?.concat(diagrams)
   const sorteverything = _.orderBy(everything, ['updatedAt'], ['desc'])

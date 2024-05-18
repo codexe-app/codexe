@@ -1,7 +1,7 @@
 'use client'
 import { Link } from '@/utils/router-events'
 import { useState, useEffect } from 'react'
-import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, Container, Box, Button, Alert } from '@mantine/core'
+import { TextInput, PasswordInput, Anchor, Stack, Paper, Title, Text, BackgroundImage, Container, Box, Button, Alert } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { useRouter } from 'next/navigation'
@@ -51,7 +51,6 @@ export default function Page() {
     toggle
   }
 
-
   useEffect(() => {
     currentAuthenticatedUser()
   }, [signedin])
@@ -85,57 +84,59 @@ export default function Page() {
   }
 
   return (
-    <Container size='responsive'>
-      <Box mb='xl'>
-        <Title ta='center' order={2}>
-          Welcome back
-        </Title>
-        <Text c='dimmed' size='sm' ta='center' mt={5}>
-          Need to create an account?&nbsp;
-          <Anchor size='sm' component={Link} href='/account/signup'>
-            Sign Up
-          </Anchor>
-        </Text>
-      </Box>
-      <Container size={420} my={40}>
-        <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
-          <form
-            onSubmit={login.onSubmit(
-              (values, event) => {
-                handleSignIn(values)
-              },
-              (validationErrors, values, event) => {
-                console.log(
-                  validationErrors, // <- form.errors at the moment of submit
-                  values, // <- form.getValues() at the moment of submit
-                  event // <- form element submit event
-                )
-              }
-            )}>
-            <Stack>
-              <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
-              <PasswordInput label='Password' placeholder='password' required {...login.getInputProps('password')} />
-              <Text c='dimmed' size='md' ta='center' mt='md'>
-                Forgot your password?
-              </Text>
-              <Text c='dimmed' size='sm' ta='center'>
-                Enter your username, then&nbsp;
-                <Anchor size='sm' onClick={handleResetPassword}>
-                  Reset
-                </Anchor>
-              </Text>
-              {apierror.active ? (
-                <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
-                  {apierror.message}
-                </Alert>
-              ) : null}
-              <Button fullWidth mt='xl' type='submit' loading={loading}>
-                Sign In
-              </Button>
-            </Stack>
-          </form>
-        </Paper>
-      </Container>
+    <Container size='responsive' p={0}>
+      <BackgroundImage src='/dots.svg' h='calc(100vh - 48px)'>
+        <Box mb='xl'>
+          <Title ta='center' order={2}>
+            Welcome back
+          </Title>
+          <Text c='dimmed' size='sm' ta='center' mt={5}>
+            Need to create an account?&nbsp;
+            <Anchor size='sm' component={Link} href='/account/signup'>
+              Sign Up
+            </Anchor>
+          </Text>
+        </Box>
+        <Container size={420} my={40}>
+          <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
+            <form
+              onSubmit={login.onSubmit(
+                (values, event) => {
+                  handleSignIn(values)
+                },
+                (validationErrors, values, event) => {
+                  console.log(
+                    validationErrors, // <- form.errors at the moment of submit
+                    values, // <- form.getValues() at the moment of submit
+                    event // <- form element submit event
+                  )
+                }
+              )}>
+              <Stack>
+                <TextInput label='Username' placeholder='username' required {...login.getInputProps('username')} />
+                <PasswordInput label='Password' placeholder='password' required {...login.getInputProps('password')} />
+                <Text c='dimmed' size='md' ta='center' mt='md'>
+                  Forgot your password?
+                </Text>
+                <Text c='dimmed' size='sm' ta='center'>
+                  Enter your username, then&nbsp;
+                  <Anchor size='sm' onClick={handleResetPassword}>
+                    Reset
+                  </Anchor>
+                </Text>
+                {apierror.active ? (
+                  <Alert variant='light' color='red' icon={<IconAlertCircle />} title={apierror.code}>
+                    {apierror.message}
+                  </Alert>
+                ) : null}
+                <Button fullWidth mt='xl' type='submit' loading={loading}>
+                  Sign In
+                </Button>
+              </Stack>
+            </form>
+          </Paper>
+        </Container>
+      </BackgroundImage>
     </Container>
   )
 }

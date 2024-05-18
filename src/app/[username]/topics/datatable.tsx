@@ -7,21 +7,21 @@ import * as mutations from '@/graphql/mutations'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
-import './documents.css'
+import './topics.css'
 import { useMemo } from 'react'
 import { MantineReactTable, useMantineReactTable, type MRT_TableOptions, MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFiltersButton } from 'mantine-react-table'
 import { ActionIcon, Group, Stack, Box, Code, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, ScrollArea, Text } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
-import { type Document } from '@/graphql/API'
 import CopytoClipboard from '@/components/clipboard'
-import { IconEdit, IconEye, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconDots, IconAlertCircle, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
+import { type Document } from '@/graphql/API'
+import { IconEdit, IconEye, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconComponents, IconAlertCircle, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 import NextBreadcrumb from '@/components/breadcrumb'
 
 var _ = require('lodash')
 
 export default function DataTable(props: any) {
-  console.log(`datatable props : `, props)
+  //console.log(`datatable props : `, props)
   const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({})
   const client = generateClient()
   const pathname = usePathname()
@@ -66,42 +66,6 @@ export default function DataTable(props: any) {
         ),
       },
       {
-        accessorKey: 'topicId',
-        header: 'Topic',
-        size: 120,
-        editVariant: 'select',
-        mantineEditSelectProps: {
-          data: [
-            {
-              value: '',
-              label: 'No Topic',
-            },
-            {
-              value: '63410a6f-0500-40bc-b25a-daf64f63eede',
-              label: 'Codexe',
-            },
-            {
-              value: 'e494bb87-978c-47e6-a001-3826ebc0be7f',
-              label: 'Misc',
-            },
-          ],
-        },
-        //custom conditional format and styling
-        Cell: ({ renderedCellValue, row }) => (
-          <Stack gap={0}>
-            <Title order={6} lh={1}>
-              {row.original?.topic?.name}
-            </Title>
-            <Group wrap='nowrap' gap={0}>
-              <Code c='dimmed' h={20} py={0} pl={0} w={120}>
-                {renderedCellValue}
-              </Code>
-              {renderedCellValue  && <CopytoClipboard clipboard={renderedCellValue} /> }
-            </Group>
-          </Stack>
-        ),
-      },
-      {
         accessorKey: 'slug', //hey a simple column for once
         header: 'Slug',
       },
@@ -109,12 +73,6 @@ export default function DataTable(props: any) {
         accessorKey: 'description', //hey a simple column for once
         header: 'Description',
         size: 350,
-      },
-      {
-        accessorKey: 'content', //hey a simple column for once
-        header: 'Content',
-        size:220,
-        Cell: ({ renderedCellValue, row }) => <ScrollArea mah={40}>{renderedCellValue}</ScrollArea>,
       },
       {
         accessorKey: 'status',
@@ -196,31 +154,13 @@ export default function DataTable(props: any) {
         accessorKey: 'graphic.url', //hey a simple column for once
         header: 'Graphic URL',
         enableEditing: true,
-        enableResizing: true,
-        width: 180,
-        Cell: ({ renderedCellValue, row }) => (
-          <Group wrap='nowrap' gap={0}>
-            <Code c='dimmed' h={20} py={0} pl={0} w={120}>
-              {renderedCellValue}
-            </Code>
-            <CopytoClipboard clipboard={renderedCellValue} />
-          </Group>
-        ),
+        enableClickToCopy: true,
       },
       {
         accessorKey: 'graphic.thumbnail', //hey a simple column for once
         header: 'Thumbnail',
         enableEditing: true,
-        enableResizing: true,
-        width: 180,
-        Cell: ({ renderedCellValue, row }) => (
-          <Group wrap='nowrap' gap={0}>
-            <Code c='dimmed' h={20} py={0} pl={0} w={120}>
-              {renderedCellValue}
-            </Code>
-            <CopytoClipboard clipboard={renderedCellValue} />
-          </Group>
-        ),
+        enableClickToCopy: true,
       },
       {
         accessorKey: 'id', //hey a simple column for once
@@ -255,7 +195,6 @@ export default function DataTable(props: any) {
     enableColumnFilterModes: true,
     enableColumnOrdering: false,
     enableColumnDragging: false,
-    enableColumnResizing: true,
     enableFacetedValues: true,
     enableGrouping: false,
     enableColumnPinning: true,
@@ -301,13 +240,10 @@ export default function DataTable(props: any) {
     ),
     renderRowActionMenuItems: ({ row }) => (
       <>
-        <Menu.Item leftSection={<IconEdit />} onClick={() => table.setEditingRow(row)}>
+        <Menu.Item color='green' leftSection={<IconEdit />} onClick={() => table.setEditingRow(row)}>
           <Text fw='600' size='sm'>
             Inline Edit
           </Text>
-        </Menu.Item>
-        <Menu.Item leftSection={<IconExternalLink />} component={Link} href={`./documents/${row.original.slug}`}>
-          Full Page Edit
         </Menu.Item>
         <Menu.Item
           leftSection={<IconEye />}
@@ -327,6 +263,9 @@ export default function DataTable(props: any) {
           <Text fw='600' size='sm'>
             Quick View
           </Text>
+        </Menu.Item>
+        <Menu.Item color='green' leftSection={<IconExternalLink />} component={Link} href={`./documents/${row.original.slug}`}>
+          Full Page Edit
         </Menu.Item>
         <Menu.Item
           leftSection={<IconTrash />}

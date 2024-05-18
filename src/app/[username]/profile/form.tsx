@@ -66,7 +66,7 @@ export default function UserForm(props: any) {
     { mode: 'LIGHT', primary: '#83785d', text: '#282425', body: '#e4d8b4', anchor: '#83785d', value: 'retro', description: 'Retro' },
     { mode: 'DARK', primary: '#211452', text: '#785cd6', body: '#382182', anchor: '#222244', value: 'synthwave', description: 'Synthwave' },
     { mode: 'DARK', primary: '#5769c7', text: '#7476aa', body: '#363859', anchor: '#94a0db', value: 'moonlight', description: 'Moonlight' },
-    { mode: 'DARK', primary: '#', text: '#', body: '#', anchor: '#', value: 'dracula', description: 'Dracula' },
+    { mode: 'DARK', primary: '#ff79c6', text: '#c9c9c9', body: '#242424', anchor: '#ff98d3', value: 'dracula', description: 'Dracula' },
   ]
 
   const fontlist = [

@@ -181,8 +181,19 @@ type User @model @auth(rules: [{ allow: public }]) {
   chats: [Chat] @hasMany(indexName: "byUser", fields: ["id"])
   documents: [Document] @hasMany(indexName: "byUser", fields: ["id"])
   diagrams: [Diagram] @hasMany(indexName: "byUser", fields: ["id"])
+  feeds: [Feed] @hasMany(indexName: "byUser", fields: ["id"])
   spotlightId: ID
 }
+
+type Feed @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String
+  url: String
+  status: String
+  user: User @belongsTo(fields: ["userId"])
+  userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
+}
+
 
 type Spotlight @model @auth(rules: [{ allow: public }]) {
   id: ID!

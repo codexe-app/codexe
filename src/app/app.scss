@@ -9,7 +9,8 @@ h6 {
 
 a {
   color: var(--mantine-primary-color-filled);
-  font-weight: 600 !important;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .react-flow {
