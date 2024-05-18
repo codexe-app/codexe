@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: { username: string } })
   const user = response.data.listUsers.items[0]
   const documents = user?.documents?.items
   const diagrams = user?.diagrams?.items
-  createCookie('theme', JSON.stringify(user.theme))
+  //createCookie('theme', JSON.stringify(user.theme))
   //@ts-ignore
   const everything = documents?.concat(diagrams)
   const sorteverything = _.orderBy(everything, ['updatedAt'], ['desc'])
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { username: string } })
   pinned = pinned[0]
 
   return (
-    <Container size='responsive'>
+    <Container size='responsive' pb='xl'>
       <Dashboard user={user} data={sorteverything} carousel={carousel} pinned={pinned}/>
     </Container>
   )

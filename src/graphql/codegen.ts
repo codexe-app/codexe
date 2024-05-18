@@ -761,6 +761,10 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       nextToken
       __typename
     }
+    feeds {
+      nextToken
+      __typename
+    }
     spotlightId
     createdAt
     updatedAt
@@ -792,6 +796,53 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+export const getFeed = /* GraphQL */ `query GetFeed($id: ID!) {
+  getFeed(id: $id) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetFeedQueryVariables, APITypes.GetFeedQuery>;
+export const listFeeds = /* GraphQL */ `query ListFeeds(
+  $filter: ModelFeedFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFeeds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      url
+      status
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListFeedsQueryVariables, APITypes.ListFeedsQuery>;
 export const getSpotlight = /* GraphQL */ `query GetSpotlight($id: ID!) {
   getSpotlight(id: $id) {
     id
@@ -1281,4 +1332,38 @@ export const messagesByChatIdAndCreatedAt = /* GraphQL */ `query MessagesByChatI
 ` as GeneratedQuery<
   APITypes.MessagesByChatIdAndCreatedAtQueryVariables,
   APITypes.MessagesByChatIdAndCreatedAtQuery
+>;
+export const feedsByUserIdAndCreatedAt = /* GraphQL */ `query FeedsByUserIdAndCreatedAt(
+  $userId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelFeedFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  feedsByUserIdAndCreatedAt(
+    userId: $userId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      url
+      status
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.FeedsByUserIdAndCreatedAtQueryVariables,
+  APITypes.FeedsByUserIdAndCreatedAtQuery
 >;

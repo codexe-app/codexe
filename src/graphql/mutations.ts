@@ -1546,6 +1546,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
+    feeds {
+      nextToken
+      __typename
+    }
     spotlightId
     createdAt
     updatedAt
@@ -1597,6 +1601,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       __typename
     }
     diagrams {
+      nextToken
+      __typename
+    }
+    feeds {
       nextToken
       __typename
     }
@@ -1654,6 +1662,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       nextToken
       __typename
     }
+    feeds {
+      nextToken
+      __typename
+    }
     spotlightId
     createdAt
     updatedAt
@@ -1663,6 +1675,102 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
 ` as GeneratedMutation<
   APITypes.DeleteUserMutationVariables,
   APITypes.DeleteUserMutation
+>;
+export const createFeed = /* GraphQL */ `mutation CreateFeed(
+  $input: CreateFeedInput!
+  $condition: ModelFeedConditionInput
+) {
+  createFeed(input: $input, condition: $condition) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateFeedMutationVariables,
+  APITypes.CreateFeedMutation
+>;
+export const updateFeed = /* GraphQL */ `mutation UpdateFeed(
+  $input: UpdateFeedInput!
+  $condition: ModelFeedConditionInput
+) {
+  updateFeed(input: $input, condition: $condition) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateFeedMutationVariables,
+  APITypes.UpdateFeedMutation
+>;
+export const deleteFeed = /* GraphQL */ `mutation DeleteFeed(
+  $input: DeleteFeedInput!
+  $condition: ModelFeedConditionInput
+) {
+  deleteFeed(input: $input, condition: $condition) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteFeedMutationVariables,
+  APITypes.DeleteFeedMutation
 >;
 export const createSpotlight = /* GraphQL */ `mutation CreateSpotlight(
   $input: CreateSpotlightInput!

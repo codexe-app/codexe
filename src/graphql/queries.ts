@@ -1352,6 +1352,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     username
+    icon
     avatar {
       alt
       title
@@ -1374,6 +1375,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       font
       heading
       mono
+      __typename
     }
     chats {
       items {
@@ -1384,99 +1386,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         content
         status
         pinned
-        graphic {
-          alt
-          title
-          caption
-          description
-          url
-          key
-          source
-          thumbnail
-          __typename
-        }
-        path
-        sharePath
-        topic {
-          id
-          name
-          slug
-          description
-          content
-          status
-          pinned
-          graphic {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          diagrams {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          documents {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          chats {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        topicId
+        icon
         messages {
           items {
             id
@@ -1486,33 +1396,14 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
             data
             functioncall
             name
-            chat {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
             chatId
             createdAt
+            spotlightId
             updatedAt
-            __typename
           }
           nextToken
           __typename
         }
-        createdAt
-        updatedAt
-        __typename
       }
       nextToken
       __typename
@@ -1523,9 +1414,12 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         name
         slug
         description
+        source
         content
         status
         pinned
+        public
+        icon
         graphic {
           alt
           title
@@ -1535,7 +1429,6 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           key
           source
           thumbnail
-          __typename
         }
         topic {
           id
@@ -1545,411 +1438,25 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           content
           status
           pinned
-          graphic {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          diagrams {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          documents {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          chats {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
+          icon
           createdAt
+          spotlightId
           updatedAt
-          __typename
         }
         topicId
-        userId
-        createdAt
-        updatedAt
-        __typename
       }
       nextToken
       __typename
     }
     diagrams {
-      items {
-        id
-        name
-        slug
-        description
-        content
-        status
-        pinned
-        graphic {
-          alt
-          title
-          caption
-          description
-          url
-          key
-          source
-          thumbnail
-          __typename
-        }
-        nodes {
-          items {
-            id
-            position {
-              x
-              y
-              __typename
-            }
-            measured {
-              width
-              height
-              __typename
-            }
-            data {
-              label
-              __typename
-            }
-            type
-            sourcePosition
-            targetPosition
-            hidden
-            selected
-            dragging
-            draggable
-            selectable
-            connectable
-            resizing
-            deletable
-            dragHandle
-            width
-            height
-            parentId
-            zIndex
-            extent
-            expandParent
-            positionAbsolute {
-              x
-              y
-              __typename
-            }
-            ariaLabel
-            focusable
-            style
-            className
-            handles {
-              nextToken
-              __typename
-            }
-            diagram {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            diagramId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        edges {
-          items {
-            id
-            type
-            source
-            target
-            sourceHandle
-            targetHandle
-            style
-            animated
-            hidden
-            deletable
-            data {
-              label
-              __typename
-            }
-            className
-            sourceNode
-            targetNode
-            selected
-            markerStart {
-              type
-              color
-              width
-              height
-              markerUnits
-              orient
-              strokeWidth
-              __typename
-            }
-            markerEnd {
-              type
-              color
-              width
-              height
-              markerUnits
-              orient
-              strokeWidth
-              __typename
-            }
-            zIndex
-            ariaLabel
-            interactionWidth
-            focusable
-            updatable
-            diagram {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            diagramId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        topic {
-          id
-          name
-          slug
-          description
-          content
-          status
-          pinned
-          graphic {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          diagrams {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          documents {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          chats {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        topicId
-        user {
-          id
-          username
-          avatar {
-            alt
-            title
-            caption
-            description
-            url
-            key
-            source
-            thumbnail
-            __typename
-          }
-          firstname
-          lastname
-          role
-          email
-          chats {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              path
-              sharePath
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          documents {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          diagrams {
-            items {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              topicId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          
-          createdAt
-          updatedAt
-          __typename
-        }
-        userId
-        createdAt
-        updatedAt
-        __typename
-      }
       nextToken
       __typename
     }
-    
+    feeds {
+      nextToken
+      __typename
+    }
+    spotlightId
     createdAt
     updatedAt
     __typename
@@ -2071,6 +1578,20 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         nextToken
         __typename
       }
+      feeds {
+        items {
+          id
+          name
+          url
+          status
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       diagrams {
         items {
           id
@@ -2113,6 +1634,53 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>
+export const getFeed = /* GraphQL */ `query GetFeed($id: ID!) {
+  getFeed(id: $id) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetFeedQueryVariables, APITypes.GetFeedQuery>
+export const listFeeds = /* GraphQL */ `query ListFeeds(
+  $filter: ModelFeedFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFeeds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      url
+      status
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListFeedsQueryVariables, APITypes.ListFeedsQuery>
 export const getSpotlight = /* GraphQL */ `query GetSpotlight($id: ID!) {
   getSpotlight(id: $id) {
     id
@@ -2136,10 +1704,7 @@ export const getSpotlight = /* GraphQL */ `query GetSpotlight($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetSpotlightQueryVariables,
-  APITypes.GetSpotlightQuery
->;
+` as GeneratedQuery<APITypes.GetSpotlightQueryVariables, APITypes.GetSpotlightQuery>
 export const listSpotlights = /* GraphQL */ `query ListSpotlights(
   $filter: ModelSpotlightFilterInput
   $limit: Int
@@ -2156,10 +1721,8 @@ export const listSpotlights = /* GraphQL */ `query ListSpotlights(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListSpotlightsQueryVariables,
-  APITypes.ListSpotlightsQuery
->;export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
+` as GeneratedQuery<APITypes.ListSpotlightsQueryVariables, APITypes.ListSpotlightsQuery>
+export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTopicIdAndCreatedAt(
   $topicId: ID!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -2554,3 +2117,37 @@ export const messagesByChatIdAndCreatedAt = /* GraphQL */ `query MessagesByChatI
   }
 }
 ` as GeneratedQuery<APITypes.MessagesByChatIdAndCreatedAtQueryVariables, APITypes.MessagesByChatIdAndCreatedAtQuery>
+export const feedsByUserIdAndCreatedAt = /* GraphQL */ `query FeedsByUserIdAndCreatedAt(
+  $userId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelFeedFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  feedsByUserIdAndCreatedAt(
+    userId: $userId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      url
+      status
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.FeedsByUserIdAndCreatedAtQueryVariables,
+  APITypes.FeedsByUserIdAndCreatedAtQuery
+>;

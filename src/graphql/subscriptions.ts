@@ -1471,6 +1471,10 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       nextToken
       __typename
     }
+    feeds {
+      nextToken
+      __typename
+    }
     spotlightId
     createdAt
     updatedAt
@@ -1519,6 +1523,10 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       __typename
     }
     diagrams {
+      nextToken
+      __typename
+    }
+    feeds {
       nextToken
       __typename
     }
@@ -1573,6 +1581,10 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       nextToken
       __typename
     }
+    feeds {
+      nextToken
+      __typename
+    }
     spotlightId
     createdAt
     updatedAt
@@ -1582,6 +1594,93 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
 ` as GeneratedSubscription<
   APITypes.OnDeleteUserSubscriptionVariables,
   APITypes.OnDeleteUserSubscription
+>;
+export const onCreateFeed = /* GraphQL */ `subscription OnCreateFeed($filter: ModelSubscriptionFeedFilterInput) {
+  onCreateFeed(filter: $filter) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateFeedSubscriptionVariables,
+  APITypes.OnCreateFeedSubscription
+>;
+export const onUpdateFeed = /* GraphQL */ `subscription OnUpdateFeed($filter: ModelSubscriptionFeedFilterInput) {
+  onUpdateFeed(filter: $filter) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateFeedSubscriptionVariables,
+  APITypes.OnUpdateFeedSubscription
+>;
+export const onDeleteFeed = /* GraphQL */ `subscription OnDeleteFeed($filter: ModelSubscriptionFeedFilterInput) {
+  onDeleteFeed(filter: $filter) {
+    id
+    name
+    url
+    status
+    user {
+      id
+      username
+      icon
+      firstname
+      lastname
+      role
+      email
+      spotlightId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteFeedSubscriptionVariables,
+  APITypes.OnDeleteFeedSubscription
 >;
 export const onCreateSpotlight = /* GraphQL */ `subscription OnCreateSpotlight($filter: ModelSubscriptionSpotlightFilterInput) {
   onCreateSpotlight(filter: $filter) {

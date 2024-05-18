@@ -65,7 +65,7 @@ export default function Layout({ children }: { children: any }) {
         query: getUser,
         variables: {
           id: userId,
-        },
+        }
       })) as {
         data: {
           getUser: User
@@ -75,7 +75,6 @@ export default function Layout({ children }: { children: any }) {
       setTheuser(response.data.getUser)
     } catch (error) {
       console.error(error)
-      redirect('/')
     }
   }
 

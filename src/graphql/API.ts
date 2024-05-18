@@ -378,6 +378,7 @@ export type User = {
   chats?: ModelChatConnection | null,
   documents?: ModelDocumentConnection | null,
   diagrams?: ModelDiagramConnection | null,
+  feeds?: ModelFeedConnection | null,
   spotlightId?: string | null,
   createdAt: string,
   updatedAt: string,
@@ -448,6 +449,24 @@ export type ModelDocumentConnection = {
   __typename: "ModelDocumentConnection",
   items:  Array<Document | null >,
   nextToken?: string | null,
+};
+
+export type ModelFeedConnection = {
+  __typename: "ModelFeedConnection",
+  items:  Array<Feed | null >,
+  nextToken?: string | null,
+};
+
+export type Feed = {
+  __typename: "Feed",
+  id: string,
+  name?: string | null,
+  url?: string | null,
+  status?: string | null,
+  user?: User | null,
+  userId: string,
+  createdAt?: string | null,
+  updatedAt: string,
 };
 
 export type UpdateDocumentInput = {
@@ -1020,6 +1039,40 @@ export type DeleteUserInput = {
   id: string,
 };
 
+export type CreateFeedInput = {
+  id?: string | null,
+  name?: string | null,
+  url?: string | null,
+  status?: string | null,
+  userId: string,
+  createdAt?: string | null,
+};
+
+export type ModelFeedConditionInput = {
+  name?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelFeedConditionInput | null > | null,
+  or?: Array< ModelFeedConditionInput | null > | null,
+  not?: ModelFeedConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateFeedInput = {
+  id: string,
+  name?: string | null,
+  url?: string | null,
+  status?: string | null,
+  userId?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteFeedInput = {
+  id: string,
+};
+
 export type CreateSpotlightInput = {
   id?: string | null,
   active?: boolean | null,
@@ -1325,6 +1378,19 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
+export type ModelFeedFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  userId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelFeedFilterInput | null > | null,
+  or?: Array< ModelFeedFilterInput | null > | null,
+  not?: ModelFeedFilterInput | null,
+};
+
 export type ModelSpotlightFilterInput = {
   id?: ModelIDInput | null,
   active?: ModelBooleanInput | null,
@@ -1597,6 +1663,18 @@ export type ModelSubscriptionUserFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFeedFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  url?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  userId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionFeedFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFeedFilterInput | null > | null,
 };
 
 export type ModelSubscriptionSpotlightFilterInput = {
@@ -3139,6 +3217,10 @@ export type CreateUserMutation = {
       __typename: "ModelDiagramConnection",
       nextToken?: string | null,
     } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
+      nextToken?: string | null,
+    } | null,
     spotlightId?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -3190,6 +3272,10 @@ export type UpdateUserMutation = {
     } | null,
     diagrams?:  {
       __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
       nextToken?: string | null,
     } | null,
     spotlightId?: string | null,
@@ -3245,8 +3331,105 @@ export type DeleteUserMutation = {
       __typename: "ModelDiagramConnection",
       nextToken?: string | null,
     } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
+      nextToken?: string | null,
+    } | null,
     spotlightId?: string | null,
     createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateFeedMutationVariables = {
+  input: CreateFeedInput,
+  condition?: ModelFeedConditionInput | null,
+};
+
+export type CreateFeedMutation = {
+  createFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateFeedMutationVariables = {
+  input: UpdateFeedInput,
+  condition?: ModelFeedConditionInput | null,
+};
+
+export type UpdateFeedMutation = {
+  updateFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteFeedMutationVariables = {
+  input: DeleteFeedInput,
+  condition?: ModelFeedConditionInput | null,
+};
+
+export type DeleteFeedMutation = {
+  deleteFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
     updatedAt: string,
   } | null,
 };
@@ -3422,7 +3605,6 @@ export type ListDocumentsQuery = {
       pinned?: boolean | null,
       public?: boolean | null,
       icon?: string | null,
-      topic?: Topic | null,
       topicId?: string | null,
       userId: string,
       createdAt?: string | null,
@@ -4121,6 +4303,10 @@ export type GetUserQuery = {
       __typename: "ModelDiagramConnection",
       nextToken?: string | null,
     } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
+      nextToken?: string | null,
+    } | null,
     spotlightId?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -4147,6 +4333,59 @@ export type ListUsersQuery = {
       email?: string | null,
       spotlightId?: string | null,
       createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetFeedQueryVariables = {
+  id: string,
+};
+
+export type GetFeedQuery = {
+  getFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListFeedsQueryVariables = {
+  filter?: ModelFeedFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFeedsQuery = {
+  listFeeds?:  {
+    __typename: "ModelFeedConnection",
+    items:  Array< {
+      __typename: "Feed",
+      id: string,
+      name?: string | null,
+      url?: string | null,
+      status?: string | null,
+      userId: string,
+      createdAt?: string | null,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -4557,6 +4796,32 @@ export type MessagesByChatIdAndCreatedAtQuery = {
       chatId: string,
       createdAt: string,
       spotlightId?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type FeedsByUserIdAndCreatedAtQueryVariables = {
+  userId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFeedFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type FeedsByUserIdAndCreatedAtQuery = {
+  feedsByUserIdAndCreatedAt?:  {
+    __typename: "ModelFeedConnection",
+    items:  Array< {
+      __typename: "Feed",
+      id: string,
+      name?: string | null,
+      url?: string | null,
+      status?: string | null,
+      userId: string,
+      createdAt?: string | null,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -6055,6 +6320,10 @@ export type OnCreateUserSubscription = {
       __typename: "ModelDiagramConnection",
       nextToken?: string | null,
     } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
+      nextToken?: string | null,
+    } | null,
     spotlightId?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -6105,6 +6374,10 @@ export type OnUpdateUserSubscription = {
     } | null,
     diagrams?:  {
       __typename: "ModelDiagramConnection",
+      nextToken?: string | null,
+    } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
       nextToken?: string | null,
     } | null,
     spotlightId?: string | null,
@@ -6159,8 +6432,102 @@ export type OnDeleteUserSubscription = {
       __typename: "ModelDiagramConnection",
       nextToken?: string | null,
     } | null,
+    feeds?:  {
+      __typename: "ModelFeedConnection",
+      nextToken?: string | null,
+    } | null,
     spotlightId?: string | null,
     createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateFeedSubscriptionVariables = {
+  filter?: ModelSubscriptionFeedFilterInput | null,
+};
+
+export type OnCreateFeedSubscription = {
+  onCreateFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateFeedSubscriptionVariables = {
+  filter?: ModelSubscriptionFeedFilterInput | null,
+};
+
+export type OnUpdateFeedSubscription = {
+  onUpdateFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteFeedSubscriptionVariables = {
+  filter?: ModelSubscriptionFeedFilterInput | null,
+};
+
+export type OnDeleteFeedSubscription = {
+  onDeleteFeed?:  {
+    __typename: "Feed",
+    id: string,
+    name?: string | null,
+    url?: string | null,
+    status?: string | null,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username?: string | null,
+      icon?: string | null,
+      firstname?: string | null,
+      lastname?: string | null,
+      role?: string | null,
+      email?: string | null,
+      spotlightId?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    userId: string,
+    createdAt?: string | null,
     updatedAt: string,
   } | null,
 };

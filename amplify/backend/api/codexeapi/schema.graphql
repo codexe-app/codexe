@@ -192,6 +192,7 @@ type Feed @model @auth(rules: [{ allow: public }]) {
   status: String
   user: User @belongsTo(fields: ["userId"])
   userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime
 }
 
 
