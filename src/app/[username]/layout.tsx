@@ -11,9 +11,10 @@ import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
 import { useDisclosure } from '@mantine/hooks'
 import ChatBot from '@/components/chatbot'
 import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
-import { IconRosette, IconComponents, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
+import { IconBrush, IconRosette, IconComponents, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
 import { nanoid } from 'nanoid'
+import { createCookie } from '@/app/actions'
 import dayjs from 'dayjs'
 import '@mantine/spotlight/styles.css'
 
@@ -73,6 +74,7 @@ export default function Layout({ children }: { children: any }) {
       }
       setChat({ ...chat, userId: userId })
       setTheuser(response.data.getUser)
+      //console.log(response.data.getUser)
     } catch (error) {
       console.error(error)
     }
@@ -89,7 +91,7 @@ export default function Layout({ children }: { children: any }) {
       }
       const thespotlist = response.data.listSpotlights.items
       setSpotlist(thespotlist)
-      console.log(`Dashboard layout thespotlist :`, thespotlist)
+      //console.log(`Dashboard layout thespotlist :`, thespotlist)
     } catch (error) {
       console.error(error)
       redirect('/')
@@ -99,6 +101,10 @@ export default function Layout({ children }: { children: any }) {
   function switchScheme() {
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
     setChecked(!checked)
+  }
+
+  function refreshCookie() {
+    createCookie('theme', JSON.stringify(theuser?.theme))
   }
 
   useEffect(() => {
@@ -156,7 +162,9 @@ export default function Layout({ children }: { children: any }) {
                     Topics
                   </Menu.Item>
                   <Menu.Divider />
-                  <Menu.Label>Toggle</Menu.Label>
+                  <Menu.Item color='green' leftSection={<IconBrush style={{ width: rem(14), height: rem(14) }} />} onClick={() => refreshCookie()} fw='600'>
+                    Refresh
+                  </Menu.Item>
                   <Menu.Item color='green' leftSection={checked ? <IconMoon style={{ width: rem(14), height: rem(14) }} /> : <IconSun style={{ width: rem(14), height: rem(14) }} />} onClick={() => switchScheme()} fw='600'>
                     Scheme
                   </Menu.Item>

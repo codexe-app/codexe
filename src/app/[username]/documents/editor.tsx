@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useCallback, useRef} from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import { uploadData, getUrl } from 'aws-amplify/storage'
 import { useRouter } from 'next/navigation'
 import { MarkdownEditor, type MilkdownRef } from '@/components/markdown'
@@ -56,12 +56,13 @@ var _ = require('lodash')
 const Provider = compose(FeatureToggleProvider, MilkdownProvider, ProsemirrorAdapterProvider, ProseStateProvider, ShareProvider, InspectorProvider)
 
 export default function Editor(props: any) {
+  //console.log(`Documents Editor Props :`, props)
   const hideme = true
   const [pinned, setPinned] = useState(props?.document?.pinned)
   const { document, user } = props
   const [codeview, { open, close }] = useDisclosure(false)
   const [graphic, setGraphic] = useState(document?.graphic?.url)
-  const [activeTab, setActiveTab] = useState<string | null>(props.tab)
+  const [activeTab, setActiveTab] = useState<string>('view')
   const [content, setContent] = useState(props.markdown)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [showtb, setShowtb] = useState(true)
@@ -314,7 +315,7 @@ export default function Editor(props: any) {
                       <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
                         {' '}
                         <Stack gap={2}>
-                          <Text fw={500} size='sm'>
+                          <Text fw={500} size='sm' my={0}>
                             Graphic
                           </Text>
                           <Accordion chevronPosition='right' variant='contained'>
@@ -322,12 +323,12 @@ export default function Editor(props: any) {
                               <Accordion.Control>
                                 <Group wrap='nowrap'>
                                   <Avatar src={graphic} radius='xs' size='lg' />
-                                  <div>
-                                    <Text>{form.values.graphic?.title || ''}</Text>
-                                    <Text size='sm' c='dimmed' fw={400}>
+                                  <Stack gap={2}>
+                                    <Text my={0}>{form.values.graphic?.title || ''}</Text>
+                                    <Text my={0} size='sm' c='dimmed' fw={400}>
                                       {form.values.graphic?.key || ''}
                                     </Text>
-                                  </div>
+                                  </Stack>
                                 </Group>
                               </Accordion.Control>
                               <Accordion.Panel>
@@ -350,7 +351,7 @@ export default function Editor(props: any) {
                                           Upload
                                         </Tabs.Tab>
                                       </Tabs.List>
-                                      <Tabs.Panel value='view'>
+                                      <Tabs.Panel value='view' mah={240}>
                                         <Image src={graphic || ''} />
                                       </Tabs.Panel>
                                       <Tabs.Panel value='upload'>

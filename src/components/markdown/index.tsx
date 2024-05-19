@@ -1,4 +1,4 @@
-import React, {useState}from 'react'
+import React, { useState } from 'react'
 import type { CmdKey } from '@milkdown/core'
 import { editorViewCtx, parserCtx } from '@milkdown/core'
 import { redoCommand, undoCommand } from '@milkdown/plugin-history'
@@ -25,7 +25,7 @@ export interface MilkdownRef {
   update: (markdown: string) => void
 }
 
-export const MarkdownEditor: FC<MilkdownProps> = ({ showtb ,content, onChange, milkdownRef }) => {
+export const MarkdownEditor: FC<MilkdownProps> = ({ showtb, content, onChange, milkdownRef }) => {
   //console.log(`PlaygroundMilkdown: `, content)
   const { loading, get } = usePlayground(content, onChange)
 
@@ -50,38 +50,39 @@ export const MarkdownEditor: FC<MilkdownProps> = ({ showtb ,content, onChange, m
 
   return (
     <React.Fragment>
-      { showtb &&
-      <Flex pos='fixed' top='96px' left='0' w='100%' justify='space-around'>
-        <ActionIcon.Group orientation='horizontal'>
-          <ActionIcon variant='default' size='lg' aria-label='undo' onClick={() => call(undoCommand.key)}>
-            <IconArrowBackUp style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='redo' onClick={() => call(redoCommand.key)}>
-            <IconArrowForward style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='Bold' onClick={() => call(toggleStrongCommand.key)}>
-            <IconBold style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='format_italic' onClick={() => call(toggleEmphasisCommand.key)}>
-            <IconItalic style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='format_strikethrough' onClick={() => call(toggleStrikethroughCommand.key)}>
-            <IconStrikethrough style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='table' onClick={() => call(insertTableCommand.key)}>
-            <IconTablePlus style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='format_list_bulleted' onClick={() => call(wrapInBulletListCommand.key)}>
-            <IconList style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='format_list_numbered' onClick={() => call(wrapInOrderedListCommand.key)}>
-            <IconListNumbers style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='format_quote' onClick={() => call(wrapInBlockquoteCommand.key)}>
-            <IconBlockquote style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-        </ActionIcon.Group>
-      </Flex>}
+      {showtb && (
+        <Flex pos='fixed' top='96px' w='100%' left={0} justify='space-around' style={{ zIndex: 1 }}>
+          <ActionIcon.Group orientation='horizontal'>
+            <ActionIcon variant='default' size='lg' aria-label='undo' onClick={() => call(undoCommand.key)}>
+              <IconArrowBackUp style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='redo' onClick={() => call(redoCommand.key)}>
+              <IconArrowForward style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='Bold' onClick={() => call(toggleStrongCommand.key)}>
+              <IconBold style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='format_italic' onClick={() => call(toggleEmphasisCommand.key)}>
+              <IconItalic style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='format_strikethrough' onClick={() => call(toggleStrikethroughCommand.key)}>
+              <IconStrikethrough style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='format_list_bulleted' onClick={() => call(wrapInBulletListCommand.key)}>
+              <IconList style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='format_list_numbered' onClick={() => call(wrapInOrderedListCommand.key)}>
+              <IconListNumbers style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='format_quote' onClick={() => call(wrapInBlockquoteCommand.key)}>
+              <IconBlockquote style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant='default' size='lg' aria-label='table' onClick={() => call(insertTableCommand.key)}>
+              <IconTablePlus style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+          </ActionIcon.Group>
+        </Flex>
+      )}
       <div className='h-full overflow-auto overscroll-none'>
         <Editor />
       </div>

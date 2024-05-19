@@ -17,11 +17,10 @@ import { type Document } from '@/graphql/API'
 import CopytoClipboard from '@/components/clipboard'
 import { IconEdit, IconEye, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconDots, IconAlertCircle, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 import NextBreadcrumb from '@/components/breadcrumb'
-
 var _ = require('lodash')
 
 export default function DataTable(props: any) {
-  console.log(`datatable props : `, props)
+  //console.log(`datatable props : `, props)
   const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({})
   const client = generateClient()
   const pathname = usePathname()
@@ -356,7 +355,7 @@ export default function DataTable(props: any) {
       return (
         <Flex p='md' justify='space-between' bg='var(--mantine-color-gray-1)'>
           <Group gap='xs'>
-            <NextBreadcrumb homeElement='Home' separator='>' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
+            <NextBreadcrumb homeElement='Home' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
           </Group>
           <Group gap='xs'>
             <MRT_GlobalFilterTextInput table={table} />

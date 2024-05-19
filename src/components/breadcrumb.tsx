@@ -6,34 +6,33 @@ import { Logo } from '@/app/logo'
 
 type TBreadCrumbProps = {
   homeElement: ReactNode
-  separator: ReactNode
   containerClasses?: string
   listClasses?: string
   activeClasses?: string
   capitalizeLinks?: boolean
 }
 
-const NextBreadcrumb = ({ homeElement, separator, containerClasses, listClasses, activeClasses, capitalizeLinks }: TBreadCrumbProps) => {
+const NextBreadcrumb = ({ homeElement, containerClasses, listClasses, activeClasses, capitalizeLinks }: TBreadCrumbProps) => {
   const paths = usePathname()
   const pathNames = paths.split('/').filter((path) => path)
 
   return (
     <div>
-      <Group>
-        <Link href={'/'}>
-          <Logo size={32} color='var(--mantine-color-gray-6)' />
-        </Link>
-        {pathNames.length > 0 && separator}
+      <Group c='var(--mantine-color-gray-6)' fs='xl' gap='xs' align='center'>
+        <Logo size={32} color='var(--mantine-color-gray-6)' />
+        {pathNames.length > 0 && <Title order={3} c='var(--mantine-color-gray-6)'>{'>'}</Title>}
         {pathNames.map((link, index) => {
           let href = `/${pathNames.slice(0, index + 1).join('/')}`
           let itemClasses = paths === href ? `${listClasses} ${activeClasses}` : listClasses
           let itemLink = capitalizeLinks ? link[0].toUpperCase() + link.slice(1, link.length) : link
           return (
             <React.Fragment key={index}>
-              <Title order={3} ff='monospace' c='var(--mantine-color-gray-6)' lh={1} td='none'>
-                <Anchor href={href}>{itemLink}</Anchor>
+              <Title order={3} lh={1} td='none'>
+                <Anchor href={href} c='var(--mantine-color-gray-6)' fw={600}>
+                  {itemLink}
+                </Anchor>
               </Title>
-              {pathNames.length !== index + 1 && separator}
+              {pathNames.length !== index + 1 && <Title order={3} c='var(--mantine-color-gray-6)'>{'>'}</Title>}
             </React.Fragment>
           )
         })}

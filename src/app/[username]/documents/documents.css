@@ -16,3 +16,16 @@
 .MRT_TableBodyRow-module_root__2c3D4:not([data-striped], [data-striped='false']) {
   background-color: var(--mantine-color-gray-1);
 }
+
+.MRT_TableBodyRow-module_root__2c3D4 td[data-column-pinned] {
+  padding: 0;
+  justify-content: center;
+}
+
+.MRT_EditActionButtons-module_root__BfxVZ {
+  gap: 0;
+}
+
+.__m__-rgq {
+  display: none;
+}
