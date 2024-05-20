@@ -116,7 +116,7 @@ export default function DiagramCanvas(props) {
 
   async function newDiagram(values) {
     let cleaned = _.omit(values, ['new', 'edges', 'nodes', 'content', 'createdAt', 'updatedAt', '__typename'])
-    console.log(cleaned)
+    //console.log(cleaned)
     try {
       const doc = await client.graphql({ query: mutations.createDiagram, variables: { input: cleaned } })
       //console.log(doc)

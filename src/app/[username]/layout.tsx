@@ -188,16 +188,17 @@ export default function Layout({ children }: { children: any }) {
             <NavLink href='#' label='Documents' leftSection={<IconFiles size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink label='All Documents' href={`/${theuser?.username}/documents`} />
               <NavLink label='New Document' href={`/${theuser?.username}/documents/new`} />
+              <NavLink label='Nested' childrenOffset={28} href='#'>
+                <NavLink label='Theme' href={`/${theuser?.username}/profile/theme`}  />
+              </NavLink>
             </NavLink>
             <NavLink href='#' label='Diagrams' leftSection={<IconHierarchy2 size='1rem' stroke={1.5} />} childrenOffset={28}>
               <NavLink label='All Diagrams' href={`/${theuser?.username}/diagrams`} />
               <NavLink label='New Diagram' href={`/${theuser?.username}/diagrams/new`} />
             </NavLink>
-            <NavLink href='#' label='Entries' leftSection={<IconRosette size='1rem' stroke={1.5} />} childrenOffset={28}>
-              <NavLink href='#' label='Coming Soon' />
-              <NavLink label='Nested' childrenOffset={28} href='#'>
-                <NavLink label='Child' href='#' />
-              </NavLink>
+            <NavLink href={`/${theuser?.username}/profile`} label='Profile' leftSection={<IconRosette size='1rem' stroke={1.5} />} childrenOffset={28}>
+              <NavLink href={`/${theuser?.username}/profile`}  label='Profile' />
+              <NavLink label='Theme' href={`/${theuser?.username}/profile/theme`}  />
             </NavLink>
           </Stack>
         </Stack>

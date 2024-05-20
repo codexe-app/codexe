@@ -21,14 +21,6 @@ a {
   max-width: 80px;
 }
 
-#mantine-kk9zevk4q {
-  background-color: #f8f8f2;
-}
-
-.MRT_GlobalFilterTextInput-module_collapse__v311d {
-  background-color: #f8f8f2;
-}
-
 [data-mantine-color-scheme='light'] .m_6c018570[data-variant='filled'] {
   --input-bd: transparent;
   --input-bg: var(--mantine-color-white);
@@ -44,16 +36,6 @@ a {
 .navlogo {
   line-height: 1;
   z-index: 201;
-}
-
-.mantine-Paper-root {
-  @include light {
-    background-color: var(--mantine-color-gray-0);
-  }
-
-  @include dark {
-    background-color: var(--mantine-color-gray-7);
-  }
 }
 
 .mantine-Stepper-steps {

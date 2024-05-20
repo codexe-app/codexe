@@ -36,7 +36,7 @@ export default async function StartCard(props: any) {
       const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`, {
         signal: AbortSignal.timeout(5000),
       })
-      console.log(response)
+      //console.log(response)
       return response.json()
     } catch (error) {
       console.log(`There was an error connecting to the NASA API :`, error)
@@ -61,7 +61,7 @@ export default async function StartCard(props: any) {
           <Button rightSection={<IconFiles size={14} />} component={Link} href={`/${user.username}/documents/new`}>
             New Document
           </Button>
-          <Button color='var(--mantine-primary-color-4)' rightSection={<IconHierarchy2 size={14} />} component={Link} href={`/${user.username}/diagrams/new`}>
+          <Button variant='outline' color='var(--mantine-primary-color-4)' rightSection={<IconHierarchy2 size={14} />} component={Link} href={`/${user.username}/diagrams/new`}>
             New Diagram
           </Button>
         </Group>

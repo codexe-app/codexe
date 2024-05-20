@@ -37,17 +37,16 @@ import { createCookie } from '@/app/actions'
 import dayjs from 'dayjs'
 
 interface Item {
-  mode: string
   primary: string
   text: string
   body: string
-  anchor: string
+  dark: string
   value: string
   description: string
 }
 
 export default function UserForm(props: any) {
-  console.log(`Profile Form Props :`, props)
+  //console.log(`Profile Form Props :`, props)
   const client = generateClient()
   const [palette, setPalette] = useState<string | null>(props.user.theme.palette)
   const [font, setFont] = useState<string | null>(props.user.theme.font)
@@ -59,14 +58,15 @@ export default function UserForm(props: any) {
   const combobox = useCombobox({ onDropdownClose: () => combobox.resetSelectedOption() })
 
   const themecolors: Item[] = [
-    { mode: 'LIGHT', primary: '#465682', text: '#2e3440', body: '#ECEFF4', anchor: '#465682', value: 'tachyon', description: 'Tachyon' },
-    { mode: 'LIGHT', primary: '#5e81ac', text: '#2E3440', body: '#ECEFF4', anchor: '#5e81ac', value: 'nord', description: 'Nord' },
-    { mode: 'LIGHT', primary: '#222244', text: '#1f2937', body: '#ffffff', anchor: '#222244', value: 'bumblebee', description: 'Bumblebee' },
-    { mode: 'LIGHT', primary: '#211452', text: '#291334', body: '#faf7f5', anchor: '#2e163b', value: 'cupcake', description: 'Cupcake' },
-    { mode: 'LIGHT', primary: '#83785d', text: '#282425', body: '#e4d8b4', anchor: '#83785d', value: 'retro', description: 'Retro' },
-    { mode: 'DARK', primary: '#211452', text: '#785cd6', body: '#382182', anchor: '#222244', value: 'synthwave', description: 'Synthwave' },
-    { mode: 'DARK', primary: '#5769c7', text: '#7476aa', body: '#363859', anchor: '#94a0db', value: 'moonlight', description: 'Moonlight' },
-    { mode: 'DARK', primary: '#ff79c6', text: '#c9c9c9', body: '#242424', anchor: '#ff98d3', value: 'dracula', description: 'Dracula' },
+    { primary: '#465682', text: '#2e3440', body: '#ECEFF4', dark: '#465682', value: 'tachyon', description: 'Tachyon' },
+    { primary: '#465682', text: '#2e3440', body: '#ECEFF4', dark: '#465682', value: 'opencolor', description: 'Opencolor' },
+    { primary: '#5e81ac', text: '#2E3440', body: '#ECEFF4', dark: '#5e81ac', value: 'nord', description: 'Nord' },
+    { primary: '#222244', text: '#1f2937', body: '#ffffff', dark: '#222244', value: 'bumblebee', description: 'Bumblebee' },
+    { primary: '#211452', text: '#291334', body: '#faf7f5', dark: '#2e163b', value: 'cupcake', description: 'Cupcake' },
+    { primary: '#83785d', text: '#282425', body: '#e4d8b4', dark: '#83785d', value: 'retro', description: 'Retro' },
+    { primary: '#211452', text: '#785cd6', body: '#382182', dark: '#222244', value: 'synthwave', description: 'Synthwave' },
+    { primary: '#5769c7', text: '#7476aa', body: '#363859', dark: '#94a0db', value: 'moonlight', description: 'Moonlight' },
+    { primary: '#ff79c6', text: '#c9c9c9', body: '#242424', dark: '#ff98d3', value: 'dracula', description: 'Dracula' },
   ]
 
   const fontlist = [
@@ -74,20 +74,24 @@ export default function UserForm(props: any) {
     { label: 'Roboto', value: 'var(--font-roboto)' },
     { label: 'Mononoki', value: 'var(--font-mononoki)' },
     { label: 'Lexend', value: 'var(--font-lexend)' },
+    { label: 'AlbertSans', value: 'var(--font-albertsans)' },
+    { label: 'Barlow', value: 'var(--font-barlow)' },
+    { label: 'Overpass', value: 'var(--font-overpass)' },
+    { label: 'NanumGothicCoding', value: 'var(--font-nanumgothiccoding)' },
   ]
 
-  function SelectOption({ mode, primary, text, body, anchor, value, description }: Item) {
+  function SelectOption({ primary, text, body, dark, value, description }: Item) {
     return (
       <Group justify='space-between'>
         <Group>
-          <Badge>{mode}</Badge>
+          <Badge></Badge>
           <Text fz='md' fw='500'>
             {description}
           </Text>
         </Group>
         <Group>
           <ColorSwatch color={primary} />
-          <ColorSwatch color={anchor} />
+          <ColorSwatch color={dark} />
           <ColorSwatch color={text} />
           <ColorSwatch color={body} />
           <Box hidden>{value}</Box>

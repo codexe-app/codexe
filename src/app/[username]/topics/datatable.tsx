@@ -7,15 +7,14 @@ import * as mutations from '@/graphql/mutations'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
-import './topics.css'
 import { useMemo } from 'react'
 import { MantineReactTable, useMantineReactTable, type MRT_TableOptions, MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFiltersButton } from 'mantine-react-table'
-import { ActionIcon, Group, Stack, Box, Code, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, ScrollArea, Text } from '@mantine/core'
+import { ActionIcon, Group, Stack, Box, Code, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, Text } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import CopytoClipboard from '@/components/clipboard'
 import { type Document } from '@/graphql/API'
-import { IconEdit, IconEye, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconComponents, IconAlertCircle, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
+import { IconEdit, IconEye, IconTrash, IconDotsCircleHorizontal, IconAlertCircle, IconPin, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 import NextBreadcrumb from '@/components/breadcrumb'
 
 var _ = require('lodash')
@@ -295,7 +294,7 @@ export default function DataTable(props: any) {
       return (
         <Flex p='md' justify='space-between' bg='var(--mantine-color-gray-1)'>
           <Group gap='xs'>
-            <NextBreadcrumb homeElement='Home' separator='>' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
+            <NextBreadcrumb homeElement='Home' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
           </Group>
           <Group gap='xs'>
             <MRT_GlobalFilterTextInput table={table} />

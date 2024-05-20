@@ -67,7 +67,7 @@ export default function DataTable(props: any) {
       {
         accessorKey: 'topicId',
         header: 'Topic',
-        size: 120,
+        size: 160,
         editVariant: 'select',
         mantineEditSelectProps: {
           data: [
@@ -353,7 +353,7 @@ export default function DataTable(props: any) {
     ),
     renderTopToolbar: ({ table }) => {
       return (
-        <Flex p='md' justify='space-between' bg='var(--mantine-color-gray-1)'>
+        <Flex p='md' justify='space-between' className='m_b23fa0ef' style={{ borderBottom: '1px solid var(--table-border-color)'}}>
           <Group gap='xs'>
             <NextBreadcrumb homeElement='Home' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
           </Group>

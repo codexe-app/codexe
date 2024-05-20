@@ -1,15 +1,15 @@
 import '@mantine/core/styles.css'
 import React from 'react'
 import { cookies } from 'next/headers'
-import { MantineProvider, ColorSchemeScript, createTheme, rem, type MantineColorScheme, MantineColorShade, MantinePrimaryShade} from '@mantine/core'
+import { MantineProvider, ColorSchemeScript, createTheme, rem, type MantineColorScheme, MantineColorShade, MantinePrimaryShade } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'
 import { PageStateProvider } from '@/utils/context'
-import { HandleOnComplete } from '@/utils/router-events';
+import { HandleOnComplete } from '@/utils/router-events'
 import { mononoki, dinpro } from '@/app/fonts'
-import { Roboto, Lexend } from 'next/font/google'
-import { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula } from '@/app/colors'
+import { Roboto, Lexend, Albert_Sans as AlbertSans, Barlow, Overpass, Nanum_Gothic_Coding as NanumGothicCoding} from 'next/font/google'
+import { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula, opencolor } from '@/app/colors'
 
 import '@mantine/notifications/styles.css'
 import '@/app/app.scss'
@@ -20,48 +20,59 @@ export const metadata = {
 }
 
 const roboto = Roboto({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-roboto',
+  weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-roboto',
 })
 
 const lexend = Lexend({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-lexend',
+  weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-lexend',
 })
 
-const colours = { tachyon, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula }
+const albertsans = AlbertSans({ 
+  weight: 'variable', subsets: ['latin'], display: 'swap', variable: '--font-albertsans'
+})
+
+const barlow = Barlow({ 
+  weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-barlow'
+})
+
+const overpass = Overpass({ 
+  weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-overpass'
+})
+
+const nanumgothiccoding = NanumGothicCoding({
+  weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-nanumgothiccoding'
+
+})
+
+const colours = { tachyon, opencolor, nord, moonlight, bumblebee, cupcake, synthwave, retro, dracula }
 
 export type ThemeOptions = {
-  config?: string,
-  palette?: string,
-  primary?: string,
-  font?: string ,
-  heading?: string,
-  mono?: string,
+  config?: string
+  palette?: string
+  primary?: string
+  font?: string
+  heading?: string
+  mono?: string
 }
 
 export type CodexeTheme = {
-  colorScheme: MantineColorScheme,
-  white: string,
-  black: string,
-  primaryColor: string,
+  colorScheme: MantineColorScheme
+  white: string
+  black: string
+  primaryColor: string
   primaryShade: {}
-  colors: {},
+  colors: {}
 }
 
 export default function RootLayout({ children }: { children: any }) {
   const cookieStore = cookies()
-  var storedtheme: ThemeOptions = { 
-    palette: 'nord',
+  var storedtheme: ThemeOptions = {
+    palette: 'tachyon',
     font: 'var(--font-dinpro)',
     heading: 'var(--font-dinpro)',
-    mono: 'var(--font-mononoki)'
-  }  
-  var usertheme: CodexeTheme = nord
+    mono: 'var(--font-mononoki)',
+  }
+  var usertheme: CodexeTheme = tachyon
   const hasCookie = cookieStore.has('theme')
   if (hasCookie) {
     var stored = cookieStore.get('theme')
@@ -106,7 +117,7 @@ export default function RootLayout({ children }: { children: any }) {
     },
   })
   return (
-    <html lang='en' className={`${mononoki.variable} ${dinpro.variable} ${lexend.variable} ${roboto.variable}`}>
+    <html lang='en' className={`${mononoki.variable} ${dinpro.variable} ${lexend.variable} ${roboto.variable} ${albertsans.variable} ${barlow.variable} ${overpass.variable} ${nanumgothiccoding.variable}`}>
       <head>
         <link rel='shortcut icon' href='/favicon.svg' />
         <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no' />

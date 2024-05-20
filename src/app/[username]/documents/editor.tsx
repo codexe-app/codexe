@@ -62,7 +62,7 @@ export default function Editor(props: any) {
   const { document, user } = props
   const [codeview, { open, close }] = useDisclosure(false)
   const [graphic, setGraphic] = useState(document?.graphic?.url)
-  const [activeTab, setActiveTab] = useState<string>('view')
+  const [activeTab, setActiveTab] = useState<string | null>('view');
   const [content, setContent] = useState(props.markdown)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [showtb, setShowtb] = useState(true)
@@ -250,7 +250,7 @@ export default function Editor(props: any) {
   }
 
   function switchPinned(pinned: boolean) {
-    console.log(pinned)
+    //console.log(pinned)
     form.setFieldValue('pinned', pinned)
     setPinned(pinned)
   }
