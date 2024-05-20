@@ -6,8 +6,6 @@ import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
-import './documents.css'
 import { useMemo } from 'react'
 import { MantineReactTable, useMantineReactTable, type MRT_TableOptions, MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFiltersButton } from 'mantine-react-table'
 import { ActionIcon, Group, Stack, Box, Code, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, ScrollArea, Text } from '@mantine/core'
@@ -17,6 +15,8 @@ import { type Document } from '@/graphql/API'
 import CopytoClipboard from '@/components/clipboard'
 import { IconEdit, IconEye, IconUserCircle, IconTrash, IconDotsCircleHorizontal, IconDots, IconAlertCircle, IconPin, IconPinned, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 import NextBreadcrumb from '@/components/breadcrumb'
+import 'mantine-react-table/styles.css'
+import './documents.css'
 var _ = require('lodash')
 
 export default function DataTable(props: any) {
@@ -95,24 +95,25 @@ export default function DataTable(props: any) {
               <Code c='dimmed' h={20} py={0} pl={0} w={120}>
                 {renderedCellValue}
               </Code>
-              {renderedCellValue  && <CopytoClipboard clipboard={renderedCellValue} /> }
+              {renderedCellValue && <CopytoClipboard clipboard={renderedCellValue} />}
             </Group>
           </Stack>
         ),
       },
       {
-        accessorKey: 'slug', //hey a simple column for once
+        accessorKey: 'slug',
         header: 'Slug',
       },
       {
-        accessorKey: 'description', //hey a simple column for once
+        accessorKey: 'description',
         header: 'Description',
         size: 350,
       },
       {
-        accessorKey: 'content', //hey a simple column for once
+        accessorKey: 'content',
         header: 'Content',
-        size:220,
+        size: 220,
+        enableHiding: true,
         Cell: ({ renderedCellValue, row }) => <ScrollArea mah={40}>{renderedCellValue}</ScrollArea>,
       },
       {
@@ -192,7 +193,20 @@ export default function DataTable(props: any) {
         Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
       },
       {
-        accessorKey: 'graphic.url', //hey a simple column for once
+        accessorKey: 'id',
+        header: 'ID',
+        enableEditing: false,
+        Cell: ({ renderedCellValue, row }) => (
+          <Group wrap='nowrap' gap={0}>
+            <Code c='dimmed' h={20} py={0} pl={0} w={120}>
+              {renderedCellValue}
+            </Code>
+            <CopytoClipboard clipboard={renderedCellValue} />
+          </Group>
+        ),
+      },
+      {
+        accessorKey: 'graphic.url',
         header: 'Graphic URL',
         enableEditing: true,
         enableResizing: true,
@@ -207,7 +221,7 @@ export default function DataTable(props: any) {
         ),
       },
       {
-        accessorKey: 'graphic.thumbnail', //hey a simple column for once
+        accessorKey: 'graphic.thumbnail',
         header: 'Thumbnail',
         enableEditing: true,
         enableResizing: true,
@@ -222,17 +236,29 @@ export default function DataTable(props: any) {
         ),
       },
       {
-        accessorKey: 'id', //hey a simple column for once
-        header: 'ID',
-        enableEditing: false,
-        Cell: ({ renderedCellValue, row }) => (
-          <Group wrap='nowrap' gap={0}>
-            <Code c='dimmed' h={20} py={0} pl={0} w={120}>
-              {renderedCellValue}
-            </Code>
-            <CopytoClipboard clipboard={renderedCellValue} />
-          </Group>
-        ),
+        accessorKey: 'graphic.alt',
+        header: 'Alt Text',
+      },
+      {
+        accessorKey: 'graphic.title',
+        header: 'Title',
+      },
+      {
+        accessorKey: 'graphic.caption',
+        header: 'Caption',
+      },
+      {
+        accessorKey: 'graphic.description',
+        header: 'Description',
+      },
+      {
+        accessorKey: 'graphic.key',
+        header: 'S3 Key',
+      },
+      {
+        accessorKey: 'graphic.source',
+        id:'graphicsource',
+        header: 'Source',
       },
     ],
     [validationErrors]
@@ -240,7 +266,7 @@ export default function DataTable(props: any) {
 
   const handleSaveDocument: MRT_TableOptions<Document>['onEditingRowSave'] = async ({ values, table }) => {
     const fixed = fixDocument(values)
-    let cleaned = _.omit(fixed, ['graphic.thumbnail', 'graphic.url', 'createdAt', 'updatedAt'])
+    let cleaned = _.omit(fixed, ['graphic.alt', 'graphic.caption', 'graphic.description', 'graphic.key', 'graphic.title', 'graphic.thumbnail', 'graphic.url', 'createdAt', 'updatedAt'])
     // console.log(cleaned)
     updatetheDocument(cleaned)
     table.setEditingRow(null)
@@ -256,7 +282,7 @@ export default function DataTable(props: any) {
     enableColumnDragging: false,
     enableColumnResizing: true,
     enableFacetedValues: true,
-    enableGrouping: false,
+    enableGrouping: true,
     enableColumnPinning: true,
     enableRowActions: true,
     enableRowSelection: false,
@@ -264,6 +290,11 @@ export default function DataTable(props: any) {
     editDisplayMode: 'row', // ('modal', 'cell', 'table', and 'custom' are also available)
     enableEditing: true,
     initialState: {
+      columnVisibility: {
+        content: false,
+        graphicsource: false,
+        createdAt: false
+      },
       showColumnFilters: false,
       showGlobalFilter: true,
       columnPinning: {
@@ -353,7 +384,7 @@ export default function DataTable(props: any) {
     ),
     renderTopToolbar: ({ table }) => {
       return (
-        <Flex p='md' justify='space-between' className='m_b23fa0ef' style={{ borderBottom: '1px solid var(--table-border-color)'}}>
+        <Flex p='md' justify='space-between' className='m_b23fa0ef' style={{ borderBottom: '1px solid var(--table-border-color)' }}>
           <Group gap='xs'>
             <NextBreadcrumb homeElement='Home' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
           </Group>
@@ -371,11 +402,16 @@ export default function DataTable(props: any) {
       graphic: {
         url: doc['graphic.url'],
         thumbnail: doc['graphic.thumbnail'],
+        alt: doc['graphic.alt'],
+        caption: doc['graphic.caption'],
+        title: doc['graphic.title'],
+        key: doc['graphic.key'],
       },
     })
   }
 
   async function updatetheDocument(doc: any) {
+    console.log(doc)
     try {
       await client.graphql({ query: mutations.updateDocument, variables: { input: doc } })
       notifications.show({
