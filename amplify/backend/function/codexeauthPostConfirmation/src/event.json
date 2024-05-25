@@ -1,7 +1,22 @@
 {
+  "version": "1",
+  "region": "us-west-2",
+  "userPoolId": "us-west-2_Ir1mrg0np",
+  "userName": "rreyes",
+  "callerContext": {
+    "awsSdkVersion": "aws-sdk-unknown-unknown",
+    "clientId": "7fbha0qdd6hqhq9oib7tmftfnd"
+  },
+  "triggerSource": "PostConfirmation_ConfirmSignUp",
   "request": {
-    "userPoolId": "testID",
-    "userName": "testUser"
+    "userAttributes": {
+      "sub": "88c1d3e0-3001-70f0-b117-be32d870cf0f",
+      "email_verified": "true",
+      "cognito:user_status": "CONFIRMED",
+      "given_name": "Rex",
+      "family_name": "Reyes",
+      "email": "rreyes@launchbrigade.com"
+    }
   },
   "response": {}
 }
