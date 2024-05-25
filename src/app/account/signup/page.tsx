@@ -1,6 +1,7 @@
 'use client'
 import { Link } from '@/utils/router-events'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { signUp, confirmSignUp, autoSignIn } from 'aws-amplify/auth'
 import { useForm } from '@mantine/form'
 import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, BackgroundImage, Group, Button, Alert, Stack } from '@mantine/core'
@@ -12,7 +13,7 @@ export default function Page() {
   const [verify, setVerify] = useState(false)
   const [signin, setSignin] = useState(false)
   const [apierror, setApierror] = useState({ active: false, code: '', message: '' })
-
+  const router = useRouter()
   const signup = useForm({
     initialValues: {
       username: '',
@@ -81,11 +82,13 @@ export default function Page() {
         setActive(3)
         setApierror({ active: false, code: 'No Error', message: 'No Message' })
         console.log('isSignedIn', nextStep)
+        router.push(`/${signup.values.username}`)
       }
     } catch (error) {
       //@ts-ignore
       setApierror({ active: true, code: error.name, message: error.message })
       console.log('There was an error is AutoSignIn :', error)
+      router.push(`/${signup.values.username}`)
     }
     setSignin(false)
   }
