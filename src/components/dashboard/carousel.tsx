@@ -6,7 +6,7 @@ import * as mutations from '@/graphql/mutations'
 import { notifications } from '@mantine/notifications'
 import { Carousel } from '@mantine/carousel'
 import { modals } from '@mantine/modals'
-import { Flex, Badge, Group, Text, ActionIcon, Card, Title, Stack, AspectRatio, Image, rem } from '@mantine/core'
+import { Flex, Badge, Group, Code, Text, ActionIcon, Card, Title, Stack, AspectRatio, Image, rem } from '@mantine/core'
 import { IconPencil, IconEye, IconTrash, IconAlertCircle } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 import DocumentView from './view'
@@ -107,7 +107,7 @@ export default function RecentCarousel(props: any) {
                     color='purple'
                     onClick={() => {
                       modals.open({
-                        title: `${item.name} - ${item.updatedAt}`,
+                        title: <Code>`${item.name} - ${item.updatedAt}`</Code>,
                         size: 'xl',
                         padding: 'md',
                         fullScreen: true,

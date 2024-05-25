@@ -1,23 +1,45 @@
 'use client'
 import { Link } from '@/utils/router-events'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '@/graphql/mutations'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import 'mantine-react-table/styles.css' //make sure MRT styles were imported in your app root (once)
-import { useMemo } from 'react'
 import { MantineReactTable, useMantineReactTable, type MRT_TableOptions, MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFiltersButton } from 'mantine-react-table'
-import { ActionIcon, Group, Stack, Box, Code, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, Text } from '@mantine/core'
+import { ActionIcon, Group, TextInput, Textarea, Stack, SimpleGrid, Checkbox, Button, Box, Code, Select, Flex, Menu, LoadingOverlay, Title, Avatar, Badge, Text } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
+import { useForm } from '@mantine/form'
 import CopytoClipboard from '@/components/clipboard'
-import { type Document } from '@/graphql/API'
+import { type Topic } from '@/graphql/API'
 import { IconEdit, IconEye, IconTrash, IconDotsCircleHorizontal, IconAlertCircle, IconPin, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 import NextBreadcrumb from '@/components/breadcrumb'
+import DynamicIcon from '@/components/dynamicicon'
+import 'mantine-react-table/styles.css'
 
-var _ = require('lodash')
+const _ = require('lodash')
+
+const slugit = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+
+const statusselect = [
+  {
+    value: 'draft',
+    label: 'Draft',
+  },
+  {
+    value: 'live',
+    label: 'Live',
+  },
+  {
+    value: 'private',
+    label: 'Private',
+  },
+  {
+    value: 'archive',
+    label: 'Archive',
+  },
+]
 
 export default function DataTable(props: any) {
   //console.log(`datatable props : `, props)
@@ -27,7 +49,24 @@ export default function DataTable(props: any) {
   const router = useRouter()
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const { data } = props
-  const columns = useMemo<MRT_ColumnDef<Document>[]>(
+  const newtopic = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      name: '',
+      slug: '',
+      description: '',
+      icon: '',
+      status: 'live',
+      pinned: false,
+    },
+
+    validate: {
+      name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
+    },
+  })
+  
+
+  const columns = useMemo<MRT_ColumnDef<Topic>[]>(
     () => [
       {
         accessorKey: 'pinned',
@@ -59,7 +98,7 @@ export default function DataTable(props: any) {
               alignItems: 'center',
               gap: '16px',
             }}>
-            <Avatar size='md' src={row.original?.graphic?.thumbnail ? row.original.graphic.thumbnail : row.original?.graphic?.url} />
+              <DynamicIcon name={row.original.icon} />
             <Title order={6}>{renderedCellValue}</Title>
           </Box>
         ),
@@ -79,24 +118,7 @@ export default function DataTable(props: any) {
         size: 120,
         editVariant: 'select',
         mantineEditSelectProps: {
-          data: [
-            {
-              value: 'draft',
-              label: 'Draft',
-            },
-            {
-              value: 'live',
-              label: 'Live',
-            },
-            {
-              value: 'private',
-              label: 'Private',
-            },
-            {
-              value: 'archive',
-              label: 'Archive',
-            },
-          ],
+          data: statusselect,
         },
         //custom conditional format and styling
         Cell: ({ cell, row }) => (
@@ -133,35 +155,6 @@ export default function DataTable(props: any) {
         Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
       },
       {
-        accessorFn: (row) => {
-          //convert to Date for sorting and filtering
-          const sDay = new Date(row.updatedAt)
-          sDay.setHours(0, 0, 0, 0)
-          return sDay
-        },
-        id: 'updatedAt',
-        header: 'Updated',
-        width: 80,
-        filterVariant: 'date-range',
-        sortingFn: 'datetime',
-        enableEditing: false,
-        enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
-        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(), //render Date as a string
-        Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
-      },
-      {
-        accessorKey: 'graphic.url', //hey a simple column for once
-        header: 'Graphic URL',
-        enableEditing: true,
-        enableClickToCopy: true,
-      },
-      {
-        accessorKey: 'graphic.thumbnail', //hey a simple column for once
-        header: 'Thumbnail',
-        enableEditing: true,
-        enableClickToCopy: true,
-      },
-      {
         accessorKey: 'id', //hey a simple column for once
         header: 'ID',
         enableEditing: false,
@@ -178,11 +171,11 @@ export default function DataTable(props: any) {
     [validationErrors]
   )
 
-  const handleSaveDocument: MRT_TableOptions<Document>['onEditingRowSave'] = async ({ values, table }) => {
-    const fixed = fixDocument(values)
+  const handleSaveTopic: MRT_TableOptions<Topic>['onEditingRowSave'] = async ({ values, table }) => {
+    const fixed = fixTopic(values)
     let cleaned = _.omit(fixed, ['graphic.thumbnail', 'graphic.url', 'createdAt', 'updatedAt'])
     // console.log(cleaned)
-    updatetheDocument(cleaned)
+    updatetheTopic(cleaned)
     table.setEditingRow(null)
     return
   }
@@ -224,7 +217,7 @@ export default function DataTable(props: any) {
     mantineSearchTextInputProps: {
       placeholder: 'Search',
     },
-    onEditingRowSave: handleSaveDocument,
+    onEditingRowSave: handleSaveTopic,
     renderRowActions: ({ row, table }) => (
       <Group justify='center'>
         <Menu withArrow>
@@ -263,7 +256,7 @@ export default function DataTable(props: any) {
             Quick View
           </Text>
         </Menu.Item>
-        <Menu.Item color='green' leftSection={<IconExternalLink />} component={Link} href={`./documents/${row.original.slug}`}>
+        <Menu.Item color='green' leftSection={<IconExternalLink />} component={Link} href={`./topics/${row.original.slug}`}>
           Full Page Edit
         </Menu.Item>
         <Menu.Item
@@ -277,11 +270,11 @@ export default function DataTable(props: any) {
                   <Title order={4}>{row.original.name}</Title>
                 </Group>
               ),
-              children: <Text size='sm'>Are you sure you would like to delete this document?</Text>,
+              children: <Text size='sm'>Are you sure you would like to delete this topic?</Text>,
               labels: { confirm: 'Delete', cancel: 'Cancel' },
               confirmProps: { color: 'red' },
               onCancel: () => console.log(`Canceled Delete`),
-              onConfirm: () => trashDocument(row.original),
+              onConfirm: () => trashTopic(row.original),
             })
           }}>
           <Text fw='600' size='sm'>
@@ -297,6 +290,35 @@ export default function DataTable(props: any) {
             <NextBreadcrumb homeElement='Home' containerClasses='breadcrumbs' listClasses='breadcrumb-item' activeClasses='active' capitalizeLinks={true} />
           </Group>
           <Group gap='xs'>
+            <Button
+              onClick={() => {
+                modals.open({
+                  title: (
+                    <Group>
+                      <IconAlertCircle />
+                      <Title order={4}>NEW TOPIC</Title>
+                    </Group>
+                  ),
+                  children: (
+                    <form onSubmit={newtopic.onSubmit((values) => createNewTopic(values))}>
+                      <TextInput withAsterisk label='name' placeholder='Name' key={newtopic.key('name')} {...newtopic.getInputProps('name')} />
+                      <TextInput withAsterisk label='slug' placeholder='slug' key={newtopic.key('slug')} {...newtopic.getInputProps('slug')} />
+                      <Textarea label='description' placeholder='description' key={newtopic.key('description')} {...newtopic.getInputProps('description')} />
+                      <TextInput label='icon' placeholder='icon' key={newtopic.key('icon')} {...newtopic.getInputProps('icon')} />
+                      <SimpleGrid cols={2}>
+                        <Select label='Status' data={statusselect} {...newtopic.getInputProps('status')} />
+                        <Checkbox mt='md' label='Pinned' key={newtopic.key('pinned')} {...newtopic.getInputProps('pinned', { type: 'checkbox' })} />
+                      </SimpleGrid>
+                      <Group justify='space-between' mt='md'>
+                        <Button onClick={() => modals.closeAll()}>Cancel</Button>
+                        <Button type='submit'>Submit</Button>
+                      </Group>
+                    </form>
+                  ),
+                })
+              }}>
+              Add Topic
+            </Button>
             <MRT_GlobalFilterTextInput table={table} />
             <MRT_ToggleFiltersButton table={table} />
           </Group>
@@ -305,7 +327,26 @@ export default function DataTable(props: any) {
     },
   })
 
-  function fixDocument(doc: any) {
+  async function createNewTopic(values : any) {
+    try {
+      const res = await client.graphql({ query: mutations.createTopic, variables: { input: values } })
+      console.log(res)
+      notifications.show({
+        title: `The Topic ${values.name} was updated`,
+        message: `${res.data.createTopic.id}`,
+      })
+      router.refresh()
+    } catch (error) {
+      notifications.show({
+        title: `There was an error updating ${values.name}`,
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem updating the Doc :`, error)
+    }
+    modals.closeAll()
+  }
+
+  function fixTopic(doc: any) {
     return _.merge({}, doc, {
       graphic: {
         url: doc['graphic.url'],
@@ -314,11 +355,11 @@ export default function DataTable(props: any) {
     })
   }
 
-  async function updatetheDocument(doc: any) {
+  async function updatetheTopic(doc: any) {
     try {
-      await client.graphql({ query: mutations.updateDocument, variables: { input: doc } })
+      await client.graphql({ query: mutations.updateTopic, variables: { input: doc } })
       notifications.show({
-        title: `The Document ${doc.name} was updated`,
+        title: `The Topic ${doc.name} was updated`,
         message: `${doc.id}`,
       })
       router.refresh()
@@ -331,12 +372,12 @@ export default function DataTable(props: any) {
     }
   }
 
-  async function trashDocument(doc: any) {
+  async function trashTopic(doc: any) {
     try {
-      await client.graphql({ query: mutations.deleteDocument, variables: { input: { id: doc.id } } })
+      await client.graphql({ query: mutations.deleteTopic, variables: { input: { id: doc.id } } })
       notifications.show({
         title: doc.name,
-        message: 'This document was deleted.',
+        message: 'This topic was deleted.',
       })
       router.refresh()
     } catch (error) {
@@ -346,6 +387,18 @@ export default function DataTable(props: any) {
       })
       console.log(`There was a problem deleting the Doc :`, error)
     }
+  }
+
+  function slugify(text: any) {
+    const snail = text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '')
+    newtopic.setFieldValue('slug', snail)
   }
 
   useEffect(() => {

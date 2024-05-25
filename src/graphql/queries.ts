@@ -1133,11 +1133,9 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
     name
     slug
     description
-    source
     content
     status
     pinned
-    public
     icon
     graphic {
       alt

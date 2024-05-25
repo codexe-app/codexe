@@ -2,16 +2,28 @@ import { MantineColorScheme } from '@mantine/core'
 
 export const tachyon = {
   colorScheme: 'light' as MantineColorScheme,
-  white: '#faf7f5',
-  black: '#291334',
+  white: '#fff4eb',
+  black: '#2b2123',
   primaryColor: 'tachyon',
-  primaryShade: { light: 7, dark: 2 },
+  primaryShade: { light: 8, dark: 1 },
   colors: {
-    tachyon: ['#D2EDEE', '#C3E7E9', '#B4E2E4', '#A5DCDF', '#96D6D9', '#87D0D4', '#78CACE', '#69C4C9', '#5ABEC4', '#4BB8BE'],
+    tachyon: ["#e3dadb","#c2b6e3","#EBCB8B","#A3BE8C","#B48EAD","#BF616A","#D08770","#EBCB8B","#503d70","#B48EAD"],
     blue: ['#D8F2FE', '#C4ECFD', '#B1E5FC', '#9DDFFB', '#89D9FB', '#75D2FA', '#62CCF9', '#4EC5F9', '#3ABFF8', '#26B9F7'],
     green: ['#BCF1DD', '#ABEDD5', '#9BE9CC', '#8AE5C4', '#79E2BB', '#68DEB3', '#58DAAA', '#47D7A2', '#36D399', '#2CC98F'],
     orange: ['#FDEDC3', '#FDE7AF', '#FDE19B', '#FDDB87', '#FCD573', '#FCCF5F', '#FBC94B', '#FBC337', '#FBBD23', '#FAB80F'],
     red: ['#FFFFFF', '#FEEBEB', '#FED8D8', '#FDC4C4', '#FCB1B1', '#FB9D9D', '#FA8989', '#F97777', '#F86363', '#F75050'],
+    gray: [
+      "#f5f5f5",
+      "#e7e7e7",
+      "#cdcdcd",
+      "#b2b2b2",
+      "#9a9a9a",
+      "#8b8b8b",
+      "#848484",
+      "#717171",
+      "#656565",
+      "#575757"
+    ]
   },
 }
 

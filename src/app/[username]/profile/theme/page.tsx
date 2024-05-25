@@ -8,7 +8,7 @@ import { getUser, listSpotlights } from '@/graphql/queries'
 import type { User, Spotlight as SpotlightEntry } from '@/graphql/API'
 import CopytoClipboard from '@/components/clipboard'
 
-const tachyon = ['#D2EDEE', '#C3E7E9', '#B4E2E4', '#A5DCDF', '#96D6D9', '#87D0D4', '#78CACE', '#69C4C9', '#5ABEC4', '#4BB8BE']
+const tachyon = ['#e3dadb', '#c2b6e3', '#EBCB8B', '#A3BE8C', '#B48EAD', '#BF616A', '#D08770', '#EBCB8B', '#503d70', '#B48EAD']
 const earth = ['#fef5e8', '#f3ead9', '#e5d3b6', '#d5bb8e', '#c9a66e', '#c19958', '#be924b', '#a77f3c', '#957032', '#826026']
 const cupcake = ['#8943B1', '#7E3EA3', '#673285', '#673285', '#5B2D76', '#502768', '#452259', '#3A1C4A', '#2E163B', '#23112D']
 const aurora = ['#BF616A', '#D08770', '#EBCB8B', '#A3BE8C', '#B48EAD', '#BF616A', '#D08770', '#EBCB8B', '#A3BE8C', '#B48EAD']
@@ -16,7 +16,7 @@ const aurora = ['#BF616A', '#D08770', '#EBCB8B', '#A3BE8C', '#B48EAD', '#BF616A'
 export default function Page() {
   const [value, setValue] = useState<ComboboxItem | null>(null)
   const [theuser, setTheuser] = useState<User>()
-  const [colourwheel, setColourwheel] = useState(aurora)
+  const [colourwheel, setColourwheel] = useState(tachyon)
   const [primaryShadeLight, setPrimaryShadeLight] = useState<number>(8)
   const [primaryShadeDark, setPrimaryShadeDark] = useState<number>(1)
   const [white, setWhite] = useState('#ffffff')

@@ -411,7 +411,7 @@ export default function DataTable(props: any) {
   }
 
   async function updatetheDocument(doc: any) {
-    console.log(doc)
+    //console.log(doc)
     try {
       await client.graphql({ query: mutations.updateDocument, variables: { input: doc } })
       notifications.show({
