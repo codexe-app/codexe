@@ -1,5 +1,5 @@
-const GRAPHQL_ENDPOINT = process.env.API_CODEXE_GRAPHQLAPIENDPOINTOUTPUT
-const GRAPHQL_API_KEY = process.env.API_CODEXE_GRAPHQLAPIKEYOUTPUT
+const GRAPHQL_ENDPOINT = process.env.API_CODEXEAPI_GRAPHQLAPIENDPOINTOUTPUT
+const GRAPHQL_API_KEY = process.env.API_CODEXEAPI_GRAPHQLAPIKEYOUTPUT
 
 /**
  * @type {import('@types/aws-lambda').PostConfirmationTriggerHandler}

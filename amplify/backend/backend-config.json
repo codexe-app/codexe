@@ -76,6 +76,17 @@
   "function": {
     "codexeauthPostConfirmation": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "codexeapi"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }

@@ -12,5 +12,12 @@
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "codexe215c4ac3PostConfirmation",
-  "skipEdit": true
+  "skipEdit": true,
+  "permissions": {
+    "api": {
+      "codexeapi": [
+        "Mutation"
+      ]
+    }
+  }
 }

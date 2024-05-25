@@ -43,6 +43,18 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "apicodexeapiGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apicodexeapiGraphQLAPIIdOutput"
+    },
+    "apicodexeapiGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apicodexeapiGraphQLAPIEndpointOutput"
+    },
+    "apicodexeapiGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "apicodexeapiGraphQLAPIKeyOutput"
     }
   },
   "Conditions": {
@@ -95,6 +107,15 @@
             },
             "GROUP": {
               "Ref": "GROUP"
+            },
+            "API_CODEXEAPI_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apicodexeapiGraphQLAPIIdOutput"
+            },
+            "API_CODEXEAPI_GRAPHQLAPIENDPOINTOUTPUT": {
+              "Ref": "apicodexeapiGraphQLAPIEndpointOutput"
+            },
+            "API_CODEXEAPI_GRAPHQLAPIKEYOUTPUT": {
+              "Ref": "apicodexeapiGraphQLAPIKeyOutput"
             }
           }
         },
@@ -193,6 +214,53 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "appsync:GraphQL"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:appsync:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":apis/",
+                      {
+                        "Ref": "apicodexeapiGraphQLAPIIdOutput"
+                      },
+                      "/types/Mutation/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }
