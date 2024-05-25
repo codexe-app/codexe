@@ -15,7 +15,6 @@ import CopytoClipboard from '@/components/clipboard'
 import { type Topic } from '@/graphql/API'
 import { IconEdit, IconEye, IconTrash, IconDotsCircleHorizontal, IconAlertCircle, IconPin, IconPinnedOff, IconExternalLink } from '@tabler/icons-react'
 import NextBreadcrumb from '@/components/breadcrumb'
-import DynamicIcon from '@/components/dynamicicon'
 import 'mantine-react-table/styles.css'
 
 const _ = require('lodash')
@@ -98,7 +97,6 @@ export default function DataTable(props: any) {
               alignItems: 'center',
               gap: '16px',
             }}>
-              <DynamicIcon name={row.original.icon} />
             <Title order={6}>{renderedCellValue}</Title>
           </Box>
         ),
