@@ -95,7 +95,7 @@ export default function Page() {
 
   return (
     <Container size='responsive' px={0}>
-      <BackgroundImage src='/dots.svg'>
+      <BackgroundImage src='/dots.svg' h='calc(100vh - 48px)'>
         <Container size='lg' py='xl'>
           <Stepper active={active}>
             <Stepper.Step icon={<IconForms />} label='Create an account' description='Fill out the form below' loading={account}>
