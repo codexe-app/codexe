@@ -1,7 +1,7 @@
 'use client'
 import { Link } from '@/utils/router-events'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { signUp, confirmSignUp, autoSignIn } from 'aws-amplify/auth'
 import { useForm } from '@mantine/form'
 import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, BackgroundImage, Group, Button, Alert, Stack } from '@mantine/core'
