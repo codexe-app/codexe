@@ -26,6 +26,13 @@ exports.handler = async (event) => {
           heading
           mono
         }
+        avatar {
+          title
+          alt
+          caption
+          description
+          url
+        }
       }
     }
   `
@@ -44,6 +51,13 @@ exports.handler = async (event) => {
         heading: 'var(--font-dinpro)',
         mono: 'var(--font-mononoki)',
       },
+      avatar: {
+        title: 'Default Avatar',
+        alt: 'Default Avatar',
+        caption: 'A simple square svg placeholder',
+        description: 'A simple square svg placeholder',
+        url: '/default.svg'
+      }
     },
   }
 

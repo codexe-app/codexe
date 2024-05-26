@@ -48,11 +48,11 @@ interface Item {
 export default function UserForm(props: any) {
   //console.log(`Profile Form Props :`, props)
   const client = generateClient()
-  const [palette, setPalette] = useState<string | null>(props.user.theme.palette)
-  const [font, setFont] = useState<string | null>(props.user.theme.font)
-  const [heading, setHeading] = useState<string | null>(props.user.theme.heading)
-  const [mono, setMono] = useState<string | null>(props.user.theme.mono)
-  const [image, setImage] = useState<string | null>(props.user.avatar.url)
+  const [palette, setPalette] = useState<string | null>(props.user.theme?.palette)
+  const [font, setFont] = useState<string | null>(props.user.theme?.font)
+  const [heading, setHeading] = useState<string | null>(props.user.theme?.heading)
+  const [mono, setMono] = useState<string | null>(props.user.theme?.mono)
+  const [image, setImage] = useState<string | null>(props.user.avatar?.url)
   const [uploadProgress, setUploadProgress] = useState(0)
   const form = useForm({ initialValues: props.user })
   const combobox = useCombobox({ onDropdownClose: () => combobox.resetSelectedOption() })
@@ -144,8 +144,7 @@ export default function UserForm(props: any) {
           },
         },
       }).result
-      //GET THIS OUT OF HERE
-      const theurl = 'https://codexemedia212a4-dev.s3.us-west-2.amazonaws.com/' + thepath
+      const theurl = process.env.S3_URL + thepath
       form.setFieldValue('avatar.key', thepath)
       form.setFieldValue('avatar.url', theurl)
       notifications.show({
