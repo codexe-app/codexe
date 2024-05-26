@@ -11,23 +11,32 @@ If you would like to set up your own CODEXE server, you will need an AWS account
 
 [http://localhost:3000](http://localhost:3000/)
 
+All new accounts are assigned a *Guest* level role which cannot upload to S3 or use the Chatbot so goto the Amplify Studio or Cognito and add your account to at least the *User* group.
+
+You will also need to make the root /public folder of the S3 bucket publicly viewable. I felt that the whole signed URL was overkill for now.
+
 ## Current Features
 
+### Dashboard
+With the Astronomy Picture of the Day
 ### Documents
-Markdown
+Create Edit Save and Organize Markdown Documents
 ### Diagrams
-
+Create Edit Save and Organize Flowcarts
 ### Chatbot
-Anthropic Claude
+Anthropic Claude AI Assistant
+### Theme
+Customizable theme
+
 ## Planned Features
 
 ## Stack Details
 
 ### Front End
 react
-next
+nextjs
 mantine
-mdxeditor
+milkdown
 xyflow
 ai
 

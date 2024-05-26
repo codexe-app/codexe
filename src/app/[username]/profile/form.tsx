@@ -7,6 +7,7 @@ import {
   TextInput,
   Box,
   Flex,
+  Card,
   Code,
   ColorSwatch,
   SimpleGrid,
@@ -18,6 +19,7 @@ import {
   Image,
   Paper,
   Title,
+  Tabs,
   Text,
   Group,
   Stack,
@@ -25,6 +27,7 @@ import {
   Progress,
   rem,
   Badge,
+  ActionIcon,
   DEFAULT_THEME,
   ColorPicker,
   Textarea,
@@ -32,7 +35,7 @@ import {
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
-import { IconUpload, IconPhoto, IconX, IconCookieOff, IconCookie } from '@tabler/icons-react'
+import { IconUpload, IconPhoto, IconX, IconCookieOff, IconCookie, IconXboxX } from '@tabler/icons-react'
 import { createCookie } from '@/app/actions'
 import dayjs from 'dayjs'
 
@@ -47,7 +50,9 @@ interface Item {
 
 export default function UserForm(props: any) {
   //console.log(`Profile Form Props :`, props)
+  const { s3url } = props
   const client = generateClient()
+  const [activeTab, setActiveTab] = useState<string | null>('view')
   const [palette, setPalette] = useState<string | null>(props.user.theme?.palette)
   const [font, setFont] = useState<string | null>(props.user.theme?.font)
   const [heading, setHeading] = useState<string | null>(props.user.theme?.heading)
@@ -58,11 +63,11 @@ export default function UserForm(props: any) {
   const combobox = useCombobox({ onDropdownClose: () => combobox.resetSelectedOption() })
 
   const themecolors: Item[] = [
-    { primary: '#465682', text: '#2e3440', body: '#ECEFF4', dark: '#465682', value: 'tachyon', description: 'Tachyon' },
-    { primary: '#465682', text: '#2e3440', body: '#ECEFF4', dark: '#465682', value: 'opencolor', description: 'Opencolor' },
+    { primary: '#503d70', text: '#2b2123', body: '#fff4eb', dark: '#503d70', value: 'tachyon', description: 'Tachyon' },
+    { primary: '#1971c2', text: '#000000', body: '#ffffff', dark: '#1971c2', value: 'opencolor', description: 'Opencolor' },
     { primary: '#5e81ac', text: '#2E3440', body: '#ECEFF4', dark: '#5e81ac', value: 'nord', description: 'Nord' },
     { primary: '#222244', text: '#1f2937', body: '#ffffff', dark: '#222244', value: 'bumblebee', description: 'Bumblebee' },
-    { primary: '#211452', text: '#291334', body: '#faf7f5', dark: '#2e163b', value: 'cupcake', description: 'Cupcake' },
+    { primary: '#5abec4', text: '#291334', body: '#faf7f5', dark: '#2e163b', value: 'cupcake', description: 'Cupcake' },
     { primary: '#83785d', text: '#282425', body: '#e4d8b4', dark: '#83785d', value: 'retro', description: 'Retro' },
     { primary: '#211452', text: '#785cd6', body: '#382182', dark: '#222244', value: 'synthwave', description: 'Synthwave' },
     { primary: '#5769c7', text: '#7476aa', body: '#363859', dark: '#94a0db', value: 'moonlight', description: 'Moonlight' },
@@ -84,14 +89,12 @@ export default function UserForm(props: any) {
     return (
       <Group justify='space-between'>
         <Group>
-          <Badge></Badge>
           <Text fz='md' fw='500'>
             {description}
           </Text>
         </Group>
         <Group>
           <ColorSwatch color={primary} />
-          <ColorSwatch color={dark} />
           <ColorSwatch color={text} />
           <ColorSwatch color={body} />
           <Box hidden>{value}</Box>
@@ -144,7 +147,7 @@ export default function UserForm(props: any) {
           },
         },
       }).result
-      const theurl = process.env.S3_URL + thepath
+      const theurl = s3url + thepath
       form.setFieldValue('avatar.key', thepath)
       form.setFieldValue('avatar.url', theurl)
       notifications.show({
@@ -200,34 +203,45 @@ export default function UserForm(props: any) {
             </SimpleGrid>
             <TextInput label='Email' placeholder='you@codexe.info' {...form.getInputProps('email')} radius='xs' />
             <SimpleGrid cols={{ base: 1, sm: 1, md: 2 }}>
-              <Flex align='center'>
-                {image != '' ? (
+              <Tabs value={activeTab} onChange={setActiveTab}>
+                <Tabs.List>
+                  <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
+                    View
+                  </Tabs.Tab>
+                  <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
+                    Upload
+                  </Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel value='view' mah={240}>
                   <Image src={form.values.avatar?.url} />
-                ) : (
-                  <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
-                    <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
-                      <Dropzone.Accept>
-                        <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
-                      </Dropzone.Accept>
-                      <Dropzone.Reject>
-                        <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
-                      </Dropzone.Reject>
-                      <Dropzone.Idle>
-                        <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
-                      </Dropzone.Idle>
-                      <div>
-                        <Text size='xl' inline>
-                          Drag image here or click to select file
-                        </Text>
-                        <Text size='sm' c='dimmed' inline mt={7}>
-                          File should not exceed 5mb
-                        </Text>
-                      </div>
-                    </Group>
-                    <Progress value={uploadProgress} />
-                  </Dropzone>
-                )}
-              </Flex>
+                </Tabs.Panel>
+                <Tabs.Panel value='upload'>
+                  <Card shadow='sm' padding='lg' radius='md' withBorder>
+                    <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={2 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
+                      <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
+                        <Dropzone.Accept>
+                          <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
+                        </Dropzone.Accept>
+                        <Dropzone.Reject>
+                          <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
+                        </Dropzone.Reject>
+                        <Dropzone.Idle>
+                          <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
+                        </Dropzone.Idle>
+                        <div>
+                          <Text size='xl' inline>
+                            Drag image here or click to select file
+                          </Text>
+                          <Text size='sm' c='dimmed' inline mt={7}>
+                            Optimal Size is 512x512, File should not exceed 2mb
+                          </Text>
+                        </div>
+                      </Group>
+                      <Progress value={uploadProgress} />
+                    </Dropzone>
+                  </Card>
+                </Tabs.Panel>
+              </Tabs>
               <Stack gap='0'>
                 <TextInput label='Title' placeholder='Title' {...form.getInputProps('avatar.title')} size='xs' radius='xs' />
                 <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('avatar.alt')} size='xs' radius='xs' />
@@ -248,7 +262,7 @@ export default function UserForm(props: any) {
                 </Group>
                 <Group pr='xl'>
                   <Text size='sm' fw='500'>
-                    Primary | Anchor | Text | Body{' '}
+                    Primary | Text | Body{' '}
                   </Text>
                 </Group>
               </Group>

@@ -53,6 +53,7 @@ async function AuthGetCurrentUserServer() {
 
 export default async function Page() {
   const theuser = await AuthGetCurrentUserServer()
+  //console.log(theuser)
   const response = (await cookieBasedClient.graphql({
     query: getUser,
     variables: {
@@ -67,7 +68,7 @@ export default async function Page() {
 
   return (
     <Container size='responsive' p='lg'>
-      <UserForm user={user} />
+      <UserForm user={user} s3url={process.env.S3_URL}/>
     </Container>
   )
 }

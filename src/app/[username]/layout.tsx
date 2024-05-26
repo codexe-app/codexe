@@ -11,7 +11,23 @@ import { Spotlight, SpotlightActionData, spotlight } from '@mantine/spotlight'
 import { useDisclosure } from '@mantine/hooks'
 import ChatBot from '@/components/chatbot'
 import { AppShell, Dialog, Group, ActionIcon, Stack, NavLink, Avatar, Menu, Text, rem, useMantineColorScheme, useComputedColorScheme } from '@mantine/core'
-import { IconBrush, IconRosette, IconComponents, IconMessage, IconMoon, IconSun, IconHierarchy2, IconLayoutSidebarLeftExpand, IconLogout, IconIdBadge2, IconFiles, IconInfoCircle, IconDashboard, IconFileText, IconSearch } from '@tabler/icons-react'
+import {
+  IconBrush,
+  IconRosette,
+  IconComponents,
+  IconMessage,
+  IconMoon,
+  IconSun,
+  IconHierarchy2,
+  IconLayoutSidebarLeftExpand,
+  IconLogout,
+  IconIdBadge2,
+  IconFiles,
+  IconInfoCircle,
+  IconDashboard,
+  IconFileText,
+  IconSearch,
+} from '@tabler/icons-react'
 import { HorizontalLogo } from '@/app/logo'
 import { nanoid } from 'nanoid'
 import { createCookie } from '@/app/actions'
@@ -66,7 +82,7 @@ export default function Layout({ children }: { children: any }) {
         query: getUser,
         variables: {
           id: userId,
-        }
+        },
       })) as {
         data: {
           getUser: User
@@ -122,12 +138,16 @@ export default function Layout({ children }: { children: any }) {
               <HorizontalLogo size={32} color='var(--mantine-primary-color-filled)' />
             </Link>
             <Group ml='xl' gap='xs'>
-              <ActionIcon variant='gradient.9' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
-                {opened ? <IconMessage size={16} stroke={2} /> : <IconMessage size={20} stroke={2} />}
-              </ActionIcon>
-              <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8} zIndex={202}>
-                <ChatBot id={chat.id} chat={chat} initialMessages={null} user={theuser} close={close} />
-              </Dialog>
+              {theuser?.role !== 'Guest' && (
+                <React.Fragment>
+                  <ActionIcon variant='gradient.9' size={32} radius='xl' aria-label='Settings' onClick={toggle}>
+                    {opened ? <IconMessage size={16} stroke={2} /> : <IconMessage size={20} stroke={2} />}
+                  </ActionIcon>
+                  <Dialog opened={opened} position={{ top: 34, right: 4 }} size='xl' p={0} radius={8} zIndex={202}>
+                    <ChatBot id={chat.id} chat={chat} initialMessages={null} user={theuser} close={close} />
+                  </Dialog>
+                </React.Fragment>
+              )}
               <Menu shadow='md' width={200}>
                 <Menu.Target>
                   <Avatar src={theuser?.avatar?.url} radius='xl' size={32} style={{ cursor: 'pointer' }} />
@@ -189,7 +209,7 @@ export default function Layout({ children }: { children: any }) {
               <NavLink label='All Documents' href={`/${theuser?.username}/documents`} />
               <NavLink label='New Document' href={`/${theuser?.username}/documents/new`} />
               <NavLink label='Nested' childrenOffset={28} href='#'>
-                <NavLink label='Theme' href={`/${theuser?.username}/profile/theme`}  />
+                <NavLink label='Theme' href={`/${theuser?.username}/profile/theme`} />
               </NavLink>
             </NavLink>
             <NavLink href='#' label='Diagrams' leftSection={<IconHierarchy2 size='1rem' stroke={1.5} />} childrenOffset={28}>
@@ -197,8 +217,8 @@ export default function Layout({ children }: { children: any }) {
               <NavLink label='New Diagram' href={`/${theuser?.username}/diagrams/new`} />
             </NavLink>
             <NavLink href={`/${theuser?.username}/profile`} label='Profile' leftSection={<IconRosette size='1rem' stroke={1.5} />} childrenOffset={28}>
-              <NavLink href={`/${theuser?.username}/profile`}  label='Profile' />
-              <NavLink label='Theme' href={`/${theuser?.username}/profile/theme`}  />
+              <NavLink href={`/${theuser?.username}/profile`} label='Profile' />
+              <NavLink label='Theme' href={`/${theuser?.username}/profile/theme`} />
             </NavLink>
           </Stack>
         </Stack>
