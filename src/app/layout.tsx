@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css'
 import React from 'react'
 import { cookies } from 'next/headers'
-import { MantineProvider, ColorSchemeScript, createTheme, rem, type MantineColorScheme, MantineColorShade, MantinePrimaryShade } from '@mantine/core'
+import { MantineProvider, ColorSchemeScript, createTheme, rem, type MantineColorScheme } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
 import ConfigureAmplifyClientSide from '@/utils/configureamplifyclientside'

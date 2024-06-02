@@ -243,12 +243,12 @@ export default function UserForm(props: any) {
                 </Tabs.Panel>
               </Tabs>
               <Stack gap='0'>
-                <TextInput label='Title' placeholder='Title' {...form.getInputProps('avatar.title')} size='xs' radius='xs' />
-                <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('avatar.alt')} size='xs' radius='xs' />
-                <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('avatar.caption')} size='xs' radius='xs' />
-                <TextInput label='Description' placeholder='Description' {...form.getInputProps('avatar.description')} size='xs' radius='xs' />
-                <TextInput label='S3 Key' placeholder='Key' {...form.getInputProps('avatar.key')} size='xs' radius='xs' />
-                <Textarea label='URL' placeholder='URL' {...form.getInputProps('avatar.url')} size='xs' radius='xs' />
+                <TextInput label='Title' placeholder='Title' {...form.getInputProps('avatar?.title!')} size='xs' radius='xs' />
+                <TextInput label='Alt' placeholder='Alt' {...form.getInputProps('avatar?.alt!')} size='xs' radius='xs' />
+                <TextInput label='Caption' placeholder='Caption' {...form.getInputProps('avatar?.caption!')} size='xs' radius='xs' />
+                <TextInput label='Description' placeholder='Description' {...form.getInputProps('avatar?.description!')} size='xs' radius='xs' />
+                <TextInput label='S3 Key' placeholder='Key' {...form.getInputProps('avatar?.key!')} size='xs' radius='xs' />
+                <Textarea label='URL' placeholder='URL' {...form.getInputProps('avatar?.url!')} size='xs' radius='xs' />
               </Stack>
             </SimpleGrid>
           </Stack>

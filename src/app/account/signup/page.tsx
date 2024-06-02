@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signUp, confirmSignUp, autoSignIn } from 'aws-amplify/auth'
 import { useForm } from '@mantine/form'
-import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, BackgroundImage, Group, Button, Alert, Stack } from '@mantine/core'
+import { TextInput, PasswordInput, PinInput, Anchor, Stepper, Paper, Title, Text, Container, BackgroundImage, Group, Button, Alert, Stack, useComputedColorScheme } from '@mantine/core'
 import { IconForms, IconMailOpened, IconKey, IconAlertCircle } from '@tabler/icons-react'
 
 export default function Page() {
@@ -28,6 +28,8 @@ export default function Page() {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   })
+  const colorScheme = useComputedColorScheme()
+
 
   async function handleSignUp(values: typeof signup.values) {
     setAccount(true)
@@ -95,7 +97,7 @@ export default function Page() {
 
   return (
     <Container size='responsive' px={0}>
-      <BackgroundImage src='/dots.svg' h='calc(100vh - 48px)'>
+      <BackgroundImage src={colorScheme === 'light' ? '/images/dots-dark.svg' : '/images/dots-light.svg'} h='calc(100vh - 48px)'>
         <Container size='lg' py='xl'>
           <Stepper active={active}>
             <Stepper.Step icon={<IconForms />} label='Create an account' description='Fill out the form below' loading={account}>

@@ -56,7 +56,7 @@ exports.handler = async (event) => {
         alt: 'Default Avatar',
         caption: 'A simple square svg placeholder',
         description: 'A simple square svg placeholder',
-        url: '/default.svg'
+        url: '/images/default.svg'
       }
     },
   }

@@ -16,6 +16,7 @@ export default function Page() {
 
   const router = useRouter()
   const login = useForm({
+    mode: 'uncontrolled',
     initialValues: {
       username: '',
       password: '',
@@ -83,9 +84,9 @@ export default function Page() {
     }
   }
 
-  return (
-    <Container size='responsive' p={0}>
-      <BackgroundImage src='/dots.svg' h='calc(100vh - 48px)'>
+  function Content() {
+    return (
+      <Container size='xl'>
         <Box mb='xl'>
           <Title ta='center' order={2}>
             Welcome back
@@ -136,6 +137,17 @@ export default function Page() {
             </form>
           </Paper>
         </Container>
+      </Container>
+    )
+  }
+
+  return (
+    <Container size='responsive' p={0}>
+      <BackgroundImage src='/images/dots-dark.svg' lightHidden h='calc(100vh - 48px)'>
+        <Content />
+      </BackgroundImage>
+      <BackgroundImage src='/images/dots-light.svg' darkHidden h='calc(100vh - 48px)'>
+        <Content />
       </BackgroundImage>
     </Container>
   )
