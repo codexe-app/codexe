@@ -258,6 +258,7 @@ type XYPosition {
 
 type NodeData {
   label: String
+  description: String
 }
 
 type EdgeData {

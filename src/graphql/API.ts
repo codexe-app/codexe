@@ -590,6 +590,7 @@ export type WHMeasuredInput = {
 
 export type NodeDataInput = {
   label?: string | null,
+  description?: string | null,
 };
 
 export type ModelNodeConditionInput = {

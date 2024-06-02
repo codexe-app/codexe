@@ -4,18 +4,39 @@ import { useRouter } from 'next/navigation'
 import * as mutations from '@/graphql/mutations'
 import { generateClient } from 'aws-amplify/api'
 import { notifications } from '@mantine/notifications'
-import { Stack, ActionIcon, NumberInput, Fieldset, Title, Avatar, Badge, TextInput, Grid, Button, Group, Textarea, Select, ScrollArea, Accordion, SimpleGrid } from '@mantine/core'
+import {
+  useMatches, Stack,  Flex, ActionIcon, Checkbox, Progress,
+  Text, Tabs, Image,
+  Container, Card, NumberInput, Fieldset,
+  Title, Avatar, Badge, TextInput, Grid, Button, Group,
+  Textarea, Select, Tooltip, Accordion, SimpleGrid, rem } from '@mantine/core'
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
 import { ReactFlow, useNodesState, useEdgesState, addEdge, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
-import { IconTrash, IconDeviceFloppy, IconRestore, IconDialpad, IconLine, IconRefresh, IconSquarePlus, IconBookmarkPlus, IconPencil, IconEyeX } from '@tabler/icons-react'
+import { IconFileTypeSvg, IconPhoto, IconForms,
+  IconDatabaseEdit, IconUpload, IconX,
+  IconFileTypePng, IconFileTypeJpg, IconTrash,
+  IconDeviceFloppy, IconRestore, IconDialpad,
+  IconLine,
+  IconRefresh,
+  IconSquarePlus,
+  IconBookmarkPlus,
+  IconPencil,
+  IconEye,
+} from '@tabler/icons-react'
 import { nanoid } from 'nanoid'
+import { uploadData } from 'aws-amplify/storage'
+import { toPng, toSvg, toJpeg } from 'html-to-image'
 import '@xyflow/react/dist/style.css'
 import classes from './diagrams.module.css'
 import { nodetypes, nodeTypes } from '@/components/diagram/nodes'
 var _ = require('lodash')
 
 export default function DiagramCanvas(props) {
+  //console.log(`Diagram Canvas Props :`, props)
+  const hideme = true
+  const { s3url } = props
   const client = generateClient()
   const router = useRouter()
   const diagram = useForm({
@@ -29,16 +50,27 @@ export default function DiagramCanvas(props) {
   const diagramid = props.diagram.id
   const [saved, setSaved] = useState(props.diagram)
   const [newgram, setNewgram] = useState(props.new)
+  const [pinned, setPinned] = useState(props?.diagram?.pinned)
+  const [graphic, setGraphic] = useState(props?.diagram?.graphic?.url)
+  const [activeTab, setActiveTab] = useState('view')
   const [addnodem, setAddnodem] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [showtb, setShowtb] = useState(true)
   const [nodes, setNodes, onNodesChange] = useNodesState(props.diagram.nodes?.items)
   const [edges, setEdges, onEdgesChange] = useEdgesState(props.diagram.edges?.items)
+  const sizeme = useMatches({
+    base: 'sm',
+    sm: 'xs',
+    lg: 'md',
+  })
+
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges])
   const addnode = useForm({
     mode: 'uncontrolled',
     initialValues: {
       id: nanoid(),
       new: true,
-      data: { label: 'New Node' },
+      data: { label: 'New Node',  description: 'Node description.'},
       type: 'custom',
       position: {
         x: 100,
@@ -53,7 +85,7 @@ export default function DiagramCanvas(props) {
       modals.closeAll()
       const newNode = {
         id: nanoid(),
-        data: { label: values.data.label },
+        data: { label: values.data.label, description: values.data.description },
         type: values.data.type,
         position: {
           x: (Math.random() * window.innerWidth) / 2,
@@ -68,7 +100,7 @@ export default function DiagramCanvas(props) {
   )
 
   async function submitForm(values) {
-    console.log(`SUBMITING :`, values)
+    //console.log(`SUBMITING :`, values)
     pushtoForm()
     if (newgram) {
       values.nodes.items.forEach((node, index) => {
@@ -115,7 +147,7 @@ export default function DiagramCanvas(props) {
   }
 
   async function newDiagram(values) {
-    let cleaned = _.omit(values, ['new', 'edges', 'nodes', 'content', 'createdAt', 'updatedAt', '__typename'])
+    let cleaned = _.omit(values, ['new', 'edges', 'nodes', 'content', 'topic', 'user', 'createdAt', 'updatedAt', '__typename'])
     //console.log(cleaned)
     try {
       const doc = await client.graphql({ query: mutations.createDiagram, variables: { input: cleaned } })
@@ -130,13 +162,13 @@ export default function DiagramCanvas(props) {
         title: 'There was an error updating the Diagram',
         message: JSON.stringify(error),
       })
-      console.log(`There was a problem updateing the Dia :`, error)
+      console.log(`There was a problem updateing the Diagram ${values.name}:`, error)
     }
   }
 
   async function saveDiagram(values) {
-    let cleaned = _.omit(values, ['edges', 'nodes', 'content', 'createdAt', 'updatedAt', '__typename'])
-    //console.log(cleaned)
+    let cleaned = _.omit(values, ['edges', 'nodes', 'content', 'topic', 'user', 'createdAt', 'updatedAt', '__typename'])
+    console.log(cleaned)
     try {
       const doc = await client.graphql({ query: mutations.updateDiagram, variables: { input: cleaned } })
       //console.log(doc)
@@ -146,10 +178,10 @@ export default function DiagramCanvas(props) {
       })
     } catch (error) {
       notifications.show({
-        title: 'There was an error saving the document',
+        title: 'There was an error saving the Diagram',
         message: JSON.stringify(error),
       })
-      console.log(`There was a problem saving the Doc :`, error)
+      console.log(`There was a problem saving the Diagram ${values.name}:`, error)
     }
   }
 
@@ -217,8 +249,8 @@ export default function DiagramCanvas(props) {
   }
 
   async function updatetheNode(thenodedata) {
-    console.log(`updateNode :`, thenodedata)
     let cleaned = _.omit(thenodedata, ['ariaLabel', 'className', 'createdAt', 'updatedAt', '__typename', 'position.__typename', 'measured.__typename', 'data.__typename'])
+    console.log(`updateNode :`, cleaned)
     try {
       await client.graphql({ query: mutations.updateNode, variables: { input: cleaned } })
       notifications.show({
@@ -227,10 +259,10 @@ export default function DiagramCanvas(props) {
       })
     } catch (error) {
       notifications.show({
-        title: 'There was an error updating the Node',
+        title:`There was an error updating the Node ${thenodedata.data.label}`,
         message: JSON.stringify(error),
       })
-      console.log(`There was a problem updating the Node :`, error)
+      console.log(`There was a problem updating the Node ${thenodedata.data.label}:`, error)
     }
   }
 
@@ -248,6 +280,12 @@ export default function DiagramCanvas(props) {
     setEdges(diagram.values.edges.items)
   }
 
+  function switchPinned(pinned) {
+    //console.log(pinned)
+    diagram.setFieldValue('pinned', pinned)
+    setPinned(pinned)
+  }
+
   function slugify(text) {
     const snail = text
       .toString()
@@ -260,125 +298,334 @@ export default function DiagramCanvas(props) {
     diagram.setFieldValue('slug', snail)
   }
 
+  function screenShot() {
+    toPng(document.querySelector('.react-flow'), {
+      width: 1024,
+      height: 1024,
+      style: {
+        width: 1024,
+        height: 1024,
+      },
+    }).then(downloadImage)
+  }
+
+  function downloadImage(dataUrl) {
+    const a = document.createElement('a')
+    a.setAttribute('download', `${diagram.values.slug}.png`)
+    a.setAttribute('href', dataUrl)
+    a.click()
+  }
+
+  function screenShotS3() {
+    toPng(document.querySelector('.react-flow'), {
+      width: 1024,
+      height: 1024,
+      style: {
+        width: 1024,
+        height: 1024,
+      },
+    }).then(function (dataUrl) {
+      const thefile = dataURLtoFile(dataUrl, `${diagram.values.slug}.png`)
+      uploadMedia(thefile)
+    })
+  }
+
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n)
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    return new File([u8arr], filename, { type: mime })
+  }
+
+  async function uploadMedia(file) {
+    const thepath = `public/${props.user.username}/${file.name}`
+    try {
+      const result = uploadData({
+        path: thepath,
+        data: file,
+        options: {
+          onProgress: ({ transferredBytes, totalBytes }) => {
+            if (totalBytes) {
+              setUploadProgress(Math.round((transferredBytes / totalBytes) * 100))
+              console.log(`Upload progress ${Math.round((transferredBytes / totalBytes) * 100)} %`)
+            }
+          },
+        },
+      }).result
+      notifications.show({
+        title: 'Your file has been uploaded',
+        message: thepath,
+      })
+    } catch (error) {
+      console.log('Error : ', error)
+      notifications.show({
+        title: 'There was an error uploading your file',
+        message: JSON.stringify(error),
+      })
+    }
+    const theurl = s3url + thepath
+    diagram.setFieldValue('graphic.key', thepath)
+    diagram.setFieldValue('graphic.url', theurl)
+  }
+
   const NewNodeForm = () => {
     return (
       <form onSubmit={addnode.onSubmit((values) => onAdd(values))}>
-        <Stack>
+        <Stack gap='xs'>
           <TextInput label='Label' placeholder='Label' size='xs' {...addnode.getInputProps('data.label')} />
+          <Textarea label='Description' placeholder='Description' size='xs' {...addnode.getInputProps('data.description')} />         
           <Select label='Type' placeholder='Pick value' size='xs' data={nodetypes} {...addnode.getInputProps('data.type')} />
-          <Button type='submit'>Add Node</Button>{' '}
+          <Button type='submit'>Add Node</Button>
         </Stack>
       </form>
     )
   }
 
+  function AccordionControl(props) {
+    return (
+      <Group gap={sizeme} wrap='nowrap' justify='space-between'>
+        <Tooltip label='Save Diagram'>
+          <ActionIcon size='md' type='submit' variant='outline'>
+            <IconDeviceFloppy size='1.25rem' />
+          </ActionIcon>
+        </Tooltip>
+        <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-primary-color-filled)' />} />
+        <Tooltip label='Add Node'>
+          <ActionIcon
+            variant='outline'
+            onClick={() => {
+              modals.open({
+                title: 'Add Node',
+                children: <NewNodeForm />,
+              })
+            }}>
+            <IconSquarePlus size={14} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label='Sync View'>
+          <ActionIcon variant='outline' onClick={updateView}>
+            <IconEye style={{ width: rem(20) }} stroke={1.5} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label='Sync Form'>
+          <ActionIcon variant='outline' onClick={pushtoForm}>
+            <IconForms style={{ width: rem(20) }} stroke={1.5} />
+          </ActionIcon>
+        </Tooltip>
+        <ActionIcon.Group>
+          <Tooltip label='Download PNG'>
+            <ActionIcon variant='default' size='lg' aria-label='Gallery' onClick={screenShot}>
+              <IconFileTypePng style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+          </Tooltip>
+          <ActionIcon variant='default' size='lg' aria-label='SVG' disabled>
+            <IconFileTypeSvg style={{ width: rem(20) }} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon variant='default' size='lg' aria-label='JPG' disabled>
+            <IconFileTypeJpg style={{ width: rem(20) }} stroke={1.5} />
+          </ActionIcon>
+        </ActionIcon.Group>
+      </Group>
+    )
+  }
+
   return (
-    <Grid>
-      <Grid.Col span='auto'>
-        <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect}>
-          <Background color='#ccc' variant={BackgroundVariant.Dots} />
-          <MiniMap zoomable pannable />
-          <Controls />
-        </ReactFlow>
-      </Grid.Col>
-      <Grid.Col span='content' className={classes.edge} p='0'>
-        <ScrollArea h='calc(100vh - 48px)' pt='xl' px='0' scrollbars='y' offsetScrollbars='x'>
-          <form onSubmit={diagram.onSubmit((values) => submitForm(values))}>
-            <Stack w='200px' px='xs' gap='xs'>
-              <TextInput {...diagram.getInputProps(`name`)} size='md' fw={600} c='var(--mantine-primary-color-filled)' rightSection={<IconPencil />} />
-              <Group wrap='nowrap' gap='xs'>
-                <TextInput {...diagram.getInputProps(`slug`)} size='xs' />
-                <Select data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} size='xs' />
-              </Group>
-              <Textarea label='Description' {...diagram.getInputProps(`description`)} size='xs' />
-              <Accordion chevronPosition='right' variant='contained'>
-                <Accordion.Item value='graphic' key='graphic'>
-                  <Accordion.Control px='xs'>
-                    <Group wrap='nowrap'>
-                      <IconDialpad color='var(--mantine-primary-color-filled)' />
-                      <Title order={5}>Nodes</Title>
-                    </Group>
-                  </Accordion.Control>
-                  <Accordion.Panel>
-                    {diagram.values.nodes?.items?.map((item, index) => (
-                      <Fieldset key={index} mb='sm' py='xs' px='6'>
-                        <Badge size='md' w='100%' variant='outline' radius='xs'>
-                          {item.id}
-                        </Badge>
-                        <TextInput label='Label' {...diagram.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
-                        <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
-                        <SimpleGrid cols={2}>
-                          <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
-                          <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
-                        </SimpleGrid>
-                        <Group justify='end'>
-                          <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('nodes.items', index)}>
-                            <IconTrash size={18} color='white' />
-                          </ActionIcon>
-                          <ActionIcon mt='xs' color='pink.9' onClick={() => saveNode(diagram.values, index)}>
-                            <IconDeviceFloppy size={18} color='white' />
-                          </ActionIcon>
+    <React.Fragment>
+      <form onSubmit={diagram.onSubmit((values) => submitForm(values))}>
+        <Flex justify='space-between' mb='xl' pos='fixed' top='48px' left='0' w='100%' bg='var(--mantine-color-default-hover)' style={{ zIndex: 201 }}>
+          <Accordion w='100%'>
+            <Accordion.Item key='meta' value='meta'>
+              <Container size='responsive'>
+                <AccordionControl style={{ paddingInline: 0 }} className='doctitle'>
+                  <Title ta='left' order={5} textWrap='nowrap'>
+                    {diagram.values.name}
+                  </Title>
+                </AccordionControl>
+              </Container>
+              <Accordion.Panel>
+                <Container size='responsive'>
+                  <Flex gap='xs' wrap='wrap' pb='xs' justify='space-between'>
+                    <Grid>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <TextInput label='Name' placeholder='Name' required key={diagram.key('name')} {...diagram.getInputProps('name')} />
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Group wrap='nowrap'>
+                          <TextInput label='Slug' placeholder='slug' required {...diagram.getInputProps('slug')} />
+                          <Checkbox.Group label='Pinned'>
+                            <Checkbox size='lg' checked={pinned} onChange={(e) => switchPinned(!pinned)} />
+                          </Checkbox.Group>
                         </Group>
-                      </Fieldset>
-                    ))}
-                  </Accordion.Panel>
-                </Accordion.Item>
-              </Accordion>
-              <Button
-                leftSection={<IconSquarePlus size={14} />}
-                variant='outline'
-                onClick={() => {
-                  modals.open({
-                    title: 'Add Node',
-                    children: <NewNodeForm />,
-                  })
-                }}>
-                Add Node
-              </Button>
-              <Accordion chevronPosition='right' variant='contained'>
-                <Accordion.Item value='graphic' key='graphic'>
-                  <Accordion.Control px='xs'>
-                    <Group wrap='nowrap'>
-                      <IconLine color='var(--mantine-primary-color-filled)' />
-                      <Title order={5}>Edges</Title>
-                    </Group>
-                  </Accordion.Control>
-                  <Accordion.Panel>
-                    {diagram.values.edges?.items?.map((item, index) => (
-                      <Fieldset key={index} mb='sm' p='xs'>
-                        <Badge size='md' w='100%' variant='outline' radius='xs'>
-                          {item.id}
-                        </Badge>
-                        <TextInput label='Source' {...diagram.getInputProps(`edges.items.${index}.source`)} size='xs' />
-                        <TextInput label='Target' {...diagram.getInputProps(`edges.items.${index}.target`)} size='xs' />
-                        <Group justify='end'>
-                          <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('edges.items', index)}>
-                            <IconTrash size={18} color='white' />
-                          </ActionIcon>
-                          <ActionIcon mt='xs' color='pink.9' onClick={() => saveEdge(diagram.values, index)}>
-                            <IconDeviceFloppy size={18} color='white' />
-                          </ActionIcon>
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Textarea label='Description' placeholder='Description' {...diagram.getInputProps('description')} />
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Group wrap='nowrap' align='top'>
+                          <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} />
+                          <TextInput label='Topic' placeholder='Topic' disabled />
                         </Group>
-                      </Fieldset>
-                    ))}
-                  </Accordion.Panel>
-                </Accordion.Item>
-              </Accordion>
-              <SimpleGrid cols={2}>
-                <Button variant='outline' onClick={updateView}>
-                  VIEW
-                </Button>
-                <Button variant='outline' onClick={pushtoForm}>
-                  FORM
-                </Button>
-              </SimpleGrid>
-              <Button type='submit' fullWidth rightSection={<IconDeviceFloppy />}>
-                Save Diagram
-              </Button>
-            </Stack>
-          </form>
-        </ScrollArea>
-      </Grid.Col>
-    </Grid>
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
+                        <Stack gap={2}>
+                          <Text fw={500} size='sm' my={0}>
+                            Graphic
+                          </Text>
+                          <Accordion chevronPosition='right' variant='contained'>
+                            <Accordion.Item value='graphic' key='graphic'>
+                              <Accordion.Control>
+                                <Group wrap='nowrap'>
+                                  <Avatar src={graphic} radius='xs' size='lg' />
+                                  <Stack gap={2}>
+                                    <Text my={0}>{diagram.values.graphic?.title || ''}</Text>
+                                    <Text my={0} size='sm' c='dimmed' fw={400}>
+                                      {diagram.values.graphic?.key || ''}
+                                    </Text>
+                                  </Stack>
+                                </Group>
+                              </Accordion.Control>
+                              <Accordion.Panel>
+                                <SimpleGrid cols={2} px='xs' pb='xs'>
+                                  <Stack>
+                                    <TextInput label='Title' placeholder='Title' {...diagram.getInputProps('graphic.title')} />
+                                    <TextInput label='Alt' placeholder='Alt' {...diagram.getInputProps('graphic.alt')} />
+                                    <TextInput label='Caption' placeholder='Caption' {...diagram.getInputProps('graphic.caption')} />
+                                    <TextInput label='Description' placeholder='Description' {...diagram.getInputProps('graphic.description')} />
+                                    <TextInput label='S3 Key' placeholder='S3 Key' {...diagram.getInputProps('graphic.key')} />
+                                    <TextInput label='URL' placeholder='Image URL' {...diagram.getInputProps('graphic.url')} />
+                                  </Stack>
+                                  <Stack>
+                                    <Tabs value={activeTab} onChange={setActiveTab}>
+                                      <Tabs.List>
+                                        <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
+                                          View
+                                        </Tabs.Tab>
+                                        <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
+                                          Upload
+                                        </Tabs.Tab>
+                                      </Tabs.List>
+                                      <Tabs.Panel value='view' mah={240}>
+                                        <Image src={graphic || ''} />
+                                      </Tabs.Panel>
+                                      <Tabs.Panel value='upload'>
+                                        <Card shadow='sm' padding='lg' radius='md' withBorder>
+                                          <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
+                                            <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
+                                              <Dropzone.Accept>
+                                                <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
+                                              </Dropzone.Accept>
+                                              <Dropzone.Reject>
+                                                <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
+                                              </Dropzone.Reject>
+                                              <Dropzone.Idle>
+                                                <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
+                                              </Dropzone.Idle>
+                                              <div>
+                                                <Text size='xl' inline>
+                                                  Drag image here or click to select file
+                                                </Text>
+                                                <Text size='sm' c='dimmed' inline mt={7}>
+                                                  File should not exceed 5mb
+                                                </Text>
+                                              </div>
+                                            </Group>
+                                            <Progress value={uploadProgress} />
+                                          </Dropzone>
+                                        </Card>
+                                      </Tabs.Panel>
+                                    </Tabs>
+                                  </Stack>
+                                </SimpleGrid>
+                              </Accordion.Panel>
+                            </Accordion.Item>
+                          </Accordion>
+                        </Stack>
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Accordion chevronPosition='right' variant='contained'>
+                          <Accordion.Item value='graphic' key='graphic'>
+                            <Accordion.Control px='xs'>
+                              <Group wrap='nowrap'>
+                                <IconDialpad color='var(--mantine-primary-color-filled)' />
+                                <Title order={5}>Nodes</Title>
+                              </Group>
+                            </Accordion.Control>
+                            <Accordion.Panel>
+                              {diagram.values.nodes?.items?.map((item, index) => (
+                                <Fieldset key={index} mb='sm' py='xs' px='6'>
+                                  <Badge size='md' w='100%' variant='outline' radius='xs'>
+                                    {item.id}
+                                  </Badge>
+                                  <TextInput label='Label' {...diagram.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
+                                  <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
+                                  <SimpleGrid cols={2}>
+                                    <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
+                                    <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
+                                  </SimpleGrid>
+                                  <Group justify='end'>
+                                    <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('nodes.items', index)}>
+                                      <IconTrash size={18} color='white' />
+                                    </ActionIcon>
+                                    <ActionIcon mt='xs' color='pink.9' onClick={() => saveNode(diagram.values, index)}>
+                                      <IconDeviceFloppy size={18} color='white' />
+                                    </ActionIcon>
+                                  </Group>
+                                </Fieldset>
+                              ))}
+                            </Accordion.Panel>
+                          </Accordion.Item>
+                        </Accordion>
+                      </Grid.Col>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                        <Accordion chevronPosition='right' variant='contained'>
+                          <Accordion.Item value='graphic' key='graphic'>
+                            <Accordion.Control px='xs'>
+                              <Group wrap='nowrap'>
+                                <IconLine color='var(--mantine-primary-color-filled)' />
+                                <Title order={5}>Edges</Title>
+                              </Group>
+                            </Accordion.Control>
+                            <Accordion.Panel>
+                              {diagram.values.edges?.items?.map((item, index) => (
+                                <Fieldset key={index} mb='sm' p='xs'>
+                                  <Badge size='md' w='100%' variant='outline' radius='xs'>
+                                    {item.id}
+                                  </Badge>
+                                  <TextInput label='Source' {...diagram.getInputProps(`edges.items.${index}.source`)} size='xs' />
+                                  <TextInput label='Target' {...diagram.getInputProps(`edges.items.${index}.target`)} size='xs' />
+                                  <Group justify='end'>
+                                    <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('edges.items', index)}>
+                                      <IconTrash size={18} color='white' />
+                                    </ActionIcon>
+                                    <ActionIcon mt='xs' color='pink.9' onClick={() => saveEdge(diagram.values, index)}>
+                                      <IconDeviceFloppy size={18} color='white' />
+                                    </ActionIcon>
+                                  </Group>
+                                </Fieldset>
+                              ))}
+                            </Accordion.Panel>
+                          </Accordion.Item>
+                        </Accordion>
+                      </Grid.Col>
+                    </Grid>
+                    {!hideme && <PluginToggle />}
+                  </Flex>
+                </Container>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </Flex>
+      </form>
+      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect}>
+        <Background color='#ccc' variant={BackgroundVariant.Dots} />
+        <MiniMap zoomable pannable />
+        <Controls />
+      </ReactFlow>
+    </React.Fragment>
   )
 }

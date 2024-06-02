@@ -200,7 +200,6 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
         key
         source
         thumbnail
-        __typename
       }
       nodes {
         items {
@@ -208,16 +207,14 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           position {
             x
             y
-            __typename
           }
           measured {
             width
             height
-            __typename
           }
           data {
             label
-            __typename
+            description
           }
           type
           sourcePosition
@@ -240,7 +237,6 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           positionAbsolute {
             x
             y
-            __typename
           }
           ariaLabel
           focusable
@@ -260,75 +256,14 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
               nodeId
               createdAt
               updatedAt
-              __typename
             }
             nextToken
-            __typename
-          }
-          diagram {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            nodes {
-              nextToken
-              __typename
-            }
-            edges {
-              nextToken
-              __typename
-            }
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
           }
           diagramId
           createdAt
           updatedAt
-          __typename
         }
         nextToken
-        __typename
       }
       edges {
         items {
@@ -344,7 +279,6 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           deletable
           data {
             label
-            __typename
           }
           className
           sourceNode
@@ -358,7 +292,6 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
             markerUnits
             orient
             strokeWidth
-            __typename
           }
           markerEnd {
             type
@@ -368,77 +301,17 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
             markerUnits
             orient
             strokeWidth
-            __typename
           }
           zIndex
           ariaLabel
           interactionWidth
           focusable
           updatable
-          diagram {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            nodes {
-              nextToken
-              __typename
-            }
-            edges {
-              nextToken
-              __typename
-            }
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
           diagramId
           createdAt
           updatedAt
-          __typename
         }
         nextToken
-        __typename
       }
       topic {
         id
@@ -858,6 +731,7 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     }
     data {
       label
+      description
       __typename
     }
     type
