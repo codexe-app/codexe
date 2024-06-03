@@ -215,19 +215,11 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           data {
             label
             description
+            id
           }
           type
           sourcePosition
           targetPosition
-          hidden
-          selected
-          dragging
-          draggable
-          selectable
-          connectable
-          resizing
-          deletable
-          dragHandle
           width
           height
           parentId
@@ -330,184 +322,9 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           key
           source
           thumbnail
-          __typename
-        }
-        diagrams {
-          items {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            nodes {
-              nextToken
-              __typename
-            }
-            edges {
-              nextToken
-              __typename
-            }
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        documents {
-          items {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        chats {
-          items {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            path
-            sharePath
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            messages {
-              nextToken
-              __typename
-            }
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
+        }    
         createdAt
         updatedAt
-        __typename
       }
       topicId
       user {
@@ -522,197 +339,17 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           key
           source
           thumbnail
-          __typename
         }
         firstname
         lastname
         role
         email
-        chats {
-          items {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            path
-            sharePath
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            messages {
-              nextToken
-              __typename
-            }
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        documents {
-          items {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        diagrams {
-          items {
-            id
-            name
-            slug
-            description
-            content
-            status
-            pinned
-            graphic {
-              alt
-              title
-              caption
-              description
-              url
-              key
-              source
-              thumbnail
-              __typename
-            }
-            nodes {
-              nextToken
-              __typename
-            }
-            edges {
-              nextToken
-              __typename
-            }
-            topic {
-              id
-              name
-              slug
-              description
-              content
-              status
-              pinned
-              createdAt
-              updatedAt
-              __typename
-            }
-            topicId
-            user {
-              id
-              username
-              firstname
-              lastname
-              role
-              email
-              
-              createdAt
-              updatedAt
-              __typename
-            }
-            userId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        
-        createdAt
-        updatedAt
-        __typename
       }
       userId
       createdAt
       updatedAt
-      __typename
     }
     nextToken
-    __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListDiagramsQueryVariables, APITypes.ListDiagramsQuery>
@@ -2019,7 +1656,4 @@ export const feedsByUserIdAndCreatedAt = /* GraphQL */ `query FeedsByUserIdAndCr
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.FeedsByUserIdAndCreatedAtQueryVariables,
-  APITypes.FeedsByUserIdAndCreatedAtQuery
->;
+` as GeneratedQuery<APITypes.FeedsByUserIdAndCreatedAtQueryVariables, APITypes.FeedsByUserIdAndCreatedAtQuery>

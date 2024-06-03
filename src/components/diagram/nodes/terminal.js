@@ -32,8 +32,8 @@ function TerminalNode({ data, isConnectable }) {
             {data.label}
           </Badge>
         </Group>
-        <Handle type='source' id='purple' position={Position.Bottom} style={{ ...DEFAULT_HANDLE_STYLE, left: '15%', background: 'purple' }} onConnect={(params) => console.log('handle onConnect', params)} isConnectable={isConnectable} />
-        <Handle type='target' id='orange' position={Position.Top} style={{ ...DEFAULT_HANDLE_STYLE, left: '85%', background: 'orange' }} isConnectable={isConnectable} />
+        <Handle type='source' id={`s1${data.id}`} position={Position.Bottom} style={{ ...DEFAULT_HANDLE_STYLE, left: '15%', background: 'purple' }} onConnect={(params) => console.log('handle onConnect', params)} isConnectable={isConnectable} />
+        <Handle type='target' id={`t1${data.id}`} position={Position.Top} style={{ ...DEFAULT_HANDLE_STYLE, left: '85%', background: 'orange' }} isConnectable={isConnectable} />
       </Box>
     </Box>
   )

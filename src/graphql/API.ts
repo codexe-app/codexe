@@ -267,6 +267,8 @@ export type WHMeasured = {
 export type NodeData = {
   __typename: "NodeData",
   label?: string | null,
+  description?: string | null,
+  id?: string | null,
 };
 
 export enum Position {
@@ -591,6 +593,7 @@ export type WHMeasuredInput = {
 export type NodeDataInput = {
   label?: string | null,
   description?: string | null,
+  id?: string | null,
 };
 
 export type ModelNodeConditionInput = {
@@ -2125,6 +2128,8 @@ export type CreateNodeMutation = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,
@@ -2202,6 +2207,8 @@ export type UpdateNodeMutation = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,
@@ -2279,6 +2286,8 @@ export type DeleteNodeMutation = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,
@@ -3735,6 +3744,8 @@ export type GetNodeQuery = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,
@@ -5246,6 +5257,8 @@ export type OnCreateNodeSubscription = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,
@@ -5322,6 +5335,8 @@ export type OnUpdateNodeSubscription = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,
@@ -5398,6 +5413,8 @@ export type OnDeleteNodeSubscription = {
     data?:  {
       __typename: "NodeData",
       label?: string | null,
+      description?: string | null,
+      id?: string | null,
     } | null,
     type?: string | null,
     sourcePosition?: Position | null,

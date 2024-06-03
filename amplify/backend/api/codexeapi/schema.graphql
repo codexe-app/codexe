@@ -195,7 +195,6 @@ type Feed @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime
 }
 
-
 type Spotlight @model @auth(rules: [{ allow: public }]) {
   id: ID!
   active: Boolean
@@ -215,16 +214,6 @@ type Spotlight @model @auth(rules: [{ allow: public }]) {
   modelId: ID!
 }
 
-enum SpotlightModels {
-  Document
-  Diagram
-  Node
-  Chat
-  Message
-  Topic
-  User
-}
-
 type ThemeOptions {
   config: String
   palette: String
@@ -233,7 +222,6 @@ type ThemeOptions {
   heading: String
   mono: String
 }
-
 
 type ImageFile {
   alt: String
@@ -259,6 +247,7 @@ type XYPosition {
 type NodeData {
   label: String
   description: String
+  id: String
 }
 
 type EdgeData {
@@ -298,4 +287,14 @@ enum Position {
   top
   right
   bottom
+}
+
+enum SpotlightModels {
+  Document
+  Diagram
+  Node
+  Chat
+  Message
+  Topic
+  User
 }

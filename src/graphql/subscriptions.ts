@@ -414,6 +414,7 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
     data {
       label
       description
+      id
       __typename
     }
     type
@@ -490,6 +491,7 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
     data {
       label
       description
+      id
       __typename
     }
     type
@@ -566,6 +568,7 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
     data {
       label
       description
+      id
       __typename
     }
     type

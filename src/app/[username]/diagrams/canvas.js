@@ -5,19 +5,50 @@ import * as mutations from '@/graphql/mutations'
 import { generateClient } from 'aws-amplify/api'
 import { notifications } from '@mantine/notifications'
 import {
-  useMatches, Stack,  Flex, ActionIcon, Checkbox, Progress,
-  Text, Tabs, Image,
-  Container, Card, NumberInput, Fieldset,
-  Title, Avatar, Badge, TextInput, Grid, Button, Group,
-  Textarea, Select, Tooltip, Accordion, SimpleGrid, rem } from '@mantine/core'
+  useMatches,
+  Stack,
+  Flex,
+  ActionIcon,
+  Checkbox,
+  Progress,
+  Text,
+  Tabs,
+  Image,
+  Container,
+  Card,
+  NumberInput,
+  Fieldset,
+  Title,
+  Avatar,
+  Badge,
+  TextInput,
+  Grid,
+  Button,
+  Group,
+  Textarea,
+  Select,
+  Tooltip,
+  Accordion,
+  SimpleGrid,
+  rem,
+} from '@mantine/core'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
 import { ReactFlow, useNodesState, useEdgesState, addEdge, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
-import { IconFileTypeSvg, IconPhoto, IconForms,
-  IconDatabaseEdit, IconUpload, IconX,
-  IconFileTypePng, IconFileTypeJpg, IconTrash,
-  IconDeviceFloppy, IconRestore, IconDialpad,
+import {
+  IconFileTypeSvg,
+  IconPhoto,
+  IconForms,
+  IconDatabaseEdit,
+  IconUpload,
+  IconX,
+  IconFileTypePng,
+  IconFileTypeJpg,
+  IconTrash,
+  IconDeviceFloppy,
+  IconRestore,
+  IconDialpad,
   IconLine,
   IconRefresh,
   IconSquarePlus,
@@ -65,12 +96,13 @@ export default function DiagramCanvas(props) {
   })
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges])
+
   const addnode = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      id: nanoid(),
+      id: nanoid(10),
       new: true,
-      data: { label: 'New Node',  description: 'Node description.'},
+      data: { label: 'New Node', description: 'Node description.', id: nanoid(3) },
       type: 'custom',
       position: {
         x: 100,
@@ -84,8 +116,8 @@ export default function DiagramCanvas(props) {
     (values) => {
       modals.closeAll()
       const newNode = {
-        id: nanoid(),
-        data: { label: values.data.label, description: values.data.description },
+        id: nanoid(10),
+        data: { label: values.data.label, description: values.data.description, id: nanoid(3) },
         type: values.data.type,
         position: {
           x: (Math.random() * window.innerWidth) / 2,
@@ -99,59 +131,11 @@ export default function DiagramCanvas(props) {
     [setNodes]
   )
 
-  async function submitForm(values) {
-    //console.log(`SUBMITING :`, values)
-    pushtoForm()
-    if (newgram) {
-      values.nodes.items.forEach((node, index) => {
-        newNode(node)
-      })
-      values.edges.items.forEach((edge, index) => {
-        newEdge(edge)
-      })
-      newDiagram(values)
-      setNewgram(false)
-    } else {
-      const updatednodes = values.nodes.items.filter((o2) => {
-        const index = saved.nodes.items.findIndex((o1) => o1.id === o2.id)
-        if (index === -1) return true
-        return JSON.stringify(o2) !== JSON.stringify(saved.nodes.items[index])
-      })
-      updatednodes.forEach((node, index) => {
-        updatetheNode(node)
-      })
-      const updatededges = values.edges.items.filter((o2) => {
-        const index = saved.edges.items.findIndex((o1) => o1.id === o2.id)
-        if (index === -1) return true
-        return JSON.stringify(o2) !== JSON.stringify(saved.edges.items[index])
-      })
-      updatededges.forEach((edge, index) => {
-        updatetheEdge(edge)
-      })
-
-      const newnodes = values.nodes.items.filter((o2) => {
-        return !saved.nodes.items.some((o1) => o1.id === o2.id)
-      })
-      newnodes.forEach((node, index) => {
-        newNode(node)
-      })
-      const newedges = values.edges.items.filter((o2) => {
-        return !saved.edges.items.some((o1) => o1.id === o2.id)
-      })
-      newedges.forEach((edge, index) => {
-        edge.diagramId = diagram.values.id
-        newEdge(edge)
-      })
-      saveDiagram(values)
-    }
-  }
-
   async function newDiagram(values) {
     let cleaned = _.omit(values, ['new', 'edges', 'nodes', 'content', 'topic', 'user', 'createdAt', 'updatedAt', '__typename'])
     //console.log(cleaned)
     try {
-      const doc = await client.graphql({ query: mutations.createDiagram, variables: { input: cleaned } })
-      //console.log(doc)
+      await client.graphql({ query: mutations.createDiagram, variables: { input: cleaned } })
       notifications.show({
         title: `${values.name} was updated`,
         message: `The Diagram was updated. id: ${values.id}`,
@@ -168,10 +152,9 @@ export default function DiagramCanvas(props) {
 
   async function saveDiagram(values) {
     let cleaned = _.omit(values, ['edges', 'nodes', 'content', 'topic', 'user', 'createdAt', 'updatedAt', '__typename'])
-    console.log(cleaned)
+    //console.log(cleaned)
     try {
-      const doc = await client.graphql({ query: mutations.updateDiagram, variables: { input: cleaned } })
-      //console.log(doc)
+      await client.graphql({ query: mutations.updateDiagram, variables: { input: cleaned } })
       notifications.show({
         title: `${values.name} was updated`,
         message: `The Diagram was updated. id: ${values.id}`,
@@ -191,15 +174,9 @@ export default function DiagramCanvas(props) {
     //console.log(`Save Edge : ${index} | Values : ${JSON.stringify(theedgedata)}`)
   }
 
-  function saveNode(values, index) {
-    const thenodedata = values.nodes.items[index]
-    newNode(thenodedata)
-    //console.log(`Save Node : ${index} | Values : ${JSON.stringify(thenodedata)}`)
-  }
-
   async function newEdge(theedgedata) {
     try {
-      const doc = await client.graphql({ query: mutations.createEdge, variables: { input: theedgedata } })
+      await client.graphql({ query: mutations.createEdge, variables: { input: theedgedata } })
       notifications.show({
         title: `${theedgedata.id}`,
         message: 'The Edge was created',
@@ -231,12 +208,94 @@ export default function DiagramCanvas(props) {
     }
   }
 
-  async function newNode(thenodedata) {
-    console.log(`newNode :`, thenodedata)
+  function startRemoveEdge(theedge, index) {
+    modals.openConfirmModal({
+      title: <Title order={4}>Delete Edge</Title>,
+      centered: true,
+      children: (
+        <Text size='sm'>
+          Are you sure you want to delete{' '}
+          <Text span fw={600} inherit>
+            {theedge.data?.label}
+          </Text>
+          ?
+        </Text>
+      ),
+      labels: { confirm: 'Delete Edge', cancel: "No don't delete it" },
+      confirmProps: { color: 'red' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => removeEdge(theedge, index),
+    })
+  }
+
+  function removeEdge(theedge, index) {
+    diagram.removeListItem('edges.items', index)
+    //diagram.removeListItem('nodes.items.edges.items', index)
+    deleteEdge(theedge)
+  }
+
+  async function deleteEdge(theedge) {
     try {
-      const doc = await client.graphql({ query: mutations.createNode, variables: { input: thenodedata } })
+      await client.graphql({ query: mutations.deleteEdge, variables: { input: { id: theedge.id } } })
       notifications.show({
-        title: `${thenodedata.data.label}`,
+        title: 'The Edge was deleted',
+        message: `${theedge.id}`,
+      })
+    } catch (error) {
+      notifications.show({
+        title: 'There was an error deleting the Edge',
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem deleting the Edge :`, error)
+    }
+  }
+
+  function startRemoveNode(thenode, index) {
+    modals.openConfirmModal({
+      title: <Title order={4}>Delete Node</Title>,
+      centered: true,
+      children: (
+        <Text size='sm'>
+          Are you sure you want to delete{' '}
+          <Text span fw={600} inherit>
+            {thenode.data.label}
+          </Text>
+          ?
+        </Text>
+      ),
+      labels: { confirm: 'Delete Node', cancel: "No don't delete it" },
+      confirmProps: { color: 'red' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => removeNode(thenode, index),
+    })
+  }
+
+  function removeNode(thenode, index) {
+    diagram.removeListItem('nodes.items', index)
+    deleteNode(thenode)
+  }
+
+  async function deleteNode(thenode) {
+    try {
+      const doc = await client.graphql({ query: mutations.deleteNode, variables: { input: { id: thenode.id } } })
+      notifications.show({
+        title: `${thenode.data.label}`,
+        message: 'The Node was deleted',
+      })
+    } catch (error) {
+      notifications.show({
+        title: 'There was an error deleting the Node',
+        message: JSON.stringify(error),
+      })
+      console.log(`There was a problem deleting the Node :`, error)
+    }
+  }
+
+  async function newNode(thenode) {
+    try {
+      await client.graphql({ query: mutations.createNode, variables: { input: thenode } })
+      notifications.show({
+        title: `${thenode.data.label}`,
         message: 'The Node was created',
       })
     } catch (error) {
@@ -249,8 +308,8 @@ export default function DiagramCanvas(props) {
   }
 
   async function updatetheNode(thenodedata) {
-    let cleaned = _.omit(thenodedata, ['ariaLabel', 'className', 'createdAt', 'updatedAt', '__typename', 'position.__typename', 'measured.__typename', 'data.__typename'])
-    console.log(`updateNode :`, cleaned)
+    let cleaned = _.omit(thenodedata, ['handles', 'ariaLabel', 'className', 'createdAt', 'updatedAt', '__typename', 'position.__typename', 'measured.__typename', 'data.__typename'])
+    //console.log(`updateNode :`, cleaned)
     try {
       await client.graphql({ query: mutations.updateNode, variables: { input: cleaned } })
       notifications.show({
@@ -259,10 +318,18 @@ export default function DiagramCanvas(props) {
       })
     } catch (error) {
       notifications.show({
-        title:`There was an error updating the Node ${thenodedata.data.label}`,
+        title: `There was an error updating the Node ${thenodedata.data.label}`,
         message: JSON.stringify(error),
       })
       console.log(`There was a problem updating the Node ${thenodedata.data.label}:`, error)
+    }
+  }
+
+  function saveNode(thenode, index) {
+    if (thenode.new) {
+      newNode(thenode)
+    } else {
+      updatetheNode(thenode)
     }
   }
 
@@ -281,7 +348,6 @@ export default function DiagramCanvas(props) {
   }
 
   function switchPinned(pinned) {
-    //console.log(pinned)
     diagram.setFieldValue('pinned', pinned)
     setPinned(pinned)
   }
@@ -378,12 +444,62 @@ export default function DiagramCanvas(props) {
       <form onSubmit={addnode.onSubmit((values) => onAdd(values))}>
         <Stack gap='xs'>
           <TextInput label='Label' placeholder='Label' size='xs' {...addnode.getInputProps('data.label')} />
-          <Textarea label='Description' placeholder='Description' size='xs' {...addnode.getInputProps('data.description')} />         
+          <Textarea label='Description' placeholder='Description' size='xs' {...addnode.getInputProps('data.description')} />
           <Select label='Type' placeholder='Pick value' size='xs' data={nodetypes} {...addnode.getInputProps('data.type')} />
           <Button type='submit'>Add Node</Button>
         </Stack>
       </form>
     )
+  }
+
+  async function submitForm(values) {
+    //console.log(`SUBMITING :`, values)
+    pushtoForm()
+    if (newgram) {
+      values.nodes.items.forEach((node, index) => {
+        newNode(node)
+      })
+      values.edges.items.forEach((edge, index) => {
+        newEdge(edge)
+      })
+      newDiagram(values)
+      setNewgram(false)
+    } else {
+      const updatednodes = values.nodes.items.filter((o2) => {
+        const index = saved.nodes.items.findIndex((o1) => o1.id === o2.id)
+        if (index === -1) return true
+        return JSON.stringify(o2) !== JSON.stringify(saved.nodes.items[index])
+      })
+      updatednodes.forEach((node, index) => {
+        updatetheNode(node)
+      })
+
+      const updatededges = values.edges.items.filter((o2) => {
+        const index = saved.edges.items.findIndex((o1) => o1.id === o2.id)
+        if (index === -1) return true
+        return JSON.stringify(o2) !== JSON.stringify(saved.edges.items[index])
+      })
+      updatededges.forEach((edge, index) => {
+        updatetheEdge(edge)
+      })
+
+      const newnodes = values.nodes.items.filter((o2) => {
+        return !saved.nodes.items.some((o1) => o1.id === o2.id)
+      })
+      newnodes.forEach((node, index) => {
+        newNode(node)
+      })
+
+      const newedges = values.edges.items.filter((o2) => {
+        return !saved.edges.items.some((o1) => o1.id === o2.id)
+      })
+      newedges.forEach((edge, index) => {
+        edge.diagramId = diagram.values.id
+        newEdge(edge)
+      })
+
+      saveDiagram(values)
+    }
   }
 
   function AccordionControl(props) {
@@ -447,7 +563,7 @@ export default function DiagramCanvas(props) {
                   </Title>
                 </AccordionControl>
               </Container>
-              <Accordion.Panel>
+              <Accordion.Panel className={classes.diaform}>
                 <Container size='responsive'>
                   <Flex gap='xs' wrap='wrap' pb='xs' justify='space-between'>
                     <Grid>
@@ -455,23 +571,23 @@ export default function DiagramCanvas(props) {
                         <TextInput label='Name' placeholder='Name' required key={diagram.key('name')} {...diagram.getInputProps('name')} />
                       </Grid.Col>
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                        <Group wrap='nowrap'>
-                          <TextInput label='Slug' placeholder='slug' required {...diagram.getInputProps('slug')} />
-                          <Checkbox.Group label='Pinned'>
-                            <Checkbox size='lg' checked={pinned} onChange={(e) => switchPinned(!pinned)} />
-                          </Checkbox.Group>
-                        </Group>
+                        <SimpleGrid cols={{ base: 1, sm: 2 }}>
+                          <Group wrap='nowrap'>
+                            <TextInput label='Slug' placeholder='slug' required {...diagram.getInputProps('slug')} />
+                            <Checkbox.Group label='Pin'>
+                              <Checkbox size='xl' checked={pinned} onChange={(e) => switchPinned(!pinned)} />
+                            </Checkbox.Group>
+                          </Group>
+                          <Group wrap='nowrap' align='top'>
+                            <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} />
+                            <TextInput label='Topic' placeholder='Topic' disabled />
+                          </Group>
+                        </SimpleGrid>
                       </Grid.Col>
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                         <Textarea label='Description' placeholder='Description' {...diagram.getInputProps('description')} />
                       </Grid.Col>
                       <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                        <Group wrap='nowrap' align='top'>
-                          <Select label='Status' data={['live', 'draft', 'private', 'archive', 'trash']} {...diagram.getInputProps(`status`)} />
-                          <TextInput label='Topic' placeholder='Topic' disabled />
-                        </Group>
-                      </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
                         <Stack gap={2}>
                           <Text fw={500} size='sm' my={0}>
                             Graphic
@@ -479,74 +595,72 @@ export default function DiagramCanvas(props) {
                           <Accordion chevronPosition='right' variant='contained'>
                             <Accordion.Item value='graphic' key='graphic'>
                               <Accordion.Control>
-                                <Group wrap='nowrap'>
-                                  <Avatar src={graphic} radius='xs' size='lg' />
-                                  <Stack gap={2}>
-                                    <Text my={0}>{diagram.values.graphic?.title || ''}</Text>
-                                    <Text my={0} size='sm' c='dimmed' fw={400}>
+                                <Group wrap='nowrap' py={0}>
+                                  <Avatar src={graphic} radius='xs' size='md' />
+                                  <Stack gap={0}>
+                                    <Text my={0} size='sm'>
+                                      {diagram.values.graphic?.title || ''}
+                                    </Text>
+                                    <Text my={0} size='xs' c='dimmed' fw={400}>
                                       {diagram.values.graphic?.key || ''}
                                     </Text>
                                   </Stack>
                                 </Group>
                               </Accordion.Control>
                               <Accordion.Panel>
-                                <SimpleGrid cols={2} px='xs' pb='xs'>
-                                  <Stack>
-                                    <TextInput label='Title' placeholder='Title' {...diagram.getInputProps('graphic.title')} />
-                                    <TextInput label='Alt' placeholder='Alt' {...diagram.getInputProps('graphic.alt')} />
-                                    <TextInput label='Caption' placeholder='Caption' {...diagram.getInputProps('graphic.caption')} />
-                                    <TextInput label='Description' placeholder='Description' {...diagram.getInputProps('graphic.description')} />
-                                    <TextInput label='S3 Key' placeholder='S3 Key' {...diagram.getInputProps('graphic.key')} />
-                                    <TextInput label='URL' placeholder='Image URL' {...diagram.getInputProps('graphic.url')} />
-                                  </Stack>
-                                  <Stack>
-                                    <Tabs value={activeTab} onChange={setActiveTab}>
-                                      <Tabs.List>
-                                        <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
-                                          View
-                                        </Tabs.Tab>
-                                        <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
-                                          Upload
-                                        </Tabs.Tab>
-                                      </Tabs.List>
-                                      <Tabs.Panel value='view' mah={240}>
-                                        <Image src={graphic || ''} />
-                                      </Tabs.Panel>
-                                      <Tabs.Panel value='upload'>
-                                        <Card shadow='sm' padding='lg' radius='md' withBorder>
-                                          <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
-                                            <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
-                                              <Dropzone.Accept>
-                                                <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
-                                              </Dropzone.Accept>
-                                              <Dropzone.Reject>
-                                                <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
-                                              </Dropzone.Reject>
-                                              <Dropzone.Idle>
-                                                <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
-                                              </Dropzone.Idle>
-                                              <div>
-                                                <Text size='xl' inline>
-                                                  Drag image here or click to select file
-                                                </Text>
-                                                <Text size='sm' c='dimmed' inline mt={7}>
-                                                  File should not exceed 5mb
-                                                </Text>
-                                              </div>
-                                            </Group>
-                                            <Progress value={uploadProgress} />
-                                          </Dropzone>
-                                        </Card>
-                                      </Tabs.Panel>
-                                    </Tabs>
-                                  </Stack>
-                                </SimpleGrid>
+                                <Stack p='xs'>
+                                  <TextInput label='Title' placeholder='Title' {...diagram.getInputProps('graphic.title')} />
+                                  <TextInput label='Alt' placeholder='Alt' {...diagram.getInputProps('graphic.alt')} />
+                                  <TextInput label='Caption' placeholder='Caption' {...diagram.getInputProps('graphic.caption')} />
+                                  <TextInput label='Description' placeholder='Description' {...diagram.getInputProps('graphic.description')} />
+                                  <Tabs value={activeTab} onChange={setActiveTab}>
+                                    <Tabs.List>
+                                      <Tabs.Tab value='view' leftSection={<IconPhoto style={{ width: rem(12), height: rem(12) }} />}>
+                                        View
+                                      </Tabs.Tab>
+                                      <Tabs.Tab value='upload' leftSection={<IconUpload style={{ width: rem(12), height: rem(12) }} />}>
+                                        Upload
+                                      </Tabs.Tab>
+                                    </Tabs.List>
+                                    <Tabs.Panel value='view' mah={240}>
+                                      <Image src={graphic || ''} />
+                                    </Tabs.Panel>
+                                    <Tabs.Panel value='upload'>
+                                      <Card shadow='sm' padding='lg' radius='md' withBorder>
+                                        <Dropzone onDrop={(files) => uploadMedia(files[0])} onReject={(files) => console.log('rejected files', files)} maxFiles={1} maxSize={10 * 1024 ** 2} accept={IMAGE_MIME_TYPE}>
+                                          <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
+                                            <Dropzone.Accept>
+                                              <IconUpload style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }} stroke={1.5} />
+                                            </Dropzone.Accept>
+                                            <Dropzone.Reject>
+                                              <IconX style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }} stroke={1.5} />
+                                            </Dropzone.Reject>
+                                            <Dropzone.Idle>
+                                              <IconPhoto style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }} stroke={1.5} />
+                                            </Dropzone.Idle>
+                                            <div>
+                                              <Text size='xl' inline>
+                                                Drag image here or click to select file
+                                              </Text>
+                                              <Text size='sm' c='dimmed' inline mt={7}>
+                                                File should not exceed 5mb
+                                              </Text>
+                                            </div>
+                                          </Group>
+                                          <Progress value={uploadProgress} />
+                                        </Dropzone>
+                                      </Card>
+                                    </Tabs.Panel>
+                                  </Tabs>
+                                  <TextInput label='S3 Key' placeholder='S3 Key' {...diagram.getInputProps('graphic.key')} />
+                                  <TextInput label='URL' placeholder='Image URL' {...diagram.getInputProps('graphic.url')} />
+                                </Stack>
                               </Accordion.Panel>
                             </Accordion.Item>
                           </Accordion>
                         </Stack>
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
                         <Accordion chevronPosition='right' variant='contained'>
                           <Accordion.Item value='graphic' key='graphic'>
                             <Accordion.Control px='xs'>
@@ -562,16 +676,19 @@ export default function DiagramCanvas(props) {
                                     {item.id}
                                   </Badge>
                                   <TextInput label='Label' {...diagram.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
-                                  <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
+                                  <Textarea label='Description' {...diagram.getInputProps(`nodes.items.${index}.data.description`)} size='xs' />
                                   <SimpleGrid cols={2}>
-                                    <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
-                                    <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
+                                    <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
+                                    <SimpleGrid cols={2}>
+                                      <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
+                                      <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
+                                    </SimpleGrid>
                                   </SimpleGrid>
                                   <Group justify='end'>
-                                    <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('nodes.items', index)}>
+                                    <ActionIcon mt='xs' color='pink.9' onClick={() => startRemoveNode(item, index)}>
                                       <IconTrash size={18} color='white' />
                                     </ActionIcon>
-                                    <ActionIcon mt='xs' color='pink.9' onClick={() => saveNode(diagram.values, index)}>
+                                    <ActionIcon mt='xs' color='green.9' onClick={() => saveNode(`diagram.values.nodes.items.${index}`, index)}>
                                       <IconDeviceFloppy size={18} color='white' />
                                     </ActionIcon>
                                   </Group>
@@ -581,7 +698,7 @@ export default function DiagramCanvas(props) {
                           </Accordion.Item>
                         </Accordion>
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
                         <Accordion chevronPosition='right' variant='contained'>
                           <Accordion.Item value='graphic' key='graphic'>
                             <Accordion.Control px='xs'>
@@ -596,13 +713,15 @@ export default function DiagramCanvas(props) {
                                   <Badge size='md' w='100%' variant='outline' radius='xs'>
                                     {item.id}
                                   </Badge>
-                                  <TextInput label='Source' {...diagram.getInputProps(`edges.items.${index}.source`)} size='xs' />
-                                  <TextInput label='Target' {...diagram.getInputProps(`edges.items.${index}.target`)} size='xs' />
+                                  <SimpleGrid cols={2}>
+                                    <TextInput label='Source' {...diagram.getInputProps(`edges.items.${index}.source`)} size='xs' />
+                                    <TextInput label='Target' {...diagram.getInputProps(`edges.items.${index}.target`)} size='xs' />
+                                  </SimpleGrid>
                                   <Group justify='end'>
-                                    <ActionIcon mt='xs' color='pink.9' onClick={() => diagram.removeListItem('edges.items', index)}>
+                                    <ActionIcon mt='xs' color='pink.9' onClick={() => startRemoveEdge(item, index)}>
                                       <IconTrash size={18} color='white' />
                                     </ActionIcon>
-                                    <ActionIcon mt='xs' color='pink.9' onClick={() => saveEdge(diagram.values, index)}>
+                                    <ActionIcon mt='xs' color='green.9' disabled onClick={() => saveEdge(diagram.values, index)}>
                                       <IconDeviceFloppy size={18} color='white' />
                                     </ActionIcon>
                                   </Group>

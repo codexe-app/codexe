@@ -435,6 +435,7 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
     data {
       label
       description
+      id
       __typename
     }
     type
@@ -514,6 +515,7 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
     data {
       label
       description
+      id
       __typename
     }
     type
@@ -593,6 +595,7 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
     data {
       label
       description
+      id
       __typename
     }
     type

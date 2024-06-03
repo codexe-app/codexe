@@ -10,3 +10,9 @@
 .edge {
   border-left: 1px solid var(--app-shell-border-color);
 }
+
+.diaform {
+  max-height: calc(100vh - 96px);
+  overflow-y: scroll;
+  padding-bottom: var(--mantine-spacing-lg);
+}

@@ -32,7 +32,7 @@ function StopNode({ data, isConnectable }) {
           </Badge>
           <Text size='xs'>{data.description}</Text>
         </Stack>
-        <Handle type='target' id='orange' position={Position.Top} style={{ ...DEFAULT_HANDLE_STYLE, left: 'calc(50% - 5px)', background: 'orange' }} isConnectable={isConnectable} />
+        <Handle type='target' id={`t1${data.id}`} position={Position.Top} style={{ ...DEFAULT_HANDLE_STYLE, left: 'calc(50% - 5px)', background: 'orange' }} isConnectable={isConnectable} />
       </Box>
     </Box>
   )

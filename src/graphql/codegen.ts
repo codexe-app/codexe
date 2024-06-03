@@ -215,6 +215,8 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
     }
     data {
       label
+      description
+      id
       __typename
     }
     type
