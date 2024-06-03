@@ -13,7 +13,7 @@ const Shaped = () => {
   return (
     <svg width='160' height='120' viewBox='0 0 160 120' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path
-        d='M0.987671 40.3278C0.987671 18.5986 18.6752 0.983582 40.4938 0.983582H119.506C141.324 0.983582 159.012 18.5986 159.012 40.3278V79.6721C159.012 101.401 141.324 119.016 119.506 119.016H40.4938C18.6752 119.016 0.987671 101.401 0.987671 79.6721V40.3278Z'
+        d='M2.42126 26.7577C2.43077 25.163 3.01947 23.6256 4.07867 22.4293C5.13787 21.2329 6.59605 20.4586 8.18398 20.2491L151.816 2.45878C153.164 2.29516 154.522 2.67007 155.593 3.50142C156.664 4.33276 157.361 5.55278 157.53 6.8943C157.554 7.10253 157.554 7.31282 157.53 7.52106V111.804C157.53 113.338 156.918 114.81 155.828 115.895C154.738 116.98 153.26 117.589 151.719 117.589H8.2324C6.69119 117.589 5.21311 116.98 4.12331 115.895C3.03351 114.81 2.42126 113.338 2.42126 111.804V26.7577Z'
         fill='var(--mantine-color-body)'
         stroke='var(--mantine-color-gray-3)'
         strokeWidth='2'
@@ -22,7 +22,7 @@ const Shaped = () => {
   )
 }
 
-function TerminalNode({ data, isConnectable }) {
+function MinputNode({ data, isConnectable }) {
   //console.log('node render :', data);
   return (
     <Box className={classes.wrapper}>
@@ -50,4 +50,4 @@ function TerminalNode({ data, isConnectable }) {
   )
 }
 
-export default memo(TerminalNode)
+export default memo(MinputNode)

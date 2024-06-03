@@ -1,9 +1,7 @@
 import React, { memo } from 'react'
-import { Handle, Position, NodeProps, NodeResizeControl } from '@xyflow/react'
-import { Card, Box, Stack, Text, Progress, Badge, Group, ActionIcon, Container, BackgroundImage } from '@mantine/core'
-import { IconResize, IconGrain } from '@tabler/icons-react'
+import { Handle, Position } from '@xyflow/react'
+import { Box, Stack, Text, Badge } from '@mantine/core'
 import classes from './nodes.module.css'
-import { nanoid } from 'nanoid'
 
 const DEFAULT_HANDLE_STYLE = {
   width: 10,
@@ -13,11 +11,9 @@ const DEFAULT_HANDLE_STYLE = {
 
 const Shaped = () => {
   return (
-    <svg width='160' height='90' viewBox='0 0 160 90' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg width='160' height='120' viewBox='0 0 160 120' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path
-        d='M148,2c5.5,0,9.9,4.4,10,9.9l-10,65.9c-0.5,3.8-2.6,10.3-10,10.3H12c-5.5,0-9.9-4.4-10-9.9l10-65.8l0-0.1V12
-				c0-5.5,4.5-10,10-10H148 M148,0H22c-6.6,0-12,5.4-12,12L0,78c0,6.6,5.4,12,12,12h126c7,0,11-5,12-12l10-66C160,5.4,154.6,0,148,0
-				L148,0z'
+        d='M31.1348 7.90642C31.5362 6.34199 32.4853 4.94606 33.8329 3.93823C35.1805 2.93041 36.8501 2.36789 38.579 2.33917H152.958C153.566 2.35133 154.165 2.47473 154.722 2.70234C155.278 2.92995 155.781 3.2573 156.201 3.66568C156.622 4.07407 156.951 4.5555 157.172 5.08245C157.392 5.60941 157.498 6.17158 157.485 6.73683C157.538 7.12516 157.538 7.5181 157.485 7.90642L128.815 112.281C128.43 113.853 127.485 115.258 126.134 116.269C124.783 117.279 123.104 117.836 121.371 117.848H7.04179C6.43406 117.836 5.83486 117.712 5.27842 117.485C4.72197 117.257 4.2192 116.93 3.79881 116.521C3.37842 116.113 3.04866 115.632 2.82837 115.105C2.60807 114.578 2.50156 114.016 2.51491 113.45C2.46231 113.062 2.46231 112.669 2.51491 112.281L31.1348 7.90642Z'
         fill='var(--mantine-color-body)'
         stroke='var(--mantine-color-gray-3)'
         strokeWidth='2'

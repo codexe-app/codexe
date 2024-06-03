@@ -1,42 +1,48 @@
-import CustomNode from './custom'
-import TerminalNode from './terminal'
-import StartNode from './start'
-import StopNode from './stop'
-import DecisionNode from './decision'
 import DataNode from './data'
+import DatabaseNode from './database'
+import DecisionNode from './decision'
+import DocumentNode from './document'
+import InitNode from './init'
+import MinputNode from './minput'
+import OperateNode from './operate'
 import ProcessNode from './process'
-import InoutNode from './inout'
+import SubroutineNode from './subroutine'
+import TerminalNode from './terminal'
 
 export const nodetypes = [
-  { value: 'input', label: 'Input' },
-  { value: 'output', label: 'Output' },
-  { value: 'default', label: 'Default' },
-  { value: 'custom', label: 'Custom' },
-  { value: 'terminal', label: 'Terminal' },
-  { value: 'start', label: 'Start' },
-  { value: 'stop', label: 'Stop' },
+  { value: 'data', label: 'Data Input/Output' },
+  { value: 'database', label: 'Database' },
   { value: 'decision', label: 'Decision' },
-  { value: 'data', label: 'Data' },
+  { value: 'document', label: 'Document' },
+  { value: 'init', label: ' Initialization' },
+  { value: 'minput', label: 'Manual Input' },
+  { value: 'operate', label: 'Manual Operation' },
   { value: 'process', label: 'Process' },
-  { value: 'inout', label: 'In/Out' }
+  { value: 'subroutine', label: 'Predefined Subroutine' },
+  { value: 'terminal', label: 'Terminator' },
 ]
 
 export const nodeTypes = {
-  custom: CustomNode,
-  terminal: TerminalNode,
-  start: StartNode,
-  stop: StopNode,
-  decision: DecisionNode,
   data: DataNode,
+  database: DatabaseNode,
+  decision: DecisionNode,
+  document: DocumentNode,
+  init: InitNode,
+  minput: MinputNode,
+  operate: OperateNode,
   process: ProcessNode,
-  inout: InoutNode,
+  subroutine: SubroutineNode,
+  terminal: TerminalNode,
 }
 
-export { default as CustomNode } from './custom'
-export { default as TerminalNode } from './terminal'
-export { default as StartNode } from './start'
-export { default as StopNode } from './stop'
-export { default as DecisionNode } from './decision'
 export { default as DataNode } from './data'
+export { default as DatabaseNode } from './database'
+export { default as DecisionNode } from './decision'
+export { default as DocumentNode } from './document'
+export { default as InitNode } from './init'
+export { default as MinputNode } from './minput'
+export { default as OperateNode } from './operate'
 export { default as ProcessNode } from './process'
-export { default as InoutNode } from './inout'
+export { default as SubroutineNode } from './subroutine'
+export { default as TerminalNode } from './terminal'
+

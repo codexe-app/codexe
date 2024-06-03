@@ -6,6 +6,7 @@ import { generateClient } from 'aws-amplify/api'
 import { notifications } from '@mantine/notifications'
 import {
   useMatches,
+  Chip,
   Stack,
   Flex,
   ActionIcon,
@@ -30,6 +31,7 @@ import {
   Tooltip,
   Accordion,
   SimpleGrid,
+  Radio,
   rem,
 } from '@mantine/core'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
@@ -56,6 +58,7 @@ import {
   IconPencil,
   IconEye,
 } from '@tabler/icons-react'
+import { IconDataFlow, IconDatabaseFlow, IconDecisionFlow, IconDocumentFlow, IconInitFlow, IconInputFlow, IconOperateFlow, IconProcessFlow, IconSubroutineFlow, IconTerminalFlow } from '@/components/diagram/icons'
 import { nanoid } from 'nanoid'
 import { uploadData } from 'aws-amplify/storage'
 import { toPng, toSvg, toJpeg } from 'html-to-image'
@@ -79,6 +82,7 @@ export default function DiagramCanvas(props) {
     },
   })
   const diagramid = props.diagram.id
+  const [value, setValue] = useState()
   const [saved, setSaved] = useState(props.diagram)
   const [newgram, setNewgram] = useState(props.new)
   const [pinned, setPinned] = useState(props?.diagram?.pinned)
@@ -103,7 +107,7 @@ export default function DiagramCanvas(props) {
       id: nanoid(10),
       new: true,
       data: { label: 'New Node', description: 'Node description.', id: nanoid(3) },
-      type: 'custom',
+      type: 'process',
       position: {
         x: 100,
         y: 100,
@@ -118,7 +122,7 @@ export default function DiagramCanvas(props) {
       const newNode = {
         id: nanoid(10),
         data: { label: values.data.label, description: values.data.description, id: nanoid(3) },
-        type: values.data.type,
+        type: values.type,
         position: {
           x: (Math.random() * window.innerWidth) / 2,
           y: (Math.random() * window.innerHeight) / 2,
@@ -127,6 +131,7 @@ export default function DiagramCanvas(props) {
       }
       setNodes((nds) => nds.concat(newNode))
       setAddnodem(false)
+      addnode.initialize(values)
     },
     [setNodes]
   )
@@ -445,7 +450,97 @@ export default function DiagramCanvas(props) {
         <Stack gap='xs'>
           <TextInput label='Label' placeholder='Label' size='xs' {...addnode.getInputProps('data.label')} />
           <Textarea label='Description' placeholder='Description' size='xs' {...addnode.getInputProps('data.description')} />
-          <Select label='Type' placeholder='Pick value' size='xs' data={nodetypes} {...addnode.getInputProps('data.type')} />
+          <Stack gap={6}>
+            <Text size='12' fw={500} lh={1}>
+              Type
+            </Text>
+            <Fieldset p={0}>
+              <Chip.Group {...addnode.getInputProps('type')}>
+                <Group justify='start' p='xs' gap='xs'>
+                  <Chip value='data'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconDataFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Data Input/Output
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='database'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconDatabaseFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Database
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='decision'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconDecisionFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Decision
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='document'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconDocumentFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Document
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='init'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconInitFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Initialization
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='minput'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconInputFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Manual Input
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='operate'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconOperateFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Manual Operatation
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='process'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconProcessFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Process
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='subroutine'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconSubroutineFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Predefined Subroutine
+                      </Text>
+                    </Group>
+                  </Chip>
+                  <Chip value='terminal'>
+                    <Group wrap='nowrap' gap='xs'>
+                      <IconTerminalFlow size='12' />
+                      <Text size='11' tt='uppercase' fw={600} lh={1}>
+                        Terminator
+                      </Text>
+                    </Group>
+                  </Chip>
+                </Group>
+              </Chip.Group>
+            </Fieldset>
+          </Stack>
           <Button type='submit'>Add Node</Button>
         </Stack>
       </form>
@@ -518,6 +613,7 @@ export default function DiagramCanvas(props) {
               modals.open({
                 title: 'Add Node',
                 children: <NewNodeForm />,
+                size: 'lg',
               })
             }}>
             <IconSquarePlus size={14} />

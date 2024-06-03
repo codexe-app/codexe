@@ -13,16 +13,17 @@ const Shaped = () => {
   return (
     <svg width='160' height='120' viewBox='0 0 160 120' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path
-        d='M0.987671 40.3278C0.987671 18.5986 18.6752 0.983582 40.4938 0.983582H119.506C141.324 0.983582 159.012 18.5986 159.012 40.3278V79.6721C159.012 101.401 141.324 119.016 119.506 119.016H40.4938C18.6752 119.016 0.987671 101.401 0.987671 79.6721V40.3278Z'
+        d='M157.595 106.542C157.595 112.965 122.862 118.196 80 118.196C37.1377 118.196 2.40527 112.965 2.40527 106.542V13.4576C2.40527 6.99939 37.1377 1.80396 80 1.80396C122.862 1.80396 157.595 6.99939 157.595 13.4576V106.542Z'
         fill='var(--mantine-color-body)'
         stroke='var(--mantine-color-gray-3)'
         strokeWidth='2'
       />
+      <path d='M157.595 14.6483C157.595 21.0704 122.862 26.3019 80 26.3019C37.1377 26.3019 2.40527 21.0704 2.40527 14.6483' stroke='var(--mantine-color-gray-3)' strokeWidth='2' />
     </svg>
   )
 }
 
-function TerminalNode({ data, isConnectable }) {
+function DatabaseNode({ data, isConnectable }) {
   //console.log('node render :', data);
   return (
     <Box className={classes.wrapper}>
@@ -50,4 +51,4 @@ function TerminalNode({ data, isConnectable }) {
   )
 }
 
-export default memo(TerminalNode)
+export default memo(DatabaseNode)
