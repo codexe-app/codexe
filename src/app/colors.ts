@@ -13,7 +13,7 @@ export const tachyon = {
     orange: ['#FDEDC3', '#FDE7AF', '#FDE19B', '#FDDB87', '#FCD573', '#FCCF5F', '#FBC94B', '#FBC337', '#FBBD23', '#FAB80F'],
     red: ['#FFFFFF', '#FEEBEB', '#FED8D8', '#FDC4C4', '#FCB1B1', '#FB9D9D', '#FA8989', '#F97777', '#F86363', '#F75050'],
     gray: [
-      "#f5f5f5",
+      "#f1e4e4",
       "#e7e7e7",
       "#cdcdcd",
       "#b2b2b2",
