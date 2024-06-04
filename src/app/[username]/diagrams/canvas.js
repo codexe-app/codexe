@@ -36,7 +36,7 @@ import {
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
-import { ReactFlow, useNodesState, useEdgesState, addEdge, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
+import { ReactFlow, useNodesState, useEdgesState, addEdge, getIncomers, getOutgoers, getConnectedEdges, Controls, MiniMap, Background, BackgroundVariant } from '@xyflow/react'
 import {
   IconFileTypeSvg,
   IconPhoto,
@@ -128,6 +128,34 @@ export default function DiagramCanvas(props) {
       addnode.initialize(values)
     },
     [setNodes]
+  )
+
+  const onEdgesDelete = useCallback(
+    (deleted) => {
+      const index = edges.findIndex(obj => obj.id === deleted[0].id)
+      removeEdge(deleted[0], index)
+    },
+    [nodes, edges]
+  )
+
+  const onNodesDelete = useCallback(
+    (deleted) => {
+      setEdges(
+        deleted.reduce((acc, node) => {
+          const connectedEdges = getConnectedEdges([node], edges)
+          console.log(connectedEdges)
+          connectedEdges.forEach((edge, index) => {
+            const i = nodes.findIndex(obj => obj.id === edge.id)
+            removeEdge(edge, i)
+          })
+          const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge))
+          return [...remainingEdges]
+        }, edges)
+      )
+      const index = nodes.findIndex(obj => obj.id === deleted[0].id)
+      removeNode(deleted[0], index)
+    },
+    [nodes, edges]
   )
 
   async function newDiagram(values) {
@@ -229,7 +257,6 @@ export default function DiagramCanvas(props) {
   function removeEdge(theedge, index) {
     diagram.removeListItem('edges.items', index)
     deleteEdge(theedge)
-    setEdges(diagram.edges.items)
   }
 
   async function deleteEdge(theedge) {
@@ -271,12 +298,11 @@ export default function DiagramCanvas(props) {
   function removeNode(thenode, index) {
     diagram.removeListItem('nodes.items', index)
     deleteNode(thenode)
-    setNodes(diagram.values.nodes.items)
   }
 
   async function deleteNode(thenode) {
     try {
-      const doc = await client.graphql({ query: mutations.deleteNode, variables: { input: { id: thenode.id } } })
+      await client.graphql({ query: mutations.deleteNode, variables: { input: { id: thenode.id } } })
       notifications.show({
         title: `${thenode.data.label}`,
         message: 'The Node was deleted',
@@ -439,7 +465,7 @@ export default function DiagramCanvas(props) {
     })
     edges.forEach((edge, index) => {
       const se = diagram.values.edges.items
-      const exists = se.findIndex(obj => obj.id === edge.id) > -1;
+      const exists = se.findIndex((obj) => obj.id === edge.id) > -1
       if (!exists) {
         edge.new = true
         //console.log(`${edge.id} is NEW`)
@@ -467,15 +493,15 @@ export default function DiagramCanvas(props) {
     })
 
     const newedges = values.edges.items.filter((item) => item.new)
-    console.log(`newedges :`, newedges)
+    //console.log(`newedges :`, newedges)
     const usededges = values.edges.items.filter((item) => !item.new)
-    console.log(`usededges :`, usededges)
+    //console.log(`usededges :`, usededges)
     const updatededges = usededges.filter((o2) => {
       const index = saved.edges.items.findIndex((o1) => o1.id === o2.id)
       if (index === -1) return true
       return JSON.stringify(o2) !== JSON.stringify(saved.edges.items[index])
     })
-    console.log(`updatededges :`, updatededges)
+    //console.log(`updatededges :`, updatededges)
     newedges.forEach((edge, index) => {
       edge.diagramId = diagram.values.id
       newEdge(edge)
@@ -619,16 +645,16 @@ export default function DiagramCanvas(props) {
           </ActionIcon>
         </Tooltip>
         <ActionIcon.Group>
-        <Tooltip label='Sync Form'>
-          <ActionIcon variant='outline' onClick={pushtoForm}>
-            <IconForms style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-        </Tooltip>
-        <Tooltip label='Save Diagram'>
-          <ActionIcon size='md' type='submit' variant='outline'>
-            <IconDeviceFloppy size='1.25rem' />
-          </ActionIcon>
-        </Tooltip>
+          <Tooltip label='Sync Form'>
+            <ActionIcon variant='outline' onClick={pushtoForm}>
+              <IconForms style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label='Save Diagram'>
+            <ActionIcon size='md' type='submit' variant='outline'>
+              <IconDeviceFloppy size='1.25rem' />
+            </ActionIcon>
+          </Tooltip>
         </ActionIcon.Group>
         <ActionIcon.Group>
           <Tooltip label='Download PNG'>
@@ -781,14 +807,6 @@ export default function DiagramCanvas(props) {
                                       <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
                                     </SimpleGrid>
                                   </SimpleGrid>
-                                  <Group justify='end'>
-                                    <ActionIcon mt='xs' color='pink.9' onClick={() => startRemoveNode(item, index)}>
-                                      <IconTrash size={18} color='white' />
-                                    </ActionIcon>
-                                    <ActionIcon mt='xs' color='green.9' onClick={() => saveNode(`diagram.values.nodes.items.${index}`, index)}>
-                                      <IconDeviceFloppy size={18} color='white' />
-                                    </ActionIcon>
-                                  </Group>
                                 </Fieldset>
                               ))}
                             </Accordion.Panel>
@@ -813,15 +831,7 @@ export default function DiagramCanvas(props) {
                                   <SimpleGrid cols={2}>
                                     <TextInput label='Source' {...diagram.getInputProps(`edges.items.${index}.source`)} size='xs' />
                                     <TextInput label='Target' {...diagram.getInputProps(`edges.items.${index}.target`)} size='xs' />
-                                  </SimpleGrid>
-                                  <Group justify='end'>
-                                    <ActionIcon mt='xs' color='pink.9' onClick={() => startRemoveEdge(item, index)}>
-                                      <IconTrash size={18} color='white' />
-                                    </ActionIcon>
-                                    <ActionIcon mt='xs' color='green.9' disabled onClick={() => saveEdge(diagram.values, index)}>
-                                      <IconDeviceFloppy size={18} color='white' />
-                                    </ActionIcon>
-                                  </Group>
+                                  </SimpleGrid>                      
                                 </Fieldset>
                               ))}
                             </Accordion.Panel>
@@ -837,7 +847,7 @@ export default function DiagramCanvas(props) {
           </Accordion>
         </Flex>
       </form>
-      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect}>
+      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onNodesDelete={onNodesDelete} onEdgesDelete={onEdgesDelete} onConnect={onConnect}>
         <Background color='#ccc' variant={BackgroundVariant.Dots} />
         <MiniMap zoomable pannable />
         <Controls />
