@@ -14,12 +14,11 @@ interface ImageData {
 }
 
 export default async function StartCard(props: any) {
+  //console.log(`StartCard Props : `, props)
   const user = props.user
-
+  
   var image: ImageData = { title: '', explanation: '', media_type: '', copyright: '', hdurl: '', url: '' }
   image = await getData()
-  //console.log(image)
-
   if (image.media_type != 'image') {
     image = {
       title: 'Ta Prohm',

@@ -76,6 +76,7 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
       content
       status
       pinned
+      ranking
       graphic {
         alt
         title
@@ -1245,6 +1246,13 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
       content
       status
       pinned
+      ranking
+      graphic {
+        alt
+        title
+        url
+        thumbnail
+      }
       topicId
       userId
       createdAt

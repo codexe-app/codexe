@@ -21,6 +21,7 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -42,6 +43,7 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -86,6 +88,7 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -107,6 +110,7 @@ export const updateDocument = /* GraphQL */ `mutation UpdateDocument(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -151,6 +155,7 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -172,6 +177,7 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -215,6 +221,7 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -243,6 +250,7 @@ export const createDiagram = /* GraphQL */ `mutation CreateDiagram(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -286,6 +294,7 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -314,6 +323,7 @@ export const updateDiagram = /* GraphQL */ `mutation UpdateDiagram(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -357,6 +367,7 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -385,6 +396,7 @@ export const deleteDiagram = /* GraphQL */ `mutation DeleteDiagram(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -477,6 +489,7 @@ export const createNode = /* GraphQL */ `mutation CreateNode(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -557,6 +570,7 @@ export const updateNode = /* GraphQL */ `mutation UpdateNode(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -637,6 +651,7 @@ export const deleteNode = /* GraphQL */ `mutation DeleteNode(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -875,6 +890,7 @@ export const createEdge = /* GraphQL */ `mutation CreateEdge(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -950,6 +966,7 @@ export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -1025,6 +1042,7 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -1055,6 +1073,7 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1077,6 +1096,7 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -1124,6 +1144,7 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1146,6 +1167,7 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -1193,6 +1215,7 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1215,6 +1238,7 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -1270,6 +1294,7 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1311,6 +1336,7 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1352,6 +1378,7 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1385,6 +1412,7 @@ export const createTopic = /* GraphQL */ `mutation CreateTopic(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1431,6 +1459,7 @@ export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1477,6 +1506,7 @@ export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt

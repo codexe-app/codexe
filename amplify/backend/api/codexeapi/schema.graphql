@@ -7,6 +7,7 @@ type Document @model @auth(rules: [{ allow: public }]) {
   content: String
   status: Status
   pinned: Boolean
+  ranking: Float
   public: Boolean
   icon: String
   graphic: ImageFile
@@ -26,6 +27,7 @@ type Diagram @model @auth(rules: [{ allow: public }]) {
   content: String
   status: Status
   pinned: Boolean
+  ranking: Float
   icon: String
   graphic: ImageFile
   nodes: [Node] @hasMany(indexName: "byDiagram", fields: ["id"])
@@ -125,6 +127,7 @@ type Chat @model @auth(rules: [{allow: public}]) {
   content: String
   status: Status
   pinned: Boolean
+  ranking: Float
   icon: String
   graphic: ImageFile
   path: String
@@ -160,6 +163,7 @@ type Topic @model @auth(rules: [{ allow: public }]) {
   content: String
   status: Status
   pinned: Boolean
+  ranking: Float
   icon: String
   graphic: ImageFile
   diagrams: [Diagram] @hasMany(indexName: "byTopic", fields: ["id"])

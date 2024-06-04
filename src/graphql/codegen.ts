@@ -18,6 +18,7 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -39,6 +40,7 @@ export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -85,6 +87,7 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
       content
       status
       pinned
+      ranking
       public
       icon
       topicId
@@ -111,6 +114,7 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -139,6 +143,7 @@ export const getDiagram = /* GraphQL */ `query GetDiagram($id: ID!) {
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -184,6 +189,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -258,6 +264,7 @@ export const getNode = /* GraphQL */ `query GetNode($id: ID!) {
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -446,6 +453,7 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -507,6 +515,7 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -529,6 +538,7 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -575,6 +585,7 @@ export const listChats = /* GraphQL */ `query ListChats(
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -607,6 +618,7 @@ export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -665,6 +677,7 @@ export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -710,6 +723,7 @@ export const listTopics = /* GraphQL */ `query ListTopics(
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -934,6 +948,7 @@ export const documentsByTopicIdAndCreatedAt = /* GraphQL */ `query DocumentsByTo
       content
       status
       pinned
+      ranking
       public
       icon
       topicId
@@ -976,6 +991,7 @@ export const documentsByUserIdAndCreatedAt = /* GraphQL */ `query DocumentsByUse
       content
       status
       pinned
+      ranking
       public
       icon
       topicId
@@ -1017,6 +1033,7 @@ export const diagramsByTopicIdAndCreatedAt = /* GraphQL */ `query DiagramsByTopi
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -1057,6 +1074,7 @@ export const diagramsByUserIdAndCreatedAt = /* GraphQL */ `query DiagramsByUserI
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -1240,6 +1258,7 @@ export const chatsByTopicIdAndCreatedAt = /* GraphQL */ `query ChatsByTopicIdAnd
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1282,6 +1301,7 @@ export const chatsByUserIdAndCreatedAt = /* GraphQL */ `query ChatsByUserIdAndCr
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath

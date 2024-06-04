@@ -18,6 +18,7 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -39,6 +40,7 @@ export const onCreateDocument = /* GraphQL */ `subscription OnCreateDocument($fi
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -80,6 +82,7 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -101,6 +104,7 @@ export const onUpdateDocument = /* GraphQL */ `subscription OnUpdateDocument($fi
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -142,6 +146,7 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
     content
     status
     pinned
+    ranking
     public
     icon
     graphic {
@@ -163,6 +168,7 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -203,6 +209,7 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -231,6 +238,7 @@ export const onCreateDiagram = /* GraphQL */ `subscription OnCreateDiagram($filt
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -271,6 +279,7 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -299,6 +308,7 @@ export const onUpdateDiagram = /* GraphQL */ `subscription OnUpdateDiagram($filt
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -339,6 +349,7 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -367,6 +378,7 @@ export const onDeleteDiagram = /* GraphQL */ `subscription OnDeleteDiagram($filt
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -456,6 +468,7 @@ export const onCreateNode = /* GraphQL */ `subscription OnCreateNode($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -533,6 +546,7 @@ export const onUpdateNode = /* GraphQL */ `subscription OnUpdateNode($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -610,6 +624,7 @@ export const onDeleteNode = /* GraphQL */ `subscription OnDeleteNode($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -836,6 +851,7 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -908,6 +924,7 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -980,6 +997,7 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       topicId
       userId
@@ -1007,6 +1025,7 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1029,6 +1048,7 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -1073,6 +1093,7 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1095,6 +1116,7 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -1139,6 +1161,7 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1161,6 +1184,7 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
       content
       status
       pinned
+      ranking
       icon
       createdAt
       spotlightId
@@ -1213,6 +1237,7 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filt
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1251,6 +1276,7 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filt
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1289,6 +1315,7 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filt
       content
       status
       pinned
+      ranking
       icon
       path
       sharePath
@@ -1319,6 +1346,7 @@ export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: 
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1362,6 +1390,7 @@ export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: 
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
@@ -1405,6 +1434,7 @@ export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: 
     content
     status
     pinned
+    ranking
     icon
     graphic {
       alt
