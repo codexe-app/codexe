@@ -64,6 +64,7 @@ import { toPng, toSvg, toJpeg } from 'html-to-image'
 import '@xyflow/react/dist/style.css'
 import classes from './diagrams.module.css'
 import { nodetypes, nodeTypes } from '@/components/diagram/nodes'
+import { edgetypes } from '@/components/diagram/edges'
 var _ = require('lodash')
 
 export default function DiagramCanvas(props) {
@@ -132,7 +133,7 @@ export default function DiagramCanvas(props) {
 
   const onEdgesDelete = useCallback(
     (deleted) => {
-      const index = edges.findIndex(obj => obj.id === deleted[0].id)
+      const index = edges.findIndex((obj) => obj.id === deleted[0].id)
       removeEdge(deleted[0], index)
     },
     [nodes, edges]
@@ -145,14 +146,14 @@ export default function DiagramCanvas(props) {
           const connectedEdges = getConnectedEdges([node], edges)
           console.log(connectedEdges)
           connectedEdges.forEach((edge, index) => {
-            const i = nodes.findIndex(obj => obj.id === edge.id)
+            const i = nodes.findIndex((obj) => obj.id === edge.id)
             removeEdge(edge, i)
           })
           const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge))
           return [...remainingEdges]
         }, edges)
       )
-      const index = nodes.findIndex(obj => obj.id === deleted[0].id)
+      const index = nodes.findIndex((obj) => obj.id === deleted[0].id)
       removeNode(deleted[0], index)
     },
     [nodes, edges]
@@ -656,19 +657,11 @@ export default function DiagramCanvas(props) {
             </ActionIcon>
           </Tooltip>
         </ActionIcon.Group>
-        <ActionIcon.Group>
-          <Tooltip label='Download PNG'>
-            <ActionIcon variant='default' size='lg' aria-label='Gallery' onClick={screenShot}>
-              <IconFileTypePng style={{ width: rem(20) }} stroke={1.5} />
-            </ActionIcon>
-          </Tooltip>
-          <ActionIcon variant='default' size='lg' aria-label='SVG' disabled>
-            <IconFileTypeSvg style={{ width: rem(20) }} stroke={1.5} />
+        <Tooltip label='Download PNG'>
+          <ActionIcon variant='default' size='lg' aria-label='Gallery' onClick={screenShot}>
+            <IconFileTypePng style={{ width: rem(20) }} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon variant='default' size='lg' aria-label='JPG' disabled>
-            <IconFileTypeJpg style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-        </ActionIcon.Group>
+        </Tooltip>
       </Group>
     )
   }
@@ -829,9 +822,13 @@ export default function DiagramCanvas(props) {
                                     {item.id}
                                   </Badge>
                                   <SimpleGrid cols={2}>
+                                    <TextInput label='Label' {...diagram.getInputProps(`edges.items.${index}.label`)} size='xs' />
+                                    <Select label='Type' data={edgetypes} {...diagram.getInputProps(`edges.items.${index}.type`)} size='xs' />
+                                  </SimpleGrid>
+                                  <SimpleGrid cols={2}>
                                     <TextInput label='Source' {...diagram.getInputProps(`edges.items.${index}.source`)} size='xs' />
                                     <TextInput label='Target' {...diagram.getInputProps(`edges.items.${index}.target`)} size='xs' />
-                                  </SimpleGrid>                      
+                                  </SimpleGrid>
                                 </Fieldset>
                               ))}
                             </Accordion.Panel>

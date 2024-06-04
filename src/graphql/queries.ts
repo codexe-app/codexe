@@ -260,6 +260,7 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
       edges {
         items {
           id
+          label
           type
           source
           target

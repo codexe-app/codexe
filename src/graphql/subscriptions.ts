@@ -788,6 +788,7 @@ export const onCreateEdge = /* GraphQL */ `subscription OnCreateEdge($filter: Mo
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style
@@ -859,6 +860,7 @@ export const onUpdateEdge = /* GraphQL */ `subscription OnUpdateEdge($filter: Mo
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style
@@ -930,6 +932,7 @@ export const onDeleteEdge = /* GraphQL */ `subscription OnDeleteEdge($filter: Mo
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style

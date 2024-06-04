@@ -827,6 +827,7 @@ export const createEdge = /* GraphQL */ `mutation CreateEdge(
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style
@@ -901,6 +902,7 @@ export const updateEdge = /* GraphQL */ `mutation UpdateEdge(
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style
@@ -975,6 +977,7 @@ export const deleteEdge = /* GraphQL */ `mutation DeleteEdge(
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style

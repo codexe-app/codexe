@@ -93,6 +93,7 @@ type Edge @model @auth(rules: [{ allow: public }]) {
   type: String
   source: String
   target: String
+  label: String
   sourceHandle: String
   targetHandle: String
   style: String

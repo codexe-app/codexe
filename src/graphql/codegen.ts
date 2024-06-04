@@ -398,6 +398,7 @@ export const getEdge = /* GraphQL */ `query GetEdge($id: ID!) {
     type
     source
     target
+    label
     sourceHandle
     targetHandle
     style
@@ -471,6 +472,7 @@ export const listEdges = /* GraphQL */ `query ListEdges(
       type
       source
       target
+      label
       sourceHandle
       targetHandle
       style
@@ -1185,6 +1187,7 @@ export const edgesByDiagramIdAndCreatedAt = /* GraphQL */ `query EdgesByDiagramI
       type
       source
       target
+      label
       sourceHandle
       targetHandle
       style
