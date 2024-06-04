@@ -640,23 +640,23 @@ export default function DiagramCanvas(props) {
             <IconSquarePlus size={14} />
           </ActionIcon>
         </Tooltip>
-        <Tooltip label='Sync View'>
-          <ActionIcon variant='outline' onClick={updateView}>
-            <IconEye style={{ width: rem(20) }} stroke={1.5} />
-          </ActionIcon>
-        </Tooltip>
         <ActionIcon.Group>
+          <Tooltip label='Sync View'>
+            <ActionIcon variant='outline' onClick={updateView}>
+              <IconEye style={{ width: rem(20) }} stroke={1.5} />
+            </ActionIcon>
+          </Tooltip>
           <Tooltip label='Sync Form'>
             <ActionIcon variant='outline' onClick={pushtoForm}>
               <IconForms style={{ width: rem(20) }} stroke={1.5} />
             </ActionIcon>
           </Tooltip>
-          <Tooltip label='Save Diagram'>
-            <ActionIcon size='md' type='submit' variant='outline'>
-              <IconDeviceFloppy size='1.25rem' />
-            </ActionIcon>
-          </Tooltip>
         </ActionIcon.Group>
+        <Tooltip label='Save Diagram'>
+          <ActionIcon size='md' type='submit' variant='outline'>
+            <IconDeviceFloppy size='1.25rem' />
+          </ActionIcon>
+        </Tooltip>
         <Tooltip label='Download PNG'>
           <ActionIcon variant='default' size='lg' aria-label='Gallery' onClick={screenShot}>
             <IconFileTypePng style={{ width: rem(20) }} stroke={1.5} />
@@ -791,14 +791,14 @@ export default function DiagramCanvas(props) {
                                   <Badge size='md' w='100%' variant='outline' radius='xs'>
                                     {item.id}
                                   </Badge>
-                                  <TextInput label='Label' {...diagram.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
+                                  <SimpleGrid cols={2}>
+                                    <TextInput label='Label' {...diagram.getInputProps(`nodes.items.${index}.data.label`)} size='xs' />
+                                    <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
+                                  </SimpleGrid>
                                   <Textarea label='Description' {...diagram.getInputProps(`nodes.items.${index}.data.description`)} size='xs' />
                                   <SimpleGrid cols={2}>
-                                    <Select label='Type' data={nodetypes} {...diagram.getInputProps(`nodes.items.${index}.type`)} size='xs' />
-                                    <SimpleGrid cols={2}>
-                                      <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
-                                      <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
-                                    </SimpleGrid>
+                                    <NumberInput label='X' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.x`)} size='xs' />
+                                    <NumberInput label='Y' allowDecimal={false} {...diagram.getInputProps(`nodes.items.${index}.position.y`)} size='xs' />
                                   </SimpleGrid>
                                 </Fieldset>
                               ))}
