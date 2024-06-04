@@ -23,9 +23,6 @@ export default async function Page() {
   const theuser = await AuthGetCurrentUserServer()
   const d1 = nanoid()
   const n1 = nanoid()
-  const n2 = nanoid()
-  const e1 = nanoid()
-  const e2 = nanoid()
 
   const diagram = {
     new: true,
@@ -38,15 +35,11 @@ export default async function Page() {
     graphic: { title: 'No Graphic', alt: '', caption: '', description: '', key: '', source: '', url: '' },
     nodes: {
       items: [
-        { id: n1, type: 'custom', data: { label: 'Node 1' }, position: { x: 100, y: 100 }, diagramId: d1 },
-        { id: n2, type: 'custom', data: { label: 'Node 2' }, position: { x: 300, y: 100 }, diagramId: d1 },
+        { id: n1, new: true, type: 'terminal', data: { label: 'Start' }, position: { x: 100, y: 100 }, diagramId: d1 },
       ],
     },
     edges: {
-      items: [
-        { id: e1, source: n1, target: n2, diagramId: d1 },
-        { id: e2, source: n2, target: n1, diagramId: d1 },
-      ],
+      items: [],
     },
     userId: theuser.userId,
   }

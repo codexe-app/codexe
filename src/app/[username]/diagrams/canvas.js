@@ -31,7 +31,6 @@ import {
   Tooltip,
   Accordion,
   SimpleGrid,
-  Radio,
   rem,
 } from '@mantine/core'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
@@ -77,20 +76,16 @@ export default function DiagramCanvas(props) {
     mode: 'controlled',
     initialValues: props.diagram,
     onValuesChange: (values) => {
-      //console.log(values)
       slugify(values.name)
     },
   })
   const diagramid = props.diagram.id
-  const [value, setValue] = useState()
   const [saved, setSaved] = useState(props.diagram)
   const [newgram, setNewgram] = useState(props.new)
   const [pinned, setPinned] = useState(props?.diagram?.pinned)
   const [graphic, setGraphic] = useState(props?.diagram?.graphic?.url)
   const [activeTab, setActiveTab] = useState('view')
-  const [addnodem, setAddnodem] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
-  const [showtb, setShowtb] = useState(true)
   const [nodes, setNodes, onNodesChange] = useNodesState(props.diagram.nodes?.items)
   const [edges, setEdges, onEdgesChange] = useEdgesState(props.diagram.edges?.items)
   const sizeme = useMatches({
@@ -104,9 +99,8 @@ export default function DiagramCanvas(props) {
   const addnode = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      id: nanoid(10),
-      new: true,
-      data: { label: 'New Node', description: 'Node description.', id: nanoid(3) },
+      id: '',
+      data: { label: 'New Node', description: 'Node description.', id: '' },
       type: 'process',
       position: {
         x: 100,
@@ -121,6 +115,7 @@ export default function DiagramCanvas(props) {
       modals.closeAll()
       const newNode = {
         id: nanoid(10),
+        new: true,
         data: { label: values.data.label, description: values.data.description, id: nanoid(3) },
         type: values.type,
         position: {
@@ -130,7 +125,6 @@ export default function DiagramCanvas(props) {
         diagramId: diagramid,
       }
       setNodes((nds) => nds.concat(newNode))
-      setAddnodem(false)
       addnode.initialize(values)
     },
     [setNodes]
@@ -138,7 +132,6 @@ export default function DiagramCanvas(props) {
 
   async function newDiagram(values) {
     let cleaned = _.omit(values, ['new', 'edges', 'nodes', 'content', 'topic', 'user', 'createdAt', 'updatedAt', '__typename'])
-    //console.log(cleaned)
     try {
       await client.graphql({ query: mutations.createDiagram, variables: { input: cleaned } })
       notifications.show({
@@ -157,7 +150,6 @@ export default function DiagramCanvas(props) {
 
   async function saveDiagram(values) {
     let cleaned = _.omit(values, ['edges', 'nodes', 'content', 'topic', 'user', 'createdAt', 'updatedAt', '__typename'])
-    //console.log(cleaned)
     try {
       await client.graphql({ query: mutations.updateDiagram, variables: { input: cleaned } })
       notifications.show({
@@ -176,12 +168,13 @@ export default function DiagramCanvas(props) {
   function saveEdge(values, index) {
     const theedgedata = values.edges.items[index]
     newEdge(theedgedata)
-    //console.log(`Save Edge : ${index} | Values : ${JSON.stringify(theedgedata)}`)
   }
 
   async function newEdge(theedgedata) {
+    let cleaned = _.omit(theedgedata, ['new'])
+    //console.log(cleaned)
     try {
-      await client.graphql({ query: mutations.createEdge, variables: { input: theedgedata } })
+      await client.graphql({ query: mutations.createEdge, variables: { input: cleaned } })
       notifications.show({
         title: `${theedgedata.id}`,
         message: 'The Edge was created',
@@ -196,7 +189,7 @@ export default function DiagramCanvas(props) {
   }
 
   async function updatetheEdge(theedgedata) {
-    console.log(`updateEdge :`, theedgedata)
+    //console.log(`updateEdge :`, theedgedata)
     let cleaned = _.omit(theedgedata, ['createdAt', 'updatedAt', '__typename'])
     try {
       await client.graphql({ query: mutations.updateEdge, variables: { input: cleaned } })
@@ -235,8 +228,8 @@ export default function DiagramCanvas(props) {
 
   function removeEdge(theedge, index) {
     diagram.removeListItem('edges.items', index)
-    //diagram.removeListItem('nodes.items.edges.items', index)
     deleteEdge(theedge)
+    setEdges(diagram.edges.items)
   }
 
   async function deleteEdge(theedge) {
@@ -278,6 +271,7 @@ export default function DiagramCanvas(props) {
   function removeNode(thenode, index) {
     diagram.removeListItem('nodes.items', index)
     deleteNode(thenode)
+    setNodes(diagram.values.nodes.items)
   }
 
   async function deleteNode(thenode) {
@@ -297,8 +291,10 @@ export default function DiagramCanvas(props) {
   }
 
   async function newNode(thenode) {
+    let cleaned = _.omit(thenode, ['new'])
+    //console.log(`newNode :`, cleaned)
     try {
-      await client.graphql({ query: mutations.createNode, variables: { input: thenode } })
+      await client.graphql({ query: mutations.createNode, variables: { input: cleaned } })
       notifications.show({
         title: `${thenode.data.label}`,
         message: 'The Node was created',
@@ -312,21 +308,21 @@ export default function DiagramCanvas(props) {
     }
   }
 
-  async function updatetheNode(thenodedata) {
-    let cleaned = _.omit(thenodedata, ['handles', 'ariaLabel', 'className', 'createdAt', 'updatedAt', '__typename', 'position.__typename', 'measured.__typename', 'data.__typename'])
+  async function updatetheNode(thenode) {
+    let cleaned = _.omit(thenode, ['handles', 'ariaLabel', 'className', 'createdAt', 'updatedAt', '__typename', 'position.__typename', 'measured.__typename', 'data.__typename'])
     //console.log(`updateNode :`, cleaned)
     try {
       await client.graphql({ query: mutations.updateNode, variables: { input: cleaned } })
       notifications.show({
-        title: `${thenodedata.data.label}`,
+        title: `${thenode.data.label}`,
         message: 'The Node was updated',
       })
     } catch (error) {
       notifications.show({
-        title: `There was an error updating the Node ${thenodedata.data.label}`,
+        title: `There was an error updating the Node ${thenode.data.label}`,
         message: JSON.stringify(error),
       })
-      console.log(`There was a problem updating the Node ${thenodedata.data.label}:`, error)
+      console.log(`There was a problem updating the Node ${thenode.data.label}:`, error)
     }
   }
 
@@ -336,20 +332,6 @@ export default function DiagramCanvas(props) {
     } else {
       updatetheNode(thenode)
     }
-  }
-
-  function pushtoForm() {
-    nodes.forEach((node, index) => {
-      diagram.setFieldValue(`nodes.items.${index}`, node)
-    })
-    edges.forEach((edge, index) => {
-      diagram.setFieldValue(`edges.items.${index}`, edge)
-    })
-  }
-
-  function updateView() {
-    setNodes(diagram.values.nodes.items)
-    setEdges(diagram.values.edges.items)
   }
 
   function switchPinned(pinned) {
@@ -442,6 +424,73 @@ export default function DiagramCanvas(props) {
     const theurl = s3url + thepath
     diagram.setFieldValue('graphic.key', thepath)
     diagram.setFieldValue('graphic.url', theurl)
+  }
+
+  function updateView() {
+    setNodes(diagram.values.nodes.items)
+    setEdges(diagram.values.edges.items)
+  }
+
+  function pushtoForm() {
+    //console.log(`view edges :`, edges)
+    //console.log(`form edges :`, diagram.values.edges.items)
+    nodes.forEach((node, index) => {
+      diagram.setFieldValue(`nodes.items.${index}`, node)
+    })
+    edges.forEach((edge, index) => {
+      const se = diagram.values.edges.items
+      const exists = se.findIndex(obj => obj.id === edge.id) > -1;
+      if (!exists) {
+        edge.new = true
+        //console.log(`${edge.id} is NEW`)
+      }
+      diagram.setFieldValue(`edges.items.${index}`, edge)
+    })
+  }
+
+  async function submitForm(values) {
+    //pushtoForm()
+    const newnodes = values.nodes.items.filter((item) => item.new)
+    const usednodes = values.nodes.items.filter((item) => !item.new)
+    //console.log(`usednodes :`, usednodes)
+    const updatednodes = usednodes.filter((o2) => {
+      const index = saved.nodes.items.findIndex((o1) => o1.id === o2.id)
+      if (index === -1) return true
+      return JSON.stringify(o2) !== JSON.stringify(saved.nodes.items[index])
+    })
+    //console.log(`updatednodes :`, updatednodes)
+    newnodes.forEach((node, index) => {
+      newNode(node)
+    })
+    updatednodes.forEach((node, index) => {
+      updatetheNode(node)
+    })
+
+    const newedges = values.edges.items.filter((item) => item.new)
+    console.log(`newedges :`, newedges)
+    const usededges = values.edges.items.filter((item) => !item.new)
+    console.log(`usededges :`, usededges)
+    const updatededges = usededges.filter((o2) => {
+      const index = saved.edges.items.findIndex((o1) => o1.id === o2.id)
+      if (index === -1) return true
+      return JSON.stringify(o2) !== JSON.stringify(saved.edges.items[index])
+    })
+    console.log(`updatededges :`, updatededges)
+    newedges.forEach((edge, index) => {
+      edge.diagramId = diagram.values.id
+      newEdge(edge)
+    })
+    updatededges.forEach((edge, index) => {
+      updatetheEdge(edge)
+    })
+
+    if (newgram) {
+      newDiagram(values)
+      setNewgram(false)
+    } else {
+      saveDiagram(values)
+    }
+    setSaved(values)
   }
 
   const NewNodeForm = () => {
@@ -547,64 +596,9 @@ export default function DiagramCanvas(props) {
     )
   }
 
-  async function submitForm(values) {
-    //console.log(`SUBMITING :`, values)
-    pushtoForm()
-    if (newgram) {
-      values.nodes.items.forEach((node, index) => {
-        newNode(node)
-      })
-      values.edges.items.forEach((edge, index) => {
-        newEdge(edge)
-      })
-      newDiagram(values)
-      setNewgram(false)
-    } else {
-      const updatednodes = values.nodes.items.filter((o2) => {
-        const index = saved.nodes.items.findIndex((o1) => o1.id === o2.id)
-        if (index === -1) return true
-        return JSON.stringify(o2) !== JSON.stringify(saved.nodes.items[index])
-      })
-      updatednodes.forEach((node, index) => {
-        updatetheNode(node)
-      })
-
-      const updatededges = values.edges.items.filter((o2) => {
-        const index = saved.edges.items.findIndex((o1) => o1.id === o2.id)
-        if (index === -1) return true
-        return JSON.stringify(o2) !== JSON.stringify(saved.edges.items[index])
-      })
-      updatededges.forEach((edge, index) => {
-        updatetheEdge(edge)
-      })
-
-      const newnodes = values.nodes.items.filter((o2) => {
-        return !saved.nodes.items.some((o1) => o1.id === o2.id)
-      })
-      newnodes.forEach((node, index) => {
-        newNode(node)
-      })
-
-      const newedges = values.edges.items.filter((o2) => {
-        return !saved.edges.items.some((o1) => o1.id === o2.id)
-      })
-      newedges.forEach((edge, index) => {
-        edge.diagramId = diagram.values.id
-        newEdge(edge)
-      })
-
-      saveDiagram(values)
-    }
-  }
-
   function AccordionControl(props) {
     return (
       <Group gap={sizeme} wrap='nowrap' justify='space-between'>
-        <Tooltip label='Save Diagram'>
-          <ActionIcon size='md' type='submit' variant='outline'>
-            <IconDeviceFloppy size='1.25rem' />
-          </ActionIcon>
-        </Tooltip>
         <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-primary-color-filled)' />} />
         <Tooltip label='Add Node'>
           <ActionIcon
@@ -624,11 +618,18 @@ export default function DiagramCanvas(props) {
             <IconEye style={{ width: rem(20) }} stroke={1.5} />
           </ActionIcon>
         </Tooltip>
+        <ActionIcon.Group>
         <Tooltip label='Sync Form'>
           <ActionIcon variant='outline' onClick={pushtoForm}>
             <IconForms style={{ width: rem(20) }} stroke={1.5} />
           </ActionIcon>
         </Tooltip>
+        <Tooltip label='Save Diagram'>
+          <ActionIcon size='md' type='submit' variant='outline'>
+            <IconDeviceFloppy size='1.25rem' />
+          </ActionIcon>
+        </Tooltip>
+        </ActionIcon.Group>
         <ActionIcon.Group>
           <Tooltip label='Download PNG'>
             <ActionIcon variant='default' size='lg' aria-label='Gallery' onClick={screenShot}>

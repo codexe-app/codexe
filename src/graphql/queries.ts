@@ -265,17 +265,11 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
           target
           sourceHandle
           targetHandle
-          style
-          animated
           hidden
           deletable
           data {
             label
           }
-          className
-          sourceNode
-          targetNode
-          selected
           markerStart {
             type
             color
@@ -295,13 +289,8 @@ export const listDiagrams = /* GraphQL */ `query ListDiagrams(
             strokeWidth
           }
           zIndex
-          ariaLabel
-          interactionWidth
           focusable
-          updatable
           diagramId
-          createdAt
-          updatedAt
         }
         nextToken
       }
