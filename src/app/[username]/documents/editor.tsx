@@ -62,7 +62,7 @@ export default function Editor(props: any) {
   const { document, user } = props
   const [codeview, { open, close }] = useDisclosure(false)
   const [graphic, setGraphic] = useState(document?.graphic?.url)
-  const [activeTab, setActiveTab] = useState<string | null>('view');
+  const [activeTab, setActiveTab] = useState<string | null>('view')
   const [content, setContent] = useState(props.markdown)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [showtb, setShowtb] = useState(true)
@@ -227,14 +227,8 @@ export default function Editor(props: any) {
   function AccordionControl(props: AccordionControlProps) {
     return (
       <Group gap={sizeme} wrap='nowrap' justify='space-between'>
-        <ActionIcon size='md' type='submit' variant='outline'>
-          <IconDeviceFloppy size='1.25rem' />
-        </ActionIcon>
         <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-primary-color-filled)' />} />
-        <ActionIcon.Group>
-          <ActionIcon variant='outline' onClick={openCodeview}>
-            <IconMarkdown size='1.25rem' stroke={1.5} />
-          </ActionIcon>
+        <Group wrap='nowrap' gap='xs'>
           {showtb ? (
             <ActionIcon size='md' type='submit' variant='outline' onClick={() => setShowtb(!showtb)}>
               <IconTools size='1.25rem' />
@@ -244,7 +238,13 @@ export default function Editor(props: any) {
               <IconToolsOff size='1.25rem' />
             </ActionIcon>
           )}
-        </ActionIcon.Group>
+          <ActionIcon variant='outline' onClick={openCodeview}>
+            <IconMarkdown size='1.25rem' stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size='md' type='submit' variant='filled'>
+            <IconDeviceFloppy size='1.25rem' />
+          </ActionIcon>
+        </Group>
       </Group>
     )
   }
@@ -389,7 +389,6 @@ export default function Editor(props: any) {
                         </Stack>
                       </Grid.Col>
                     </Grid>
-
                     {!hideme && <PluginToggle />}
                   </Flex>
                 </Container>
