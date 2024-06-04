@@ -664,10 +664,10 @@ export default function DiagramCanvas(props) {
                 <Container size='responsive'>
                   <Flex gap='xs' wrap='wrap' pb='xs' justify='space-between'>
                     <Grid>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                      <Grid.Col span={{ base: 12, sm: 6, lg: 3 }}>
                         <TextInput label='Name' placeholder='Name' required key={diagram.key('name')} {...diagram.getInputProps('name')} />
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                      <Grid.Col span={{ base: 12, sm: 6, lg: 3 }}>
                         <SimpleGrid cols={{ base: 1, sm: 2 }}>
                           <Group wrap='nowrap'>
                             <TextInput label='Slug' placeholder='slug' required {...diagram.getInputProps('slug')} />
@@ -681,10 +681,10 @@ export default function DiagramCanvas(props) {
                           </Group>
                         </SimpleGrid>
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                      <Grid.Col span={{ base: 12, sm: 6, lg: 3 }}>
                         <Textarea label='Description' placeholder='Description' {...diagram.getInputProps('description')} />
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                      <Grid.Col span={{ base: 12, sm: 6, lg: 3 }}>
                         <Stack gap={2}>
                           <Text fw={500} size='sm' my={0}>
                             Graphic
@@ -757,7 +757,7 @@ export default function DiagramCanvas(props) {
                           </Accordion>
                         </Stack>
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
+                      <Grid.Col span={{ base: 12, sm: 6, lg: 3 }}>
                         <Accordion chevronPosition='right' variant='contained'>
                           <Accordion.Item value='graphic' key='graphic'>
                             <Accordion.Control px='xs'>
@@ -795,7 +795,7 @@ export default function DiagramCanvas(props) {
                           </Accordion.Item>
                         </Accordion>
                       </Grid.Col>
-                      <Grid.Col span={{ base: 12, md: 6, lg: 6 }}>
+                      <Grid.Col span={{ base: 12, sm: 6, lg: 3 }}>
                         <Accordion chevronPosition='right' variant='contained'>
                           <Accordion.Item value='graphic' key='graphic'>
                             <Accordion.Control px='xs'>
