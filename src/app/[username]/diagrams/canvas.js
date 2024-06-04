@@ -625,7 +625,7 @@ export default function DiagramCanvas(props) {
 
   function AccordionControl(props) {
     return (
-      <Group gap={sizeme} wrap='nowrap' justify='space-between'>
+      <Group gap='xs' wrap='nowrap' justify='space-between'>
         <Accordion.Control {...props} icon={<IconDatabaseEdit color='var(--mantine-primary-color-filled)' />} />
         <Tooltip label='Add Node'>
           <ActionIcon
@@ -652,14 +652,14 @@ export default function DiagramCanvas(props) {
             </ActionIcon>
           </Tooltip>
         </ActionIcon.Group>
-        <Tooltip label='Save Diagram'>
-          <ActionIcon size='md' type='submit' variant='outline'>
-            <IconDeviceFloppy size='1.25rem' />
+        <Tooltip label='Download PNG'>
+          <ActionIcon variant='default' size='md' onClick={screenShot}>
+            <IconFileTypePng style={{ width: rem(20) }} stroke={1.5} />
           </ActionIcon>
         </Tooltip>
-        <Tooltip label='Download PNG'>
-          <ActionIcon variant='default' size='lg' aria-label='Gallery' onClick={screenShot}>
-            <IconFileTypePng style={{ width: rem(20) }} stroke={1.5} />
+        <Tooltip label='Save Diagram'>
+          <ActionIcon size='md' type='submit' variant='filled'>
+            <IconDeviceFloppy size='1.25rem' />
           </ActionIcon>
         </Tooltip>
       </Group>
