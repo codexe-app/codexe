@@ -1,9 +1,10 @@
 # CODEXE
-https://github.com/codexe-app/codexe
 
-Too much information running through my brain
+![alt text](public/images/codexe-dash.jpg)
 
 ## Overview
+
+CODEXE is a project I started so I could experiment with building applications in AWS. 
 
 ## Install
 
