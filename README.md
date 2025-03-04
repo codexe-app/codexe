@@ -4,7 +4,7 @@
 
 ## Overview
 
-CODEXE is a project I started so I could experiment with building user-authenticated Amplify applications in AWS.  It is built with Next/React, uses graphql for database calls and S3 for file storage.  At this time you can create edit and save documents and use a AI chatbot.
+CODEXE is a project I started so I could experiment with building user-authenticated Amplify applications in AWS.  It is built with Next/React, uses graphql for database calls and S3 for file storage.  At this time you can create edit and save documents and use a AI conversational interface.
 
 ## Install
 
