@@ -30,24 +30,15 @@ Anthropic Claude AI Assistant
 Add avatar. Choose Theme
 
 ## Planned Features
+Import/Export
 
 ## Stack Details
 
 ### Front End
-react
-nextjs
-mantine
-milkdown
-xyflow
-ai
+react, nextjs, mantine, milkdown, xyflow, ai
 
 ### Back End
-Amplify
-App Sync
-DynamoDB
-Cognito
-Lambda
-S3
+Amplify, App Sync, DynamoDB, Cognito, Lambda, Bedrock, S3
 
 ## License
 
