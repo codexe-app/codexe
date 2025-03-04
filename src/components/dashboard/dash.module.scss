@@ -84,3 +84,9 @@
 .header {
   border-bottom: 1px solid var(--mantine-color-gray-2);
 }
+
+.content {
+  position: relative;
+  height: 100%;
+  z-index: 201;
+}

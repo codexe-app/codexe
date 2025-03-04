@@ -44,14 +44,14 @@ export default function CodexeInfo(props: any) {
   ))
 
   return (
-    <Paper withBorder h={240} py='xs' style={{ overflow: 'hidden' }}>
+    <Paper withBorder py='xs' style={{ overflow: 'hidden' }}>
       <Group justify='start' wrap='nowrap' gap='xs' pb='xs' pl='xs' className={classes.header}>
         <IconInfoCircle color='var(--mantine-primary-color-filled)' />
         <Title order={5} c='var(--mantine-primary-color-filled)'>
           Documentation
         </Title>
       </Group>
-      <ScrollArea h={220} bg='var(--mantine-color-dark-outline-hover)'>
+      <ScrollArea bg='var(--mantine-color-dark-outline-hover)'>
         <Box pb='xl'>{rows}</Box>
       </ScrollArea>
     </Paper>

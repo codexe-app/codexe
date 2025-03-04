@@ -54,7 +54,7 @@ export default async function StartCard(props: any) {
           </Title>
         </Flex>
         <Text size='sm' fw='600' c='var(--mantine-primary-color-1)'>
-          Get down an idea. Store that info.
+          Get down an idea. Map out that plan.
         </Text>
         <Group>
           <Button rightSection={<IconFiles size={14} />} component={Link} href={`/${user.username}/documents/new`}>

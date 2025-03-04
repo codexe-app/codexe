@@ -41,10 +41,10 @@ export default function RecentCarousel(props: any) {
   }
 
   return (
-    <Carousel height={300} slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }} slideGap='md' loop align='start' slidesToScroll={2} controlsOffset={0} classNames={classes}>
+    <Carousel slideSize={{ base: '100%', xs: '50%', sm: '33.333%', md: '16.67%' }} slideGap='md' loop align='start' slidesToScroll={2} controlsOffset={0} classNames={classes}>
       {items.map((item: any) => (
         <Carousel.Slide key={item.id}>
-          <Card withBorder h={280}>
+          <Card withBorder>
             <Card.Section pos='relative'>
               <Group pos='absolute' justify='space-between' wrap='nowrap' w='100%'>
                 <Badge radius='xs'>{item.__typename}</Badge>
@@ -57,7 +57,7 @@ export default function RecentCarousel(props: any) {
             <Card.Section>
               <Group gap='xs' m='xs' wrap='nowrap' align='start'>
                 <Stack gap={0} align='center'>
-                  <Text tt='uppercase' lh={1} fz='10px' fw='600' color='var(--mantine-primary-color-6)'>
+                  <Text tt='uppercase' lh={1} fz='10px' fw='600' c='var(--mantine-primary-color-6)'>
                     {dayjs(item.updatedAt).format('MMMM')}
                   </Text>
                   <Title order={4} lh={0.75} c='var(--mantine-primary-color-6)'>

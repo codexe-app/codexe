@@ -32,8 +32,7 @@ export default async function Page({ params }: { params: { username: string } })
   const carousel = _.slice(sorteverything, 0, 12);
   const allpinned = _.filter(everything, (item : any) => item.pinned);
   const sortpinned = _.orderBy(allpinned, ['updatedAt'], ['asc'])
-  var pinned = _.slice(sortpinned, 0, 1);
-  pinned = pinned[0]
+  var pinned = _.slice(sortpinned, 0, 3);
 
   const codexe = (await cookieBasedClient.graphql({
     query: queries.documentsByTopicIdAndCreatedAt,
