@@ -44,7 +44,7 @@ export default function CodexeInfo(props: any) {
   ))
 
   return (
-    <Paper withBorder py='xs' style={{ overflow: 'hidden' }}>
+    <Paper withBorder py='xs' style={{ overflow: 'hidden' }} h='360px'>
       <Group justify='start' wrap='nowrap' gap='xs' pb='xs' pl='xs' className={classes.header}>
         <IconInfoCircle color='var(--mantine-primary-color-filled)' />
         <Title order={5} c='var(--mantine-primary-color-filled)'>

@@ -12,7 +12,7 @@ export default function ProfileCard(props: any) {
   const user = props.user
 
   return (
-    <Card shadow='xs' padding='lg' withBorder w='100%'>
+    <Card shadow='xs' padding='lg' withBorder w='100%' h='100%'>
       <Card.Section style={sectionStyle}>
         <Group justify='space-between'>
           <Avatar radius='xl' size='lg' src={user?.avatar?.url}></Avatar>

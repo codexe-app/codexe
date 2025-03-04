@@ -47,7 +47,7 @@ export default function PinnedCard(props: any) {
   }, [])
 
   return (
-    <Card shadow='xs' padding='sm' withBorder w='100%'>
+    <Card shadow='xs' padding='sm' withBorder w='100%' h='100%'>
       {haspinned ? (
         <React.Fragment>
           <Group justify='start' wrap='nowrap' gap='xs' mb='xs'>
@@ -118,7 +118,7 @@ export default function PinnedCard(props: any) {
                       </ActionIcon.Group>
                     </Flex>
                   </Stack>
-                  <Overlay gradient='linear-gradient(20deg, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0) 100%)' opacity={0.95} zIndex={0} />
+                  <Overlay gradient='linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, .0) 20%, rgba(0, 0, 0, 1) 100%)' opacity={0.95} zIndex={0} />
                 </BackgroundImage>
               </AspectRatio>
             ))}
